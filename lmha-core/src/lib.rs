@@ -55,6 +55,7 @@ pub struct Device {
     pub name: String,
     pub is_enabled: bool,
     pub current_state: DeviceState,
+    pub last_heartbeat: Option<DateTime<Utc>>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

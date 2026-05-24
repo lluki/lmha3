@@ -22,6 +22,11 @@ The logic for matching load consumption with solar production and handling manua
    - OFF: Publish `off` to `[mqtt_topic]/rpc`.
    - Monitor `[mqtt_topic]/status/switch:0` for state confirmation.
 
+## Home Assistant details
+
+Use the token found in secrets/ha-token.md . The two sensors of interest are:
+HA runs on port 8123 . For debugging, use the IP 192.168.178.31
+
 ## Logic Priority
 1. Manual override (if implemented) takes precedence.
 2. Hardware safety limits (Debounce).

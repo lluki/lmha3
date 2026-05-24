@@ -7,6 +7,7 @@ use std::thread;
 use std::time::Duration;
 use uuid::Uuid;
 use clap::Parser;
+use rumqttc::{Client, MqttOptions, QoS, Event, Packet};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -37,7 +38,7 @@ fn main() {
     
     let state = Arc::new(AppState {
         db: Mutex::new(db),
-        config,
+        config: config.clone(),
         no_home_assistant: args.no_home_assistant,
     });
 
@@ -68,9 +69,10 @@ fn main() {
                     for t in tenants {
                         html.push_str(&format!("<li>{} ({})</li>", t.username, t.id));
                     }
-                    html.push_str("</ul><h2>Devices</h2><table border='1'><tr><th>Name</th><th>Owner</th><th>Topic</th><th>Status</th><th>Action</th></tr>");
+                    html.push_str("</ul><h2>Devices</h2><table border='1'><tr><th>Name</th><th>Owner</th><th>Topic</th><th>Status</th><th>Last Seen</th><th>Action</th></tr>");
                     for d in devices {
-                        html.push_str(&format!("<tr><td>{}</td><td>{}</td><td>{}</td><td>{:?}</td>", d.name, d.tenant_id, d.mqtt_topic, d.current_state));
+                        let last_seen = d.last_heartbeat.map(|h| h.format("%Y-%m-%d %H:%M:%S").to_string()).unwrap_or_else(|| "Never".to_string());
+                        html.push_str(&format!("<tr><td>{}</td><td>{}</td><td>{}</td><td>{:?}</td><td>{}</td>", d.name, d.tenant_id, d.mqtt_topic, d.current_state, last_seen));
                         
                         // Only show toggle for owner
                         if d.tenant_id == s.tenant_id {
@@ -154,15 +156,51 @@ fn get_session(request: &Request, state: &AppState) -> Option<Session> {
 
 fn run_scheduler_loop(state: Arc<AppState>) {
     println!("Scheduler background thread started.");
-    loop {
-        if state.no_home_assistant {
-            println!("Scheduler: Home Assistant polling disabled (--no-home-assistant)");
-        } else {
-            println!("Scheduler: Background Polling Home Assistant at {}...", state.config.ha_url);
-            // TODO: Implement actual HA polling
+    
+    let mut mqtt_options = MqttOptions::new("lmha3-scheduler", &state.config.mqtt_host, state.config.mqtt_port);
+    mqtt_options.set_keep_alive(Duration::from_secs(5));
+    
+    if let (Some(u), Some(p)) = (&state.config.mqtt_user, &state.config.mqtt_password) {
+        mqtt_options.set_credentials(u, p);
+    }
+    
+    let (client, mut connection) = Client::new(mqtt_options, 10);
+    
+    // Subscribe to all online and status topics for heartbeats
+    client.subscribe("+/online", QoS::AtMostOnce).unwrap();
+    client.subscribe("+/status/sys", QoS::AtMostOnce).unwrap();
+
+    let ha_state = state.clone();
+    thread::spawn(move || {
+        loop {
+            if ha_state.no_home_assistant {
+                // println!("Scheduler: Home Assistant polling disabled");
+            } else {
+                println!("Scheduler: Polling Home Assistant...");
+                // TODO: HA logic
+            }
+            thread::sleep(Duration::from_secs(300));
         }
-        
-        // TODO: Implement MQTT logic
-        thread::sleep(Duration::from_secs(300));
+    });
+
+    for notification in connection.iter() {
+        match notification {
+            Ok(Event::Incoming(Packet::Publish(publish))) => {
+                let topic = publish.topic;
+                // Extract base topic (device name)
+                let base_topic = topic.split('/').next().unwrap_or("");
+                if !base_topic.is_empty() {
+                    let mut db = state.db.lock().unwrap();
+                    if let Err(e) = db.update_device_heartbeat(base_topic) {
+                        eprintln!("Failed to update heartbeat for {}: {}", base_topic, e);
+                    }
+                }
+            }
+            Ok(_) => {},
+            Err(e) => {
+                eprintln!("MQTT Connection error: {:?}", e);
+                thread::sleep(Duration::from_secs(5));
+            }
+        }
     }
 }

@@ -72,19 +72,29 @@ impl Db {
     }
 
     pub fn list_devices(&mut self) -> Result<Vec<Device>, postgres::Error> {
-        let rows = self.client.query("SELECT id, tenant_id, mqtt_topic, name, is_enabled, current_state FROM devices", &[])?;
+        let rows = self.client.query("SELECT id, tenant_id, mqtt_topic, name, is_enabled, current_state::TEXT, last_heartbeat FROM devices", &[])?;
         Ok(rows.into_iter().map(|row| Device {
             id: row.get(0),
             tenant_id: row.get(1),
             mqtt_topic: row.get(2),
             name: row.get(3),
             is_enabled: row.get(4),
-            current_state: match row.get::<_, String>(5).as_str() {
+            current_state: match row.get::<_, &str>(5) {
                 "ON" => crate::DeviceState::On,
                 "OFF" => crate::DeviceState::Off,
                 _ => crate::DeviceState::Unknown,
             },
+            last_heartbeat: row.get(6),
         }).collect())
+    }
+
+
+    pub fn update_device_heartbeat(&mut self, mqtt_topic: &str) -> Result<(), postgres::Error> {
+        self.client.execute(
+            "UPDATE devices SET last_heartbeat = NOW() WHERE mqtt_topic = $1",
+            &[&mqtt_topic],
+        )?;
+        Ok(())
     }
 
     pub fn delete_session(&mut self, session_id: Uuid) -> Result<(), postgres::Error> {
