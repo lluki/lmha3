@@ -37,13 +37,15 @@ header {
     nav {
         flex-direction: column;
         align-items: flex-start !important;
+        height: auto !important;
     }
 
     nav ul {
         width: 100%;
-        margin: 0 !important;
-        padding: 5px 0 !important;
-        justify-content: space-between;
+        margin: 0 0 10px 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        display: block !important;
     }
 
     #main-nav {
@@ -58,9 +60,18 @@ header {
 
     #main-nav a {
         display: block;
-        padding: 10px 0;
+        padding: 12px 0;
         width: 100%;
         border-bottom: 1px solid var(--pico-muted-border-color);
+    }
+
+    #user-info {
+        justify-content: flex-start;
+        padding: 10px 0 !important;
+    }
+
+    #user-info li {
+        padding: 0 10px 0 0 !important;
     }
 
     #main-nav a.active {
