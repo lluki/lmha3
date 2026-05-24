@@ -107,9 +107,9 @@ fn main() {
             },
 
             (GET) (/api/devices) => {
-                if let Some(s) = get_session(request, &state) {
-                    println!("API: Fetching devices for {}", s.tenant_id);
+                if let Some(_) = get_session(request, &state) {
                     let mut db = state.db.lock().unwrap();
+                    // Global Read: All users can see all devices
                     match db.list_devices() {
                         Ok(devices) => Response::json(&devices),
                         Err(e) => {
@@ -122,10 +122,40 @@ fn main() {
                 }
             },
 
-            (GET) (/api/history) => {
-                if let Some(s) = get_session(request, &state) {
+            (POST) (/api/devices) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let data = rouille::post_input!(request, {
+                        tenant_id: String,
+                        mqtt_topic: String,
+                        name: String,
+                    }).expect("Invalid device creation form");
+
+                    let tenant_id = match Uuid::parse_str(&data.tenant_id) {
+                        Ok(id) => id,
+                        Err(_) => return Response::text("Invalid UUID").with_status_code(400),
+                    };
+
                     let mut db = state.db.lock().unwrap();
-                    match db.list_telemetry(s.tenant_id, 100) {
+                    match db.create_device(tenant_id, &data.mqtt_topic, &data.name) {
+                        Ok(id) => Response::json(&json!({"status": "ok", "id": id})),
+                        Err(e) => {
+                            eprintln!("DB Error creating device: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (GET) (/api/history) => {
+                if let Some(_) = get_user(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    // Global Read: All users see all history unconditionally
+                    match db.list_telemetry(None, 100) {
                         Ok(t) => Response::json(&t),
                         Err(e) => {
                             eprintln!("DB Error listing telemetry: {}", e);
@@ -155,11 +185,10 @@ fn main() {
             },
 
             (POST) (/api/devices/{id: Uuid}/toggle) => {
-                let session = get_session(request, &state);
-                if let Some(s) = session {
+                if let Some(user) = get_user(request, &state) {
                     let mut db = state.db.lock().unwrap();
                     let devices = db.list_devices().unwrap_or_default();
-                    if let Some(device) = devices.into_iter().find(|d| d.id == id && d.tenant_id == s.tenant_id) {
+                    if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
                         let new_on = device.current_state != DeviceState::On;
                         let payload = json!({
                             "id": 1,
@@ -168,9 +197,10 @@ fn main() {
                             "params": {"id": 0, "on": new_on}
                         });
                         let topic = format!("{}/rpc", device.mqtt_topic);
-                        println!("API: Publishing toggle to {} | ON: {}", topic, new_on);
+                        let payload_str = payload.to_string();
+                        println!("API: Publishing toggle to topic '{}' | Payload: {}", topic, payload_str);
                         let client = state.mqtt_client.lock().unwrap();
-                        let _ = client.publish(topic, QoS::AtLeastOnce, false, payload.to_string());
+                        let _ = client.publish(topic, QoS::AtLeastOnce, false, payload_str);
                         Response::json(&json!({"status": "ok"}))
                     } else {
                         Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
@@ -231,8 +261,9 @@ fn run_main_loop(state: Arc<AppState>) {
             *shared_client = client.clone();
         }
 
-        let subs = ["+/online", "+/status/sys", "+/status/switch:0", "+/events/rpc", "shellies/+/status/switch:0"];
+        let subs = ["+/online", "+/status/#", "+/events/rpc", "shellies/#"];
         for sub in subs {
+            println!("MQTT: Subscribing to {}", sub);
             let _ = client.subscribe(sub, QoS::AtMostOnce);
         }
 
@@ -305,7 +336,7 @@ fn run_main_loop(state: Arc<AppState>) {
                         if let Some(d) = devices.iter().find(|d| d.mqtt_topic == base_topic) {
                             if let Some(s) = new_state {
                                 if s != d.current_state {
-                                    println!("MQTT State Update: {} -> {:?}", base_topic, s);
+                                    println!("MQTT State Update for {}: {:?} -> {:?}", d.name, d.current_state, s);
                                     if let Err(e) = db.update_device_state(base_topic, s) {
                                         eprintln!("DB Error updating {}: {}", base_topic, e);
                                     }
@@ -316,6 +347,8 @@ fn run_main_loop(state: Arc<AppState>) {
                             if let Some(p) = apower {
                                 let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceConsumption, Some(d.id), p, None);
                             }
+                        } else {
+                            println!("MQTT: Received state/power for unknown device topic: {}", base_topic);
                         }
                     }
                 }

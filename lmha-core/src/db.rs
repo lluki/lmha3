@@ -76,6 +76,15 @@ impl Db {
         Ok(id)
     }
 
+    pub fn create_device(&mut self, tenant_id: Uuid, mqtt_topic: &str, name: &str) -> Result<Uuid, postgres::Error> {
+        let id = Uuid::new_v4();
+        self.client.execute(
+            "INSERT INTO devices (id, tenant_id, mqtt_topic, name) VALUES ($1, $2, $3, $4)",
+            &[&id, &tenant_id, &mqtt_topic, &name],
+        )?;
+        Ok(id)
+    }
+
     pub fn list_tenants(&mut self) -> Result<Vec<Tenant>, postgres::Error> {
         let rows = self.client.query("SELECT id, username, password_hash, created_at FROM tenants", &[])?;
         Ok(rows.into_iter().map(|row| Tenant {
@@ -139,13 +148,21 @@ impl Db {
         Ok(())
     }
 
-    pub fn list_telemetry(&mut self, tenant_id: Uuid, limit: i64) -> Result<Vec<crate::Telemetry>, postgres::Error> {
-        let rows = self.client.query(
-            "SELECT timestamp, source::TEXT, device_id, value, metadata FROM telemetry 
-             WHERE device_id IS NULL OR device_id IN (SELECT id FROM devices WHERE tenant_id = $1)
-             ORDER BY timestamp DESC LIMIT $2",
-            &[&tenant_id, &limit],
-        )?;
+    pub fn list_telemetry(&mut self, tenant_id: Option<Uuid>, limit: i64) -> Result<Vec<crate::Telemetry>, postgres::Error> {
+        let rows = if let Some(tid) = tenant_id {
+            self.client.query(
+                "SELECT timestamp, source::TEXT, device_id, value, metadata FROM telemetry 
+                 WHERE device_id IS NULL OR device_id IN (SELECT id FROM devices WHERE tenant_id = $1)
+                 ORDER BY timestamp DESC LIMIT $2",
+                &[&tid, &limit],
+            )?
+        } else {
+            self.client.query(
+                "SELECT timestamp, source::TEXT, device_id, value, metadata FROM telemetry 
+                 ORDER BY timestamp DESC LIMIT $1",
+                &[&limit],
+            )?
+        };
 
         Ok(rows.into_iter().map(|row| crate::Telemetry {
             timestamp: row.get(0),

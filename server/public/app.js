@@ -130,22 +130,32 @@ document.querySelectorAll('.tab-link').forEach(link => {
 async function renderOverview() {
     app.innerHTML = `
         <article>
-            <header><strong>Your Devices</strong></header>
+            <header><strong>${currentUser.is_admin ? 'All Devices' : 'Your Devices'}</strong></header>
             <div id="overview-content" aria-busy="true">Loading...</div>
         </article>
     `;
     
     try {
-        const [devicesResp, historyResp] = await Promise.all([
+        const fetchTasks = [
             fetch('/api/devices'),
             fetch('/api/history')
-        ]);
-        if (!devicesResp.ok || !historyResp.ok) throw new Error('Failed to load data');
+        ];
+        if (currentUser.is_admin) {
+            fetchTasks.push(fetch('/api/tenants'));
+        }
+
+        const responses = await Promise.all(fetchTasks);
+        for (const resp of responses) {
+            if (!resp.ok) throw new Error('Failed to load data');
+        }
         
-        const devices = await devicesResp.json();
-        const history = await historyResp.json();
+        const devices = await responses[0].json();
+        const history = await responses[1].json();
+        const tenants = currentUser.is_admin ? await responses[2].json() : [];
+        const tenantMap = {};
+        tenants.forEach(t => tenantMap[t.id] = t.username);
         
-        const userDevices = devices.filter(d => d.tenant_id === currentUser.tenant_id);
+        const userDevices = currentUser.is_admin ? devices : devices.filter(d => d.tenant_id === currentUser.tenant_id);
         const content = document.getElementById('overview-content');
         content.removeAttribute('aria-busy');
 
@@ -154,7 +164,10 @@ async function renderOverview() {
             return;
         }
 
-        let html = '<table><thead><tr><th>Name</th><th>Status</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
+        let html = '<table><thead><tr><th>Name</th>';
+        if (currentUser.is_admin) html += '<th>Owner</th>';
+        html += '<th>Status</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
+
         for (const d of userDevices) {
             let lastSeen = d.last_heartbeat ? new Date(d.last_heartbeat).toLocaleString() : 'Never';
             let statusText = `<code>${d.current_state}</code>`;
@@ -192,7 +205,14 @@ async function renderOverview() {
 
             html += `
                 <tr>
-                    <td data-label="Name">${d.name}</td>
+                    <td data-label="Name">${d.name}</td>`;
+            
+            if (currentUser.is_admin) {
+                const ownerName = tenantMap[d.tenant_id] || 'Unknown';
+                html += `<td data-label="Owner">${ownerName}</td>`;
+            }
+
+            html += `
                     <td data-label="Status">${statusText}</td>
                     <td data-label="Last Seen">${lastSeen}</td>
                     <td data-label="Action">
@@ -305,6 +325,30 @@ async function renderAdmin() {
             <header><strong>Admin: Tenants</strong></header>
             <div id="admin-tenants" aria-busy="true">Loading...</div>
         </article>
+
+        <article>
+            <header><strong>Add New Device</strong></header>
+            <form id="create-device-form">
+                <div class="grid">
+                    <label>
+                        Name
+                        <input name="name" value="Boiler" placeholder="Living Room Light" required />
+                    </label>
+                    <label>
+                        MQTT Topic
+                        <input name="mqtt_topic" placeholder="shellypro1-123456" required />
+                    </label>
+                </div>
+                <label>
+                    Owner (Tenant)
+                    <select name="tenant_id" id="tenant-select" required>
+                        <option value="" disabled selected>Select a tenant...</option>
+                    </select>
+                </label>
+                <button type="submit">Create Device</button>
+            </form>
+        </article>
+
         <article>
             <header><strong>Admin: All Devices</strong></header>
             <div id="admin-devices" aria-busy="true">Loading...</div>
@@ -323,7 +367,14 @@ async function renderAdmin() {
         const devices = await devicesResp.json();
 
         const tenantMap = {};
-        tenants.forEach(t => tenantMap[t.id] = t.username);
+        const select = document.getElementById('tenant-select');
+        tenants.forEach(t => {
+            tenantMap[t.id] = t.username;
+            const opt = document.createElement('option');
+            opt.value = t.id;
+            opt.textContent = t.username;
+            select.appendChild(opt);
+        });
 
         // Tenants
         const tenantsDiv = document.getElementById('admin-tenants');
@@ -334,6 +385,27 @@ async function renderAdmin() {
         }
         tenantsHtml += '</ul>';
         tenantsDiv.innerHTML = tenantsHtml;
+
+        // Form logic
+        document.getElementById('create-device-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const params = new URLSearchParams(formData);
+            try {
+                const resp = await fetch('/api/devices', {
+                    method: 'POST',
+                    body: params
+                });
+                if (resp.ok) {
+                    renderAdmin();
+                } else {
+                    const err = await resp.text();
+                    alert('Failed to create device: ' + err);
+                }
+            } catch (err) {
+                alert('Failed to create device: ' + err);
+            }
+        });
 
         // Devices
         const devicesDiv = document.getElementById('admin-devices');
