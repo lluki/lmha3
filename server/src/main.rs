@@ -1,6 +1,6 @@
 use lmha_core::config::Config;
 use lmha_core::db::Db;
-use lmha_core::{verify_password, Session};
+use lmha_core::{verify_password, Session, DeviceState};
 use rouille::{Request, Response, router};
 use std::sync::{Arc, Mutex};
 use std::thread;
@@ -8,19 +8,15 @@ use std::time::Duration;
 use uuid::Uuid;
 use clap::Parser;
 use rumqttc::{Client, MqttOptions, QoS, Event, Packet};
+use serde_json::json;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-    /// Disable the background scheduler thread
     #[arg(long)]
     no_scheduler: bool,
-
-    /// Disable Home Assistant polling in the scheduler
     #[arg(long)]
     no_home_assistant: bool,
-
-    /// Port to listen on
     #[arg(short, long, default_value_t = 8000)]
     port: u16,
 }
@@ -29,26 +25,35 @@ struct AppState {
     db: Mutex<Db>,
     config: Config,
     no_home_assistant: bool,
+    mqtt_client: Client,
 }
 
 fn main() {
     let args = Args::parse();
     let config = Config::from_env();
     let db = Db::connect(&config).expect("Failed to connect to database");
+
+    // Initialize MQTT
+    let mut mqtt_options = MqttOptions::new("lmha3-server", &config.mqtt_host, config.mqtt_port);
+    mqtt_options.set_keep_alive(Duration::from_secs(5));
+    if let (Some(u), Some(p)) = (&config.mqtt_user, &config.mqtt_password) {
+        mqtt_options.set_credentials(u, p);
+    }
+    let (mqtt_client, connection) = Client::new(mqtt_options, 10);
     
     let state = Arc::new(AppState {
         db: Mutex::new(db),
         config: config.clone(),
         no_home_assistant: args.no_home_assistant,
+        mqtt_client,
     });
 
+    // Spawn MQTT listener / Scheduler
     if !args.no_scheduler {
         let scheduler_state = state.clone();
         thread::spawn(move || {
-            run_scheduler_loop(scheduler_state);
+            run_scheduler_loop(scheduler_state, connection);
         });
-    } else {
-        println!("Scheduler thread disabled via --no-scheduler");
     }
 
     println!("LMHA3 Server Starting on 0.0.0.0:{}...", args.port);
@@ -74,7 +79,6 @@ fn main() {
                         let last_seen = d.last_heartbeat.map(|h| h.format("%Y-%m-%d %H:%M:%S").to_string()).unwrap_or_else(|| "Never".to_string());
                         html.push_str(&format!("<tr><td>{}</td><td>{}</td><td>{}</td><td>{:?}</td><td>{}</td>", d.name, d.tenant_id, d.mqtt_topic, d.current_state, last_seen));
                         
-                        // Only show toggle for owner
                         if d.tenant_id == s.tenant_id {
                             html.push_str(&format!("<td><form method='POST' action='/devices/{}/toggle'><button type='submit'>Toggle</button></form></td>", d.id));
                         } else {
@@ -82,9 +86,7 @@ fn main() {
                         }
                         html.push_str("</tr>");
                     }
-                    html.push_str("</table>");
-                    html.push_str("<br><form method='POST' action='/logout'><button type='submit'>Logout</button></form>");
-                    
+                    html.push_str("</table><br><form method='POST' action='/logout'><button type='submit'>Logout</button></form>");
                     Response::html(html)
                 } else {
                     Response::redirect_303("/login")
@@ -118,8 +120,15 @@ fn main() {
                     let mut db = state.db.lock().unwrap();
                     let devices = db.list_devices().unwrap_or_default();
                     if let Some(device) = devices.into_iter().find(|d| d.id == id && d.tenant_id == s.tenant_id) {
-                        println!("Manual toggle triggered for device: {}", device.name);
-                        // TODO: Implement actual MQTT toggle logic
+                        let new_on = device.current_state != DeviceState::On;
+                        let payload = json!({
+                            "id": 1,
+                            "src": "lmha3",
+                            "method": "Switch.Set",
+                            "params": {"id": 0, "on": new_on}
+                        });
+                        let topic = format!("{}/rpc", device.mqtt_topic);
+                        state.mqtt_client.publish(topic, QoS::AtLeastOnce, false, payload.to_string()).unwrap();
                         Response::redirect_303("/")
                     } else {
                         Response::text("Forbidden or Not Found").with_status_code(403)
@@ -154,30 +163,19 @@ fn get_session(request: &Request, state: &AppState) -> Option<Session> {
     db.get_session(session_id)
 }
 
-fn run_scheduler_loop(state: Arc<AppState>) {
+fn run_scheduler_loop(state: Arc<AppState>, mut connection: rumqttc::Connection) {
     println!("Scheduler background thread started.");
     
-    let mut mqtt_options = MqttOptions::new("lmha3-scheduler", &state.config.mqtt_host, state.config.mqtt_port);
-    mqtt_options.set_keep_alive(Duration::from_secs(5));
-    
-    if let (Some(u), Some(p)) = (&state.config.mqtt_user, &state.config.mqtt_password) {
-        mqtt_options.set_credentials(u, p);
-    }
-    
-    let (client, mut connection) = Client::new(mqtt_options, 10);
-    
-    // Subscribe to all online and status topics for heartbeats
-    client.subscribe("+/online", QoS::AtMostOnce).unwrap();
-    client.subscribe("+/status/sys", QoS::AtMostOnce).unwrap();
+    // Subscribe
+    state.mqtt_client.subscribe("+/online", QoS::AtMostOnce).unwrap();
+    state.mqtt_client.subscribe("+/status/sys", QoS::AtMostOnce).unwrap();
+    state.mqtt_client.subscribe("+/status/switch:0", QoS::AtMostOnce).unwrap();
 
     let ha_state = state.clone();
     thread::spawn(move || {
         loop {
-            if ha_state.no_home_assistant {
-                // println!("Scheduler: Home Assistant polling disabled");
-            } else {
-                println!("Scheduler: Polling Home Assistant...");
-                // TODO: HA logic
+            if !ha_state.no_home_assistant {
+                // TODO: HA polling
             }
             thread::sleep(Duration::from_secs(300));
         }
@@ -187,12 +185,22 @@ fn run_scheduler_loop(state: Arc<AppState>) {
         match notification {
             Ok(Event::Incoming(Packet::Publish(publish))) => {
                 let topic = publish.topic;
-                // Extract base topic (device name)
-                let base_topic = topic.split('/').next().unwrap_or("");
-                if !base_topic.is_empty() {
+                let parts: Vec<&str> = topic.split('/').collect();
+                let base_topic = parts[0];
+
+                if parts.len() > 1 {
                     let mut db = state.db.lock().unwrap();
-                    if let Err(e) = db.update_device_heartbeat(base_topic) {
-                        eprintln!("Failed to update heartbeat for {}: {}", base_topic, e);
+                    if parts[1] == "online" || parts[1] == "status" {
+                        let _ = db.update_device_heartbeat(base_topic);
+                    }
+                    
+                    if parts.len() > 2 && parts[1] == "status" && parts[2] == "switch:0" {
+                        if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
+                            if let Some(output) = val.get("output").and_then(|v| v.as_bool()) {
+                                let state_enum = if output { DeviceState::On } else { DeviceState::Off };
+                                let _ = db.update_device_state(base_topic, state_enum);
+                            }
+                        }
                     }
                 }
             }

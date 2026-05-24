@@ -97,6 +97,19 @@ impl Db {
         Ok(())
     }
 
+    pub fn update_device_state(&mut self, mqtt_topic: &str, state: crate::DeviceState) -> Result<(), postgres::Error> {
+        let state_str = match state {
+            crate::DeviceState::On => "ON",
+            crate::DeviceState::Off => "OFF",
+            crate::DeviceState::Unknown => "UNKNOWN",
+        };
+        self.client.execute(
+            "UPDATE devices SET current_state = $1::device_state WHERE mqtt_topic = $2",
+            &[&state_str, &mqtt_topic],
+        )?;
+        Ok(())
+    }
+
     pub fn delete_session(&mut self, session_id: Uuid) -> Result<(), postgres::Error> {
         self.client.execute("DELETE FROM sessions WHERE id = $1", &[&session_id])?;
         Ok(())

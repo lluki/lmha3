@@ -25,7 +25,7 @@ The logic for matching load consumption with solar production and handling manua
 ## Home Assistant details
 
 Use the token found in secrets/ha-token.md . The two sensors of interest are:
-HA runs on port 8123 . For debugging, use the IP 192.168.178.31
+HA runs on port 8123 . Use the IP 192.168.178.31 , it will work in prod as well as in development.
 
 ## Logic Priority
 1. Manual override (if implemented) takes precedence.
