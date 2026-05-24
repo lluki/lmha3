@@ -82,9 +82,19 @@ header {
 
     #main-nav a.active {
         background-color: transparent;
-        border-left: 4px solid var(--pico-primary);
-        padding-left: 10px !important;
-        border-radius: 0;
+        position: relative;
+        padding-left: 20px !important;
+    }
+
+    #main-nav a.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 20%;
+        height: 60%;
+        width: 4px;
+        background-color: var(--pico-primary);
+        border-radius: 0 4px 4px 0;
     }
 
     table {
