@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "lmha-core",
+    "api",
+    "scheduler",
+]
+resolver = "2"
