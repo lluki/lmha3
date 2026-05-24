@@ -136,9 +136,14 @@ async function renderOverview() {
     `;
     
     try {
-        const resp = await fetch('/api/devices');
-        if (!resp.ok) throw new Error('Failed to load devices');
-        const devices = await resp.json();
+        const [devicesResp, historyResp] = await Promise.all([
+            fetch('/api/devices'),
+            fetch('/api/history')
+        ]);
+        if (!devicesResp.ok || !historyResp.ok) throw new Error('Failed to load data');
+        
+        const devices = await devicesResp.json();
+        const history = await historyResp.json();
         
         const userDevices = devices.filter(d => d.tenant_id === currentUser.tenant_id);
         const content = document.getElementById('overview-content');
@@ -152,10 +157,43 @@ async function renderOverview() {
         let html = '<table><thead><tr><th>Name</th><th>Status</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
         for (const d of userDevices) {
             let lastSeen = d.last_heartbeat ? new Date(d.last_heartbeat).toLocaleString() : 'Never';
+            let statusText = `<code>${d.current_state}</code>`;
+            
+            if (d.current_state === 'ON') {
+                const lastOn = history.find(t => t.device_id === d.id && t.source === 'DEVICE_STATE' && t.value === 1.0);
+                if (lastOn) {
+                    const diff = Date.now() - new Date(lastOn.timestamp).getTime();
+                    const mins = Math.floor(diff / 60000);
+                    if (mins < 60) {
+                        statusText += ` <small>(on ${mins}m)</small>`;
+                    } else {
+                        statusText += ` <small>(since ${new Date(lastOn.timestamp).toLocaleTimeString()})</small>`;
+                    }
+                }
+            } else if (d.current_state === 'OFF') {
+                const lastOffIndex = history.findIndex(t => t.device_id === d.id && t.source === 'DEVICE_STATE' && t.value === 0.0);
+                if (lastOffIndex !== -1) {
+                    const lastOff = history[lastOffIndex];
+                    const lastOn = history.slice(lastOffIndex + 1).find(t => t.device_id === d.id && t.source === 'DEVICE_STATE' && t.value === 1.0);
+                    
+                    if (lastOn) {
+                        const start = new Date(lastOn.timestamp);
+                        const end = new Date(lastOff.timestamp);
+                        const diffMs = end - start;
+                        const hours = Math.floor(diffMs / 3600000);
+                        const mins = Math.floor((diffMs % 3600000) / 60000);
+                        const durationStr = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
+                        
+                        const timeOpts = { hour: '2-digit', minute: '2-digit' };
+                        statusText += `<br><small class="secondary" style="font-size: 0.75rem; white-space: nowrap;">Last: ${start.toLocaleTimeString([], timeOpts)} - ${end.toLocaleTimeString([], timeOpts)} (${durationStr})</small>`;
+                    }
+                }
+            }
+
             html += `
                 <tr>
                     <td data-label="Name">${d.name}</td>
-                    <td data-label="Status"><code>${d.current_state}</code></td>
+                    <td data-label="Status">${statusText}</td>
                     <td data-label="Last Seen">${lastSeen}</td>
                     <td data-label="Action">
                         <button class="outline" style="margin:0; padding: 2px 8px;" onclick="toggleDevice('${d.id}')">Toggle</button>
@@ -167,18 +205,98 @@ async function renderOverview() {
         content.innerHTML = html;
     } catch (e) {
         const content = document.getElementById('overview-content');
-        content.removeAttribute('aria-busy');
-        content.innerHTML = `<p style="color: red;">${e.message}</p>`;
+        if (content) {
+            content.removeAttribute('aria-busy');
+            content.innerHTML = `<p style="color: red;">${e.message}</p>`;
+        }
     }
 }
 
 function renderHistory() {
     app.innerHTML = `
         <article>
-            <header><strong>Consumption History</strong></header>
-            <p>Historical data visualization is coming soon.</p>
+            <header style="display: flex; justify-content: space-between; align-items: center;">
+                <strong>Event History</strong>
+                <fieldset style="margin: 0; padding: 0; border: none; display: flex; align-items: center;">
+                    <label style="margin: 0; display: flex; align-items: center; cursor: pointer;">
+                        <input type="checkbox" id="show-consumption" style="margin-right: 8px;" />
+                        <span>Show Consumption</span>
+                    </label>
+                </fieldset>
+            </header>
+            <div id="history-content" aria-busy="true">Loading...</div>
         </article>
     `;
+    
+    const showConsumption = document.getElementById('show-consumption');
+    showConsumption.addEventListener('change', () => fetchAndRenderHistory(showConsumption.checked));
+    
+    fetchAndRenderHistory(false);
+}
+
+async function fetchAndRenderHistory(includeConsumption) {
+    const content = document.getElementById('history-content');
+    content.setAttribute('aria-busy', 'true');
+    
+    try {
+        const [historyResp, devicesResp] = await Promise.all([
+            fetch('/api/history'),
+            fetch('/api/devices')
+        ]);
+        const history = await historyResp.json();
+        const devices = await devicesResp.json();
+        
+        content.removeAttribute('aria-busy');
+        
+        let filtered = history;
+        if (!includeConsumption) {
+            filtered = history.filter(t => t.source === 'DEVICE_STATE');
+        }
+        
+        if (filtered.length === 0) {
+            content.innerHTML = '<p>No history found.</p>';
+            return;
+        }
+
+        let html = '<table><thead><tr><th>Time</th><th>Device</th><th>Event</th><th>Value</th></tr></thead><tbody>';
+        for (const t of filtered) {
+            const device = devices.find(d => d.id === t.device_id);
+            const deviceName = device ? device.name : 'System';
+            let eventType = t.source;
+            let valText = t.value;
+            
+            if (t.source === 'DEVICE_STATE') {
+                eventType = 'State';
+                valText = t.value === 1.0 ? '<mark style="background: var(--pico-ins-color); color: white; padding: 2px 6px; border-radius: 4px;">ON</mark>' : '<mark style="background: var(--pico-del-color); color: white; padding: 2px 6px; border-radius: 4px;">OFF</mark>';
+            } else if (t.source === 'DEVICE_CONSUMPTION') {
+                eventType = 'Consumption';
+                valText = `<code>${t.value.toFixed(1)} W</code>`;
+            } else if (t.source === 'PV_PRODUCTION') {
+                eventType = 'PV Production';
+                valText = `<code>${t.value.toFixed(1)} W</code>`;
+            } else if (t.source === 'HOUSE_CONSUMPTION') {
+                eventType = 'House Consumption';
+                valText = `<code>${t.value.toFixed(1)} W</code>`;
+            }
+            
+            html += `
+                <tr>
+                    <td>${new Date(t.timestamp).toLocaleTimeString()} <small class="secondary">${new Date(t.timestamp).toLocaleDateString()}</small></td>
+                    <td>${deviceName}</td>
+                    <td>${eventType}</td>
+                    <td>${valText}</td>
+                </tr>
+            `;
+        }
+        html += '</tbody></table>';
+        if (history.length >= 100) {
+            html += '<p style="text-align: center;"><small class="secondary">More events hidden. Showing last 100.</small></p>';
+        }
+        content.innerHTML = html;
+    } catch (e) {
+        content.removeAttribute('aria-busy');
+        content.innerHTML = `<p style="color: red;">${e.message}</p>`;
+    }
 }
 
 async function renderAdmin() {

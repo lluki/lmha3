@@ -71,6 +71,7 @@ pub enum TelemetrySource {
     PvProduction,
     HouseConsumption,
     DeviceState,
+    DeviceConsumption,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

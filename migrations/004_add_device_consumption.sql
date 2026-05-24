@@ -1,0 +1,1 @@
+ALTER TYPE telemetry_source ADD VALUE 'DEVICE_CONSUMPTION';

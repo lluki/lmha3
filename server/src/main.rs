@@ -122,6 +122,21 @@ fn main() {
                 }
             },
 
+            (GET) (/api/history) => {
+                if let Some(s) = get_session(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    match db.list_telemetry(s.tenant_id, 100) {
+                        Ok(t) => Response::json(&t),
+                        Err(e) => {
+                            eprintln!("DB Error listing telemetry: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
             (POST) (/api/login) => {
                 let data = rouille::post_input!(request, {
                     username: String,
@@ -254,6 +269,7 @@ fn run_main_loop(state: Arc<AppState>) {
                     }
                     
                     let mut new_state = None;
+                    let mut apower = None;
                     if topic.ends_with("/status/switch:0") {
                         if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
                             let output = val.get("output").and_then(|v| v.as_bool())
@@ -266,6 +282,7 @@ fn run_main_loop(state: Arc<AppState>) {
                             if let Some(on) = output {
                                 new_state = Some(if on { DeviceState::On } else { DeviceState::Off });
                             }
+                            apower = val.get("apower").and_then(|v| v.as_f64());
                         }
                     } else if !is_gen1 && topic.ends_with("/events/rpc") {
                         if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
@@ -276,16 +293,29 @@ fn run_main_loop(state: Arc<AppState>) {
                                         if let Some(on) = sw.get("output").and_then(|v| v.as_bool()) {
                                             new_state = Some(if on { DeviceState::On } else { DeviceState::Off });
                                         }
+                                        apower = sw.get("apower").and_then(|v| v.as_f64());
                                     }
                                 }
                             }
                         }
                     }
 
-                    if let Some(s) = new_state {
-                        println!("MQTT State Update: {} -> {:?}", base_topic, s);
-                        if let Err(e) = db.update_device_state(base_topic, s) {
-                            eprintln!("DB Error updating {}: {}", base_topic, e);
+                    if new_state.is_some() || apower.is_some() {
+                        let devices = db.list_devices().unwrap_or_default();
+                        if let Some(d) = devices.iter().find(|d| d.mqtt_topic == base_topic) {
+                            if let Some(s) = new_state {
+                                if s != d.current_state {
+                                    println!("MQTT State Update: {} -> {:?}", base_topic, s);
+                                    if let Err(e) = db.update_device_state(base_topic, s) {
+                                        eprintln!("DB Error updating {}: {}", base_topic, e);
+                                    }
+                                    let val = if s == DeviceState::On { 1.0 } else { 0.0 };
+                                    let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceState, Some(d.id), val, None);
+                                }
+                            }
+                            if let Some(p) = apower {
+                                let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceConsumption, Some(d.id), p, None);
+                            }
                         }
                     }
                 }

@@ -125,6 +125,43 @@ impl Db {
         Ok(())
     }
 
+    pub fn insert_telemetry(&mut self, source: crate::TelemetrySource, device_id: Option<Uuid>, value: f64, metadata: Option<serde_json::Value>) -> Result<(), postgres::Error> {
+        let source_str = match source {
+            crate::TelemetrySource::PvProduction => "PV_PRODUCTION",
+            crate::TelemetrySource::HouseConsumption => "HOUSE_CONSUMPTION",
+            crate::TelemetrySource::DeviceState => "DEVICE_STATE",
+            crate::TelemetrySource::DeviceConsumption => "DEVICE_CONSUMPTION",
+        };
+        self.client.execute(
+            "INSERT INTO telemetry (source, device_id, value, metadata) VALUES ($1::text::telemetry_source, $2, $3, $4)",
+            &[&source_str, &device_id, &value, &metadata],
+        )?;
+        Ok(())
+    }
+
+    pub fn list_telemetry(&mut self, tenant_id: Uuid, limit: i64) -> Result<Vec<crate::Telemetry>, postgres::Error> {
+        let rows = self.client.query(
+            "SELECT timestamp, source::TEXT, device_id, value, metadata FROM telemetry 
+             WHERE device_id IS NULL OR device_id IN (SELECT id FROM devices WHERE tenant_id = $1)
+             ORDER BY timestamp DESC LIMIT $2",
+            &[&tenant_id, &limit],
+        )?;
+
+        Ok(rows.into_iter().map(|row| crate::Telemetry {
+            timestamp: row.get(0),
+            source: match row.get::<_, &str>(1) {
+                "PV_PRODUCTION" => crate::TelemetrySource::PvProduction,
+                "HOUSE_CONSUMPTION" => crate::TelemetrySource::HouseConsumption,
+                "DEVICE_STATE" => crate::TelemetrySource::DeviceState,
+                "DEVICE_CONSUMPTION" => crate::TelemetrySource::DeviceConsumption,
+                _ => unreachable!(),
+            },
+            device_id: row.get(2),
+            value: row.get(3),
+            metadata: row.get(4),
+        }).collect())
+    }
+
     pub fn delete_session(&mut self, session_id: Uuid) -> Result<(), postgres::Error> {
         self.client.execute("DELETE FROM sessions WHERE id = $1", &[&session_id])?;
         Ok(())
