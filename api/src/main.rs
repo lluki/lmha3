@@ -26,7 +26,23 @@ fn main() {
             (GET) (/) => {
                 let session = get_session(request, &state);
                 if let Some(s) = session {
-                    Response::text(format!("Welcome tenant_id: {}", s.tenant_id))
+                    let mut db = state.db.lock().unwrap();
+                    let tenants = db.list_tenants().unwrap_or_default();
+                    let devices = db.list_devices().unwrap_or_default();
+                    
+                    let mut html = format!("<h1>Admin Dashboard</h1><p>Logged in as: {}</p>", s.tenant_id);
+                    html.push_str("<h2>Tenants</h2><ul>");
+                    for t in tenants {
+                        html.push_str(&format!("<li>{} ({})</li>", t.username, t.id));
+                    }
+                    html.push_str("</ul><h2>Devices</h2><table border='1'><tr><th>Name</th><th>Owner</th><th>Topic</th><th>Status</th></tr>");
+                    for d in devices {
+                        html.push_str(&format!("<tr><td>{}</td><td>{}</td><td>{}</td><td>{:?}</td></tr>", d.name, d.tenant_id, d.mqtt_topic, d.current_state));
+                    }
+                    html.push_str("</table>");
+                    html.push_str("<br><form method='POST' action='/logout'><button type='submit'>Logout</button></form>");
+                    
+                    Response::html(html)
                 } else {
                     Response::redirect_303("/login")
                 }
@@ -46,7 +62,7 @@ fn main() {
                 if let Some(tenant) = db.get_tenant_by_username(&data.username) {
                     if verify_password(&data.password, &tenant.password_hash) {
                         let session_id = db.create_session(tenant.id).expect("Failed to create session");
-                        return Response::text(format!("Welcome tenant_id: {}", tenant.id))
+                        return Response::redirect_303("/")
                             .with_additional_header("Set-Cookie", format!("session_id={}; HttpOnly; Path=/; SameSite=Lax", session_id));
                     }
                 }

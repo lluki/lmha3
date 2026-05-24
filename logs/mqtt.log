@@ -1,0 +1,24 @@
+Connecting to MQTT broker at solar.lluki.me:1884 as admin...
+Connected to MQTT broker
+Subscribed to all topics (#)
+Topic: shellypro1-f8b3b7fa08bc/online | Message: true
+Topic: shellypro1-f8b3b7fa08bc/events/rpc | Message: {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyEvent","params":{"ts":1779620311.80,"events":[{"component":"sys", "event":"scheduled_restart", "time_ms": 996, "ts":1779620311.80}]}}
+Topic: shellypro1-f8b3b7fa08bc/online | Message: false
+Topic: shellypro1-f8b3b7fa08bc/online | Message: true
+Topic: shellypro1-f8b3b7fa08bc/status/ble | Message: {}
+Topic: shellypro1-f8b3b7fa08bc/status/cloud | Message: {"connected":false}
+Topic: shellypro1-f8b3b7fa08bc/status/eth | Message: {"ip":null}
+Topic: shellypro1-f8b3b7fa08bc/status/input:0 | Message: {"id":0,"state":false}
+Topic: shellypro1-f8b3b7fa08bc/status/input:1 | Message: {"id":1,"state":false}
+Topic: shellypro1-f8b3b7fa08bc/status/mqtt | Message: {"connected":true}
+Topic: shellypro1-f8b3b7fa08bc/status/switch:0 | Message: {"id":0, "source":"init", "output":false,"temperature":{"tC":31.0, "tF":87.7}}
+Topic: shellypro1-f8b3b7fa08bc/status/sys | Message: {"mac":"F8B3B7FA08BC","restart_required":false,"time":null,"unixtime":null,"uptime":6,"ram_size":260308,"ram_free":114968,"fs_size":524288,"fs_free":208896,"cfg_rev":7,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"available_updates":{},"reset_reason":3}
+Topic: shellypro1-f8b3b7fa08bc/status/wifi | Message: {"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","rssi":-65}
+Topic: shellypro1-f8b3b7fa08bc/status/ws | Message: {"connected":false}
+Topic: shellypro1-f8b3b7fa08bc/status/mqtt | Message: {"connected":true}
+Topic: shellypro1-f8b3b7fa08bc/events/rpc | Message: {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyFullStatus","params":{"ts":6.22,"ble":{},"cloud":{"connected":false},"eth":{"ip":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"mqtt":{"connected":true},"switch:0":{"id":0, "source":"init", "output":false,"temperature":{"tC":31.0, "tF":87.7}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":null,"unixtime":null,"uptime":6,"ram_size":260400,"ram_free":116252,"fs_size":524288,"fs_free":208896,"cfg_rev":7,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"available_updates":{},"reset_reason":3},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","rssi":-65},"ws":{"connected":false}}}
+Topic: shellypro1-f8b3b7fa08bc/events/rpc | Message: {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":6.22,"mqtt":{"connected":true}}}
+Topic: shellypro1-f8b3b7fa08bc/events/rpc | Message: {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1779620333.58,"sys":{"available_updates":{"beta":{"version":"2.0.0-beta2"},"stable":{"version":"1.7.5"}}}}}
+Topic: shellypro1-f8b3b7fa08bc/status/sys | Message: {"mac":"F8B3B7FA08BC","restart_required":false,"time":"12:58","unixtime":1779620333,"uptime":19,"ram_size":260228,"ram_free":112412,"fs_size":524288,"fs_free":208896,"cfg_rev":7,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"},"stable":{"version":"1.7.5"}},"reset_reason":3}
+
+Disconnecting...

@@ -1,6 +1,6 @@
 use postgres::{Client, NoTls};
 use crate::config::Config;
-use crate::{Tenant, Session};
+use crate::{Tenant, Session, Device};
 use uuid::Uuid;
 use chrono::{Utc, Duration};
 
@@ -59,6 +59,32 @@ impl Db {
             &[&id, &username, &password_hash],
         )?;
         Ok(id)
+    }
+
+    pub fn list_tenants(&mut self) -> Result<Vec<Tenant>, postgres::Error> {
+        let rows = self.client.query("SELECT id, username, password_hash, created_at FROM tenants", &[])?;
+        Ok(rows.into_iter().map(|row| Tenant {
+            id: row.get(0),
+            username: row.get(1),
+            password_hash: row.get(2),
+            created_at: row.get(3),
+        }).collect())
+    }
+
+    pub fn list_devices(&mut self) -> Result<Vec<Device>, postgres::Error> {
+        let rows = self.client.query("SELECT id, tenant_id, mqtt_topic, name, is_enabled, current_state FROM devices", &[])?;
+        Ok(rows.into_iter().map(|row| Device {
+            id: row.get(0),
+            tenant_id: row.get(1),
+            mqtt_topic: row.get(2),
+            name: row.get(3),
+            is_enabled: row.get(4),
+            current_state: match row.get::<_, String>(5).as_str() {
+                "ON" => crate::DeviceState::On,
+                "OFF" => crate::DeviceState::Off,
+                _ => crate::DeviceState::Unknown,
+            },
+        }).collect())
     }
 
     pub fn delete_session(&mut self, session_id: Uuid) -> Result<(), postgres::Error> {
