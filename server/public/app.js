@@ -1,15 +1,18 @@
 const app = document.getElementById('app');
+const userInfo = document.getElementById('user-info');
+const mainNav = document.getElementById('main-nav');
+const adminTab = document.getElementById('admin-tab');
+
+let currentUser = null;
+let activeTab = 'overview';
 
 async function checkAuth() {
     try {
-        console.log('Checking authentication...');
         const resp = await fetch('/api/me');
         if (resp.ok) {
-            const user = await resp.json();
-            console.log('User authenticated:', user.id);
-            renderDashboard(user);
+            currentUser = await resp.json();
+            renderLayout();
         } else {
-            console.log('User not authenticated, rendering login.');
             renderLogin();
         }
     } catch (e) {
@@ -19,14 +22,18 @@ async function checkAuth() {
 }
 
 function renderLogin(error = '') {
+    mainNav.classList.add('hidden');
+    userInfo.innerHTML = '';
     app.innerHTML = `
-        <h1>Login</h1>
-        ${error ? `<div class="error">${error}</div>` : ''}
-        <form class="login-form" id="login-form">
-            <input name="username" placeholder="Username" required />
-            <input name="password" type="password" placeholder="Password" required />
-            <button type="submit">Login</button>
-        </form>
+        <article style="max-width: 400px; margin: 50px auto;">
+            <h2>Login</h2>
+            ${error ? `<p style="color: red;">${error}</p>` : ''}
+            <form id="login-form">
+                <input name="username" placeholder="Username" required autocomplete="username" />
+                <input name="password" type="password" placeholder="Password" required autocomplete="current-password" />
+                <button type="submit">Login</button>
+            </form>
+        </article>
     `;
 
     document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -50,74 +57,95 @@ function renderLogin(error = '') {
     });
 }
 
-async function renderDashboard(user) {
-    app.innerHTML = `
-        <h1>Admin Dashboard</h1>
-        <p>Logged in as: ${user.id}</p>
-        <div id="dashboard-content">Loading data...</div>
-        <br>
-        <form id="logout-form">
-            <button type="submit">Logout</button>
-        </form>
+function renderLayout() {
+    mainNav.classList.remove('hidden');
+    userInfo.innerHTML = `
+        <li><span>${currentUser.username}</span></li>
+        <li><button id="logout-btn" class="outline secondary" style="margin: 0; padding: 4px 12px; font-size: 0.8rem;">Logout</button></li>
     `;
 
-    document.getElementById('logout-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
+    document.getElementById('logout-btn').addEventListener('click', async () => {
         await fetch('/api/logout', { method: 'POST' });
+        currentUser = null;
         checkAuth();
     });
 
-    loadData();
+    if (currentUser.is_admin) {
+        adminTab.closest('li').classList.remove('hidden');
+    } else {
+        adminTab.closest('li').classList.add('hidden');
+        if (activeTab === 'admin') activeTab = 'overview';
+    }
+
+    renderActiveTab();
 }
 
-async function loadData() {
-    const content = document.getElementById('dashboard-content');
+function renderActiveTab() {
+    // Update tab links
+    document.querySelectorAll('.tab-link').forEach(link => {
+        if (link.dataset.tab === activeTab) {
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
+        } else {
+            link.classList.remove('active');
+            link.removeAttribute('aria-current');
+        }
+    });
+
+    switch (activeTab) {
+        case 'overview':
+            renderOverview();
+            break;
+        case 'history':
+            renderHistory();
+            break;
+        case 'admin':
+            renderAdmin();
+            break;
+    }
+}
+
+// Add tab switching event listeners
+document.querySelectorAll('.tab-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        activeTab = link.dataset.tab;
+        renderActiveTab();
+    });
+});
+
+async function renderOverview() {
+    app.innerHTML = `
+        <article>
+            <header><strong>Your Devices</strong></header>
+            <div id="overview-content" aria-busy="true">Loading...</div>
+        </article>
+    `;
+    
     try {
-        console.log('Fetching dashboard data from API...');
-        const [tenantsResp, devicesResp] = await Promise.all([
-            fetch('/api/tenants'),
-            fetch('/api/devices')
-        ]);
+        const resp = await fetch('/api/devices');
+        if (!resp.ok) throw new Error('Failed to load devices');
+        const devices = await resp.json();
+        
+        const userDevices = devices.filter(d => d.tenant_id === currentUser.tenant_id);
+        const content = document.getElementById('overview-content');
+        content.removeAttribute('aria-busy');
 
-        if (!tenantsResp.ok || !devicesResp.ok) {
-            throw new Error(`API Error: Tenants=${tenantsResp.status}, Devices=${devicesResp.status}`);
+        if (userDevices.length === 0) {
+            content.innerHTML = '<p>No devices found.</p>';
+            return;
         }
 
-        const tenants = await tenantsResp.json();
-        const devices = await devicesResp.json();
-        
-        console.log('Tenants received:', tenants);
-        console.log('Devices received:', devices);
-
-        let html = '<h2>Tenants</h2><ul>';
-        for (const t of tenants) {
-            html += `<li>${t.username || 'Unknown'} (<code>${t.id || 'N/A'}</code>)</li>`;
-        }
-        html += '</ul>';
-
-        html += '<h2>Devices</h2><table><thead><tr><th>Name</th><th>Owner</th><th>Topic</th><th>Status</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
-        
-        for (const d of devices) {
-            console.log('Rendering device:', d);
-            let lastSeen = 'Never';
-            if (d.last_heartbeat) {
-                try {
-                    lastSeen = new Date(d.last_heartbeat).toLocaleString();
-                } catch (e) {
-                    console.warn('Failed to parse date:', d.last_heartbeat);
-                    lastSeen = d.last_heartbeat;
-                }
-            }
-
+        let html = '<table><thead><tr><th>Name</th><th>Status</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
+        for (const d of userDevices) {
+            let lastSeen = d.last_heartbeat ? new Date(d.last_heartbeat).toLocaleString() : 'Never';
             html += `
                 <tr>
-                    <td>${d.name || 'Unnamed'}</td>
-                    <td><code>${d.tenant_id || 'N/A'}</code></td>
-                    <td><code>${d.mqtt_topic || 'N/A'}</code></td>
-                    <td><strong>${d.current_state || 'UNKNOWN'}</strong></td>
-                    <td>${lastSeen}</td>
-                    <td>
-                        <button onclick="toggleDevice('${d.id}')">Toggle</button>
+                    <td data-label="Name">${d.name}</td>
+                    <td data-label="Status"><code>${d.current_state}</code></td>
+                    <td data-label="Last Seen">${lastSeen}</td>
+                    <td data-label="Action">
+                        <button class="outline" style="margin:0; padding: 2px 8px;" onclick="toggleDevice('${d.id}')">Toggle</button>
                     </td>
                 </tr>
             `;
@@ -125,16 +153,85 @@ async function loadData() {
         html += '</tbody></table>';
         content.innerHTML = html;
     } catch (e) {
-        console.error('LoadData Error:', e);
-        content.innerHTML = `<div class="error">Failed to load data: ${e.message}</div>`;
+        const content = document.getElementById('overview-content');
+        content.removeAttribute('aria-busy');
+        content.innerHTML = `<p style="color: red;">${e.message}</p>`;
     }
 }
 
-window.toggleDevice = async (id) => {
+function renderHistory() {
+    app.innerHTML = `
+        <article>
+            <header><strong>Consumption History</strong></header>
+            <p>Historical data visualization is coming soon.</p>
+        </article>
+    `;
+}
+
+async function renderAdmin() {
+    app.innerHTML = `
+        <article>
+            <header><strong>Admin: Tenants</strong></header>
+            <div id="admin-tenants" aria-busy="true">Loading...</div>
+        </article>
+        <article>
+            <header><strong>Admin: All Devices</strong></header>
+            <div id="admin-devices" aria-busy="true">Loading...</div>
+        </article>
+    `;
+
+    try {
+        const [tenantsResp, devicesResp] = await Promise.all([
+            fetch('/api/tenants'),
+            fetch('/api/devices')
+        ]);
+
+        if (!tenantsResp.ok || !devicesResp.ok) throw new Error('Failed to load admin data');
+
+        const tenants = await tenantsResp.json();
+        const devices = await devicesResp.json();
+
+        // Tenants
+        const tenantsDiv = document.getElementById('admin-tenants');
+        tenantsDiv.removeAttribute('aria-busy');
+        let tenantsHtml = '<ul>';
+        for (const t of tenants) {
+            tenantsHtml += `<li>${t.username} <small>(<code>${t.id}</code>)</small></li>`;
+        }
+        tenantsHtml += '</ul>';
+        tenantsDiv.innerHTML = tenantsHtml;
+
+        // Devices
+        const devicesDiv = document.getElementById('admin-devices');
+        devicesDiv.removeAttribute('aria-busy');
+        let devicesHtml = '<table><thead><tr><th>Name</th><th>Owner</th><th>Topic</th><th>Status</th><th>Action</th></tr></thead><tbody>';
+        for (const d of devices) {
+            devicesHtml += `
+                <tr>
+                    <td data-label="Name">${d.name}</td>
+                    <td data-label="Owner"><code>${d.tenant_id.split('-')[0]}...</code></td>
+                    <td data-label="Topic"><code>${d.mqtt_topic}</code></td>
+                    <td data-label="Status"><code>${d.current_state}</code></td>
+                    <td data-label="Action">
+                        <button class="outline" style="margin:0; padding: 2px 8px;" onclick="toggleDevice('${d.id}', 'admin')">Toggle</button>
+                    </td>
+                </tr>
+            `;
+        }
+        devicesHtml += '</tbody></table>';
+        devicesDiv.innerHTML = devicesHtml;
+
+    } catch (e) {
+        app.innerHTML += `<p style="color: red;">${e.message}</p>`;
+    }
+}
+
+window.toggleDevice = async (id, context = 'overview') => {
     try {
         const resp = await fetch(`/api/devices/${id}/toggle`, { method: 'POST' });
         if (resp.ok) {
-            loadData();
+            if (context === 'admin') renderAdmin();
+            else renderOverview();
         } else {
             const err = await resp.text();
             alert('Toggle failed: ' + err);

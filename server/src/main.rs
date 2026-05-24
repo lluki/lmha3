@@ -72,7 +72,7 @@ fn main() {
             // --- API Endpoints ---
 
             (GET) (/api/me) => {
-                if let Some(s) = get_session(request, &state) {
+                if let Some(s) = get_user(request, &state) {
                     Response::json(&s)
                 } else {
                     Response::text("Unauthorized").with_status_code(401)
@@ -190,6 +190,12 @@ fn get_session(request: &Request, state: &AppState) -> Option<Session> {
     let session_id = get_session_id(request)?;
     let mut db = state.db.lock().unwrap();
     db.get_session(session_id)
+}
+
+fn get_user(request: &Request, state: &AppState) -> Option<lmha_core::UserInfo> {
+    let session_id = get_session_id(request)?;
+    let mut db = state.db.lock().unwrap();
+    db.get_user_info(session_id)
 }
 
 fn run_main_loop(state: Arc<AppState>) {

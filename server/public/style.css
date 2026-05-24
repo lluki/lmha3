@@ -1,47 +1,97 @@
-body {
-    font-family: sans-serif;
-    margin: 20px;
-    background-color: #f4f4f9;
+.hidden {
+    display: none !important;
 }
 
-#app {
-    max-width: 800px;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-th {
-    background-color: #eee;
-}
-
-.login-form {
+#user-info {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 300px;
+    align-items: center;
+    gap: 1rem;
 }
 
-button {
-    padding: 8px 12px;
-    cursor: pointer;
+#user-info span {
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
 
-.error {
-    color: red;
-    margin-bottom: 10px;
+.tab-link.active {
+    background-color: var(--pico-secondary-focus);
+    border-radius: var(--pico-border-radius);
+    padding: 5px 15px !important;
+    font-weight: bold;
+    color: var(--pico-contrast) !important;
+}
+
+/* Specific overrides for Pico */
+header {
+    border-bottom: 1px solid var(--pico-muted-border-color);
+    margin-bottom: 2rem;
+}
+
+#main-nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Mobile Table responsiveness */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+
+    nav ul {
+        width: 100%;
+        margin: 0 !important;
+        padding: 5px 0 !important;
+        justify-content: space-between;
+    }
+
+    #main-nav {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    #main-nav li {
+        width: 100%;
+        padding: 0;
+    }
+
+    #main-nav a {
+        display: block;
+        padding: 10px 0;
+        width: 100%;
+        border-bottom: 1px solid var(--pico-muted-border-color);
+    }
+
+    #main-nav a.active {
+        background-color: transparent;
+        border-left: 4px solid var(--pico-primary);
+        padding-left: 10px !important;
+        border-radius: 0;
+    }
+
+    table {
+        border: 0;
+    }
+    table thead {
+        display: none;
+    }
+    table tr {
+        border-bottom: 3px solid var(--pico-muted-border-color);
+        display: block;
+        margin-bottom: .625em;
+    }
+    table td {
+        border-bottom: 1px solid var(--pico-muted-border-color);
+        display: block;
+        text-align: right;
+    }
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+    }
+    table td:last-child {
+        border-bottom: 0;
+    }
 }

@@ -89,3 +89,11 @@ pub struct Session {
     pub expires_at: DateTime<Utc>,
     pub created_at: DateTime<Utc>,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UserInfo {
+    pub session_id: Uuid,
+    pub tenant_id: Uuid,
+    pub username: String,
+    pub is_admin: bool,
+}

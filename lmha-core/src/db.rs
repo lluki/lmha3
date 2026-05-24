@@ -52,6 +52,21 @@ impl Db {
         })
     }
 
+    pub fn get_user_info(&mut self, session_id: Uuid) -> Option<crate::UserInfo> {
+        let row = self.client.query_opt(
+            "SELECT s.id, s.tenant_id, t.username FROM sessions s JOIN tenants t ON s.tenant_id = t.id WHERE s.id = $1 AND s.expires_at > NOW()",
+            &[&session_id],
+        ).ok()??;
+
+        let username: String = row.get(2);
+        Some(crate::UserInfo {
+            session_id: row.get(0),
+            tenant_id: row.get(1),
+            is_admin: username == "admin",
+            username,
+        })
+    }
+
     pub fn create_tenant(&mut self, username: &str, password_hash: &str) -> Result<Uuid, postgres::Error> {
         let id = Uuid::new_v4();
         self.client.execute(
