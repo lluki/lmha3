@@ -36,7 +36,7 @@ fn test_full_auth_cycle() {
         .unwrap();
     assert_eq!(me_resp_auth.status(), 200);
     let me_json: serde_json::Value = me_resp_auth.into_json::<serde_json::Value>().unwrap();
-    assert!(me_json.get("id").is_some());
+    assert!(me_json.get("tenant_id").is_some());
 
     // 4. Logout
     let logout_resp = agent.post(&format!("{}/api/logout", base_url))

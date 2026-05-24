@@ -322,12 +322,15 @@ async function renderAdmin() {
         const tenants = await tenantsResp.json();
         const devices = await devicesResp.json();
 
+        const tenantMap = {};
+        tenants.forEach(t => tenantMap[t.id] = t.username);
+
         // Tenants
         const tenantsDiv = document.getElementById('admin-tenants');
         tenantsDiv.removeAttribute('aria-busy');
         let tenantsHtml = '<ul>';
         for (const t of tenants) {
-            tenantsHtml += `<li>${t.username} <small>(<code>${t.id}</code>)</small></li>`;
+            tenantsHtml += `<li><strong>${t.username}</strong> <small class="secondary">(${t.id})</small></li>`;
         }
         tenantsHtml += '</ul>';
         tenantsDiv.innerHTML = tenantsHtml;
@@ -337,10 +340,11 @@ async function renderAdmin() {
         devicesDiv.removeAttribute('aria-busy');
         let devicesHtml = '<table><thead><tr><th>Name</th><th>Owner</th><th>Topic</th><th>Status</th><th>Action</th></tr></thead><tbody>';
         for (const d of devices) {
+            const ownerName = tenantMap[d.tenant_id] || 'Unknown';
             devicesHtml += `
                 <tr>
                     <td data-label="Name">${d.name}</td>
-                    <td data-label="Owner"><code>${d.tenant_id.split('-')[0]}...</code></td>
+                    <td data-label="Owner">${ownerName}</td>
                     <td data-label="Topic"><code>${d.mqtt_topic}</code></td>
                     <td data-label="Status"><code>${d.current_state}</code></td>
                     <td data-label="Action">
