@@ -259,13 +259,18 @@ async function fetchAndRenderHistory(includeConsumption) {
     content.setAttribute('aria-busy', 'true');
     
     try {
-        const [historyResp, devicesResp] = await Promise.all([
+        const [historyResp, devicesResp, tenantsResp] = await Promise.all([
             fetch('/api/history'),
-            fetch('/api/devices')
+            fetch('/api/devices'),
+            fetch('/api/tenants')
         ]);
         const history = await historyResp.json();
         const devices = await devicesResp.json();
+        const tenants = await tenantsResp.json();
         
+        const tenantMap = {};
+        tenants.forEach(t => tenantMap[t.id] = t.username);
+
         content.removeAttribute('aria-busy');
         
         let filtered = history;
@@ -281,7 +286,11 @@ async function fetchAndRenderHistory(includeConsumption) {
         let html = '<table><thead><tr><th>Time</th><th>Device</th><th>Event</th><th>Value</th></tr></thead><tbody>';
         for (const t of filtered) {
             const device = devices.find(d => d.id === t.device_id);
-            const deviceName = device ? device.name : 'System';
+            let deviceName = 'System';
+            if (device) {
+                const ownerName = tenantMap[device.tenant_id] || 'unknown';
+                deviceName = `${device.name} <small class="secondary">(${ownerName})</small>`;
+            }
             let eventType = t.source;
             let valText = t.value;
             
