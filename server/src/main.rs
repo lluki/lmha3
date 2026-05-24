@@ -15,6 +15,10 @@ struct Args {
     #[arg(long)]
     no_scheduler: bool,
 
+    /// Disable Home Assistant polling in the scheduler
+    #[arg(long)]
+    no_home_assistant: bool,
+
     /// Port to listen on
     #[arg(short, long, default_value_t = 8000)]
     port: u16,
@@ -23,6 +27,7 @@ struct Args {
 struct AppState {
     db: Mutex<Db>,
     config: Config,
+    no_home_assistant: bool,
 }
 
 fn main() {
@@ -33,6 +38,7 @@ fn main() {
     let state = Arc::new(AppState {
         db: Mutex::new(db),
         config,
+        no_home_assistant: args.no_home_assistant,
     });
 
     if !args.no_scheduler {
@@ -149,8 +155,14 @@ fn get_session(request: &Request, state: &AppState) -> Option<Session> {
 fn run_scheduler_loop(state: Arc<AppState>) {
     println!("Scheduler background thread started.");
     loop {
-        println!("Background Polling Home Assistant at {}...", state.config.ha_url);
-        // TODO: Implement HA polling and MQTT logic
+        if state.no_home_assistant {
+            println!("Scheduler: Home Assistant polling disabled (--no-home-assistant)");
+        } else {
+            println!("Scheduler: Background Polling Home Assistant at {}...", state.config.ha_url);
+            // TODO: Implement actual HA polling
+        }
+        
+        // TODO: Implement MQTT logic
         thread::sleep(Duration::from_secs(300));
     }
 }
