@@ -44,10 +44,25 @@ impl TestHarness {
             mqtt_password: Some("freebird".to_string()),
             ha_url: "http://localhost:8123".to_string(),
             ha_token: "test_token".to_string(),
+            ha_pv_entity_id: Some("sensor.pv".to_string()),
+            ha_consumption_entity_id: Some("sensor.consumption".to_string()),
         };
 
         // 3. Start Server
-        let mut cmd = Command::new("/home/lukas/dev/lmha3/target/debug/server");
+        let current_dir = std::path::PathBuf::from("/home/lukas/dev/lmha3");
+        let nix_bin = current_dir.join("result/bin/server");
+        let debug_bin = current_dir.join("target/debug/server");
+        
+        let binary_path = if nix_bin.exists() {
+            nix_bin.canonicalize().unwrap().to_str().unwrap().to_string()
+        } else if debug_bin.exists() {
+            debug_bin.canonicalize().unwrap().to_str().unwrap().to_string()
+        } else {
+            "server".to_string()
+        };
+
+        println!("TestHarness: Using binary at {}", binary_path);
+        let mut cmd = Command::new(binary_path);
         cmd.arg("--port").arg(port.to_string());
         if no_scheduler {
             cmd.arg("--no-scheduler");

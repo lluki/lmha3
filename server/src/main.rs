@@ -58,8 +58,10 @@ fn main() {
         let state = state.clone();
         
         // 1. Try to serve static files from various possible locations
-        let mut asset_response = rouille::match_assets(request, "server/public");
-        if !asset_response.is_success() {
+        let public_dir = std::env::var("LMHA3_PUBLIC_DIR").unwrap_or_else(|_| "server/public".to_string());
+        let mut asset_response = rouille::match_assets(request, &public_dir);
+        
+        if !asset_response.is_success() && public_dir == "server/public" {
             asset_response = rouille::match_assets(request, "public");
         }
         
