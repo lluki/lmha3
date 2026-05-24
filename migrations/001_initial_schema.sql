@@ -1,15 +1,19 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE tenants (
+CREATE TABLE IF NOT EXISTS tenants (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     username TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE TYPE device_state AS ENUM ('ON', 'OFF', 'UNKNOWN');
+DO $$ BEGIN
+    CREATE TYPE device_state AS ENUM ('ON', 'OFF', 'UNKNOWN');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
 
-CREATE TABLE devices (
+CREATE TABLE IF NOT EXISTS devices (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     tenant_id UUID NOT NULL REFERENCES tenants(id),
     mqtt_topic TEXT NOT NULL,
@@ -18,9 +22,13 @@ CREATE TABLE devices (
     current_state device_state DEFAULT 'UNKNOWN'
 );
 
-CREATE TYPE telemetry_source AS ENUM ('PV_PRODUCTION', 'HOUSE_CONSUMPTION', 'DEVICE_STATE');
+DO $$ BEGIN
+    CREATE TYPE telemetry_source AS ENUM ('PV_PRODUCTION', 'HOUSE_CONSUMPTION', 'DEVICE_STATE');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
 
-CREATE TABLE telemetry (
+CREATE TABLE IF NOT EXISTS telemetry (
     timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     source telemetry_source NOT NULL,
     device_id UUID REFERENCES devices(id),
@@ -28,4 +36,4 @@ CREATE TABLE telemetry (
     metadata JSONB
 );
 
-CREATE INDEX idx_telemetry_timestamp ON telemetry(timestamp DESC);
+CREATE INDEX IF NOT EXISTS idx_telemetry_timestamp ON telemetry(timestamp DESC);

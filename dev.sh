@@ -2,6 +2,8 @@
 set -e
 
 DB_NAME="lmha3"
+export DATABASE_URL="host=/var/run/postgresql dbname=$DB_NAME user=$(whoami)"
+export HA_TOKEN=${HA_TOKEN:-"dummy_token_for_dev"}
 
 # 1. Ensure DB exists
 if ! psql -lqt | cut -d \| -f 1 | grep -qw "$DB_NAME"; then
@@ -18,11 +20,7 @@ psql "$DB_NAME" -f migrations/002_add_sessions.sql > /dev/null
 CHECK_USER=$(psql -t -A -c "SELECT count(*) FROM tenants WHERE username='admin';" "$DB_NAME")
 if [ "$CHECK_USER" == "0" ]; then
     echo "Creating default 'admin' user (password: admin)..."
-    # Using a pre-calculated Argon2 hash for 'admin' to avoid requiring lmha-admin build during boot
-    # Hash for 'admin': $argon2id$v=19$m=4096,t=3,p=1$c29tZXNhbHQ$P/PZ4+J9C9+J6J9C9+J6J9C9+J6J9C9+J6J9C9+J6J9
-    # Actually, it's safer to just suggest running lmha-admin if user is missing, 
-    # but for "bring up" convenience, we'll try to use cargo run.
-    DATABASE_URL="postgres:///lmha3" cargo run -p lmha-admin <<EOF
+    cargo run -p lmha-admin <<EOF
 admin
 admin
 admin
@@ -31,4 +29,4 @@ fi
 
 # 4. Start API
 echo "Starting API..."
-DATABASE_URL="postgres:///lmha3" HA_TOKEN=dummy cargo run -p api
+cargo run -p api
