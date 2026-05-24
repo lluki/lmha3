@@ -20,6 +20,13 @@ pub struct Tenant {
     pub created_at: DateTime<Utc>,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TenantPublic {
+    pub id: Uuid,
+    pub username: String,
+    pub created_at: DateTime<Utc>,
+}
+
 pub fn hash_password(password: &str) -> Result<String, String> {
     let salt = SaltString::generate(&mut OsRng);
     let argon2 = Argon2::default();

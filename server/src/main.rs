@@ -80,20 +80,39 @@ fn main() {
             },
 
             (GET) (/api/tenants) => {
-                if get_session(request, &state).is_some() {
+                if let Some(s) = get_session(request, &state) {
+                    println!("API: Fetching tenants for {}", s.tenant_id);
                     let mut db = state.db.lock().unwrap();
-                    let tenants = db.list_tenants().unwrap_or_default();
-                    Response::json(&tenants)
+                    match db.list_tenants() {
+                        Ok(tenants) => {
+                            let public_tenants: Vec<lmha_core::TenantPublic> = tenants.into_iter().map(|t| lmha_core::TenantPublic {
+                                id: t.id,
+                                username: t.username,
+                                created_at: t.created_at,
+                            }).collect();
+                            Response::json(&public_tenants)
+                        },
+                        Err(e) => {
+                            eprintln!("DB Error listing tenants: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
                 } else {
                     Response::text("Unauthorized").with_status_code(401)
                 }
             },
 
             (GET) (/api/devices) => {
-                if get_session(request, &state).is_some() {
+                if let Some(s) = get_session(request, &state) {
+                    println!("API: Fetching devices for {}", s.tenant_id);
                     let mut db = state.db.lock().unwrap();
-                    let devices = db.list_devices().unwrap_or_default();
-                    Response::json(&devices)
+                    match db.list_devices() {
+                        Ok(devices) => Response::json(&devices),
+                        Err(e) => {
+                            eprintln!("DB Error listing devices: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
                 } else {
                     Response::text("Unauthorized").with_status_code(401)
                 }
