@@ -28,8 +28,6 @@ function renderLogin(error = '') {
     document.getElementById('login-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const data = Object.from_slice(Array.from(formData.entries())); // Simple form to object
-        // Wait, Object.from_slice? No, Object.fromEntries.
         const params = new URLSearchParams(formData);
         
         try {
