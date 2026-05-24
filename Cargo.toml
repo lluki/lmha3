@@ -3,5 +3,6 @@ members = [
     "lmha-core",
     "api",
     "scheduler",
+    "lmha-admin",
 ]
 resolver = "2"
