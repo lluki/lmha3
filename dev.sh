@@ -20,11 +20,7 @@ psql "$DB_NAME" -f migrations/002_add_sessions.sql > /dev/null
 CHECK_USER=$(psql -t -A -c "SELECT count(*) FROM tenants WHERE username='admin';" "$DB_NAME")
 if [ "$CHECK_USER" == "0" ]; then
     echo "Creating default 'admin' user (password: admin)..."
-    cargo run -p lmha-admin <<EOF
-admin
-admin
-admin
-EOF
+    cargo run -p lmha-admin -- --username admin --password admin
 fi
 
 # 4. Start API

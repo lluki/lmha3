@@ -3,34 +3,59 @@ use lmha_core::db::Db;
 use lmha_core::hash_password;
 use std::io::{self, Write};
 use rpassword::read_password;
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+    /// Username to create
+    #[arg(short, long)]
+    username: Option<String>,
+
+    /// Password for the user (if omitted, will prompt)
+    #[arg(short, long)]
+    password: Option<String>,
+}
 
 fn main() {
+    let args = Args::parse();
     let config = Config::from_env();
     let mut db = Db::connect(&config).expect("Failed to connect to database");
 
-    print!("Enter username: ");
-    io::stdout().flush().unwrap();
-    let mut username = String::new();
-    io::stdin().read_line(&mut username).unwrap();
-    let username = username.trim();
+    let username = match args.username {
+        Some(u) => u,
+        None => {
+            print!("Enter username: ");
+            io::stdout().flush().unwrap();
+            let mut u = String::new();
+            io::stdin().read_line(&mut u).unwrap();
+            u.trim().to_string()
+        }
+    };
 
-    print!("Enter password: ");
-    io::stdout().flush().unwrap();
-    let password = read_password().unwrap();
+    let password = match args.password {
+        Some(p) => p,
+        None => {
+            print!("Enter password: ");
+            io::stdout().flush().unwrap();
+            let p = read_password().unwrap();
+            
+            print!("Confirm password: ");
+            io::stdout().flush().unwrap();
+            let confirm = read_password().unwrap();
 
-    print!("Confirm password: ");
-    io::stdout().flush().unwrap();
-    let confirm = read_password().unwrap();
-
-    if password != confirm {
-        eprintln!("Passwords do not match");
-        return;
-    }
+            if p != confirm {
+                eprintln!("Passwords do not match");
+                return;
+            }
+            p
+        }
+    };
 
     let hashed = hash_password(&password).expect("Failed to hash password");
     
-    match db.create_tenant(username, &hashed) {
-        Ok(id) => println!("Tenant created successfully with ID: {}", id),
+    match db.create_tenant(&username, &hashed) {
+        Ok(id) => println!("Tenant '{}' created successfully with ID: {}", username, id),
         Err(e) => eprintln!("Failed to create tenant: {}", e),
     }
 }

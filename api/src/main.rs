@@ -58,13 +58,20 @@ fn main() {
                     password: String,
                 }).expect("Invalid login form");
 
+                println!("Login attempt for user: '{}'", data.username);
                 let mut db = state.db.lock().unwrap();
                 if let Some(tenant) = db.get_tenant_by_username(&data.username) {
+                    println!("Found tenant, verifying password...");
                     if verify_password(&data.password, &tenant.password_hash) {
+                        println!("Password verified!");
                         let session_id = db.create_session(tenant.id).expect("Failed to create session");
                         return Response::redirect_303("/")
                             .with_additional_header("Set-Cookie", format!("session_id={}; HttpOnly; Path=/; SameSite=Lax", session_id));
+                    } else {
+                        println!("Password verification failed.");
                     }
+                } else {
+                    println!("Tenant not found.");
                 }
                 Response::text("Invalid credentials").with_status_code(401)
             },

@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 lmha-core = { path = "../lmha-core" }
 rpassword = "7.3"
+clap = { version = "4.0", features = ["derive"] }
