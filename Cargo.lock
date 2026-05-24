@@ -95,22 +95,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c"
 
 [[package]]
-name = "api"
-version = "0.1.0"
-dependencies = [
- "argon2",
- "chrono",
- "lmha-core",
- "postgres",
- "rand_core 0.6.4",
- "rouille",
- "serde",
- "serde_json",
- "ureq",
- "uuid",
-]
-
-[[package]]
 name = "argon2"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1458,19 +1442,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "scheduler"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "lmha-core",
- "rumqttc",
- "serde",
- "serde_json",
- "ureq",
- "uuid",
-]
-
-[[package]]
 name = "scopeguard"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1546,6 +1517,24 @@ dependencies = [
  "serde",
  "serde_core",
  "zmij",
+]
+
+[[package]]
+name = "server"
+version = "0.1.0"
+dependencies = [
+ "argon2",
+ "chrono",
+ "clap",
+ "lmha-core",
+ "postgres",
+ "rand_core 0.6.4",
+ "rouille",
+ "rumqttc",
+ "serde",
+ "serde_json",
+ "ureq",
+ "uuid",
 ]
 
 [[package]]

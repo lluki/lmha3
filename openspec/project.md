@@ -10,16 +10,17 @@ A load management solution for the Hagenholz neighborhood. It synchronizes physi
 - **Telemetry:** Logs PV production, total house consumption, and all load toggle events (with reasoning).
 
 ## Tech Stack
-- **Language:** Rust (for both Backend API and Scheduler process).
+- **Language:** Rust (Unified server process with internal scheduler thread).
 - **Database:** PostgreSQL (Core state, configurations, and historical telemetry).
 - **Messaging:** MQTT (Broker at `solar.lluki.me:1884`, Shelly 1 Pro hardware).
-- **Infrastructure:** Linux (Systemd services, no containerization).
+- **Infrastructure:** Linux (Single Systemd service, no containerization).
 - **Web Entry:** Nginx reverse proxy (App handles authentication; Nginx handles routing).
 
 ## Global Rules & Constraints
 1. **Authentication:** No public endpoints. Every action and view requires a valid tenant session.
-2. **Standard Linux Patterns:** Configuration and deployment should follow standard Linux service patterns (Systemd).
-3. **Hardware Safety:** Implement safeguards for physical switches (e.g., debounce toggles, minimum state duration).
+2. **Unified Process:** The application runs as a single binary. The load management scheduler runs in a dedicated background thread.
+3. **Control Mode:** Supports a `--no-scheduler` flag for API-only operation (useful for testing/maintenance).
+4. **Hardware Safety:** Implement safeguards for physical switches (e.g., debounce toggles, minimum state duration).
 4. **Data Integrity:** Telemetry (PV/Consumption) must be persisted to PostgreSQL for auditing and UI charts.
 5. **No SSL in-app:** The application assumes it runs behind a proxy that manages the external network layer.
 

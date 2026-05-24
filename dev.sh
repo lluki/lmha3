@@ -23,6 +23,6 @@ if [ "$CHECK_USER" == "0" ]; then
     cargo run -p lmha-admin -- --username admin --password admin
 fi
 
-# 4. Start API
-echo "Starting API..."
-cargo run -p api
+# 4. Start Server
+echo "Starting Server..."
+cargo run -p server

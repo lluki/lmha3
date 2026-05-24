@@ -1,8 +1,7 @@
 [workspace]
 members = [
     "lmha-core",
-    "api",
-    "scheduler",
+    "server",
     "lmha-admin",
 ]
 resolver = "2"
