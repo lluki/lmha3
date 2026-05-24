@@ -1,5 +1,6 @@
 pub mod config;
 pub mod db;
+pub mod ha;
 
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;

@@ -93,7 +93,14 @@ function renderLayout() {
     renderActiveTab();
 }
 
+let overviewInterval = null;
+
 function renderActiveTab() {
+    if (overviewInterval) {
+        clearInterval(overviewInterval);
+        overviewInterval = null;
+    }
+
     // Update tab links
     document.querySelectorAll('.tab-link').forEach(link => {
         if (link.dataset.tab === activeTab) {
@@ -108,6 +115,7 @@ function renderActiveTab() {
     switch (activeTab) {
         case 'overview':
             renderOverview();
+            overviewInterval = setInterval(renderOverview, 10000);
             break;
         case 'history':
             renderHistory();
@@ -128,12 +136,31 @@ document.querySelectorAll('.tab-link').forEach(link => {
 });
 
 async function renderOverview() {
-    app.innerHTML = `
-        <article>
-            <header><strong>${currentUser.is_admin ? 'All Devices' : 'Your Devices'}</strong></header>
-            <div id="overview-content" aria-busy="true">Loading...</div>
-        </article>
-    `;
+    // Only set innerHTML if it's the first render or container is missing
+    if (!document.getElementById('stats-container')) {
+        app.innerHTML = `
+            <div id="stats-container" class="grid" style="margin-bottom: 2rem;">
+                <article style="padding: 1rem; margin-bottom: 0;">
+                    <header style="padding: 0.5rem 1rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <small>Panel Production</small>
+                        <small id="pv-time" class="secondary" style="font-size: 0.7rem;"></small>
+                    </header>
+                    <h3 id="pv-value" style="margin: 0; color: var(--pico-primary);">-- kW</h3>
+                </article>
+                <article style="padding: 1rem; margin-bottom: 0;">
+                    <header style="padding: 0.5rem 1rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <small>Household Consumption</small>
+                        <small id="cons-time" class="secondary" style="font-size: 0.7rem;"></small>
+                    </header>
+                    <h3 id="consumption-value" style="margin: 0; color: var(--pico-del-color);">-- kW</h3>
+                </article>
+            </div>
+            <article>
+                <header><strong>${currentUser.is_admin ? 'All Devices' : 'Your Devices'}</strong></header>
+                <div id="overview-content" aria-busy="true">Loading...</div>
+            </article>
+        `;
+    }
     
     try {
         const fetchTasks = [
@@ -145,13 +172,23 @@ async function renderOverview() {
         }
 
         const responses = await Promise.all(fetchTasks);
-        for (const resp of responses) {
-            if (!resp.ok) throw new Error('Failed to load data');
-        }
-        
         const devices = await responses[0].json();
         const history = await responses[1].json();
         const tenants = currentUser.is_admin ? await responses[2].json() : [];
+
+        // Update Stats
+        const latestPv = history.find(t => t.source === 'PV_PRODUCTION');
+        const latestCons = history.find(t => t.source === 'HOUSE_CONSUMPTION');
+        
+        if (latestPv) {
+            document.getElementById('pv-value').textContent = `${latestPv.value.toFixed(2)} kW`;
+            document.getElementById('pv-time').textContent = new Date(latestPv.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        if (latestCons) {
+            document.getElementById('consumption-value').textContent = `${latestCons.value.toFixed(2)} kW`;
+            document.getElementById('cons-time').textContent = new Date(latestCons.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+
         const tenantMap = {};
         tenants.forEach(t => tenantMap[t.id] = t.username);
         
@@ -239,8 +276,8 @@ function renderHistory() {
                 <strong>Event History</strong>
                 <fieldset style="margin: 0; padding: 0; border: none; display: flex; align-items: center;">
                     <label style="margin: 0; display: flex; align-items: center; cursor: pointer;">
-                        <input type="checkbox" id="show-consumption" style="margin-right: 8px;" />
-                        <span>Show Consumption</span>
+                        <input type="checkbox" id="show-consumption" style="margin-right: 8px;" checked />
+                        <span>Show All Telemetry</span>
                     </label>
                 </fieldset>
             </header>
@@ -251,10 +288,10 @@ function renderHistory() {
     const showConsumption = document.getElementById('show-consumption');
     showConsumption.addEventListener('change', () => fetchAndRenderHistory(showConsumption.checked));
     
-    fetchAndRenderHistory(false);
+    fetchAndRenderHistory(true);
 }
 
-async function fetchAndRenderHistory(includeConsumption) {
+async function fetchAndRenderHistory(includeAll) {
     const content = document.getElementById('history-content');
     content.setAttribute('aria-busy', 'true');
     
@@ -274,7 +311,7 @@ async function fetchAndRenderHistory(includeConsumption) {
         content.removeAttribute('aria-busy');
         
         let filtered = history;
-        if (!includeConsumption) {
+        if (!includeAll) {
             filtered = history.filter(t => t.source === 'DEVICE_STATE');
         }
         
@@ -283,13 +320,13 @@ async function fetchAndRenderHistory(includeConsumption) {
             return;
         }
 
-        let html = '<table><thead><tr><th>Time</th><th>Device</th><th>Event</th><th>Value</th></tr></thead><tbody>';
+        let html = '<table><thead><tr><th>Time</th><th>Source</th><th>Event</th><th>Value</th></tr></thead><tbody>';
         for (const t of filtered) {
             const device = devices.find(d => d.id === t.device_id);
-            let deviceName = 'System';
+            let sourceName = 'System';
             if (device) {
                 const ownerName = tenantMap[device.tenant_id] || 'unknown';
-                deviceName = `${device.name} <small class="secondary">(${ownerName})</small>`;
+                sourceName = `${device.name} <small class="secondary">(${ownerName})</small>`;
             }
             let eventType = t.source;
             let valText = t.value;
@@ -298,20 +335,20 @@ async function fetchAndRenderHistory(includeConsumption) {
                 eventType = 'State';
                 valText = t.value === 1.0 ? '<mark style="background: var(--pico-ins-color); color: white; padding: 2px 6px; border-radius: 4px;">ON</mark>' : '<mark style="background: var(--pico-del-color); color: white; padding: 2px 6px; border-radius: 4px;">OFF</mark>';
             } else if (t.source === 'DEVICE_CONSUMPTION') {
-                eventType = 'Consumption';
-                valText = `<code>${t.value.toFixed(1)} W</code>`;
+                eventType = 'Device Load';
+                valText = `<code>${t.value.toFixed(2)} kW</code>`;
             } else if (t.source === 'PV_PRODUCTION') {
-                eventType = 'PV Production';
-                valText = `<code>${t.value.toFixed(1)} W</code>`;
+                eventType = 'Panel Production';
+                valText = `<code>${t.value.toFixed(2)} kW</code>`;
             } else if (t.source === 'HOUSE_CONSUMPTION') {
-                eventType = 'House Consumption';
-                valText = `<code>${t.value.toFixed(1)} W</code>`;
+                eventType = 'House Total Load';
+                valText = `<code>${t.value.toFixed(2)} kW</code>`;
             }
             
             html += `
                 <tr>
                     <td>${new Date(t.timestamp).toLocaleTimeString()} <small class="secondary">${new Date(t.timestamp).toLocaleDateString()}</small></td>
-                    <td>${deviceName}</td>
+                    <td>${sourceName}</td>
                     <td>${eventType}</td>
                     <td>${valText}</td>
                 </tr>
@@ -458,3 +495,4 @@ window.toggleDevice = async (id, context = 'overview') => {
 };
 
 checkAuth();
+Auth();

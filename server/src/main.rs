@@ -31,6 +31,11 @@ struct AppState {
 
 fn main() {
     let args = Args::parse();
+    if std::env::var("HA_TOKEN").is_err() {
+        if let Ok(token) = std::fs::read_to_string("secrets/ha-token.md") {
+            std::env::set_var("HA_TOKEN", token.trim());
+        }
+    }
     let config = Config::from_env();
     let db = Db::connect(&config).expect("Failed to connect to database");
 
@@ -272,9 +277,35 @@ fn run_main_loop(state: Arc<AppState>) {
             thread::spawn(move || {
                 loop {
                     if !sch_state.no_home_assistant {
-                        // TODO: HA
+                        let config = &sch_state.config;
+                        if let Some(pv_id) = &config.ha_pv_entity_id {
+                            match lmha_core::ha::fetch_ha_state(config, pv_id) {
+                                Ok(val) => {
+                                    let mut db = sch_state.db.lock().unwrap();
+                                    if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::PvProduction, None, val, None) {
+                                        eprintln!("DB Error saving PV telemetry: {}", e);
+                                    } else {
+                                        println!("HA: PV Production polled: {}", val);
+                                    }
+                                }
+                                Err(e) => eprintln!("HA Error polling PV ({}): {}", pv_id, e),
+                            }
+                        }
+                        if let Some(cons_id) = &config.ha_consumption_entity_id {
+                            match lmha_core::ha::fetch_ha_state(config, cons_id) {
+                                Ok(val) => {
+                                    let mut db = sch_state.db.lock().unwrap();
+                                    if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::HouseConsumption, None, val, None) {
+                                        eprintln!("DB Error saving consumption telemetry: {}", e);
+                                    } else {
+                                        println!("HA: House Consumption polled: {}", val);
+                                    }
+                                }
+                                Err(e) => eprintln!("HA Error polling Consumption ({}): {}", cons_id, e),
+                            }
+                        }
                     }
-                    thread::sleep(Duration::from_secs(300));
+                    thread::sleep(Duration::from_secs(10));
                 }
             });
         }

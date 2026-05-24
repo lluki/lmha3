@@ -14,3 +14,4 @@ dotenvy = "0.15"
 argon2 = "0.5"
 password-hash = { version = "0.5", features = ["rand_core"] }
 rand_core = { version = "0.6", features = ["std", "getrandom"] }
+ureq = { version = "2.9", features = ["json"] }
