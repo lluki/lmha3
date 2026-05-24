@@ -6,7 +6,20 @@ const adminTab = document.getElementById('admin-tab');
 let currentUser = null;
 let activeTab = 'overview';
 
+async function fetchVersion() {
+    try {
+        const resp = await fetch('/api/version');
+        if (resp.ok) {
+            const data = await resp.json();
+            document.getElementById('app-version').textContent = data.version;
+        }
+    } catch (e) {
+        console.error('Failed to fetch version:', e);
+    }
+}
+
 async function checkAuth() {
+    fetchVersion();
     try {
         const resp = await fetch('/api/me');
         if (resp.ok) {

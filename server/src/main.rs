@@ -79,6 +79,10 @@ fn main() {
                 }
             },
 
+            (GET) (/api/version) => {
+                Response::json(&json!({ "version": env!("CARGO_PKG_VERSION") }))
+            },
+
             (GET) (/api/tenants) => {
                 if let Some(s) = get_session(request, &state) {
                     println!("API: Fetching tenants for {}", s.tenant_id);
