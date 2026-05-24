@@ -75,6 +75,7 @@ pub struct Telemetry {
     pub metadata: Option<serde_json::Value>,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Session {
     pub id: Uuid,
     pub tenant_id: Uuid,

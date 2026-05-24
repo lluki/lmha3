@@ -1,6 +1,6 @@
 # lmha3: Load Management Hagenholz
 
-Load management for the Hagenholz neighborhood to match physical tenant loads (Shelly 1 Pro) with solar production.
+Synchronous Rust-based load management for the Hagenholz neighborhood. Matches physical tenant loads (Shelly 1 Pro) with solar production.
 
 ## Setup
 
@@ -12,11 +12,13 @@ Load management for the Hagenholz neighborhood to match physical tenant loads (S
 ## Commands
 
 - **Build**: `cargo build`
-- **Test**: `cargo test` (Runs integrated harness with temp DBs)
-- **Run API**: `cargo run -p api`
-- **Run Scheduler**: `cargo run -p scheduler`
+- **Test**: `cargo test` (Integrated harness with temp DBs)
+- **Run Server**: `cargo run -p server`
 
-## Auth Model
-- **Hashing**: Argon2id
-- **Sessions**: PostgreSQL-backed cookies (24h)
-- **Access**: Global Read, Owner Write (for control)
+## Architecture
+- **Backend**: Rust (Rouille) + PostgreSQL
+- **Frontend**: Vanilla JS Single-Page App (`server/public`)
+- **API**: JSON-based auth and control endpoints
+- **MQTT**: Bidirectional status and RPC control for Shelly hardware
+- **Auth**: Argon2id + PostgreSQL-backed cookies (24h)
+- **Access**: Global Read, Owner Write

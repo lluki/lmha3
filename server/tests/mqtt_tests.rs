@@ -26,56 +26,54 @@ fn test_status_update_on_and_off() {
 
     // 2. Perform login
     let agent = ureq::AgentBuilder::new().redirects(0).build();
-    let login_resp = agent.post(&format!("http://localhost:{}/login", port))
+    let login_resp = agent.post(&format!("http://localhost:{}/api/login", port))
         .send_form(&[("username", "charlie"), ("password", "password123")])
         .unwrap();
     let cookie = login_resp.header("Set-Cookie").unwrap().to_string();
 
-    // 3. Mock Shelly sending ON
+    // 3. Verify initial state is Unknown
+    let devices_resp = agent.get(&format!("http://localhost:{}/api/devices", port))
+        .set("Cookie", &cookie)
+        .call()
+        .unwrap();
+    let devices: serde_json::Value = devices_resp.into_json::<serde_json::Value>().unwrap();
+    assert_eq!(devices[0]["current_state"], "UNKNOWN");
+
+    // 4. Mock Shelly sending ON
     let payload_on = json!({
         "method": "NotifyStatus",
         "params": {
             "switch:0": { "output": true }
         }
     });
-    let topic = format!("{}/events/rpc", device_topic);
-    println!("Mock Shelly: Publishing ON to {}", topic);
-    client.publish(&topic, QoS::AtLeastOnce, false, payload_on.to_string()).unwrap();
+    client.publish(format!("{}/events/rpc", device_topic), QoS::AtLeastOnce, false, payload_on.to_string()).unwrap();
 
     // Wait and verify ON
     let mut found_on = false;
-    let mut last_body = String::new();
-    for i in 0..20 {
+    for _ in 0..20 {
         thread::sleep(Duration::from_millis(500));
-        let body = agent.get(&format!("http://localhost:{}", port)).set("Cookie", &cookie).call().unwrap().into_string().unwrap();
-        last_body = body.clone();
-        if body.contains("ON") { 
-            println!("Success! Found ON in dashboard on attempt {}", i);
-            found_on = true; 
-            break; 
-        }
+        let body_resp = agent.get(&format!("http://localhost:{}/api/devices", port)).set("Cookie", &cookie).call().unwrap();
+        let body: serde_json::Value = body_resp.into_json::<serde_json::Value>().unwrap();
+        if body[0]["current_state"] == "ON" { found_on = true; break; }
     }
-    if !found_on {
-        println!("FAIL: Dashboard body:\n{}", last_body);
-    }
-    assert!(found_on, "Dashboard did not update to 'ON'");
+    assert!(found_on, "API did not update to 'ON'");
 
-    // 4. Mock Shelly sending OFF
+    // 5. Mock Shelly sending OFF
     let payload_off = json!({
         "method": "NotifyStatus",
         "params": {
             "switch:0": { "output": false }
         }
     });
-    println!("Mock Shelly: Publishing OFF to {}", topic);
-    client.publish(topic, QoS::AtLeastOnce, false, payload_off.to_string()).unwrap();
+    client.publish(format!("{}/events/rpc", device_topic), QoS::AtLeastOnce, false, payload_off.to_string()).unwrap();
 
     // Wait and verify OFF
     let mut found_off = false;
     for _ in 0..20 {
         thread::sleep(Duration::from_millis(500));
-        let body = agent.get(&format!("http://localhost:{}", port)).set("Cookie", &cookie).call().unwrap().into_string().unwrap();
-        if body.contains("OFF") { found_off = true; break; }
+        let body_resp = agent.get(&format!("http://localhost:{}/api/devices", port)).set("Cookie", &cookie).call().unwrap();
+        let body: serde_json::Value = body_resp.into_json::<serde_json::Value>().unwrap();
+        if body[0]["current_state"] == "OFF" { found_off = true; break; }
     }
-    assert!(found_off, "Dashboard did not update to 'OFF'");
+    assert!(found_off, "API did not update to 'OFF'");
 }

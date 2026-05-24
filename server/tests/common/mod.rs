@@ -18,9 +18,11 @@ impl TestHarness {
     pub fn new(port: u16, no_scheduler: bool) -> Self {
         let db_name = format!("test_db_{}", Uuid::new_v4().simple());
         
+        // 1. Create temporary DB
         let mut client = Client::connect("host=/var/run/postgresql dbname=postgres user=lukas", NoTls).unwrap();
         client.execute(&format!("CREATE DATABASE {}", db_name), &[]).unwrap();
 
+        // 2. Run migrations
         let migrations = [
             include_str!("../../../migrations/001_initial_schema.sql"),
             include_str!("../../../migrations/002_add_sessions.sql"),
@@ -43,6 +45,7 @@ impl TestHarness {
             ha_token: "test_token".to_string(),
         };
 
+        // 3. Start Server
         let mut cmd = Command::new("/home/lukas/dev/lmha3/target/debug/server");
         cmd.arg("--port").arg(port.to_string());
         if no_scheduler {
@@ -55,10 +58,11 @@ impl TestHarness {
 
         let api_child = cmd.spawn().expect("Failed to start Server");
 
+        // 4. Wait for server to be ready
         let agent = ureq::AgentBuilder::new().build();
         let mut success = false;
         for _ in 0..100 {
-            if let Ok(resp) = agent.get(&format!("http://localhost:{}/login", port)).call() {
+            if let Ok(resp) = agent.get(&format!("http://localhost:{}", port)).call() {
                 if resp.status() == 200 {
                     success = true;
                     break;
@@ -72,6 +76,7 @@ impl TestHarness {
     }
 
     pub fn create_user(&self, username: &str, password: &str) -> Uuid {
+        println!("TestHarness: Creating user {} in DB {}", username, self.db_name);
         let mut client = Client::connect(&self.config.database_url, NoTls).unwrap();
         let hashed = hash_password(password).unwrap();
         let id = Uuid::new_v4();
