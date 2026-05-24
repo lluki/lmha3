@@ -35,43 +35,49 @@ header {
 /* Mobile Table responsiveness */
 @media (max-width: 768px) {
     nav {
-        flex-direction: column;
-        align-items: flex-start !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
         height: auto !important;
+        min-height: min-content;
     }
 
     nav ul {
+        display: flex !important;
+        flex-direction: column !important;
         width: 100%;
-        margin: 0 0 10px 0 !important;
+        margin: 0 !important;
         padding: 0 !important;
         height: auto !important;
-        display: block !important;
     }
 
-    #main-nav {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    #main-nav li {
+    nav ul li {
         width: 100%;
-        padding: 0;
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     #main-nav a {
-        display: block;
-        padding: 12px 0;
+        display: block !important;
+        padding: 20px 10px !important;
+        line-height: 1.5;
+        height: 60px !important; /* Fixed height for links */
         width: 100%;
         border-bottom: 1px solid var(--pico-muted-border-color);
+        box-sizing: border-box;
     }
 
     #user-info {
-        justify-content: flex-start;
-        padding: 10px 0 !important;
+        margin-top: 10px !important;
+        border-top: 2px solid var(--pico-muted-border-color);
+        padding-top: 10px !important;
     }
 
     #user-info li {
-        padding: 0 10px 0 0 !important;
+        display: flex !important;
+        align-items: center;
+        min-height: 50px;
     }
 
     #main-nav a.active {
