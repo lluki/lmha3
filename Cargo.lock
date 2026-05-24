@@ -51,6 +51,7 @@ dependencies = [
  "argon2",
  "chrono",
  "lmha-core",
+ "postgres",
  "rand_core 0.6.4",
  "rouille",
  "serde",

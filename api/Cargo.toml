@@ -16,3 +16,4 @@ rand_core = { version = "0.6", features = ["std"] }
 [dev-dependencies]
 ureq = "2.9"
 uuid = { version = "1.0", features = ["v4"] }
+postgres = "0.19"
