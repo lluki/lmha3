@@ -8,7 +8,74 @@ use std::time::Duration;
 use uuid::Uuid;
 use clap::Parser;
 use rumqttc::{Client, MqttOptions, QoS, Event, Packet};
+use serde::{Serialize};
 use serde_json::json;
+use std::collections::VecDeque;
+use tracing::{info, error};
+use tracing_subscriber::{fmt, prelude::*, Layer};
+
+#[derive(Serialize, Clone, Debug)]
+struct LogEntry {
+    timestamp: chrono::DateTime<chrono::Utc>,
+    level: String,
+    message: String,
+    target: String,
+}
+
+struct LogBuffer {
+    entries: VecDeque<LogEntry>,
+    max_size: usize,
+}
+
+impl LogBuffer {
+    fn new(max_size: usize) -> Self {
+        Self {
+            entries: VecDeque::with_capacity(max_size),
+            max_size,
+        }
+    }
+
+    fn push(&mut self, entry: LogEntry) {
+        if self.entries.len() >= self.max_size {
+            self.entries.pop_front();
+        }
+        self.entries.push_back(entry);
+    }
+}
+
+struct BufferLayer {
+    buffer: Arc<Mutex<LogBuffer>>,
+}
+
+impl<S> Layer<S> for BufferLayer
+where
+    S: tracing::Subscriber,
+{
+    fn on_event(&self, event: &tracing::Event<'_>, _ctx: tracing_subscriber::layer::Context<'_, S>) {
+        let mut fields = std::collections::HashMap::new();
+        let mut visitor = FieldVisitor(&mut fields);
+        event.record(&mut visitor);
+
+        let entry = LogEntry {
+            timestamp: chrono::Utc::now(),
+            level: event.metadata().level().to_string(),
+            message: fields.get("message").cloned().unwrap_or_else(|| "No message".to_string()),
+            target: event.metadata().target().to_string(),
+        };
+
+        if let Ok(mut buffer) = self.buffer.lock() {
+            buffer.push(entry);
+        }
+    }
+}
+
+struct FieldVisitor<'a>(&'a mut std::collections::HashMap<String, String>);
+
+impl<'a> tracing::field::Visit for FieldVisitor<'a> {
+    fn record_debug(&mut self, field: &tracing::field::Field, value: &dyn std::fmt::Debug) {
+        self.0.insert(field.name().to_string(), format!("{:?}", value));
+    }
+}
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -27,9 +94,20 @@ struct AppState {
     no_home_assistant: bool,
     no_scheduler: bool,
     mqtt_client: Mutex<Client>,
+    log_buffer: Arc<Mutex<LogBuffer>>,
 }
 
 fn main() {
+    let log_buffer = Arc::new(Mutex::new(LogBuffer::new(1000)));
+
+    let filter = tracing_subscriber::EnvFilter::from_default_env()
+        .add_directive(tracing::Level::INFO.into());
+
+    tracing_subscriber::registry()
+        .with(fmt::layer().with_filter(filter.clone()))
+        .with(BufferLayer { buffer: log_buffer.clone() }.with_filter(filter))
+        .init();
+
     let args = Args::parse();
     if std::env::var("HA_TOKEN").is_err() {
         if let Ok(token) = std::fs::read_to_string("secrets/ha-token.md") {
@@ -45,6 +123,7 @@ fn main() {
         no_home_assistant: args.no_home_assistant,
         no_scheduler: args.no_scheduler,
         mqtt_client: Mutex::new(dummy_client()),
+        log_buffer,
     });
 
     let loop_state = state.clone();
@@ -52,7 +131,7 @@ fn main() {
         run_main_loop(loop_state);
     });
 
-    println!("LMHA3 Server Starting on 0.0.0.0:{}...", args.port);
+    info!("LMHA3 Server Starting on 0.0.0.0:{}...", args.port);
     
     rouille::start_server(format!("0.0.0.0:{}", args.port), move |request| {
         let state = state.clone();
@@ -90,9 +169,18 @@ fn main() {
                 Response::json(&json!({ "version": env!("CARGO_PKG_VERSION") }))
             },
 
+            (GET) (/api/logs) => {
+                if let Some(_) = get_session(request, &state) {
+                    let buffer = state.log_buffer.lock().unwrap();
+                    Response::json(&buffer.entries)
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
             (GET) (/api/tenants) => {
                 if let Some(s) = get_session(request, &state) {
-                    println!("API: Fetching tenants for {}", s.tenant_id);
+                    info!("API: Fetching tenants for {}", s.tenant_id);
                     let mut db = state.db.lock().unwrap();
                     match db.list_tenants() {
                         Ok(tenants) => {
@@ -104,7 +192,7 @@ fn main() {
                             Response::json(&public_tenants)
                         },
                         Err(e) => {
-                            eprintln!("DB Error listing tenants: {}", e);
+                            error!("DB Error listing tenants: {}", e);
                             Response::text("DB Error").with_status_code(500)
                         }
                     }
@@ -120,7 +208,7 @@ fn main() {
                     match db.list_devices() {
                         Ok(devices) => Response::json(&devices),
                         Err(e) => {
-                            eprintln!("DB Error listing devices: {}", e);
+                            error!("DB Error listing devices: {}", e);
                             Response::text("DB Error").with_status_code(500)
                         }
                     }
@@ -149,7 +237,7 @@ fn main() {
                     match db.create_device(tenant_id, &data.mqtt_topic, &data.name) {
                         Ok(id) => Response::json(&json!({"status": "ok", "id": id})),
                         Err(e) => {
-                            eprintln!("DB Error creating device: {}", e);
+                            error!("DB Error creating device: {}", e);
                             Response::text("DB Error").with_status_code(500)
                         }
                     }
@@ -165,7 +253,7 @@ fn main() {
                     match db.list_telemetry(None, 100) {
                         Ok(t) => Response::json(&t),
                         Err(e) => {
-                            eprintln!("DB Error listing telemetry: {}", e);
+                            error!("DB Error listing telemetry: {}", e);
                             Response::text("DB Error").with_status_code(500)
                         }
                     }
@@ -205,7 +293,7 @@ fn main() {
                         });
                         let topic = format!("{}/rpc", device.mqtt_topic);
                         let payload_str = payload.to_string();
-                        println!("API: Publishing toggle to topic '{}' | Payload: {}", topic, payload_str);
+                        info!("API: Publishing toggle to topic '{}' | Payload: {}", topic, payload_str);
                         let client = state.mqtt_client.lock().unwrap();
                         let _ = client.publish(topic, QoS::AtLeastOnce, false, payload_str);
                         Response::json(&json!({"status": "ok"}))
@@ -270,7 +358,7 @@ fn run_main_loop(state: Arc<AppState>) {
 
         let subs = ["+/online", "+/status/#", "+/events/rpc", "shellies/#"];
         for sub in subs {
-            println!("MQTT: Subscribing to {}", sub);
+            info!("MQTT: Subscribing to {}", sub);
             let _ = client.subscribe(sub, QoS::AtMostOnce);
         }
 
@@ -285,12 +373,12 @@ fn run_main_loop(state: Arc<AppState>) {
                                 Ok(val) => {
                                     let mut db = sch_state.db.lock().unwrap();
                                     if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::PvProduction, None, val, None) {
-                                        eprintln!("DB Error saving PV telemetry: {}", e);
+                                        error!("DB Error saving PV telemetry: {}", e);
                                     } else {
-                                        println!("HA: PV Production polled: {}", val);
+                                        info!("HA: PV Production polled: {}", val);
                                     }
                                 }
-                                Err(e) => eprintln!("HA Error polling PV ({}): {}", pv_id, e),
+                                Err(e) => error!("HA Error polling PV ({}): {}", pv_id, e),
                             }
                         }
                         if let Some(cons_id) = &config.ha_consumption_entity_id {
@@ -298,12 +386,12 @@ fn run_main_loop(state: Arc<AppState>) {
                                 Ok(val) => {
                                     let mut db = sch_state.db.lock().unwrap();
                                     if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::HouseConsumption, None, val, None) {
-                                        eprintln!("DB Error saving consumption telemetry: {}", e);
+                                        error!("DB Error saving consumption telemetry: {}", e);
                                     } else {
-                                        println!("HA: House Consumption polled: {}", val);
+                                        info!("HA: House Consumption polled: {}", val);
                                     }
                                 }
-                                Err(e) => eprintln!("HA Error polling Consumption ({}): {}", cons_id, e),
+                                Err(e) => error!("HA Error polling Consumption ({}): {}", cons_id, e),
                             }
                         }
                     }
@@ -317,7 +405,7 @@ fn run_main_loop(state: Arc<AppState>) {
                 Ok(Event::Incoming(Packet::Publish(publish))) => {
                     let topic = publish.topic;
                     let payload_str = String::from_utf8_lossy(&publish.payload);
-                    println!("MQTT Incoming: {} | Payload: {}", topic, payload_str);
+                    info!("MQTT Incoming: {} | Payload: {}", topic, payload_str);
 
                     let parts: Vec<&str> = topic.split('/').collect();
                     let (base_topic, is_gen1) = if parts.len() > 1 && parts[0] == "shellies" {
@@ -369,9 +457,9 @@ fn run_main_loop(state: Arc<AppState>) {
                         if let Some(d) = devices.iter().find(|d| d.mqtt_topic == base_topic) {
                             if let Some(s) = new_state {
                                 if s != d.current_state {
-                                    println!("MQTT State Update for {}: {:?} -> {:?}", d.name, d.current_state, s);
+                                    info!("MQTT State Update for {}: {:?} -> {:?}", d.name, d.current_state, s);
                                     if let Err(e) = db.update_device_state(base_topic, s) {
-                                        eprintln!("DB Error updating {}: {}", base_topic, e);
+                                        error!("DB Error updating {}: {}", base_topic, e);
                                     }
                                     let val = if s == DeviceState::On { 1.0 } else { 0.0 };
                                     let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceState, Some(d.id), val, None);
@@ -381,13 +469,13 @@ fn run_main_loop(state: Arc<AppState>) {
                                 let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceConsumption, Some(d.id), p, None);
                             }
                         } else {
-                            println!("MQTT: Received state/power for unknown device topic: {}", base_topic);
+                            info!("MQTT: Received state/power for unknown device topic: {}", base_topic);
                         }
                     }
                 }
                 Ok(_) => {},
                 Err(e) => {
-                    eprintln!("MQTT Loop Error: {:?}. Reconnecting...", e);
+                    error!("MQTT Loop Error: {:?}. Reconnecting...", e);
                     break;
                 }
             }

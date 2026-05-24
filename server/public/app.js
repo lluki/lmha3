@@ -120,6 +120,9 @@ function renderActiveTab() {
         case 'history':
             renderHistory();
             break;
+        case 'logs':
+            renderLogs();
+            break;
         case 'admin':
             renderAdmin();
             break;
@@ -365,6 +368,73 @@ async function fetchAndRenderHistory(includeAll) {
     }
 }
 
+async function renderLogs() {
+    app.innerHTML = `
+        <article>
+            <header style="display: flex; justify-content: space-between; align-items: center;">
+                <strong>System Logs</strong>
+                <select id="log-level-filter" style="width: auto; margin: 0;">
+                    <option value="ALL">All Levels</option>
+                    <option value="INFO">Info+</option>
+                    <option value="WARN">Warn+</option>
+                    <option value="ERROR">Error</option>
+                </select>
+            </header>
+            <div id="logs-content" aria-busy="true">Loading...</div>
+        </article>
+    `;
+    
+    document.getElementById('log-level-filter').addEventListener('change', (e) => {
+        fetchAndRenderLogs('logs-content', e.target.value);
+    });
+    
+    fetchAndRenderLogs('logs-content', 'ALL');
+}
+
+async function fetchAndRenderLogs(elementId, levelFilter = 'ALL') {
+    const content = document.getElementById(elementId);
+    content.setAttribute('aria-busy', 'true');
+    try {
+        const resp = await fetch('/api/logs');
+        if (!resp.ok) throw new Error('Failed to fetch logs');
+        let logs = await resp.json();
+        
+        // Filter logic
+        if (levelFilter !== 'ALL') {
+            logs = logs.filter(l => {
+                if (levelFilter === 'ERROR') return l.level === 'ERROR';
+                if (levelFilter === 'WARN') return l.level === 'WARN' || l.level === 'ERROR';
+                if (levelFilter === 'INFO') return l.level === 'INFO' || l.level === 'WARN' || l.level === 'ERROR';
+                return true;
+            });
+        }
+        
+        content.removeAttribute('aria-busy');
+        if (logs.length === 0) {
+            content.innerHTML = '<p>No logs available.</p>';
+            return;
+        }
+
+        let html = '<div style="max-height: 500px; overflow-y: auto; font-family: monospace; font-size: 0.85rem; padding: 1rem; background: var(--pico-card-background-color); border-radius: var(--pico-border-radius);">';
+        logs.reverse().forEach(log => {
+            let color = 'var(--pico-color)';
+            if (log.level === 'ERROR') color = 'var(--pico-del-color)';
+            else if (log.level === 'WARN') color = 'var(--pico-ins-color)';
+            
+            html += `
+                <div style="margin-bottom: 4px; color: ${color};">
+                    [${new Date(log.timestamp).toLocaleTimeString()}] <strong>${log.level}</strong> [${log.target}] ${log.message}
+                </div>
+            `;
+        });
+        html += '</div>';
+        content.innerHTML = html;
+    } catch (e) {
+        content.removeAttribute('aria-busy');
+        content.innerHTML = `<p style="color: red;">${e.message}</p>`;
+    }
+}
+
 async function renderAdmin() {
     app.innerHTML = `
         <article>
@@ -399,7 +469,14 @@ async function renderAdmin() {
             <header><strong>Admin: All Devices</strong></header>
             <div id="admin-devices" aria-busy="true">Loading...</div>
         </article>
+
+        <article>
+            <header><strong>System Logs</strong></header>
+            <div id="admin-logs-content" aria-busy="true">Loading...</div>
+        </article>
     `;
+
+    fetchAndRenderLogs('admin-logs-content');
 
     try {
         const [tenantsResp, devicesResp] = await Promise.all([
@@ -495,4 +572,3 @@ window.toggleDevice = async (id, context = 'overview') => {
 };
 
 checkAuth();
-Auth();
