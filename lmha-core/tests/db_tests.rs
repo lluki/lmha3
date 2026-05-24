@@ -1,0 +1,55 @@
+#[cfg(test)]
+mod db_tests {
+    use lmha_core::db::Db;
+    use lmha_core::config::Config;
+    use lmha_core::TelemetrySource;
+    use postgres::{Client, NoTls};
+    use uuid::Uuid;
+
+    #[test]
+    fn test_get_latest_metrics() {
+        let db_name = format!("test_db_{}", Uuid::new_v4().simple());
+        let mut client = Client::connect("host=/var/run/postgresql dbname=postgres user=lukas", NoTls).unwrap();
+        client.execute(&format!("CREATE DATABASE {}", db_name), &[]).unwrap();
+
+        let db_url = format!("host=/var/run/postgresql dbname={} user=lukas", db_name);
+        let mut db_client = Client::connect(&db_url, NoTls).unwrap();
+        
+        // Setup schema
+        let migrations = [
+            include_str!("../../migrations/001_initial_schema.sql"),
+            include_str!("../../migrations/004_add_device_consumption.sql"),
+            include_str!("../../migrations/005_add_expected_load.sql"),
+        ];
+        for m in migrations { db_client.batch_execute(m).unwrap(); }
+
+        let mut db = Db::connect(&Config {
+            database_url: db_url.clone(),
+            mqtt_host: "localhost".to_string(),
+            mqtt_port: 1883,
+            mqtt_user: None,
+            mqtt_password: None,
+            ha_url: "".to_string(),
+            ha_token: "".to_string(),
+            ha_pv_entity_id: None,
+            ha_consumption_entity_id: None,
+        }).unwrap();
+
+        // Insert some data
+        db.insert_telemetry(TelemetrySource::PvProduction, None, 100.0, None).unwrap();
+        db.insert_telemetry(TelemetrySource::PvProduction, None, 500.0, None).unwrap(); // Latest PV
+        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 200.0, None).unwrap();
+        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 300.0, None).unwrap(); // Latest Cons
+
+        let (pv, cons) = db.get_latest_metrics().unwrap();
+        
+        assert_eq!(pv, 500.0);
+        assert_eq!(cons, 300.0);
+
+        // Cleanup
+        drop(db);
+        db_client.close().unwrap();
+        let mut client = Client::connect("host=/var/run/postgresql dbname=postgres user=lukas", NoTls).unwrap();
+        client.execute(&format!("DROP DATABASE {}", db_name), &[]).unwrap();
+    }
+}

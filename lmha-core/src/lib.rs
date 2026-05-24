@@ -1,6 +1,7 @@
 pub mod config;
 pub mod db;
 pub mod ha;
+pub mod scheduler;
 
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
@@ -62,6 +63,7 @@ pub struct Device {
     pub mqtt_topic: String,
     pub name: String,
     pub is_enabled: bool,
+    pub expected_load: f64,
     pub current_state: DeviceState,
     pub last_heartbeat: Option<DateTime<Utc>>,
 }

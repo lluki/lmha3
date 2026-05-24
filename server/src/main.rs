@@ -116,6 +116,20 @@ fn main() {
     }
     let config = Config::from_env();
     let db = Db::connect(&config).expect("Failed to connect to database");
+    
+    // Auto-run migrations
+    info!("Running database migrations...");
+    let mut client = postgres::Client::connect(&config.database_url, postgres::NoTls).expect("Failed to connect for migrations");
+    let migrations = [
+        include_str!("../../migrations/001_initial_schema.sql"),
+        include_str!("../../migrations/002_add_sessions.sql"),
+        include_str!("../../migrations/003_add_device_heartbeat.sql"),
+        include_str!("../../migrations/004_add_device_consumption.sql"),
+        include_str!("../../migrations/005_add_expected_load.sql"),
+    ];
+    for migration in migrations {
+        client.batch_execute(migration).ok(); // Batch execute will ignore errors if columns already exist
+    }
 
     let state = Arc::new(AppState {
         db: Mutex::new(db),
@@ -180,7 +194,6 @@ fn main() {
 
             (GET) (/api/tenants) => {
                 if let Some(s) = get_session(request, &state) {
-                    info!("API: Fetching tenants for {}", s.tenant_id);
                     let mut db = state.db.lock().unwrap();
                     match db.list_tenants() {
                         Ok(tenants) => {
@@ -193,6 +206,21 @@ fn main() {
                         },
                         Err(e) => {
                             error!("DB Error listing tenants: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (GET) (/api/metrics) => {
+                if let Some(_) = get_session(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    match db.get_latest_metrics() {
+                        Ok((pv, cons)) => Response::json(&json!({ "pv": pv, "consumption": cons })),
+                        Err(e) => {
+                            error!("DB Error fetching metrics: {}", e);
                             Response::text("DB Error").with_status_code(500)
                         }
                     }
@@ -375,7 +403,7 @@ fn run_main_loop(state: Arc<AppState>) {
                                     if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::PvProduction, None, val, None) {
                                         error!("DB Error saving PV telemetry: {}", e);
                                     } else {
-                                        info!("HA: PV Production polled: {}", val);
+                                        tracing::debug!("Saved PV telemetry: {}", val);
                                     }
                                 }
                                 Err(e) => error!("HA Error polling PV ({}): {}", pv_id, e),
@@ -388,7 +416,7 @@ fn run_main_loop(state: Arc<AppState>) {
                                     if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::HouseConsumption, None, val, None) {
                                         error!("DB Error saving consumption telemetry: {}", e);
                                     } else {
-                                        info!("HA: House Consumption polled: {}", val);
+                                        tracing::debug!("Saved Consumption telemetry: {}", val);
                                     }
                                 }
                                 Err(e) => error!("HA Error polling Consumption ({}): {}", cons_id, e),
@@ -396,6 +424,48 @@ fn run_main_loop(state: Arc<AppState>) {
                         }
                     }
                     thread::sleep(Duration::from_secs(10));
+                    
+                    // Run Scheduler Logic
+                    let mut db = sch_state.db.lock().unwrap();
+                    let devices = db.list_devices().unwrap_or_default();
+                    let (pv_production, house_consumption) = db.get_latest_metrics().unwrap_or((0.0, 0.0));
+
+                    let input = lmha_core::scheduler::SchedulerInput {
+                        pv_production,
+                        house_consumption,
+                        devices: devices.iter().map(|d| lmha_core::scheduler::DeviceContext {
+                            id: d.id,
+                            current_state: d.current_state,
+                            last_state_change: d.last_heartbeat,
+                            is_enabled: d.is_enabled,
+                            expected_load: d.expected_load,
+                        }).collect(),
+                        now: chrono::Utc::now(),
+                        debounce_duration_secs: 300,
+                        rng: rand::thread_rng(),
+                    };
+
+                    info!("Scheduler invoked: PV={:.1}kW, Cons={:.1}kW, Devices={}", pv_production, house_consumption, input.devices.len());
+                    tracing::debug!("Scheduler input: {:?}", input);
+
+                    let action = lmha_core::scheduler::decide_action(input);
+                    info!("Scheduler action: {:?}", action);
+
+                    match action {
+                        lmha_core::scheduler::SchedulerAction::SwitchOn(id) => {
+                            if let Some(device) = devices.iter().find(|d| d.id == id) {
+                                let mqtt_client = sch_state.mqtt_client.lock().unwrap();
+                                let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, "on");
+                            }
+                        }
+                        lmha_core::scheduler::SchedulerAction::SwitchOff(id) => {
+                            if let Some(device) = devices.iter().find(|d| d.id == id) {
+                                let mqtt_client = sch_state.mqtt_client.lock().unwrap();
+                                let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, "off");
+                            }
+                        }
+                        lmha_core::scheduler::SchedulerAction::Nothing => {}
+                    }
                 }
             });
         }

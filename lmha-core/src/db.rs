@@ -96,19 +96,20 @@ impl Db {
     }
 
     pub fn list_devices(&mut self) -> Result<Vec<Device>, postgres::Error> {
-        let rows = self.client.query("SELECT id, tenant_id, mqtt_topic, name, is_enabled, current_state::TEXT, last_heartbeat FROM devices", &[])?;
+        let rows = self.client.query("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, last_heartbeat FROM devices", &[])?;
         Ok(rows.into_iter().map(|row| Device {
             id: row.get(0),
             tenant_id: row.get(1),
             mqtt_topic: row.get(2),
             name: row.get(3),
             is_enabled: row.get(4),
-            current_state: match row.get::<_, &str>(5) {
+            expected_load: row.get(5),
+            current_state: match row.get::<_, &str>(6) {
                 "ON" => crate::DeviceState::On,
                 "OFF" => crate::DeviceState::Off,
                 _ => crate::DeviceState::Unknown,
             },
-            last_heartbeat: row.get(6),
+            last_heartbeat: row.get(7),
         }).collect())
     }
 
@@ -146,6 +147,17 @@ impl Db {
             &[&source_str, &device_id, &value, &metadata],
         )?;
         Ok(())
+    }
+
+    pub fn get_latest_metrics(&mut self) -> Result<(f64, f64), postgres::Error> {
+        let rows = self.client.query(
+            "SELECT 
+                (SELECT value FROM telemetry WHERE source = 'PV_PRODUCTION'::telemetry_source ORDER BY timestamp DESC LIMIT 1) as pv,
+                (SELECT value FROM telemetry WHERE source = 'HOUSE_CONSUMPTION'::telemetry_source ORDER BY timestamp DESC LIMIT 1) as cons",
+            &[],
+        )?;
+        let row = &rows[0];
+        Ok((row.get::<_, Option<f64>>(0).unwrap_or(0.0), row.get::<_, Option<f64>>(1).unwrap_or(0.0)))
     }
 
     pub fn list_telemetry(&mut self, tenant_id: Option<Uuid>, limit: i64) -> Result<Vec<crate::Telemetry>, postgres::Error> {

@@ -168,6 +168,7 @@ async function renderOverview() {
     try {
         const fetchTasks = [
             fetch('/api/devices'),
+            fetch('/api/metrics'),
             fetch('/api/history')
         ];
         if (currentUser.is_admin) {
@@ -176,20 +177,14 @@ async function renderOverview() {
 
         const responses = await Promise.all(fetchTasks);
         const devices = await responses[0].json();
-        const history = await responses[1].json();
-        const tenants = currentUser.is_admin ? await responses[2].json() : [];
+        const metrics = await responses[1].json();
+        const history = await responses[2].json();
+        const tenants = currentUser.is_admin ? await responses[3].json() : [];
 
         // Update Stats
-        const latestPv = history.find(t => t.source === 'PV_PRODUCTION');
-        const latestCons = history.find(t => t.source === 'HOUSE_CONSUMPTION');
-        
-        if (latestPv) {
-            document.getElementById('pv-value').textContent = `${latestPv.value.toFixed(2)} kW`;
-            document.getElementById('pv-time').textContent = new Date(latestPv.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        }
-        if (latestCons) {
-            document.getElementById('consumption-value').textContent = `${latestCons.value.toFixed(2)} kW`;
-            document.getElementById('cons-time').textContent = new Date(latestCons.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        if (metrics) {
+            document.getElementById('pv-value').textContent = `${(metrics.pv).toFixed(2)} kW`;
+            document.getElementById('consumption-value').textContent = `${(metrics.consumption).toFixed(2)} kW`;
         }
 
         const tenantMap = {};
