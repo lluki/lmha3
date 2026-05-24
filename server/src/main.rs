@@ -25,7 +25,8 @@ struct AppState {
     db: Mutex<Db>,
     config: Config,
     no_home_assistant: bool,
-    mqtt_client: Client,
+    no_scheduler: bool,
+    mqtt_client: Mutex<Client>,
 }
 
 fn main() {
@@ -33,28 +34,18 @@ fn main() {
     let config = Config::from_env();
     let db = Db::connect(&config).expect("Failed to connect to database");
 
-    // Initialize MQTT
-    let mut mqtt_options = MqttOptions::new("lmha3-server", &config.mqtt_host, config.mqtt_port);
-    mqtt_options.set_keep_alive(Duration::from_secs(5));
-    if let (Some(u), Some(p)) = (&config.mqtt_user, &config.mqtt_password) {
-        mqtt_options.set_credentials(u, p);
-    }
-    let (mqtt_client, connection) = Client::new(mqtt_options, 10);
-    
     let state = Arc::new(AppState {
         db: Mutex::new(db),
         config: config.clone(),
         no_home_assistant: args.no_home_assistant,
-        mqtt_client,
+        no_scheduler: args.no_scheduler,
+        mqtt_client: Mutex::new(dummy_client()),
     });
 
-    // Spawn MQTT listener / Scheduler
-    if !args.no_scheduler {
-        let scheduler_state = state.clone();
-        thread::spawn(move || {
-            run_scheduler_loop(scheduler_state, connection);
-        });
-    }
+    let loop_state = state.clone();
+    thread::spawn(move || {
+        run_main_loop(loop_state);
+    });
 
     println!("LMHA3 Server Starting on 0.0.0.0:{}...", args.port);
     
@@ -77,7 +68,12 @@ fn main() {
                     html.push_str("</ul><h2>Devices</h2><table border='1'><tr><th>Name</th><th>Owner</th><th>Topic</th><th>Status</th><th>Last Seen</th><th>Action</th></tr>");
                     for d in devices {
                         let last_seen = d.last_heartbeat.map(|h| h.format("%Y-%m-%d %H:%M:%S").to_string()).unwrap_or_else(|| "Never".to_string());
-                        html.push_str(&format!("<tr><td>{}</td><td>{}</td><td>{}</td><td>{:?}</td><td>{}</td>", d.name, d.tenant_id, d.mqtt_topic, d.current_state, last_seen));
+                        let state_str = match d.current_state {
+                            DeviceState::On => "ON",
+                            DeviceState::Off => "OFF",
+                            DeviceState::Unknown => "Unknown",
+                        };
+                        html.push_str(&format!("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td>", d.name, d.tenant_id, d.mqtt_topic, state_str, last_seen));
                         
                         if d.tenant_id == s.tenant_id {
                             html.push_str(&format!("<td><form method='POST' action='/devices/{}/toggle'><button type='submit'>Toggle</button></form></td>", d.id));
@@ -128,7 +124,9 @@ fn main() {
                             "params": {"id": 0, "on": new_on}
                         });
                         let topic = format!("{}/rpc", device.mqtt_topic);
-                        state.mqtt_client.publish(topic, QoS::AtLeastOnce, false, payload.to_string()).unwrap();
+                        println!("API: Publishing toggle to {} | ON: {}", topic, new_on);
+                        let client = state.mqtt_client.lock().unwrap();
+                        let _ = client.publish(topic, QoS::AtLeastOnce, false, payload.to_string());
                         Response::redirect_303("/")
                     } else {
                         Response::text("Forbidden or Not Found").with_status_code(403)
@@ -151,6 +149,11 @@ fn main() {
     });
 }
 
+fn dummy_client() -> Client {
+    let (c, _) = Client::new(MqttOptions::new("dummy", "localhost", 1883), 1);
+    c
+}
+
 fn get_session_id(request: &Request) -> Option<Uuid> {
     rouille::input::cookies(request)
         .find(|&(ref k, _)| *k == "session_id")
@@ -163,52 +166,106 @@ fn get_session(request: &Request, state: &AppState) -> Option<Session> {
     db.get_session(session_id)
 }
 
-fn run_scheduler_loop(state: Arc<AppState>, mut connection: rumqttc::Connection) {
-    println!("Scheduler background thread started.");
-    
-    // Subscribe
-    state.mqtt_client.subscribe("+/online", QoS::AtMostOnce).unwrap();
-    state.mqtt_client.subscribe("+/status/sys", QoS::AtMostOnce).unwrap();
-    state.mqtt_client.subscribe("+/status/switch:0", QoS::AtMostOnce).unwrap();
-
-    let ha_state = state.clone();
-    thread::spawn(move || {
-        loop {
-            if !ha_state.no_home_assistant {
-                // TODO: HA polling
-            }
-            thread::sleep(Duration::from_secs(300));
+fn run_main_loop(state: Arc<AppState>) {
+    loop {
+        println!("MQTT Loop starting/reconnecting...");
+        let mut mqtt_options = MqttOptions::new("lmha3-server", &state.config.mqtt_host, state.config.mqtt_port);
+        mqtt_options.set_keep_alive(Duration::from_secs(5));
+        if let (Some(u), Some(p)) = (&state.config.mqtt_user, &state.config.mqtt_password) {
+            mqtt_options.set_credentials(u, p);
         }
-    });
+        
+        let (client, mut connection) = Client::new(mqtt_options, 50);
+        {
+            let mut shared_client = state.mqtt_client.lock().unwrap();
+            *shared_client = client.clone();
+        }
 
-    for notification in connection.iter() {
-        match notification {
-            Ok(Event::Incoming(Packet::Publish(publish))) => {
-                let topic = publish.topic;
-                let parts: Vec<&str> = topic.split('/').collect();
-                let base_topic = parts[0];
+        let subs = ["+/online", "+/status/sys", "+/status/switch:0", "+/events/rpc", "shellies/+/status/switch:0"];
+        for sub in subs {
+            let _ = client.subscribe(sub, QoS::AtMostOnce);
+        }
 
-                if parts.len() > 1 {
+        if !state.no_scheduler {
+            let sch_state = state.clone();
+            thread::spawn(move || {
+                loop {
+                    if !sch_state.no_home_assistant {
+                        // TODO: HA
+                    }
+                    thread::sleep(Duration::from_secs(300));
+                }
+            });
+        }
+
+        for notification in connection.iter() {
+            match notification {
+                Ok(Event::Incoming(Packet::Publish(publish))) => {
+                    let topic = publish.topic;
+                    let payload_str = String::from_utf8_lossy(&publish.payload);
+                    
+                    let parts: Vec<&str> = topic.split('/').collect();
+                    let (base_topic, is_gen1) = if parts.len() > 1 && parts[0] == "shellies" {
+                        (parts[1], true)
+                    } else {
+                        (parts[0], false)
+                    };
+
                     let mut db = state.db.lock().unwrap();
-                    if parts[1] == "online" || parts[1] == "status" {
+                    
+                    if topic.ends_with("/online") || topic.contains("/status/") {
                         let _ = db.update_device_heartbeat(base_topic);
                     }
                     
-                    if parts.len() > 2 && parts[1] == "status" && parts[2] == "switch:0" {
+                    let mut new_state = None;
+
+                    // 1. Check direct status topics
+                    if topic.ends_with("/status/switch:0") {
                         if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
-                            if let Some(output) = val.get("output").and_then(|v| v.as_bool()) {
-                                let state_enum = if output { DeviceState::On } else { DeviceState::Off };
-                                let _ = db.update_device_state(base_topic, state_enum);
+                            // Gen 2
+                            if let Some(on) = val.get("output").and_then(|v| v.as_bool()) {
+                                new_state = Some(if on { DeviceState::On } else { DeviceState::Off });
+                            }
+                            // Gen 1
+                            else if let Some(on) = val.get("ison").and_then(|v| v.as_bool()) {
+                                new_state = Some(if on { DeviceState::On } else { DeviceState::Off });
+                            }
+                        } else {
+                            // Non-JSON status (like Gen 1 "on"/"off")
+                            if payload_str == "on" { new_state = Some(DeviceState::On); }
+                            else if payload_str == "off" { new_state = Some(DeviceState::Off); }
+                        }
+                    } 
+                    // 2. Check Event RPC topics (Gen 2)
+                    else if !is_gen1 && topic.ends_with("/events/rpc") {
+                        if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
+                            let method = val.get("method").and_then(|v| v.as_str());
+                            if method == Some("NotifyStatus") || method == Some("NotifyFullStatus") {
+                                if let Some(params) = val.get("params") {
+                                    if let Some(sw) = params.get("switch:0") {
+                                        if let Some(on) = sw.get("output").and_then(|v| v.as_bool()) {
+                                            new_state = Some(if on { DeviceState::On } else { DeviceState::Off });
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
+
+                    if let Some(s) = new_state {
+                        println!("MQTT State Update: {} -> {:?}", base_topic, s);
+                        if let Err(e) = db.update_device_state(base_topic, s) {
+                            eprintln!("DB Error updating {}: {}", base_topic, e);
+                        }
+                    }
+                }
+                Ok(_) => {},
+                Err(e) => {
+                    eprintln!("MQTT Loop Error: {:?}. Reconnecting...", e);
+                    break;
                 }
             }
-            Ok(_) => {},
-            Err(e) => {
-                eprintln!("MQTT Connection error: {:?}", e);
-                thread::sleep(Duration::from_secs(5));
-            }
         }
+        thread::sleep(Duration::from_secs(5));
     }
 }

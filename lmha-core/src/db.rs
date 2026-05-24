@@ -104,7 +104,7 @@ impl Db {
             crate::DeviceState::Unknown => "UNKNOWN",
         };
         self.client.execute(
-            "UPDATE devices SET current_state = $1::device_state WHERE mqtt_topic = $2",
+            "UPDATE devices SET current_state = $1::text::device_state WHERE mqtt_topic = $2",
             &[&state_str, &mqtt_topic],
         )?;
         Ok(())
