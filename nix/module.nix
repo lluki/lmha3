@@ -85,7 +85,6 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/server --port ${toString cfg.port}";
         Restart = "always";
         User = "lmha3";
         Group = "lmha3";
