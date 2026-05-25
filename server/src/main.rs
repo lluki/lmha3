@@ -140,6 +140,13 @@ fn main() {
         log_buffer,
     });
 
+    if !state.no_scheduler {
+        let sch_state = state.clone();
+        thread::spawn(move || {
+            run_scheduler_loop(sch_state);
+        });
+    }
+
     let loop_state = state.clone();
     thread::spawn(move || {
         run_main_loop(loop_state);
@@ -370,6 +377,85 @@ fn get_user(request: &Request, state: &AppState) -> Option<lmha_core::UserInfo> 
     db.get_user_info(session_id)
 }
 
+fn run_scheduler_loop(state: Arc<AppState>) {
+    loop {
+        if !state.no_home_assistant {
+            let config = &state.config;
+            if let Some(pv_id) = &config.ha_pv_entity_id {
+                match lmha_core::ha::fetch_ha_state(config, pv_id) {
+                    Ok(val) => {
+                        let mut db = state.db.lock().unwrap();
+                        if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::PvProduction, None, val, None) {
+                            error!("DB Error saving PV telemetry: {}", e);
+                        } else {
+                            tracing::debug!("Saved PV telemetry: {}", val);
+                        }
+                    }
+                    Err(e) => error!("HA Error polling PV ({}): {}", pv_id, e),
+                }
+            }
+            if let Some(cons_id) = &config.ha_consumption_entity_id {
+                match lmha_core::ha::fetch_ha_state(config, cons_id) {
+                    Ok(val) => {
+                        let mut db = state.db.lock().unwrap();
+                        if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::HouseConsumption, None, val, None) {
+                            error!("DB Error saving consumption telemetry: {}", e);
+                        } else {
+                            tracing::debug!("Saved Consumption telemetry: {}", val);
+                        }
+                    }
+                    Err(e) => error!("HA Error polling Consumption ({}): {}", cons_id, e),
+                }
+            }
+        }
+        
+        // Run Scheduler Logic
+        {
+            let mut db = state.db.lock().unwrap();
+            let devices = db.list_devices().unwrap_or_default();
+            let (pv_production, house_consumption) = db.get_latest_metrics().unwrap_or((0.0, 0.0));
+
+            let input = lmha_core::scheduler::SchedulerInput {
+                pv_production,
+                house_consumption,
+                devices: devices.iter().map(|d| lmha_core::scheduler::DeviceContext {
+                    id: d.id,
+                    current_state: d.current_state,
+                    last_state_change: d.last_heartbeat,
+                    is_enabled: d.is_enabled,
+                    expected_load: d.expected_load,
+                }).collect(),
+                now: chrono::Utc::now(),
+                debounce_duration_secs: 300,
+                rng: rand::thread_rng(),
+            };
+
+            info!("Scheduler invoked: PV={:.1}kW, Cons={:.1}kW, Devices={}", pv_production, house_consumption, input.devices.len());
+            tracing::debug!("Scheduler input: {:?}", input);
+
+            let action = lmha_core::scheduler::decide_action(input);
+            info!("Scheduler action: {:?}", action);
+
+            match action {
+                lmha_core::scheduler::SchedulerAction::SwitchOn(id) => {
+                    if let Some(device) = devices.iter().find(|d| d.id == id) {
+                        let mqtt_client = state.mqtt_client.lock().unwrap();
+                        let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, "on");
+                    }
+                }
+                lmha_core::scheduler::SchedulerAction::SwitchOff(id) => {
+                    if let Some(device) = devices.iter().find(|d| d.id == id) {
+                        let mqtt_client = state.mqtt_client.lock().unwrap();
+                        let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, "off");
+                    }
+                }
+                lmha_core::scheduler::SchedulerAction::Nothing => {}
+            }
+        }
+        thread::sleep(Duration::from_secs(300));
+    }
+}
+
 fn run_main_loop(state: Arc<AppState>) {
     loop {
         let mut mqtt_options = MqttOptions::new("lmha3-server", &state.config.mqtt_host, state.config.mqtt_port);
@@ -388,86 +474,6 @@ fn run_main_loop(state: Arc<AppState>) {
         for sub in subs {
             info!("MQTT: Subscribing to {}", sub);
             let _ = client.subscribe(sub, QoS::AtMostOnce);
-        }
-
-        if !state.no_scheduler {
-            let sch_state = state.clone();
-            thread::spawn(move || {
-                loop {
-                    if !sch_state.no_home_assistant {
-                        let config = &sch_state.config;
-                        if let Some(pv_id) = &config.ha_pv_entity_id {
-                            match lmha_core::ha::fetch_ha_state(config, pv_id) {
-                                Ok(val) => {
-                                    let mut db = sch_state.db.lock().unwrap();
-                                    if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::PvProduction, None, val, None) {
-                                        error!("DB Error saving PV telemetry: {}", e);
-                                    } else {
-                                        tracing::debug!("Saved PV telemetry: {}", val);
-                                    }
-                                }
-                                Err(e) => error!("HA Error polling PV ({}): {}", pv_id, e),
-                            }
-                        }
-                        if let Some(cons_id) = &config.ha_consumption_entity_id {
-                            match lmha_core::ha::fetch_ha_state(config, cons_id) {
-                                Ok(val) => {
-                                    let mut db = sch_state.db.lock().unwrap();
-                                    if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::HouseConsumption, None, val, None) {
-                                        error!("DB Error saving consumption telemetry: {}", e);
-                                    } else {
-                                        tracing::debug!("Saved Consumption telemetry: {}", val);
-                                    }
-                                }
-                                Err(e) => error!("HA Error polling Consumption ({}): {}", cons_id, e),
-                            }
-                        }
-                    }
-                    thread::sleep(Duration::from_secs(10));
-                    
-                    // Run Scheduler Logic
-                    let mut db = sch_state.db.lock().unwrap();
-                    let devices = db.list_devices().unwrap_or_default();
-                    let (pv_production, house_consumption) = db.get_latest_metrics().unwrap_or((0.0, 0.0));
-
-                    let input = lmha_core::scheduler::SchedulerInput {
-                        pv_production,
-                        house_consumption,
-                        devices: devices.iter().map(|d| lmha_core::scheduler::DeviceContext {
-                            id: d.id,
-                            current_state: d.current_state,
-                            last_state_change: d.last_heartbeat,
-                            is_enabled: d.is_enabled,
-                            expected_load: d.expected_load,
-                        }).collect(),
-                        now: chrono::Utc::now(),
-                        debounce_duration_secs: 300,
-                        rng: rand::thread_rng(),
-                    };
-
-                    info!("Scheduler invoked: PV={:.1}kW, Cons={:.1}kW, Devices={}", pv_production, house_consumption, input.devices.len());
-                    tracing::debug!("Scheduler input: {:?}", input);
-
-                    let action = lmha_core::scheduler::decide_action(input);
-                    info!("Scheduler action: {:?}", action);
-
-                    match action {
-                        lmha_core::scheduler::SchedulerAction::SwitchOn(id) => {
-                            if let Some(device) = devices.iter().find(|d| d.id == id) {
-                                let mqtt_client = sch_state.mqtt_client.lock().unwrap();
-                                let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, "on");
-                            }
-                        }
-                        lmha_core::scheduler::SchedulerAction::SwitchOff(id) => {
-                            if let Some(device) = devices.iter().find(|d| d.id == id) {
-                                let mqtt_client = sch_state.mqtt_client.lock().unwrap();
-                                let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, "off");
-                            }
-                        }
-                        lmha_core::scheduler::SchedulerAction::Nothing => {}
-                    }
-                }
-            });
         }
 
         for notification in connection.iter() {
