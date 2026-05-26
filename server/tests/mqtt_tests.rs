@@ -19,7 +19,7 @@ fn test_status_update_on_and_off() {
     mqtt_options.set_keep_alive(Duration::from_secs(5));
     mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
     
-    let (mut client, mut connection) = Client::new(mqtt_options, 10);
+    let (client, mut connection) = Client::new(mqtt_options, 10);
     thread::spawn(move || {
         for _ in connection.iter() {}
     });

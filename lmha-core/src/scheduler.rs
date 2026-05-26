@@ -18,13 +18,13 @@ pub struct DeviceContext {
     pub current_state: DeviceState,
     pub last_state_change: Option<DateTime<Utc>>,
     pub is_enabled: bool,
-    pub expected_load: f64,
+    pub expected_load: i32,
 }
 
 #[derive(Debug)]
 pub struct SchedulerInput<R: Rng> {
-    pub pv_production: f64,
-    pub house_consumption: f64,
+    pub pv_production: i32,
+    pub house_consumption: i32,
     pub devices: Vec<DeviceContext>,
     pub now: DateTime<Utc>,
     pub debounce_duration_secs: i64,
@@ -53,8 +53,8 @@ pub fn decide_action<R: Rng>(mut input: SchedulerInput<R>) -> SchedulerAction {
             continue;
         }
 
-        let on_threshold = 0.7 * device.expected_load;
-        let off_threshold = 0.3 * device.expected_load;
+        let on_threshold = (0.7 * device.expected_load as f64) as i32;
+        let off_threshold = (0.3 * device.expected_load as f64) as i32;
 
         if device.current_state == DeviceState::Off && net_balance > on_threshold {
             eligible_to_on.push(device.id);
@@ -88,14 +88,14 @@ mod tests {
         let rng = StdRng::seed_from_u64(42);
         
         let input_on = SchedulerInput {
-            pv_production: 5000.0,
-            house_consumption: 1000.0,
+            pv_production: 5000,
+            house_consumption: 1000,
             devices: vec![DeviceContext {
                 id: device_id,
                 current_state: DeviceState::Off,
                 last_state_change: Some(now - Duration::minutes(10)),
                 is_enabled: true,
-                expected_load: 5000.0,
+                expected_load: 5000,
             }],
             now,
             debounce_duration_secs: 300,
@@ -104,14 +104,14 @@ mod tests {
         assert_eq!(decide_action(input_on), SchedulerAction::SwitchOn(device_id));
 
         let input_off = SchedulerInput {
-            pv_production: 1000.0,
-            house_consumption: 1000.0,
+            pv_production: 1000,
+            house_consumption: 1000,
             devices: vec![DeviceContext {
                 id: device_id,
                 current_state: DeviceState::On,
                 last_state_change: Some(now - Duration::minutes(10)),
                 is_enabled: true,
-                expected_load: 5000.0,
+                expected_load: 5000,
             }],
             now,
             debounce_duration_secs: 300,
@@ -128,22 +128,22 @@ mod tests {
         let rng = StdRng::seed_from_u64(42);
         
         let input = SchedulerInput {
-            pv_production: 10000.0,
-            house_consumption: 0.0,
+            pv_production: 10000,
+            house_consumption: 0,
             devices: vec![
                 DeviceContext {
                     id: device_1,
                     current_state: DeviceState::Off,
                     last_state_change: None,
                     is_enabled: true,
-                    expected_load: 5000.0,
+                    expected_load: 5000,
                 },
                 DeviceContext {
                     id: device_2,
                     current_state: DeviceState::Off,
                     last_state_change: None,
                     is_enabled: true,
-                    expected_load: 5000.0,
+                    expected_load: 5000,
                 }
             ],
             now,

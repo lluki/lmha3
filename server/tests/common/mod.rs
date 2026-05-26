@@ -7,6 +7,7 @@ use ureq;
 use uuid::Uuid;
 use postgres::{Client, NoTls};
 
+#[allow(dead_code)]
 pub struct TestHarness {
     pub db_name: String,
     pub api_child: Child,
@@ -101,6 +102,7 @@ impl TestHarness {
         id
     }
 
+    #[allow(dead_code)]
     pub fn create_device(&self, tenant_id: Uuid, name: &str, topic: &str) -> Uuid {
         let mut client = Client::connect(&self.config.database_url, NoTls).unwrap();
         let id = Uuid::new_v4();

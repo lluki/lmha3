@@ -7,7 +7,7 @@ use postgres::{Client, NoTls};
 #[test]
 fn test_admin_device_creation() {
     let harness = TestHarness::new(8007, true);
-    let admin_id = harness.create_user("admin", "admin123");
+    let _admin_id = harness.create_user("admin", "admin123");
     let alice_id = harness.create_user("alice", "alice123");
     
     let agent = ureq::AgentBuilder::new()
@@ -99,7 +99,7 @@ fn test_admin_toggle_others_device() {
 fn test_global_read_access() {
     let harness = TestHarness::new(8009, true);
     let admin_id = harness.create_user("admin", "admin123");
-    let alice_id = harness.create_user("alice", "alice123");
+    let _alice_id = harness.create_user("alice", "alice123");
     
     // Create a device owned by admin
     let device_id = harness.create_device(admin_id, "Admin Device", "shelly-admin-789");

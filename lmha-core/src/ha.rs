@@ -8,7 +8,7 @@ pub struct HaState {
     pub attributes: serde_json::Value,
 }
 
-pub fn fetch_ha_state(config: &Config, entity_id: &str) -> Result<f64, String> {
+pub fn fetch_ha_state(config: &Config, entity_id: &str) -> Result<i32, String> {
     let url = format!("{}/api/states/{}", config.ha_url, entity_id);
     let resp: HaState = ureq::get(&url)
         .set("Authorization", &format!("Bearer {}", config.ha_token))
@@ -18,5 +18,18 @@ pub fn fetch_ha_state(config: &Config, entity_id: &str) -> Result<f64, String> {
         .into_json()
         .map_err(|e| format!("Failed to parse JSON: {}", e))?;
 
-    resp.state.parse::<f64>().map_err(|e| format!("Failed to parse state '{}' as f64: {}", resp.state, e))
+    let val = resp.state.parse::<f64>().map_err(|e| format!("Failed to parse state '{}' as f64: {}", resp.state, e))?;
+    
+    // Normalize to Watts if the unit is kW
+    let watts = if let Some(unit) = resp.attributes.get("unit_of_measurement").and_then(|u| u.as_str()) {
+        if unit == "kW" {
+            (val * 1000.0) as i32
+        } else {
+            val as i32
+        }
+    } else {
+        val as i32
+    };
+    
+    Ok(watts)
 }

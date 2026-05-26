@@ -36,15 +36,14 @@ mod db_tests {
         }).unwrap();
 
         // Insert some data
-        db.insert_telemetry(TelemetrySource::PvProduction, None, 100.0, None).unwrap();
-        db.insert_telemetry(TelemetrySource::PvProduction, None, 500.0, None).unwrap(); // Latest PV
-        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 200.0, None).unwrap();
-        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 300.0, None).unwrap(); // Latest Cons
+        db.insert_telemetry(TelemetrySource::PvProduction, None, 100, None).unwrap();
+        db.insert_telemetry(TelemetrySource::PvProduction, None, 500, None).unwrap();
+        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 200, None).unwrap();
+        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 300, None).unwrap();
 
         let (pv, cons) = db.get_latest_metrics().unwrap();
-        
-        assert_eq!(pv, 500.0);
-        assert_eq!(cons, 300.0);
+        assert_eq!(pv, 500);
+        assert_eq!(cons, 300);
 
         // Cleanup
         drop(db);

@@ -103,7 +103,7 @@ impl Db {
             mqtt_topic: row.get(2),
             name: row.get(3),
             is_enabled: row.get(4),
-            expected_load: row.get(5),
+            expected_load: row.get::<_, f64>(5) as i32,
             current_state: match row.get::<_, &str>(6) {
                 "ON" => crate::DeviceState::On,
                 "OFF" => crate::DeviceState::Off,
@@ -135,7 +135,7 @@ impl Db {
         Ok(())
     }
 
-    pub fn insert_telemetry(&mut self, source: crate::TelemetrySource, device_id: Option<Uuid>, value: f64, metadata: Option<serde_json::Value>) -> Result<(), postgres::Error> {
+    pub fn insert_telemetry(&mut self, source: crate::TelemetrySource, device_id: Option<Uuid>, value: i32, metadata: Option<serde_json::Value>) -> Result<(), postgres::Error> {
         let source_str = match source {
             crate::TelemetrySource::PvProduction => "PV_PRODUCTION",
             crate::TelemetrySource::HouseConsumption => "HOUSE_CONSUMPTION",
@@ -144,12 +144,12 @@ impl Db {
         };
         self.client.execute(
             "INSERT INTO telemetry (source, device_id, value, metadata) VALUES ($1::text::telemetry_source, $2, $3, $4)",
-            &[&source_str, &device_id, &value, &metadata],
+            &[&source_str, &device_id, &(value as f64), &metadata],
         )?;
         Ok(())
     }
 
-    pub fn get_latest_metrics(&mut self) -> Result<(f64, f64), postgres::Error> {
+    pub fn get_latest_metrics(&mut self) -> Result<(i32, i32), postgres::Error> {
         let rows = self.client.query(
             "SELECT 
                 (SELECT value FROM telemetry WHERE source = 'PV_PRODUCTION'::telemetry_source ORDER BY timestamp DESC LIMIT 1) as pv,
@@ -157,7 +157,10 @@ impl Db {
             &[],
         )?;
         let row = &rows[0];
-        Ok((row.get::<_, Option<f64>>(0).unwrap_or(0.0), row.get::<_, Option<f64>>(1).unwrap_or(0.0)))
+        Ok((
+            row.get::<_, Option<f64>>(0).unwrap_or(0.0) as i32,
+            row.get::<_, Option<f64>>(1).unwrap_or(0.0) as i32
+        ))
     }
 
     pub fn list_telemetry(&mut self, tenant_id: Option<Uuid>, limit: i64) -> Result<Vec<crate::Telemetry>, postgres::Error> {
@@ -186,7 +189,7 @@ impl Db {
                 _ => unreachable!(),
             },
             device_id: row.get(2),
-            value: row.get(3),
+            value: row.get::<_, f64>(3) as i32,
             metadata: row.get(4),
         }).collect())
     }

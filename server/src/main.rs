@@ -200,7 +200,7 @@ fn main() {
             },
 
             (GET) (/api/tenants) => {
-                if let Some(s) = get_session(request, &state) {
+                if let Some(_s) = get_session(request, &state) {
                     let mut db = state.db.lock().unwrap();
                     match db.list_tenants() {
                         Ok(tenants) => {
@@ -413,7 +413,7 @@ fn run_scheduler_loop(state: Arc<AppState>) {
         {
             let mut db = state.db.lock().unwrap();
             let devices = db.list_devices().unwrap_or_default();
-            let (pv_production, house_consumption) = db.get_latest_metrics().unwrap_or((0.0, 0.0));
+            let (pv_production, house_consumption) = db.get_latest_metrics().unwrap_or((0, 0));
 
             let input = lmha_core::scheduler::SchedulerInput {
                 pv_production,
@@ -430,8 +430,8 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                 rng: rand::thread_rng(),
             };
 
-            info!("Scheduler invoked: PV={:.1}kW, Cons={:.1}kW, Devices={}", pv_production, house_consumption, input.devices.len());
-            tracing::debug!("Scheduler input: {:?}", input);
+            info!("Scheduler invoked: PV={:.1}kW, Cons={:.1}kW, Devices={}", pv_production as f64 / 1000.0, house_consumption as f64 / 1000.0, input.devices.len());
+            tracing::debug!("Scheduler input (W): {:?}", input);
 
             let action = lmha_core::scheduler::decide_action(input);
             info!("Scheduler action: {:?}", action);
@@ -537,12 +537,12 @@ fn run_main_loop(state: Arc<AppState>) {
                                     if let Err(e) = db.update_device_state(base_topic, s) {
                                         error!("DB Error updating {}: {}", base_topic, e);
                                     }
-                                    let val = if s == DeviceState::On { 1.0 } else { 0.0 };
+                                    let val = if s == DeviceState::On { 1 } else { 0 };
                                     let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceState, Some(d.id), val, None);
                                 }
                             }
                             if let Some(p) = apower {
-                                let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceConsumption, Some(d.id), p, None);
+                                let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceConsumption, Some(d.id), p as i32, None);
                             }
                         } else {
                             info!("MQTT: Received state/power for unknown device topic: {}", base_topic);

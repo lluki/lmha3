@@ -1,0 +1,534 @@
+May 26 00:02:07 lisa lmha3-start[2336383]: 2026-05-25T22:02:07.953130Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.4kW, Devices=1
+May 26 00:02:07 lisa lmha3-start[2336383]: 2026-05-25T22:02:07.953220Z  INFO server: Scheduler action: Nothing
+May 26 00:07:07 lisa lmha3-start[2336383]: 2026-05-25T22:07:07.964907Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.4kW, Devices=1
+May 26 00:07:07 lisa lmha3-start[2336383]: 2026-05-25T22:07:07.964971Z  INFO server: Scheduler action: Nothing
+May 26 00:12:07 lisa lmha3-start[2336383]: 2026-05-25T22:12:07.976601Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.5kW, Devices=1
+May 26 00:12:07 lisa lmha3-start[2336383]: 2026-05-25T22:12:07.976664Z  INFO server: Scheduler action: Nothing
+May 26 00:17:07 lisa lmha3-start[2336383]: 2026-05-25T22:17:07.988444Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.3kW, Devices=1
+May 26 00:17:07 lisa lmha3-start[2336383]: 2026-05-25T22:17:07.988507Z  INFO server: Scheduler action: Nothing
+May 26 00:22:08 lisa lmha3-start[2336383]: 2026-05-25T22:22:08.000367Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 00:22:08 lisa lmha3-start[2336383]: 2026-05-25T22:22:08.000429Z  INFO server: Scheduler action: Nothing
+May 26 00:27:08 lisa lmha3-start[2336383]: 2026-05-25T22:27:08.012135Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 00:27:08 lisa lmha3-start[2336383]: 2026-05-25T22:27:08.012222Z  INFO server: Scheduler action: Nothing
+May 26 00:32:08 lisa lmha3-start[2336383]: 2026-05-25T22:32:08.024214Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.3kW, Devices=1
+May 26 00:32:08 lisa lmha3-start[2336383]: 2026-05-25T22:32:08.024283Z  INFO server: Scheduler action: Nothing
+May 26 00:37:08 lisa lmha3-start[2336383]: 2026-05-25T22:37:08.035854Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.0kW, Devices=1
+May 26 00:37:08 lisa lmha3-start[2336383]: 2026-05-25T22:37:08.035917Z  INFO server: Scheduler action: Nothing
+May 26 00:42:08 lisa lmha3-start[2336383]: 2026-05-25T22:42:08.047207Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.3kW, Devices=1
+May 26 00:42:08 lisa lmha3-start[2336383]: 2026-05-25T22:42:08.047270Z  INFO server: Scheduler action: Nothing
+May 26 00:47:08 lisa lmha3-start[2336383]: 2026-05-25T22:47:08.058930Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.3kW, Devices=1
+May 26 00:47:08 lisa lmha3-start[2336383]: 2026-05-25T22:47:08.058993Z  INFO server: Scheduler action: Nothing
+May 26 00:52:08 lisa lmha3-start[2336383]: 2026-05-25T22:52:08.070660Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.3kW, Devices=1
+May 26 00:52:08 lisa lmha3-start[2336383]: 2026-05-25T22:52:08.070727Z  INFO server: Scheduler action: Nothing
+May 26 00:57:08 lisa lmha3-start[2336383]: 2026-05-25T22:57:08.082423Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.6kW, Devices=1
+May 26 00:57:08 lisa lmha3-start[2336383]: 2026-05-25T22:57:08.082489Z  INFO server: Scheduler action: Nothing
+May 26 01:02:08 lisa lmha3-start[2336383]: 2026-05-25T23:02:08.094178Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.3kW, Devices=1
+May 26 01:02:08 lisa lmha3-start[2336383]: 2026-05-25T23:02:08.094241Z  INFO server: Scheduler action: Nothing
+May 26 01:07:08 lisa lmha3-start[2336383]: 2026-05-25T23:07:08.105492Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.3kW, Devices=1
+May 26 01:07:08 lisa lmha3-start[2336383]: 2026-05-25T23:07:08.105555Z  INFO server: Scheduler action: Nothing
+May 26 01:12:08 lisa lmha3-start[2336383]: 2026-05-25T23:12:08.117180Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 01:12:08 lisa lmha3-start[2336383]: 2026-05-25T23:12:08.117277Z  INFO server: Scheduler action: Nothing
+May 26 01:17:08 lisa lmha3-start[2336383]: 2026-05-25T23:17:08.121830Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 01:17:08 lisa lmha3-start[2336383]: 2026-05-25T23:17:08.121850Z  INFO server: Scheduler action: Nothing
+May 26 01:22:08 lisa lmha3-start[2336383]: 2026-05-25T23:22:08.133311Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 01:22:08 lisa lmha3-start[2336383]: 2026-05-25T23:22:08.133379Z  INFO server: Scheduler action: Nothing
+May 26 01:27:08 lisa lmha3-start[2336383]: 2026-05-25T23:27:08.145259Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 01:27:08 lisa lmha3-start[2336383]: 2026-05-25T23:27:08.145323Z  INFO server: Scheduler action: Nothing
+May 26 01:32:08 lisa lmha3-start[2336383]: 2026-05-25T23:32:08.151439Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 01:32:08 lisa lmha3-start[2336383]: 2026-05-25T23:32:08.151460Z  INFO server: Scheduler action: Nothing
+May 26 01:37:08 lisa lmha3-start[2336383]: 2026-05-25T23:37:08.163007Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.5kW, Devices=1
+May 26 01:37:08 lisa lmha3-start[2336383]: 2026-05-25T23:37:08.163070Z  INFO server: Scheduler action: Nothing
+May 26 01:42:08 lisa lmha3-start[2336383]: 2026-05-25T23:42:08.175098Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 01:42:08 lisa lmha3-start[2336383]: 2026-05-25T23:42:08.175171Z  INFO server: Scheduler action: Nothing
+May 26 01:47:08 lisa lmha3-start[2336383]: 2026-05-25T23:47:08.186530Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 01:47:08 lisa lmha3-start[2336383]: 2026-05-25T23:47:08.186591Z  INFO server: Scheduler action: Nothing
+May 26 01:52:08 lisa lmha3-start[2336383]: 2026-05-25T23:52:08.198967Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 01:52:08 lisa lmha3-start[2336383]: 2026-05-25T23:52:08.199038Z  INFO server: Scheduler action: Nothing
+May 26 01:57:08 lisa lmha3-start[2336383]: 2026-05-25T23:57:08.211360Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 01:57:08 lisa lmha3-start[2336383]: 2026-05-25T23:57:08.211427Z  INFO server: Scheduler action: Nothing
+May 26 02:02:08 lisa lmha3-start[2336383]: 2026-05-26T00:02:08.223170Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 02:02:08 lisa lmha3-start[2336383]: 2026-05-26T00:02:08.223237Z  INFO server: Scheduler action: Nothing
+May 26 02:07:08 lisa lmha3-start[2336383]: 2026-05-26T00:07:08.236859Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 02:07:08 lisa lmha3-start[2336383]: 2026-05-26T00:07:08.236924Z  INFO server: Scheduler action: Nothing
+May 26 02:12:08 lisa lmha3-start[2336383]: 2026-05-26T00:12:08.248716Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 02:12:08 lisa lmha3-start[2336383]: 2026-05-26T00:12:08.248779Z  INFO server: Scheduler action: Nothing
+May 26 02:17:08 lisa lmha3-start[2336383]: 2026-05-26T00:17:08.260427Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.5kW, Devices=1
+May 26 02:17:08 lisa lmha3-start[2336383]: 2026-05-26T00:17:08.260491Z  INFO server: Scheduler action: Nothing
+May 26 02:22:08 lisa lmha3-start[2336383]: 2026-05-26T00:22:08.271689Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.3kW, Devices=1
+May 26 02:22:08 lisa lmha3-start[2336383]: 2026-05-26T00:22:08.271751Z  INFO server: Scheduler action: Nothing
+May 26 02:27:08 lisa lmha3-start[2336383]: 2026-05-26T00:27:08.283343Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 02:27:08 lisa lmha3-start[2336383]: 2026-05-26T00:27:08.283407Z  INFO server: Scheduler action: Nothing
+May 26 02:32:08 lisa lmha3-start[2336383]: 2026-05-26T00:32:08.295989Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 02:32:08 lisa lmha3-start[2336383]: 2026-05-26T00:32:08.296050Z  INFO server: Scheduler action: Nothing
+May 26 02:37:08 lisa lmha3-start[2336383]: 2026-05-26T00:37:08.307733Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 02:37:08 lisa lmha3-start[2336383]: 2026-05-26T00:37:08.307804Z  INFO server: Scheduler action: Nothing
+May 26 02:42:08 lisa lmha3-start[2336383]: 2026-05-26T00:42:08.319713Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=0.9kW, Devices=1
+May 26 02:42:08 lisa lmha3-start[2336383]: 2026-05-26T00:42:08.319777Z  INFO server: Scheduler action: Nothing
+May 26 02:47:08 lisa lmha3-start[2336383]: 2026-05-26T00:47:08.331660Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 02:47:08 lisa lmha3-start[2336383]: 2026-05-26T00:47:08.331724Z  INFO server: Scheduler action: Nothing
+May 26 02:52:08 lisa lmha3-start[2336383]: 2026-05-26T00:52:08.343455Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 02:52:08 lisa lmha3-start[2336383]: 2026-05-26T00:52:08.343522Z  INFO server: Scheduler action: Nothing
+May 26 02:57:08 lisa lmha3-start[2336383]: 2026-05-26T00:57:08.355330Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.2kW, Devices=1
+May 26 02:57:08 lisa lmha3-start[2336383]: 2026-05-26T00:57:08.355395Z  INFO server: Scheduler action: Nothing
+May 26 03:02:10 lisa lmha3-start[2336383]: 2026-05-26T01:02:10.506943Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.5kW, Devices=1
+May 26 03:02:10 lisa lmha3-start[2336383]: 2026-05-26T01:02:10.506964Z  INFO server: Scheduler action: Nothing
+May 26 03:07:10 lisa lmha3-start[2336383]: 2026-05-26T01:07:10.531986Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.0kW, Devices=1
+May 26 03:07:10 lisa lmha3-start[2336383]: 2026-05-26T01:07:10.532022Z  INFO server: Scheduler action: Nothing
+May 26 03:12:10 lisa lmha3-start[2336383]: 2026-05-26T01:12:10.537822Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 03:12:10 lisa lmha3-start[2336383]: 2026-05-26T01:12:10.537850Z  INFO server: Scheduler action: Nothing
+May 26 03:17:10 lisa lmha3-start[2336383]: 2026-05-26T01:17:10.546923Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 03:17:10 lisa lmha3-start[2336383]: 2026-05-26T01:17:10.546973Z  INFO server: Scheduler action: Nothing
+May 26 03:22:10 lisa lmha3-start[2336383]: 2026-05-26T01:22:10.559163Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.0kW, Devices=1
+May 26 03:22:10 lisa lmha3-start[2336383]: 2026-05-26T01:22:10.559228Z  INFO server: Scheduler action: Nothing
+May 26 03:27:10 lisa lmha3-start[2336383]: 2026-05-26T01:27:10.571466Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.0kW, Devices=1
+May 26 03:27:10 lisa lmha3-start[2336383]: 2026-05-26T01:27:10.571529Z  INFO server: Scheduler action: Nothing
+May 26 03:32:10 lisa lmha3-start[2336383]: 2026-05-26T01:32:10.577343Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.0kW, Devices=1
+May 26 03:32:10 lisa lmha3-start[2336383]: 2026-05-26T01:32:10.577362Z  INFO server: Scheduler action: Nothing
+May 26 03:37:10 lisa lmha3-start[2336383]: 2026-05-26T01:37:10.585659Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=21.8kW, Devices=1
+May 26 03:37:10 lisa lmha3-start[2336383]: 2026-05-26T01:37:10.585719Z  INFO server: Scheduler action: Nothing
+May 26 03:42:10 lisa lmha3-start[2336383]: 2026-05-26T01:42:10.592083Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=21.8kW, Devices=1
+May 26 03:42:10 lisa lmha3-start[2336383]: 2026-05-26T01:42:10.592113Z  INFO server: Scheduler action: Nothing
+May 26 03:47:10 lisa lmha3-start[2336383]: 2026-05-26T01:47:10.599281Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.4kW, Devices=1
+May 26 03:47:10 lisa lmha3-start[2336383]: 2026-05-26T01:47:10.599325Z  INFO server: Scheduler action: Nothing
+May 26 03:52:10 lisa lmha3-start[2336383]: 2026-05-26T01:52:10.604884Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.4kW, Devices=1
+May 26 03:52:10 lisa lmha3-start[2336383]: 2026-05-26T01:52:10.604905Z  INFO server: Scheduler action: Nothing
+May 26 03:57:10 lisa lmha3-start[2336383]: 2026-05-26T01:57:10.633589Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.1kW, Devices=1
+May 26 03:57:10 lisa lmha3-start[2336383]: 2026-05-26T01:57:10.633683Z  INFO server: Scheduler action: Nothing
+May 26 04:02:10 lisa lmha3-start[2336383]: 2026-05-26T02:02:10.645366Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.1kW, Devices=1
+May 26 04:02:10 lisa lmha3-start[2336383]: 2026-05-26T02:02:10.645429Z  INFO server: Scheduler action: Nothing
+May 26 04:07:10 lisa lmha3-start[2336383]: 2026-05-26T02:07:10.656957Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.2kW, Devices=1
+May 26 04:07:10 lisa lmha3-start[2336383]: 2026-05-26T02:07:10.657022Z  INFO server: Scheduler action: Nothing
+May 26 04:12:10 lisa lmha3-start[2336383]: 2026-05-26T02:12:10.668628Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=18.0kW, Devices=1
+May 26 04:12:10 lisa lmha3-start[2336383]: 2026-05-26T02:12:10.668699Z  INFO server: Scheduler action: Nothing
+May 26 04:17:10 lisa lmha3-start[2336383]: 2026-05-26T02:17:10.681133Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=18.0kW, Devices=1
+May 26 04:17:10 lisa lmha3-start[2336383]: 2026-05-26T02:17:10.681221Z  INFO server: Scheduler action: Nothing
+May 26 04:22:10 lisa lmha3-start[2336383]: 2026-05-26T02:22:10.692663Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.2kW, Devices=1
+May 26 04:22:10 lisa lmha3-start[2336383]: 2026-05-26T02:22:10.692733Z  INFO server: Scheduler action: Nothing
+May 26 04:27:10 lisa lmha3-start[2336383]: 2026-05-26T02:27:10.704869Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=22.1kW, Devices=1
+May 26 04:27:10 lisa lmha3-start[2336383]: 2026-05-26T02:27:10.704946Z  INFO server: Scheduler action: Nothing
+May 26 04:32:10 lisa lmha3-start[2336383]: 2026-05-26T02:32:10.711469Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=14.1kW, Devices=1
+May 26 04:32:10 lisa lmha3-start[2336383]: 2026-05-26T02:32:10.711498Z  INFO server: Scheduler action: Nothing
+May 26 04:37:10 lisa lmha3-start[2336383]: 2026-05-26T02:37:10.722695Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=14.1kW, Devices=1
+May 26 04:37:10 lisa lmha3-start[2336383]: 2026-05-26T02:37:10.722760Z  INFO server: Scheduler action: Nothing
+May 26 04:42:10 lisa lmha3-start[2336383]: 2026-05-26T02:42:10.733935Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=14.1kW, Devices=1
+May 26 04:42:10 lisa lmha3-start[2336383]: 2026-05-26T02:42:10.734000Z  INFO server: Scheduler action: Nothing
+May 26 04:47:10 lisa lmha3-start[2336383]: 2026-05-26T02:47:10.745307Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=14.2kW, Devices=1
+May 26 04:47:10 lisa lmha3-start[2336383]: 2026-05-26T02:47:10.745370Z  INFO server: Scheduler action: Nothing
+May 26 04:52:10 lisa lmha3-start[2336383]: 2026-05-26T02:52:10.757075Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=14.4kW, Devices=1
+May 26 04:52:10 lisa lmha3-start[2336383]: 2026-05-26T02:52:10.757142Z  INFO server: Scheduler action: Nothing
+May 26 04:57:10 lisa lmha3-start[2336383]: 2026-05-26T02:57:10.769109Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=14.4kW, Devices=1
+May 26 04:57:10 lisa lmha3-start[2336383]: 2026-05-26T02:57:10.769192Z  INFO server: Scheduler action: Nothing
+May 26 05:02:10 lisa lmha3-start[2336383]: 2026-05-26T03:02:10.780783Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=10.2kW, Devices=1
+May 26 05:02:10 lisa lmha3-start[2336383]: 2026-05-26T03:02:10.780848Z  INFO server: Scheduler action: Nothing
+May 26 05:07:10 lisa lmha3-start[2336383]: 2026-05-26T03:07:10.792783Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=9.9kW, Devices=1
+May 26 05:07:10 lisa lmha3-start[2336383]: 2026-05-26T03:07:10.792848Z  INFO server: Scheduler action: Nothing
+May 26 05:12:10 lisa lmha3-start[2336383]: 2026-05-26T03:12:10.806110Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=5.5kW, Devices=1
+May 26 05:12:10 lisa lmha3-start[2336383]: 2026-05-26T03:12:10.806217Z  INFO server: Scheduler action: Nothing
+May 26 05:17:10 lisa lmha3-start[2336383]: 2026-05-26T03:17:10.817670Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=5.5kW, Devices=1
+May 26 05:17:10 lisa lmha3-start[2336383]: 2026-05-26T03:17:10.817735Z  INFO server: Scheduler action: Nothing
+May 26 05:22:10 lisa lmha3-start[2336383]: 2026-05-26T03:22:10.829382Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=5.5kW, Devices=1
+May 26 05:22:10 lisa lmha3-start[2336383]: 2026-05-26T03:22:10.829448Z  INFO server: Scheduler action: Nothing
+May 26 05:27:10 lisa lmha3-start[2336383]: 2026-05-26T03:27:10.841281Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=3.3kW, Devices=1
+May 26 05:27:10 lisa lmha3-start[2336383]: 2026-05-26T03:27:10.841345Z  INFO server: Scheduler action: Nothing
+May 26 05:32:10 lisa lmha3-start[2336383]: 2026-05-26T03:32:10.853524Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 05:32:10 lisa lmha3-start[2336383]: 2026-05-26T03:32:10.853591Z  INFO server: Scheduler action: Nothing
+May 26 05:37:10 lisa lmha3-start[2336383]: 2026-05-26T03:37:10.864969Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 05:37:10 lisa lmha3-start[2336383]: 2026-05-26T03:37:10.865033Z  INFO server: Scheduler action: Nothing
+May 26 05:42:10 lisa lmha3-start[2336383]: 2026-05-26T03:42:10.877030Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=0.9kW, Devices=1
+May 26 05:42:10 lisa lmha3-start[2336383]: 2026-05-26T03:42:10.877092Z  INFO server: Scheduler action: Nothing
+May 26 05:47:10 lisa lmha3-start[2336383]: 2026-05-26T03:47:10.888936Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 05:47:10 lisa lmha3-start[2336383]: 2026-05-26T03:47:10.888998Z  INFO server: Scheduler action: Nothing
+May 26 05:52:10 lisa lmha3-start[2336383]: 2026-05-26T03:52:10.901486Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.1kW, Devices=1
+May 26 05:52:10 lisa lmha3-start[2336383]: 2026-05-26T03:52:10.901557Z  INFO server: Scheduler action: Nothing
+May 26 05:57:10 lisa lmha3-start[2336383]: 2026-05-26T03:57:10.905950Z  INFO server: Scheduler invoked: PV=0.1kW, Cons=1.1kW, Devices=1
+May 26 05:57:10 lisa lmha3-start[2336383]: 2026-05-26T03:57:10.905970Z  INFO server: Scheduler action: Nothing
+May 26 06:02:10 lisa lmha3-start[2336383]: 2026-05-26T04:02:10.915954Z  INFO server: Scheduler invoked: PV=0.1kW, Cons=1.1kW, Devices=1
+May 26 06:02:10 lisa lmha3-start[2336383]: 2026-05-26T04:02:10.916011Z  INFO server: Scheduler action: Nothing
+May 26 06:07:10 lisa lmha3-start[2336383]: 2026-05-26T04:07:10.927722Z  INFO server: Scheduler invoked: PV=0.1kW, Cons=1.2kW, Devices=1
+May 26 06:07:10 lisa lmha3-start[2336383]: 2026-05-26T04:07:10.927789Z  INFO server: Scheduler action: Nothing
+May 26 06:12:10 lisa lmha3-start[2336383]: 2026-05-26T04:12:10.939653Z  INFO server: Scheduler invoked: PV=0.1kW, Cons=2.3kW, Devices=1
+May 26 06:12:10 lisa lmha3-start[2336383]: 2026-05-26T04:12:10.939716Z  INFO server: Scheduler action: Nothing
+May 26 06:17:10 lisa lmha3-start[2336383]: 2026-05-26T04:17:10.951458Z  INFO server: Scheduler invoked: PV=0.2kW, Cons=2.9kW, Devices=1
+May 26 06:17:10 lisa lmha3-start[2336383]: 2026-05-26T04:17:10.951530Z  INFO server: Scheduler action: Nothing
+May 26 06:22:10 lisa lmha3-start[2336383]: 2026-05-26T04:22:10.963271Z  INFO server: Scheduler invoked: PV=0.2kW, Cons=2.9kW, Devices=1
+May 26 06:22:10 lisa lmha3-start[2336383]: 2026-05-26T04:22:10.963344Z  INFO server: Scheduler action: Nothing
+May 26 06:27:10 lisa lmha3-start[2336383]: 2026-05-26T04:27:10.975297Z  INFO server: Scheduler invoked: PV=0.3kW, Cons=2.2kW, Devices=1
+May 26 06:27:10 lisa lmha3-start[2336383]: 2026-05-26T04:27:10.975364Z  INFO server: Scheduler action: Nothing
+May 26 06:32:10 lisa lmha3-start[2336383]: 2026-05-26T04:32:10.987335Z  INFO server: Scheduler invoked: PV=0.3kW, Cons=1.2kW, Devices=1
+May 26 06:32:10 lisa lmha3-start[2336383]: 2026-05-26T04:32:10.987398Z  INFO server: Scheduler action: Nothing
+May 26 06:37:10 lisa lmha3-start[2336383]: 2026-05-26T04:37:10.999174Z  INFO server: Scheduler invoked: PV=0.4kW, Cons=1.1kW, Devices=1
+May 26 06:37:10 lisa lmha3-start[2336383]: 2026-05-26T04:37:10.999242Z  INFO server: Scheduler action: Nothing
+May 26 06:42:11 lisa lmha3-start[2336383]: 2026-05-26T04:42:11.011113Z  INFO server: Scheduler invoked: PV=0.4kW, Cons=1.1kW, Devices=1
+May 26 06:42:11 lisa lmha3-start[2336383]: 2026-05-26T04:42:11.011190Z  INFO server: Scheduler action: Nothing
+May 26 06:47:11 lisa lmha3-start[2336383]: 2026-05-26T04:47:11.022531Z  INFO server: Scheduler invoked: PV=0.4kW, Cons=1.2kW, Devices=1
+May 26 06:47:11 lisa lmha3-start[2336383]: 2026-05-26T04:47:11.022599Z  INFO server: Scheduler action: Nothing
+May 26 06:52:11 lisa lmha3-start[2336383]: 2026-05-26T04:52:11.034394Z  INFO server: Scheduler invoked: PV=0.4kW, Cons=1.1kW, Devices=1
+May 26 06:52:11 lisa lmha3-start[2336383]: 2026-05-26T04:52:11.034457Z  INFO server: Scheduler action: Nothing
+May 26 06:57:11 lisa lmha3-start[2336383]: 2026-05-26T04:57:11.046680Z  INFO server: Scheduler invoked: PV=0.5kW, Cons=1.1kW, Devices=1
+May 26 06:57:11 lisa lmha3-start[2336383]: 2026-05-26T04:57:11.046745Z  INFO server: Scheduler action: Nothing
+May 26 07:02:11 lisa lmha3-start[2336383]: 2026-05-26T05:02:11.058484Z  INFO server: Scheduler invoked: PV=0.5kW, Cons=1.1kW, Devices=1
+May 26 07:02:11 lisa lmha3-start[2336383]: 2026-05-26T05:02:11.058579Z  INFO server: Scheduler action: Nothing
+May 26 07:07:11 lisa lmha3-start[2336383]: 2026-05-26T05:07:11.070194Z  INFO server: Scheduler invoked: PV=0.6kW, Cons=1.4kW, Devices=1
+May 26 07:07:11 lisa lmha3-start[2336383]: 2026-05-26T05:07:11.070262Z  INFO server: Scheduler action: Nothing
+May 26 07:12:11 lisa lmha3-start[2336383]: 2026-05-26T05:12:11.082183Z  INFO server: Scheduler invoked: PV=0.6kW, Cons=1.1kW, Devices=1
+May 26 07:12:11 lisa lmha3-start[2336383]: 2026-05-26T05:12:11.082249Z  INFO server: Scheduler action: Nothing
+May 26 07:17:11 lisa lmha3-start[2336383]: 2026-05-26T05:17:11.093130Z  INFO server: Scheduler invoked: PV=0.7kW, Cons=1.1kW, Devices=1
+May 26 07:17:11 lisa lmha3-start[2336383]: 2026-05-26T05:17:11.093203Z  INFO server: Scheduler action: Nothing
+May 26 07:22:11 lisa lmha3-start[2336383]: 2026-05-26T05:22:11.106704Z  INFO server: Scheduler invoked: PV=0.7kW, Cons=1.1kW, Devices=1
+May 26 07:22:11 lisa lmha3-start[2336383]: 2026-05-26T05:22:11.106775Z  INFO server: Scheduler action: Nothing
+May 26 07:27:11 lisa lmha3-start[2336383]: 2026-05-26T05:27:11.118866Z  INFO server: Scheduler invoked: PV=0.7kW, Cons=1.2kW, Devices=1
+May 26 07:27:11 lisa lmha3-start[2336383]: 2026-05-26T05:27:11.118933Z  INFO server: Scheduler action: Nothing
+May 26 07:32:11 lisa lmha3-start[2336383]: 2026-05-26T05:32:11.130896Z  INFO server: Scheduler invoked: PV=0.7kW, Cons=1.2kW, Devices=1
+May 26 07:32:11 lisa lmha3-start[2336383]: 2026-05-26T05:32:11.130958Z  INFO server: Scheduler action: Nothing
+May 26 07:37:11 lisa lmha3-start[2336383]: 2026-05-26T05:37:11.142439Z  INFO server: Scheduler invoked: PV=0.8kW, Cons=1.1kW, Devices=1
+May 26 07:37:11 lisa lmha3-start[2336383]: 2026-05-26T05:37:11.142504Z  INFO server: Scheduler action: Nothing
+May 26 07:42:11 lisa lmha3-start[2336383]: 2026-05-26T05:42:11.153659Z  INFO server: Scheduler invoked: PV=0.8kW, Cons=1.1kW, Devices=1
+May 26 07:42:11 lisa lmha3-start[2336383]: 2026-05-26T05:42:11.153722Z  INFO server: Scheduler action: Nothing
+May 26 07:47:11 lisa lmha3-start[2336383]: 2026-05-26T05:47:11.165697Z  INFO server: Scheduler invoked: PV=0.8kW, Cons=1.3kW, Devices=1
+May 26 07:47:11 lisa lmha3-start[2336383]: 2026-05-26T05:47:11.165760Z  INFO server: Scheduler action: Nothing
+May 26 07:52:11 lisa lmha3-start[2336383]: 2026-05-26T05:52:11.177418Z  INFO server: Scheduler invoked: PV=0.8kW, Cons=1.6kW, Devices=1
+May 26 07:52:11 lisa lmha3-start[2336383]: 2026-05-26T05:52:11.177485Z  INFO server: Scheduler action: Nothing
+May 26 07:57:11 lisa lmha3-start[2336383]: 2026-05-26T05:57:11.189809Z  INFO server: Scheduler invoked: PV=0.8kW, Cons=1.2kW, Devices=1
+May 26 07:57:11 lisa lmha3-start[2336383]: 2026-05-26T05:57:11.189877Z  INFO server: Scheduler action: Nothing
+May 26 08:02:11 lisa lmha3-start[2336383]: 2026-05-26T06:02:11.201476Z  INFO server: Scheduler invoked: PV=0.8kW, Cons=1.2kW, Devices=1
+May 26 08:02:11 lisa lmha3-start[2336383]: 2026-05-26T06:02:11.201545Z  INFO server: Scheduler action: Nothing
+May 26 08:07:11 lisa lmha3-start[2336383]: 2026-05-26T06:07:11.209943Z  INFO server: Scheduler invoked: PV=0.9kW, Cons=2.1kW, Devices=1
+May 26 08:07:11 lisa lmha3-start[2336383]: 2026-05-26T06:07:11.209961Z  INFO server: Scheduler action: Nothing
+May 26 08:12:11 lisa lmha3-start[2336383]: 2026-05-26T06:12:11.221648Z  INFO server: Scheduler invoked: PV=0.9kW, Cons=1.5kW, Devices=1
+May 26 08:12:11 lisa lmha3-start[2336383]: 2026-05-26T06:12:11.221713Z  INFO server: Scheduler action: Nothing
+May 26 08:17:11 lisa lmha3-start[2336383]: 2026-05-26T06:17:11.226636Z  INFO server: Scheduler invoked: PV=0.9kW, Cons=1.8kW, Devices=1
+May 26 08:17:11 lisa lmha3-start[2336383]: 2026-05-26T06:17:11.226657Z  INFO server: Scheduler action: Nothing
+May 26 08:22:11 lisa lmha3-start[2336383]: 2026-05-26T06:22:11.237654Z  INFO server: Scheduler invoked: PV=0.9kW, Cons=1.8kW, Devices=1
+May 26 08:22:11 lisa lmha3-start[2336383]: 2026-05-26T06:22:11.237721Z  INFO server: Scheduler action: Nothing
+May 26 08:27:11 lisa lmha3-start[2336383]: 2026-05-26T06:27:11.249567Z  INFO server: Scheduler invoked: PV=0.9kW, Cons=4.4kW, Devices=1
+May 26 08:27:11 lisa lmha3-start[2336383]: 2026-05-26T06:27:11.249637Z  INFO server: Scheduler action: Nothing
+May 26 08:32:11 lisa lmha3-start[2336383]: 2026-05-26T06:32:11.261799Z  INFO server: Scheduler invoked: PV=0.9kW, Cons=4.8kW, Devices=1
+May 26 08:32:11 lisa lmha3-start[2336383]: 2026-05-26T06:32:11.261873Z  INFO server: Scheduler action: Nothing
+May 26 08:37:11 lisa lmha3-start[2336383]: 2026-05-26T06:37:11.273970Z  INFO server: Scheduler invoked: PV=1.0kW, Cons=1.6kW, Devices=1
+May 26 08:37:11 lisa lmha3-start[2336383]: 2026-05-26T06:37:11.274037Z  INFO server: Scheduler action: Nothing
+May 26 08:42:11 lisa lmha3-start[2336383]: 2026-05-26T06:42:11.284956Z  INFO server: Scheduler invoked: PV=1.0kW, Cons=1.6kW, Devices=1
+May 26 08:42:11 lisa lmha3-start[2336383]: 2026-05-26T06:42:11.285020Z  INFO server: Scheduler action: Nothing
+May 26 08:47:11 lisa lmha3-start[2336383]: 2026-05-26T06:47:11.296848Z  INFO server: Scheduler invoked: PV=1.0kW, Cons=1.8kW, Devices=1
+May 26 08:47:11 lisa lmha3-start[2336383]: 2026-05-26T06:47:11.296910Z  INFO server: Scheduler action: Nothing
+May 26 08:52:11 lisa lmha3-start[2336383]: 2026-05-26T06:52:11.308755Z  INFO server: Scheduler invoked: PV=1.1kW, Cons=7.2kW, Devices=1
+May 26 08:52:11 lisa lmha3-start[2336383]: 2026-05-26T06:52:11.308819Z  INFO server: Scheduler action: Nothing
+May 26 08:57:11 lisa lmha3-start[2336383]: 2026-05-26T06:57:11.320186Z  INFO server: Scheduler invoked: PV=1.3kW, Cons=2.9kW, Devices=1
+May 26 08:57:11 lisa lmha3-start[2336383]: 2026-05-26T06:57:11.320280Z  INFO server: Scheduler action: Nothing
+May 26 09:02:11 lisa lmha3-start[2336383]: 2026-05-26T07:02:11.331897Z  INFO server: Scheduler invoked: PV=1.5kW, Cons=1.7kW, Devices=1
+May 26 09:02:11 lisa lmha3-start[2336383]: 2026-05-26T07:02:11.331959Z  INFO server: Scheduler action: Nothing
+May 26 09:07:11 lisa lmha3-start[2336383]: 2026-05-26T07:07:11.343765Z  INFO server: Scheduler invoked: PV=1.5kW, Cons=1.7kW, Devices=1
+May 26 09:07:11 lisa lmha3-start[2336383]: 2026-05-26T07:07:11.343832Z  INFO server: Scheduler action: Nothing
+May 26 09:12:11 lisa lmha3-start[2336383]: 2026-05-26T07:12:11.355184Z  INFO server: Scheduler invoked: PV=1.7kW, Cons=5.8kW, Devices=1
+May 26 09:12:11 lisa lmha3-start[2336383]: 2026-05-26T07:12:11.355249Z  INFO server: Scheduler action: Nothing
+May 26 09:17:11 lisa lmha3-start[2336383]: 2026-05-26T07:17:11.367452Z  INFO server: Scheduler invoked: PV=2.2kW, Cons=3.8kW, Devices=1
+May 26 09:17:11 lisa lmha3-start[2336383]: 2026-05-26T07:17:11.367516Z  INFO server: Scheduler action: Nothing
+May 26 09:22:11 lisa lmha3-start[2336383]: 2026-05-26T07:22:11.379764Z  INFO server: Scheduler invoked: PV=2.5kW, Cons=1.5kW, Devices=1
+May 26 09:22:11 lisa lmha3-start[2336383]: 2026-05-26T07:22:11.379829Z  INFO server: Scheduler action: Nothing
+May 26 09:27:11 lisa lmha3-start[2336383]: 2026-05-26T07:27:11.391923Z  INFO server: Scheduler invoked: PV=2.5kW, Cons=1.5kW, Devices=1
+May 26 09:27:11 lisa lmha3-start[2336383]: 2026-05-26T07:27:11.391986Z  INFO server: Scheduler action: Nothing
+May 26 09:32:11 lisa lmha3-start[2336383]: 2026-05-26T07:32:11.403487Z  INFO server: Scheduler invoked: PV=2.8kW, Cons=2.5kW, Devices=1
+May 26 09:32:11 lisa lmha3-start[2336383]: 2026-05-26T07:32:11.403554Z  INFO server: Scheduler action: Nothing
+May 26 09:37:11 lisa lmha3-start[2336383]: 2026-05-26T07:37:11.415436Z  INFO server: Scheduler invoked: PV=3.0kW, Cons=3.4kW, Devices=1
+May 26 09:37:11 lisa lmha3-start[2336383]: 2026-05-26T07:37:11.415499Z  INFO server: Scheduler action: Nothing
+May 26 09:42:11 lisa lmha3-start[2336383]: 2026-05-26T07:42:11.428131Z  INFO server: Scheduler invoked: PV=3.6kW, Cons=3.6kW, Devices=1
+May 26 09:42:11 lisa lmha3-start[2336383]: 2026-05-26T07:42:11.428228Z  INFO server: Scheduler action: Nothing
+May 26 09:47:11 lisa lmha3-start[2336383]: 2026-05-26T07:47:11.439829Z  INFO server: Scheduler invoked: PV=3.6kW, Cons=3.6kW, Devices=1
+May 26 09:47:11 lisa lmha3-start[2336383]: 2026-05-26T07:47:11.439892Z  INFO server: Scheduler action: Nothing
+May 26 09:52:11 lisa lmha3-start[2336383]: 2026-05-26T07:52:11.452291Z  INFO server: Scheduler invoked: PV=3.9kW, Cons=3.4kW, Devices=1
+May 26 09:52:11 lisa lmha3-start[2336383]: 2026-05-26T07:52:11.452357Z  INFO server: Scheduler action: Nothing
+May 26 09:57:11 lisa lmha3-start[2336383]: 2026-05-26T07:57:11.463947Z  INFO server: Scheduler invoked: PV=4.2kW, Cons=3.5kW, Devices=1
+May 26 09:57:11 lisa lmha3-start[2336383]: 2026-05-26T07:57:11.464009Z  INFO server: Scheduler action: Nothing
+May 26 10:02:11 lisa lmha3-start[2336383]: 2026-05-26T08:02:11.474938Z  INFO server: Scheduler invoked: PV=4.8kW, Cons=3.6kW, Devices=1
+May 26 10:02:11 lisa lmha3-start[2336383]: 2026-05-26T08:02:11.475001Z  INFO server: Scheduler action: Nothing
+May 26 10:07:11 lisa lmha3-start[2336383]: 2026-05-26T08:07:11.486783Z  INFO server: Scheduler invoked: PV=5.1kW, Cons=3.3kW, Devices=1
+May 26 10:07:11 lisa lmha3-start[2336383]: 2026-05-26T08:07:11.486846Z  INFO server: Scheduler action: Nothing
+May 26 10:12:11 lisa lmha3-start[2336383]: 2026-05-26T08:12:11.498571Z  INFO server: Scheduler invoked: PV=5.1kW, Cons=3.3kW, Devices=1
+May 26 10:12:11 lisa lmha3-start[2336383]: 2026-05-26T08:12:11.498633Z  INFO server: Scheduler action: Nothing
+May 26 10:17:11 lisa lmha3-start[2336383]: 2026-05-26T08:17:11.510134Z  INFO server: Scheduler invoked: PV=5.3kW, Cons=1.8kW, Devices=1
+May 26 10:17:11 lisa lmha3-start[2336383]: 2026-05-26T08:17:11.510211Z  INFO server: Scheduler action: Nothing
+May 26 10:22:11 lisa lmha3-start[2336383]: 2026-05-26T08:22:11.522489Z  INFO server: Scheduler invoked: PV=5.9kW, Cons=3.2kW, Devices=1
+May 26 10:22:11 lisa lmha3-start[2336383]: 2026-05-26T08:22:11.522557Z  INFO server: Scheduler action: Nothing
+May 26 10:27:11 lisa lmha3-start[2336383]: 2026-05-26T08:27:11.534441Z  INFO server: Scheduler invoked: PV=5.9kW, Cons=3.2kW, Devices=1
+May 26 10:27:11 lisa lmha3-start[2336383]: 2026-05-26T08:27:11.534512Z  INFO server: Scheduler action: Nothing
+May 26 10:32:11 lisa lmha3-start[2336383]: 2026-05-26T08:32:11.546288Z  INFO server: Scheduler invoked: PV=6.4kW, Cons=5.2kW, Devices=1
+May 26 10:32:11 lisa lmha3-start[2336383]: 2026-05-26T08:32:11.546352Z  INFO server: Scheduler action: Nothing
+May 26 10:37:11 lisa lmha3-start[2336383]: 2026-05-26T08:37:11.557903Z  INFO server: Scheduler invoked: PV=6.4kW, Cons=5.2kW, Devices=1
+May 26 10:37:11 lisa lmha3-start[2336383]: 2026-05-26T08:37:11.557964Z  INFO server: Scheduler action: Nothing
+May 26 10:42:11 lisa lmha3-start[2336383]: 2026-05-26T08:42:11.569622Z  INFO server: Scheduler invoked: PV=7.0kW, Cons=1.5kW, Devices=1
+May 26 10:42:11 lisa lmha3-start[2336383]: 2026-05-26T08:42:11.569689Z  INFO server: Scheduler action: Nothing
+May 26 10:47:11 lisa lmha3-start[2336383]: 2026-05-26T08:47:11.581243Z  INFO server: Scheduler invoked: PV=7.0kW, Cons=1.5kW, Devices=1
+May 26 10:47:11 lisa lmha3-start[2336383]: 2026-05-26T08:47:11.581305Z  INFO server: Scheduler action: Nothing
+May 26 10:52:11 lisa lmha3-start[2336383]: 2026-05-26T08:52:11.593239Z  INFO server: Scheduler invoked: PV=7.4kW, Cons=1.6kW, Devices=1
+May 26 10:52:11 lisa lmha3-start[2336383]: 2026-05-26T08:52:11.593304Z  INFO server: Scheduler action: Nothing
+May 26 10:57:11 lisa lmha3-start[2336383]: 2026-05-26T08:57:11.605132Z  INFO server: Scheduler invoked: PV=7.4kW, Cons=1.6kW, Devices=1
+May 26 10:57:11 lisa lmha3-start[2336383]: 2026-05-26T08:57:11.605208Z  INFO server: Scheduler action: Nothing
+May 26 11:02:11 lisa lmha3-start[2336383]: 2026-05-26T09:02:11.616941Z  INFO server: Scheduler invoked: PV=8.0kW, Cons=3.2kW, Devices=1
+May 26 11:02:11 lisa lmha3-start[2336383]: 2026-05-26T09:02:11.617008Z  INFO server: Scheduler action: Nothing
+May 26 11:07:11 lisa lmha3-start[2336383]: 2026-05-26T09:07:11.628644Z  INFO server: Scheduler invoked: PV=8.0kW, Cons=3.2kW, Devices=1
+May 26 11:07:11 lisa lmha3-start[2336383]: 2026-05-26T09:07:11.628708Z  INFO server: Scheduler action: Nothing
+May 26 11:12:11 lisa lmha3-start[2336383]: 2026-05-26T09:12:11.640501Z  INFO server: Scheduler invoked: PV=8.4kW, Cons=2.9kW, Devices=1
+May 26 11:12:11 lisa lmha3-start[2336383]: 2026-05-26T09:12:11.640568Z  INFO server: Scheduler action: Nothing
+May 26 11:17:11 lisa lmha3-start[2336383]: 2026-05-26T09:17:11.651888Z  INFO server: Scheduler invoked: PV=8.4kW, Cons=2.9kW, Devices=1
+May 26 11:17:11 lisa lmha3-start[2336383]: 2026-05-26T09:17:11.651951Z  INFO server: Scheduler action: Nothing
+May 26 11:22:11 lisa lmha3-start[2336383]: 2026-05-26T09:22:11.663738Z  INFO server: Scheduler invoked: PV=8.9kW, Cons=4.3kW, Devices=1
+May 26 11:22:11 lisa lmha3-start[2336383]: 2026-05-26T09:22:11.663805Z  INFO server: Scheduler action: Nothing
+May 26 11:27:11 lisa lmha3-start[2336383]: 2026-05-26T09:27:11.675460Z  INFO server: Scheduler invoked: PV=8.9kW, Cons=4.3kW, Devices=1
+May 26 11:27:11 lisa lmha3-start[2336383]: 2026-05-26T09:27:11.675522Z  INFO server: Scheduler action: Nothing
+May 26 11:32:11 lisa lmha3-start[2336383]: 2026-05-26T09:32:11.687194Z  INFO server: Scheduler invoked: PV=9.3kW, Cons=6.6kW, Devices=1
+May 26 11:32:11 lisa lmha3-start[2336383]: 2026-05-26T09:32:11.687257Z  INFO server: Scheduler action: Nothing
+May 26 11:37:11 lisa lmha3-start[2336383]: 2026-05-26T09:37:11.698846Z  INFO server: Scheduler invoked: PV=9.3kW, Cons=6.6kW, Devices=1
+May 26 11:37:11 lisa lmha3-start[2336383]: 2026-05-26T09:37:11.698911Z  INFO server: Scheduler action: Nothing
+May 26 11:42:11 lisa lmha3-start[2336383]: 2026-05-26T09:42:11.710841Z  INFO server: Scheduler invoked: PV=9.7kW, Cons=4.1kW, Devices=1
+May 26 11:42:11 lisa lmha3-start[2336383]: 2026-05-26T09:42:11.710903Z  INFO server: Scheduler action: Nothing
+May 26 11:47:11 lisa lmha3-start[2336383]: 2026-05-26T09:47:11.722858Z  INFO server: Scheduler invoked: PV=9.7kW, Cons=4.1kW, Devices=1
+May 26 11:47:11 lisa lmha3-start[2336383]: 2026-05-26T09:47:11.722922Z  INFO server: Scheduler action: Nothing
+May 26 11:52:11 lisa lmha3-start[2336383]: 2026-05-26T09:52:11.734818Z  INFO server: Scheduler invoked: PV=10.1kW, Cons=2.1kW, Devices=1
+May 26 11:52:11 lisa lmha3-start[2336383]: 2026-05-26T09:52:11.734879Z  INFO server: Scheduler action: Nothing
+May 26 11:57:11 lisa lmha3-start[2336383]: 2026-05-26T09:57:11.746716Z  INFO server: Scheduler invoked: PV=10.1kW, Cons=2.1kW, Devices=1
+May 26 11:57:11 lisa lmha3-start[2336383]: 2026-05-26T09:57:11.746782Z  INFO server: Scheduler action: Nothing
+May 26 12:02:11 lisa lmha3-start[2336383]: 2026-05-26T10:02:11.758166Z  INFO server: Scheduler invoked: PV=10.4kW, Cons=6.0kW, Devices=1
+May 26 12:02:11 lisa lmha3-start[2336383]: 2026-05-26T10:02:11.758235Z  INFO server: Scheduler action: Nothing
+May 26 12:07:11 lisa lmha3-start[2336383]: 2026-05-26T10:07:11.768975Z  INFO server: Scheduler invoked: PV=10.4kW, Cons=6.0kW, Devices=1
+May 26 12:07:11 lisa lmha3-start[2336383]: 2026-05-26T10:07:11.769039Z  INFO server: Scheduler action: Nothing
+May 26 12:12:11 lisa lmha3-start[2336383]: 2026-05-26T10:12:11.780688Z  INFO server: Scheduler invoked: PV=10.6kW, Cons=2.0kW, Devices=1
+May 26 12:12:11 lisa lmha3-start[2336383]: 2026-05-26T10:12:11.780755Z  INFO server: Scheduler action: Nothing
+May 26 12:17:11 lisa lmha3-start[2336383]: 2026-05-26T10:17:11.792709Z  INFO server: Scheduler invoked: PV=10.7kW, Cons=1.9kW, Devices=1
+May 26 12:17:11 lisa lmha3-start[2336383]: 2026-05-26T10:17:11.792772Z  INFO server: Scheduler action: Nothing
+May 26 12:22:11 lisa lmha3-start[2336383]: 2026-05-26T10:22:11.804474Z  INFO server: Scheduler invoked: PV=11.1kW, Cons=10.9kW, Devices=1
+May 26 12:22:11 lisa lmha3-start[2336383]: 2026-05-26T10:22:11.804537Z  INFO server: Scheduler action: Nothing
+May 26 12:27:11 lisa lmha3-start[2336383]: 2026-05-26T10:27:11.816198Z  INFO server: Scheduler invoked: PV=11.1kW, Cons=10.9kW, Devices=1
+May 26 12:27:11 lisa lmha3-start[2336383]: 2026-05-26T10:27:11.816265Z  INFO server: Scheduler action: Nothing
+May 26 12:32:11 lisa lmha3-start[2336383]: 2026-05-26T10:32:11.828121Z  INFO server: Scheduler invoked: PV=11.2kW, Cons=8.8kW, Devices=1
+May 26 12:32:11 lisa lmha3-start[2336383]: 2026-05-26T10:32:11.828201Z  INFO server: Scheduler action: Nothing
+May 26 12:37:11 lisa lmha3-start[2336383]: 2026-05-26T10:37:11.839811Z  INFO server: Scheduler invoked: PV=11.5kW, Cons=4.3kW, Devices=1
+May 26 12:37:11 lisa lmha3-start[2336383]: 2026-05-26T10:37:11.839876Z  INFO server: Scheduler action: Nothing
+May 26 12:42:11 lisa lmha3-start[2336383]: 2026-05-26T10:42:11.851321Z  INFO server: Scheduler invoked: PV=11.6kW, Cons=2.0kW, Devices=1
+May 26 12:42:11 lisa lmha3-start[2336383]: 2026-05-26T10:42:11.851386Z  INFO server: Scheduler action: Nothing
+May 26 12:47:11 lisa lmha3-start[2336383]: 2026-05-26T10:47:11.863303Z  INFO server: Scheduler invoked: PV=11.6kW, Cons=2.0kW, Devices=1
+May 26 12:47:11 lisa lmha3-start[2336383]: 2026-05-26T10:47:11.863370Z  INFO server: Scheduler action: Nothing
+May 26 12:52:11 lisa lmha3-start[2336383]: 2026-05-26T10:52:11.875973Z  INFO server: Scheduler invoked: PV=11.7kW, Cons=1.8kW, Devices=1
+May 26 12:52:11 lisa lmha3-start[2336383]: 2026-05-26T10:52:11.876036Z  INFO server: Scheduler action: Nothing
+May 26 12:57:11 lisa lmha3-start[2336383]: 2026-05-26T10:57:11.888234Z  INFO server: Scheduler invoked: PV=11.8kW, Cons=1.7kW, Devices=1
+May 26 12:57:11 lisa lmha3-start[2336383]: 2026-05-26T10:57:11.888304Z  INFO server: Scheduler action: Nothing
+May 26 13:02:11 lisa lmha3-start[2336383]: 2026-05-26T11:02:11.893175Z  INFO server: Scheduler invoked: PV=12.1kW, Cons=2.1kW, Devices=1
+May 26 13:02:11 lisa lmha3-start[2336383]: 2026-05-26T11:02:11.893195Z  INFO server: Scheduler action: Nothing
+May 26 13:07:11 lisa lmha3-start[2336383]: 2026-05-26T11:07:11.904630Z  INFO server: Scheduler invoked: PV=12.1kW, Cons=2.1kW, Devices=1
+May 26 13:07:11 lisa lmha3-start[2336383]: 2026-05-26T11:07:11.904696Z  INFO server: Scheduler action: Nothing
+May 26 13:12:11 lisa lmha3-start[2336383]: 2026-05-26T11:12:11.916775Z  INFO server: Scheduler invoked: PV=12.2kW, Cons=2.2kW, Devices=1
+May 26 13:12:11 lisa lmha3-start[2336383]: 2026-05-26T11:12:11.916837Z  INFO server: Scheduler action: Nothing
+May 26 13:17:11 lisa lmha3-start[2336383]: 2026-05-26T11:17:11.929726Z  INFO server: Scheduler invoked: PV=12.3kW, Cons=2.0kW, Devices=1
+May 26 13:17:11 lisa lmha3-start[2336383]: 2026-05-26T11:17:11.929792Z  INFO server: Scheduler action: Nothing
+May 26 13:22:11 lisa lmha3-start[2336383]: 2026-05-26T11:22:11.942183Z  INFO server: Scheduler invoked: PV=12.5kW, Cons=1.8kW, Devices=1
+May 26 13:22:11 lisa lmha3-start[2336383]: 2026-05-26T11:22:11.942253Z  INFO server: Scheduler action: Nothing
+May 26 13:27:11 lisa lmha3-start[2336383]: 2026-05-26T11:27:11.953841Z  INFO server: Scheduler invoked: PV=12.5kW, Cons=1.8kW, Devices=1
+May 26 13:27:11 lisa lmha3-start[2336383]: 2026-05-26T11:27:11.953906Z  INFO server: Scheduler action: Nothing
+May 26 13:32:11 lisa lmha3-start[2336383]: 2026-05-26T11:32:11.965996Z  INFO server: Scheduler invoked: PV=12.6kW, Cons=1.7kW, Devices=1
+May 26 13:32:11 lisa lmha3-start[2336383]: 2026-05-26T11:32:11.966064Z  INFO server: Scheduler action: Nothing
+May 26 13:37:11 lisa lmha3-start[2336383]: 2026-05-26T11:37:11.977975Z  INFO server: Scheduler invoked: PV=12.6kW, Cons=3.7kW, Devices=1
+May 26 13:37:11 lisa lmha3-start[2336383]: 2026-05-26T11:37:11.978040Z  INFO server: Scheduler action: Nothing
+May 26 13:42:11 lisa lmha3-start[2336383]: 2026-05-26T11:42:11.989581Z  INFO server: Scheduler invoked: PV=12.7kW, Cons=4.0kW, Devices=1
+May 26 13:42:11 lisa lmha3-start[2336383]: 2026-05-26T11:42:11.989644Z  INFO server: Scheduler action: Nothing
+May 26 13:47:12 lisa lmha3-start[2336383]: 2026-05-26T11:47:12.001430Z  INFO server: Scheduler invoked: PV=12.7kW, Cons=4.0kW, Devices=1
+May 26 13:47:12 lisa lmha3-start[2336383]: 2026-05-26T11:47:12.001492Z  INFO server: Scheduler action: Nothing
+May 26 13:52:12 lisa lmha3-start[2336383]: 2026-05-26T11:52:12.014840Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=4.0kW, Devices=1
+May 26 13:52:12 lisa lmha3-start[2336383]: 2026-05-26T11:52:12.014913Z  INFO server: Scheduler action: Nothing
+May 26 13:57:12 lisa lmha3-start[2336383]: 2026-05-26T11:57:12.026609Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=1.8kW, Devices=1
+May 26 13:57:12 lisa lmha3-start[2336383]: 2026-05-26T11:57:12.026671Z  INFO server: Scheduler action: Nothing
+May 26 14:02:12 lisa lmha3-start[2336383]: 2026-05-26T12:02:12.038032Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=1.9kW, Devices=1
+May 26 14:02:12 lisa lmha3-start[2336383]: 2026-05-26T12:02:12.038098Z  INFO server: Scheduler action: Nothing
+May 26 14:07:12 lisa lmha3-start[2336383]: 2026-05-26T12:07:12.049729Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=1.9kW, Devices=1
+May 26 14:07:12 lisa lmha3-start[2336383]: 2026-05-26T12:07:12.049793Z  INFO server: Scheduler action: Nothing
+May 26 14:12:12 lisa lmha3-start[2336383]: 2026-05-26T12:12:12.061453Z  INFO server: Scheduler invoked: PV=13.0kW, Cons=6.3kW, Devices=1
+May 26 14:12:12 lisa lmha3-start[2336383]: 2026-05-26T12:12:12.061517Z  INFO server: Scheduler action: Nothing
+May 26 14:17:12 lisa lmha3-start[2336383]: 2026-05-26T12:17:12.073285Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=2.0kW, Devices=1
+May 26 14:17:12 lisa lmha3-start[2336383]: 2026-05-26T12:17:12.073350Z  INFO server: Scheduler action: Nothing
+May 26 14:22:12 lisa lmha3-start[2336383]: 2026-05-26T12:22:12.086439Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=4.2kW, Devices=1
+May 26 14:22:12 lisa lmha3-start[2336383]: 2026-05-26T12:22:12.086501Z  INFO server: Scheduler action: Nothing
+May 26 14:27:12 lisa lmha3-start[2336383]: 2026-05-26T12:27:12.097930Z  INFO server: Scheduler invoked: PV=13.0kW, Cons=1.8kW, Devices=1
+May 26 14:27:12 lisa lmha3-start[2336383]: 2026-05-26T12:27:12.097995Z  INFO server: Scheduler action: Nothing
+May 26 14:32:12 lisa lmha3-start[2336383]: 2026-05-26T12:32:12.109964Z  INFO server: Scheduler invoked: PV=13.0kW, Cons=1.8kW, Devices=1
+May 26 14:32:12 lisa lmha3-start[2336383]: 2026-05-26T12:32:12.110026Z  INFO server: Scheduler action: Nothing
+May 26 14:37:12 lisa lmha3-start[2336383]: 2026-05-26T12:37:12.122568Z  INFO server: Scheduler invoked: PV=13.0kW, Cons=4.5kW, Devices=1
+May 26 14:37:12 lisa lmha3-start[2336383]: 2026-05-26T12:37:12.122632Z  INFO server: Scheduler action: Nothing
+May 26 14:42:12 lisa lmha3-start[2336383]: 2026-05-26T12:42:12.134689Z  INFO server: Scheduler invoked: PV=13.0kW, Cons=1.9kW, Devices=1
+May 26 14:42:12 lisa lmha3-start[2336383]: 2026-05-26T12:42:12.134751Z  INFO server: Scheduler action: Nothing
+May 26 14:47:12 lisa lmha3-start[2336383]: 2026-05-26T12:47:12.146389Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=1.8kW, Devices=1
+May 26 14:47:12 lisa lmha3-start[2336383]: 2026-05-26T12:47:12.146479Z  INFO server: Scheduler action: Nothing
+May 26 14:52:12 lisa lmha3-start[2336383]: 2026-05-26T12:52:12.158442Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=1.9kW, Devices=1
+May 26 14:52:12 lisa lmha3-start[2336383]: 2026-05-26T12:52:12.158504Z  INFO server: Scheduler action: Nothing
+May 26 14:57:12 lisa lmha3-start[2336383]: 2026-05-26T12:57:12.170018Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=1.9kW, Devices=1
+May 26 14:57:12 lisa lmha3-start[2336383]: 2026-05-26T12:57:12.170080Z  INFO server: Scheduler action: Nothing
+May 26 15:02:12 lisa lmha3-start[2336383]: 2026-05-26T13:02:12.182188Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=1.9kW, Devices=1
+May 26 15:02:12 lisa lmha3-start[2336383]: 2026-05-26T13:02:12.182254Z  INFO server: Scheduler action: Nothing
+May 26 15:07:12 lisa lmha3-start[2336383]: 2026-05-26T13:07:12.194489Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=4.2kW, Devices=1
+May 26 15:07:12 lisa lmha3-start[2336383]: 2026-05-26T13:07:12.194556Z  INFO server: Scheduler action: Nothing
+May 26 15:12:12 lisa lmha3-start[2336383]: 2026-05-26T13:12:12.206382Z  INFO server: Scheduler invoked: PV=12.9kW, Cons=4.2kW, Devices=1
+May 26 15:12:12 lisa lmha3-start[2336383]: 2026-05-26T13:12:12.206444Z  INFO server: Scheduler action: Nothing
+May 26 15:17:12 lisa lmha3-start[2336383]: 2026-05-26T13:17:12.218122Z  INFO server: Scheduler invoked: PV=13.0kW, Cons=4.1kW, Devices=1
+May 26 15:17:12 lisa lmha3-start[2336383]: 2026-05-26T13:17:12.218204Z  INFO server: Scheduler action: Nothing
+May 26 15:22:12 lisa lmha3-start[2336383]: 2026-05-26T13:22:12.230208Z  INFO server: Scheduler invoked: PV=12.7kW, Cons=1.9kW, Devices=1
+May 26 15:22:12 lisa lmha3-start[2336383]: 2026-05-26T13:22:12.230271Z  INFO server: Scheduler action: Nothing
+May 26 15:27:12 lisa lmha3-start[2336383]: 2026-05-26T13:27:12.242288Z  INFO server: Scheduler invoked: PV=12.7kW, Cons=3.6kW, Devices=1
+May 26 15:27:12 lisa lmha3-start[2336383]: 2026-05-26T13:27:12.242356Z  INFO server: Scheduler action: Nothing
+May 26 15:32:12 lisa lmha3-start[2336383]: 2026-05-26T13:32:12.254134Z  INFO server: Scheduler invoked: PV=12.7kW, Cons=3.6kW, Devices=1
+May 26 15:32:12 lisa lmha3-start[2336383]: 2026-05-26T13:32:12.254209Z  INFO server: Scheduler action: Nothing
+May 26 15:37:12 lisa lmha3-start[2336383]: 2026-05-26T13:37:12.265857Z  INFO server: Scheduler invoked: PV=12.6kW, Cons=6.0kW, Devices=1
+May 26 15:37:12 lisa lmha3-start[2336383]: 2026-05-26T13:37:12.265919Z  INFO server: Scheduler action: Nothing
+May 26 15:42:12 lisa lmha3-start[2336383]: 2026-05-26T13:42:12.277909Z  INFO server: Scheduler invoked: PV=12.5kW, Cons=3.5kW, Devices=1
+May 26 15:42:12 lisa lmha3-start[2336383]: 2026-05-26T13:42:12.277971Z  INFO server: Scheduler action: Nothing
+May 26 15:47:12 lisa lmha3-start[2336383]: 2026-05-26T13:47:12.289778Z  INFO server: Scheduler invoked: PV=12.4kW, Cons=1.6kW, Devices=1
+May 26 15:47:12 lisa lmha3-start[2336383]: 2026-05-26T13:47:12.289842Z  INFO server: Scheduler action: Nothing
+May 26 15:52:12 lisa lmha3-start[2336383]: 2026-05-26T13:52:12.301883Z  INFO server: Scheduler invoked: PV=12.3kW, Cons=1.8kW, Devices=1
+May 26 15:52:12 lisa lmha3-start[2336383]: 2026-05-26T13:52:12.301953Z  INFO server: Scheduler action: Nothing
+May 26 15:57:12 lisa lmha3-start[2336383]: 2026-05-26T13:57:12.313579Z  INFO server: Scheduler invoked: PV=12.3kW, Cons=1.8kW, Devices=1
+May 26 15:57:12 lisa lmha3-start[2336383]: 2026-05-26T13:57:12.313642Z  INFO server: Scheduler action: Nothing
+May 26 16:02:12 lisa lmha3-start[2336383]: 2026-05-26T14:02:12.325647Z  INFO server: Scheduler invoked: PV=12.2kW, Cons=1.6kW, Devices=1
+May 26 16:02:12 lisa lmha3-start[2336383]: 2026-05-26T14:02:12.325710Z  INFO server: Scheduler action: Nothing
+May 26 16:07:12 lisa lmha3-start[2336383]: 2026-05-26T14:07:12.338102Z  INFO server: Scheduler invoked: PV=12.0kW, Cons=3.6kW, Devices=1
+May 26 16:07:12 lisa lmha3-start[2336383]: 2026-05-26T14:07:12.338182Z  INFO server: Scheduler action: Nothing
+May 26 16:12:12 lisa lmha3-start[2336383]: 2026-05-26T14:12:12.349523Z  INFO server: Scheduler invoked: PV=12.0kW, Cons=3.6kW, Devices=1
+May 26 16:12:12 lisa lmha3-start[2336383]: 2026-05-26T14:12:12.349585Z  INFO server: Scheduler action: Nothing
+May 26 16:17:12 lisa lmha3-start[2336383]: 2026-05-26T14:17:12.361086Z  INFO server: Scheduler invoked: PV=11.8kW, Cons=3.9kW, Devices=1
+May 26 16:17:12 lisa lmha3-start[2336383]: 2026-05-26T14:17:12.361169Z  INFO server: Scheduler action: Nothing
+May 26 16:22:12 lisa lmha3-start[2336383]: 2026-05-26T14:22:12.372996Z  INFO server: Scheduler invoked: PV=11.8kW, Cons=3.9kW, Devices=1
+May 26 16:22:12 lisa lmha3-start[2336383]: 2026-05-26T14:22:12.373062Z  INFO server: Scheduler action: Nothing
+May 26 16:27:12 lisa lmha3-start[2336383]: 2026-05-26T14:27:12.384625Z  INFO server: Scheduler invoked: PV=11.5kW, Cons=1.7kW, Devices=1
+May 26 16:27:12 lisa lmha3-start[2336383]: 2026-05-26T14:27:12.384693Z  INFO server: Scheduler action: Nothing
+May 26 16:32:12 lisa lmha3-start[2336383]: 2026-05-26T14:32:12.396234Z  INFO server: Scheduler invoked: PV=11.5kW, Cons=1.7kW, Devices=1
+May 26 16:32:12 lisa lmha3-start[2336383]: 2026-05-26T14:32:12.396299Z  INFO server: Scheduler action: Nothing
+May 26 16:37:12 lisa lmha3-start[2336383]: 2026-05-26T14:37:12.408280Z  INFO server: Scheduler invoked: PV=11.3kW, Cons=1.7kW, Devices=1
+May 26 16:37:12 lisa lmha3-start[2336383]: 2026-05-26T14:37:12.408346Z  INFO server: Scheduler action: Nothing
+May 26 16:42:12 lisa lmha3-start[2336383]: 2026-05-26T14:42:12.419891Z  INFO server: Scheduler invoked: PV=11.2kW, Cons=1.5kW, Devices=1
+May 26 16:42:12 lisa lmha3-start[2336383]: 2026-05-26T14:42:12.419985Z  INFO server: Scheduler action: Nothing
+May 26 16:47:12 lisa lmha3-start[2336383]: 2026-05-26T14:47:12.431779Z  INFO server: Scheduler invoked: PV=10.9kW, Cons=2.4kW, Devices=1
+May 26 16:47:12 lisa lmha3-start[2336383]: 2026-05-26T14:47:12.431842Z  INFO server: Scheduler action: Nothing
+May 26 16:52:12 lisa lmha3-start[2336383]: 2026-05-26T14:52:12.444277Z  INFO server: Scheduler invoked: PV=10.7kW, Cons=2.6kW, Devices=1
+May 26 16:52:12 lisa lmha3-start[2336383]: 2026-05-26T14:52:12.444347Z  INFO server: Scheduler action: Nothing
+May 26 16:57:12 lisa lmha3-start[2336383]: 2026-05-26T14:57:12.457139Z  INFO server: Scheduler invoked: PV=10.7kW, Cons=2.6kW, Devices=1
+May 26 16:57:12 lisa lmha3-start[2336383]: 2026-05-26T14:57:12.457224Z  INFO server: Scheduler action: Nothing
+May 26 17:02:12 lisa lmha3-start[2336383]: 2026-05-26T15:02:12.469305Z  INFO server: Scheduler invoked: PV=10.6kW, Cons=2.1kW, Devices=1
+May 26 17:02:12 lisa lmha3-start[2336383]: 2026-05-26T15:02:12.469367Z  INFO server: Scheduler action: Nothing
+May 26 17:07:12 lisa lmha3-start[2336383]: 2026-05-26T15:07:12.481131Z  INFO server: Scheduler invoked: PV=10.3kW, Cons=2.1kW, Devices=1
+May 26 17:07:12 lisa lmha3-start[2336383]: 2026-05-26T15:07:12.481212Z  INFO server: Scheduler action: Nothing
+May 26 17:12:12 lisa lmha3-start[2336383]: 2026-05-26T15:12:12.499276Z  INFO server: Scheduler invoked: PV=10.3kW, Cons=2.1kW, Devices=1
+May 26 17:12:12 lisa lmha3-start[2336383]: 2026-05-26T15:12:12.499340Z  INFO server: Scheduler action: Nothing
+May 26 17:17:12 lisa lmha3-start[2336383]: 2026-05-26T15:17:12.510890Z  INFO server: Scheduler invoked: PV=10.1kW, Cons=2.1kW, Devices=1
+May 26 17:17:12 lisa lmha3-start[2336383]: 2026-05-26T15:17:12.510956Z  INFO server: Scheduler action: Nothing
+May 26 17:22:12 lisa lmha3-start[2336383]: 2026-05-26T15:22:12.524838Z  INFO server: Scheduler invoked: PV=9.8kW, Cons=3.0kW, Devices=1
+May 26 17:22:12 lisa lmha3-start[2336383]: 2026-05-26T15:22:12.524912Z  INFO server: Scheduler action: Nothing
+May 26 17:27:12 lisa lmha3-start[2336383]: 2026-05-26T15:27:12.535169Z  INFO server: Scheduler invoked: PV=9.6kW, Cons=1.9kW, Devices=1
+May 26 17:27:12 lisa lmha3-start[2336383]: 2026-05-26T15:27:12.535200Z  INFO server: Scheduler action: Nothing
+May 26 17:32:12 lisa lmha3-start[2336383]: 2026-05-26T15:32:12.542357Z  INFO server: Scheduler invoked: PV=9.6kW, Cons=1.9kW, Devices=1
+May 26 17:32:12 lisa lmha3-start[2336383]: 2026-05-26T15:32:12.542394Z  INFO server: Scheduler action: Nothing
+May 26 17:37:12 lisa lmha3-start[2336383]: 2026-05-26T15:37:12.554416Z  INFO server: Scheduler invoked: PV=9.4kW, Cons=2.1kW, Devices=1
+May 26 17:37:12 lisa lmha3-start[2336383]: 2026-05-26T15:37:12.554481Z  INFO server: Scheduler action: Nothing
+May 26 17:42:12 lisa lmha3-start[2336383]: 2026-05-26T15:42:12.566577Z  INFO server: Scheduler invoked: PV=9.1kW, Cons=2.1kW, Devices=1
+May 26 17:42:12 lisa lmha3-start[2336383]: 2026-05-26T15:42:12.566644Z  INFO server: Scheduler action: Nothing
+May 26 17:47:12 lisa lmha3-start[2336383]: 2026-05-26T15:47:12.577725Z  INFO server: Scheduler invoked: PV=8.7kW, Cons=5.8kW, Devices=1
+May 26 17:47:12 lisa lmha3-start[2336383]: 2026-05-26T15:47:12.577786Z  INFO server: Scheduler action: Nothing
+May 26 17:52:12 lisa lmha3-start[2336383]: 2026-05-26T15:52:12.589939Z  INFO server: Scheduler invoked: PV=8.7kW, Cons=5.8kW, Devices=1
+May 26 17:52:12 lisa lmha3-start[2336383]: 2026-05-26T15:52:12.590005Z  INFO server: Scheduler action: Nothing
+May 26 17:57:12 lisa lmha3-start[2336383]: 2026-05-26T15:57:12.602111Z  INFO server: Scheduler invoked: PV=8.5kW, Cons=2.4kW, Devices=1
+May 26 17:57:12 lisa lmha3-start[2336383]: 2026-05-26T15:57:12.602193Z  INFO server: Scheduler action: Nothing
+May 26 18:02:12 lisa lmha3-start[2336383]: 2026-05-26T16:02:12.613876Z  INFO server: Scheduler invoked: PV=8.2kW, Cons=2.4kW, Devices=1
+May 26 18:02:12 lisa lmha3-start[2336383]: 2026-05-26T16:02:12.613949Z  INFO server: Scheduler action: Nothing
+May 26 18:07:12 lisa lmha3-start[2336383]: 2026-05-26T16:07:12.625815Z  INFO server: Scheduler invoked: PV=7.7kW, Cons=2.6kW, Devices=1
+May 26 18:07:12 lisa lmha3-start[2336383]: 2026-05-26T16:07:12.625885Z  INFO server: Scheduler action: Nothing
+May 26 18:12:12 lisa lmha3-start[2336383]: 2026-05-26T16:12:12.637169Z  INFO server: Scheduler invoked: PV=7.7kW, Cons=2.6kW, Devices=1
+May 26 18:12:12 lisa lmha3-start[2336383]: 2026-05-26T16:12:12.637239Z  INFO server: Scheduler action: Nothing
+May 26 18:17:12 lisa lmha3-start[2336383]: 2026-05-26T16:17:12.649422Z  INFO server: Scheduler invoked: PV=7.3kW, Cons=2.3kW, Devices=1
+May 26 18:17:12 lisa lmha3-start[2336383]: 2026-05-26T16:17:12.649485Z  INFO server: Scheduler action: Nothing
+May 26 18:22:12 lisa lmha3-start[2336383]: 2026-05-26T16:22:12.661475Z  INFO server: Scheduler invoked: PV=7.0kW, Cons=2.8kW, Devices=1
+May 26 18:22:12 lisa lmha3-start[2336383]: 2026-05-26T16:22:12.661542Z  INFO server: Scheduler action: Nothing
+May 26 18:27:12 lisa lmha3-start[2336383]: 2026-05-26T16:27:12.673184Z  INFO server: Scheduler invoked: PV=6.3kW, Cons=5.0kW, Devices=1
+May 26 18:27:12 lisa lmha3-start[2336383]: 2026-05-26T16:27:12.673247Z  INFO server: Scheduler action: Nothing
+May 26 18:32:12 lisa lmha3-start[2336383]: 2026-05-26T16:32:12.684667Z  INFO server: Scheduler invoked: PV=6.3kW, Cons=5.0kW, Devices=1
+May 26 18:32:12 lisa lmha3-start[2336383]: 2026-05-26T16:32:12.684730Z  INFO server: Scheduler action: Nothing
+May 26 18:37:12 lisa lmha3-start[2336383]: 2026-05-26T16:37:12.696198Z  INFO server: Scheduler invoked: PV=6.1kW, Cons=2.7kW, Devices=1
+May 26 18:37:12 lisa lmha3-start[2336383]: 2026-05-26T16:37:12.696260Z  INFO server: Scheduler action: Nothing
+May 26 18:42:12 lisa lmha3-start[2336383]: 2026-05-26T16:42:12.705012Z  INFO server: Scheduler invoked: PV=5.9kW, Cons=2.5kW, Devices=1
+May 26 18:42:12 lisa lmha3-start[2336383]: 2026-05-26T16:42:12.705075Z  INFO server: Scheduler action: Nothing
+May 26 18:47:12 lisa lmha3-start[2336383]: 2026-05-26T16:47:12.716544Z  INFO server: Scheduler invoked: PV=5.3kW, Cons=2.4kW, Devices=1
+May 26 18:47:12 lisa lmha3-start[2336383]: 2026-05-26T16:47:12.716607Z  INFO server: Scheduler action: Nothing
+May 26 18:52:12 lisa lmha3-start[2336383]: 2026-05-26T16:52:12.728476Z  INFO server: Scheduler invoked: PV=5.1kW, Cons=4.0kW, Devices=1
+May 26 18:52:12 lisa lmha3-start[2336383]: 2026-05-26T16:52:12.728543Z  INFO server: Scheduler action: Nothing
+May 26 18:57:12 lisa lmha3-start[2336383]: 2026-05-26T16:57:12.739875Z  INFO server: Scheduler invoked: PV=5.1kW, Cons=4.0kW, Devices=1
+May 26 18:57:12 lisa lmha3-start[2336383]: 2026-05-26T16:57:12.739940Z  INFO server: Scheduler action: Nothing
+May 26 19:02:12 lisa lmha3-start[2336383]: 2026-05-26T17:02:12.751527Z  INFO server: Scheduler invoked: PV=4.8kW, Cons=6.7kW, Devices=1
+May 26 19:02:12 lisa lmha3-start[2336383]: 2026-05-26T17:02:12.751590Z  INFO server: Scheduler action: Nothing
+May 26 19:07:12 lisa lmha3-start[2336383]: 2026-05-26T17:07:12.763939Z  INFO server: Scheduler invoked: PV=4.3kW, Cons=8.0kW, Devices=1
+May 26 19:07:12 lisa lmha3-start[2336383]: 2026-05-26T17:07:12.764006Z  INFO server: Scheduler action: Nothing
+May 26 19:12:12 lisa lmha3-start[2336383]: 2026-05-26T17:12:12.776184Z  INFO server: Scheduler invoked: PV=4.1kW, Cons=2.5kW, Devices=1
+May 26 19:12:12 lisa lmha3-start[2336383]: 2026-05-26T17:12:12.776245Z  INFO server: Scheduler action: Nothing
+May 26 19:17:12 lisa lmha3-start[2336383]: 2026-05-26T17:17:12.787563Z  INFO server: Scheduler invoked: PV=4.1kW, Cons=2.5kW, Devices=1
+May 26 19:17:12 lisa lmha3-start[2336383]: 2026-05-26T17:17:12.787623Z  INFO server: Scheduler action: Nothing
+May 26 19:22:12 lisa lmha3-start[2336383]: 2026-05-26T17:22:12.799627Z  INFO server: Scheduler invoked: PV=3.2kW, Cons=2.3kW, Devices=1
+May 26 19:22:12 lisa lmha3-start[2336383]: 2026-05-26T17:22:12.799690Z  INFO server: Scheduler action: Nothing
+May 26 19:27:12 lisa lmha3-start[2336383]: 2026-05-26T17:27:12.810995Z  INFO server: Scheduler invoked: PV=3.2kW, Cons=2.3kW, Devices=1
+May 26 19:27:12 lisa lmha3-start[2336383]: 2026-05-26T17:27:12.811057Z  INFO server: Scheduler action: Nothing
+May 26 19:32:12 lisa lmha3-start[2336383]: 2026-05-26T17:32:12.822807Z  INFO server: Scheduler invoked: PV=1.7kW, Cons=4.1kW, Devices=1
+May 26 19:32:12 lisa lmha3-start[2336383]: 2026-05-26T17:32:12.822873Z  INFO server: Scheduler action: Nothing
+May 26 19:37:12 lisa lmha3-start[2336383]: 2026-05-26T17:37:12.834260Z  INFO server: Scheduler invoked: PV=1.7kW, Cons=4.1kW, Devices=1
+May 26 19:37:12 lisa lmha3-start[2336383]: 2026-05-26T17:37:12.834324Z  INFO server: Scheduler action: Nothing
+May 26 19:42:12 lisa lmha3-start[2336383]: 2026-05-26T17:42:12.846115Z  INFO server: Scheduler invoked: PV=1.4kW, Cons=2.1kW, Devices=1
+May 26 19:42:12 lisa lmha3-start[2336383]: 2026-05-26T17:42:12.846192Z  INFO server: Scheduler action: Nothing
+May 26 19:47:12 lisa lmha3-start[2336383]: 2026-05-26T17:47:12.858046Z  INFO server: Scheduler invoked: PV=1.1kW, Cons=1.9kW, Devices=1
+May 26 19:47:12 lisa lmha3-start[2336383]: 2026-05-26T17:47:12.858109Z  INFO server: Scheduler action: Nothing
+May 26 19:52:12 lisa lmha3-start[2336383]: 2026-05-26T17:52:12.869474Z  INFO server: Scheduler invoked: PV=1.8kW, Cons=2.0kW, Devices=1
+May 26 19:52:12 lisa lmha3-start[2336383]: 2026-05-26T17:52:12.869536Z  INFO server: Scheduler action: Nothing
+May 26 19:57:12 lisa lmha3-start[2336383]: 2026-05-26T17:57:12.873798Z  INFO server: Scheduler invoked: PV=1.8kW, Cons=2.0kW, Devices=1
+May 26 19:57:12 lisa lmha3-start[2336383]: 2026-05-26T17:57:12.873817Z  INFO server: Scheduler action: Nothing
+May 26 20:02:12 lisa lmha3-start[2336383]: 2026-05-26T18:02:12.885561Z  INFO server: Scheduler invoked: PV=1.6kW, Cons=2.0kW, Devices=1
+May 26 20:02:12 lisa lmha3-start[2336383]: 2026-05-26T18:02:12.885625Z  INFO server: Scheduler action: Nothing
+May 26 20:07:12 lisa lmha3-start[2336383]: 2026-05-26T18:07:12.897571Z  INFO server: Scheduler invoked: PV=1.6kW, Cons=1.9kW, Devices=1
+May 26 20:07:12 lisa lmha3-start[2336383]: 2026-05-26T18:07:12.897633Z  INFO server: Scheduler action: Nothing
+May 26 20:12:12 lisa lmha3-start[2336383]: 2026-05-26T18:12:12.909692Z  INFO server: Scheduler invoked: PV=1.2kW, Cons=2.1kW, Devices=1
+May 26 20:12:12 lisa lmha3-start[2336383]: 2026-05-26T18:12:12.909756Z  INFO server: Scheduler action: Nothing
+May 26 20:17:12 lisa lmha3-start[2336383]: 2026-05-26T18:17:12.921557Z  INFO server: Scheduler invoked: PV=0.7kW, Cons=1.8kW, Devices=1
+May 26 20:17:12 lisa lmha3-start[2336383]: 2026-05-26T18:17:12.921629Z  INFO server: Scheduler action: Nothing
+May 26 20:22:12 lisa lmha3-start[2336383]: 2026-05-26T18:22:12.933007Z  INFO server: Scheduler invoked: PV=0.7kW, Cons=1.8kW, Devices=1
+May 26 20:22:12 lisa lmha3-start[2336383]: 2026-05-26T18:22:12.933077Z  INFO server: Scheduler action: Nothing
+May 26 20:27:12 lisa lmha3-start[2336383]: 2026-05-26T18:27:12.945211Z  INFO server: Scheduler invoked: PV=0.5kW, Cons=2.1kW, Devices=1
+May 26 20:27:12 lisa lmha3-start[2336383]: 2026-05-26T18:27:12.945280Z  INFO server: Scheduler action: Nothing
+May 26 20:32:12 lisa lmha3-start[2336383]: 2026-05-26T18:32:12.956929Z  INFO server: Scheduler invoked: PV=0.3kW, Cons=1.9kW, Devices=1
+May 26 20:32:12 lisa lmha3-start[2336383]: 2026-05-26T18:32:12.956999Z  INFO server: Scheduler action: Nothing
+May 26 20:37:12 lisa lmha3-start[2336383]: 2026-05-26T18:37:12.968742Z  INFO server: Scheduler invoked: PV=0.3kW, Cons=1.9kW, Devices=1
+May 26 20:37:12 lisa lmha3-start[2336383]: 2026-05-26T18:37:12.968805Z  INFO server: Scheduler action: Nothing
+May 26 20:42:12 lisa lmha3-start[2336383]: 2026-05-26T18:42:12.980907Z  INFO server: Scheduler invoked: PV=0.2kW, Cons=1.6kW, Devices=1
+May 26 20:42:12 lisa lmha3-start[2336383]: 2026-05-26T18:42:12.980973Z  INFO server: Scheduler action: Nothing
+May 26 20:47:12 lisa lmha3-start[2336383]: 2026-05-26T18:47:12.992697Z  INFO server: Scheduler invoked: PV=0.1kW, Cons=1.9kW, Devices=1
+May 26 20:47:12 lisa lmha3-start[2336383]: 2026-05-26T18:47:12.992763Z  INFO server: Scheduler action: Nothing
+May 26 20:52:13 lisa lmha3-start[2336383]: 2026-05-26T18:52:13.005059Z  INFO server: Scheduler invoked: PV=0.1kW, Cons=3.3kW, Devices=1
+May 26 20:52:13 lisa lmha3-start[2336383]: 2026-05-26T18:52:13.005122Z  INFO server: Scheduler action: Nothing
+May 26 20:57:13 lisa lmha3-start[2336383]: 2026-05-26T18:57:13.016963Z  INFO server: Scheduler invoked: PV=0.1kW, Cons=3.3kW, Devices=1
+May 26 20:57:13 lisa lmha3-start[2336383]: 2026-05-26T18:57:13.017033Z  INFO server: Scheduler action: Nothing
+May 26 21:02:13 lisa lmha3-start[2336383]: 2026-05-26T19:02:13.029258Z  INFO server: Scheduler invoked: PV=0.1kW, Cons=2.0kW, Devices=1
+May 26 21:02:13 lisa lmha3-start[2336383]: 2026-05-26T19:02:13.029325Z  INFO server: Scheduler action: Nothing
+May 26 21:07:13 lisa lmha3-start[2336383]: 2026-05-26T19:07:13.041023Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.0kW, Devices=1
+May 26 21:07:13 lisa lmha3-start[2336383]: 2026-05-26T19:07:13.041091Z  INFO server: Scheduler action: Nothing
+May 26 21:12:13 lisa lmha3-start[2336383]: 2026-05-26T19:12:13.053297Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.9kW, Devices=1
+May 26 21:12:13 lisa lmha3-start[2336383]: 2026-05-26T19:12:13.053363Z  INFO server: Scheduler action: Nothing
+May 26 21:17:13 lisa lmha3-start[2336383]: 2026-05-26T19:17:13.064560Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.9kW, Devices=1
+May 26 21:17:13 lisa lmha3-start[2336383]: 2026-05-26T19:17:13.064624Z  INFO server: Scheduler action: Nothing
+May 26 21:22:13 lisa lmha3-start[2336383]: 2026-05-26T19:22:13.076368Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.0kW, Devices=1
+May 26 21:22:13 lisa lmha3-start[2336383]: 2026-05-26T19:22:13.076432Z  INFO server: Scheduler action: Nothing
+May 26 21:27:13 lisa lmha3-start[2336383]: 2026-05-26T19:27:13.088285Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.1kW, Devices=1
+May 26 21:27:13 lisa lmha3-start[2336383]: 2026-05-26T19:27:13.088349Z  INFO server: Scheduler action: Nothing
+May 26 21:32:13 lisa lmha3-start[2336383]: 2026-05-26T19:32:13.100047Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.0kW, Devices=1
+May 26 21:32:13 lisa lmha3-start[2336383]: 2026-05-26T19:32:13.100112Z  INFO server: Scheduler action: Nothing
+May 26 21:37:13 lisa lmha3-start[2336383]: 2026-05-26T19:37:13.112038Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.0kW, Devices=1
+May 26 21:37:13 lisa lmha3-start[2336383]: 2026-05-26T19:37:13.112101Z  INFO server: Scheduler action: Nothing
+May 26 21:42:13 lisa lmha3-start[2336383]: 2026-05-26T19:42:13.123637Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=1.8kW, Devices=1
+May 26 21:42:13 lisa lmha3-start[2336383]: 2026-05-26T19:42:13.123701Z  INFO server: Scheduler action: Nothing
+May 26 21:47:13 lisa lmha3-start[2336383]: 2026-05-26T19:47:13.135721Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.0kW, Devices=1
+May 26 21:47:13 lisa lmha3-start[2336383]: 2026-05-26T19:47:13.135786Z  INFO server: Scheduler action: Nothing
+May 26 21:52:13 lisa lmha3-start[2336383]: 2026-05-26T19:52:13.147750Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.5kW, Devices=1
+May 26 21:52:13 lisa lmha3-start[2336383]: 2026-05-26T19:52:13.147813Z  INFO server: Scheduler action: Nothing
+May 26 21:57:13 lisa lmha3-start[2336383]: 2026-05-26T19:57:13.159418Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.1kW, Devices=1
+May 26 21:57:13 lisa lmha3-start[2336383]: 2026-05-26T19:57:13.159492Z  INFO server: Scheduler action: Nothing
+May 26 22:02:13 lisa lmha3-start[2336383]: 2026-05-26T20:02:13.171094Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.1kW, Devices=1
+May 26 22:02:13 lisa lmha3-start[2336383]: 2026-05-26T20:02:13.171178Z  INFO server: Scheduler action: Nothing
+May 26 22:07:13 lisa lmha3-start[2336383]: 2026-05-26T20:07:13.182633Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.4kW, Devices=1
+May 26 22:07:13 lisa lmha3-start[2336383]: 2026-05-26T20:07:13.182695Z  INFO server: Scheduler action: Nothing
+May 26 22:12:13 lisa lmha3-start[2336383]: 2026-05-26T20:12:13.194777Z  INFO server: Scheduler invoked: PV=0.0kW, Cons=2.2kW, Devices=1
+May 26 22:12:13 lisa lmha3-start[2336383]: 2026-05-26T20:12:13.194846Z  INFO server: Scheduler action: Nothing

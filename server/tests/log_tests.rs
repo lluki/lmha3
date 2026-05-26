@@ -1,7 +1,6 @@
 mod common;
 use common::TestHarness;
 use ureq;
-use std::time::Duration;
 
 #[test]
 fn test_log_access() {
@@ -17,7 +16,7 @@ fn test_log_access() {
     }
 
     // 2. Authenticated access to logs should succeed
-    let user_id = harness.create_user("alice", "password123");
+    let _user_id = harness.create_user("alice", "password123");
     
     // Login
     let login_resp = agent.post(&format!("{}/api/login", base_url))

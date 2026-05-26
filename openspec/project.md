@@ -13,8 +13,16 @@ A load management solution for the Hagenholz neighborhood. It synchronizes physi
 - **Language:** Rust (Unified server process with internal scheduler thread).
 - **Database:** PostgreSQL (Core state, configurations, and historical telemetry).
 - **Messaging:** MQTT (Broker at `solar.lluki.me:1884`, Shelly 1 Pro hardware).
-- **Infrastructure:** Linux (Single Systemd service, no containerization).
+- **Infrastructure:** NixOS (Single Systemd service, no containerization, deployed on `lisa`).
 - **Web Entry:** Nginx reverse proxy (App handles authentication; Nginx handles routing).
+
+## Deployment & Operations
+- **Production Server:** The application is deployed on the server named `lisa`.
+- **Operating System:** NixOS.
+- **Access:** SSH access to `lisa` is available via `ssh lisa`.
+- **NixOS Configuration:** The configuration for `lisa` is located at `/etc/nixos/nixos-config/configuration.nix`.
+- **Deployment Process:** Managed via the `project-versioning` skill. Deployment involves updating the tag in the NixOS configuration on `lisa` and running `sudo nixos-rebuild switch`.
+- **Production Stats:** When production statistics or live data are required for analysis or debugging, they must be sourced from the `lisa` instance.
 
 ## Global Rules & Constraints
 1. **Authentication:** No public endpoints. Every action and view requires a valid tenant session.

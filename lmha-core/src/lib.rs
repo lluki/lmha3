@@ -63,7 +63,7 @@ pub struct Device {
     pub mqtt_topic: String,
     pub name: String,
     pub is_enabled: bool,
-    pub expected_load: f64,
+    pub expected_load: i32,
     pub current_state: DeviceState,
     pub last_heartbeat: Option<DateTime<Utc>>,
 }
@@ -82,7 +82,7 @@ pub struct Telemetry {
     pub timestamp: DateTime<Utc>,
     pub source: TelemetrySource,
     pub device_id: Option<Uuid>,
-    pub value: f64,
+    pub value: i32,
     pub metadata: Option<serde_json::Value>,
 }
 
