@@ -183,8 +183,8 @@ async function renderOverview() {
 
         // Update Stats
         if (metrics) {
-            document.getElementById('pv-value').textContent = `${(metrics.pv).toFixed(2)} kW`;
-            document.getElementById('consumption-value').textContent = `${(metrics.consumption).toFixed(2)} kW`;
+            document.getElementById('pv-value').textContent = `${(metrics.pv / 1000).toFixed(1)} kW`;
+            document.getElementById('consumption-value').textContent = `${(metrics.consumption / 1000).toFixed(1)} kW`;
         }
 
         const tenantMap = {};
@@ -201,11 +201,34 @@ async function renderOverview() {
 
         let html = '<table><thead><tr><th>Name</th>';
         if (currentUser.is_admin) html += '<th>Owner</th>';
-        html += '<th>Status</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
+        html += '<th>Mode</th><th>Status</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
 
         for (const d of userDevices) {
             let lastSeen = d.last_heartbeat ? new Date(d.last_heartbeat).toLocaleString() : 'Never';
             let statusText = `<code>${d.current_state}</code>`;
+            let modeText = '';
+
+            const schObj = d.scheduling_type;
+            const schType = (schObj && typeof schObj === 'object' ? schObj.type : schObj) || 'UNKNOWN';
+            const untilTime = (schObj && schObj.until) ? new Date(schObj.until).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+            
+            switch (schType) {
+                case 'BOILER': 
+                    modeText = `<small class="secondary">Boiler (${d.expected_load}W)</small>`; 
+                    break;
+                case 'FORCE_ON': 
+                    modeText = `<mark style="background: var(--pico-ins-color); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem;">Force ON</mark><br><small class="secondary">until ${untilTime}</small>`; 
+                    break;
+                case 'FORCE_OFF': 
+                    modeText = `<mark style="background: var(--pico-del-color); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem;">Force OFF</mark><br><small class="secondary">until ${untilTime}</small>`; 
+                    break;
+                case 'NONE': 
+                    modeText = '<small class="secondary">Manual</small>'; 
+                    break;
+                default:
+                    modeText = `<small class="secondary">${schType}</small>`;
+                    console.warn('Unknown scheduling type:', schType, d.scheduling_type);
+            }
             
             if (d.current_state === 'ON') {
                 const lastOn = history.find(t => t.device_id === d.id && t.source === 'DEVICE_STATE' && t.value === 1.0);
@@ -248,6 +271,7 @@ async function renderOverview() {
             }
 
             html += `
+                    <td data-label="Mode">${modeText}</td>
                     <td data-label="Status">${statusText}</td>
                     <td data-label="Last Seen">${lastSeen}</td>
                     <td data-label="Action">
@@ -334,13 +358,13 @@ async function fetchAndRenderHistory(includeAll) {
                 valText = t.value === 1.0 ? '<mark style="background: var(--pico-ins-color); color: white; padding: 2px 6px; border-radius: 4px;">ON</mark>' : '<mark style="background: var(--pico-del-color); color: white; padding: 2px 6px; border-radius: 4px;">OFF</mark>';
             } else if (t.source === 'DEVICE_CONSUMPTION') {
                 eventType = 'Device Load';
-                valText = `<code>${t.value.toFixed(2)} kW</code>`;
+                valText = `<code>${(t.value / 1000).toFixed(1)} kW</code>`;
             } else if (t.source === 'PV_PRODUCTION') {
                 eventType = 'Panel Production';
-                valText = `<code>${t.value.toFixed(2)} kW</code>`;
+                valText = `<code>${(t.value / 1000).toFixed(1)} kW</code>`;
             } else if (t.source === 'HOUSE_CONSUMPTION') {
                 eventType = 'House Total Load';
-                valText = `<code>${t.value.toFixed(2)} kW</code>`;
+                valText = `<code>${(t.value / 1000).toFixed(1)} kW</code>`;
             }
             
             html += `
@@ -528,17 +552,51 @@ async function renderAdmin() {
         // Devices
         const devicesDiv = document.getElementById('admin-devices');
         devicesDiv.removeAttribute('aria-busy');
-        let devicesHtml = '<table><thead><tr><th>Name</th><th>Owner</th><th>Topic</th><th>Status</th><th>Action</th></tr></thead><tbody>';
+        let devicesHtml = '<table><thead><tr><th>Name</th><th>Owner</th><th>Config</th><th>Action</th></tr></thead><tbody>';
         for (const d of devices) {
             const ownerName = tenantMap[d.tenant_id] || 'Unknown';
+            const schObj = d.scheduling_type;
+            const schType = (schObj && typeof schObj === 'object' ? schObj.type : schObj) || 'UNKNOWN';
+            
+            // Format for datetime-local input (requires YYYY-MM-DDTHH:mm in LOCAL time)
+            let until = '';
+            if (schObj && schObj.until) {
+                const date = new Date(schObj.until);
+                const offset = date.getTimezoneOffset() * 60000;
+                until = new Date(date.getTime() - offset).toISOString().slice(0, 16);
+            }
+
             devicesHtml += `
                 <tr>
-                    <td data-label="Name">${d.name}</td>
-                    <td data-label="Owner">${ownerName}</td>
-                    <td data-label="Topic"><code>${d.mqtt_topic}</code></td>
-                    <td data-label="Status"><code>${d.current_state}</code></td>
+                    <td data-label="Name">
+                        <strong>${d.name}</strong><br>
+                        <small class="secondary">${ownerName}</small><br>
+                        <code>${d.mqtt_topic}</code>
+                    </td>
+                    <td data-label="Owner">
+                        <label>Expected Load (W)
+                            <input type="number" value="${d.expected_load}" onchange="updateDeviceConfig('${d.id}', this.value)" style="margin-bottom:0">
+                        </label>
+                    </td>
+                    <td data-label="Config">
+                        <label>Scheduling Mode
+                            <select onchange="handleSchedulingChange('${d.id}', this.value, '${d.mqtt_topic}')" style="margin-bottom:0">
+                                <option value="BOILER" ${schType === 'BOILER' ? 'selected' : ''}>Boiler (Auto)</option>
+                                <option value="NONE" ${schType === 'NONE' ? 'selected' : ''}>None (Manual)</option>
+                                <option value="FORCE_ON" ${schType === 'FORCE_ON' ? 'selected' : ''}>Force ON</option>
+                                <option value="FORCE_OFF" ${schType === 'FORCE_OFF' ? 'selected' : ''}>Force OFF</option>
+                            </select>
+                        </label>
+                        <div id="until-container-${d.id}" style="${(schType === 'FORCE_ON' || schType === 'FORCE_OFF') ? '' : 'display:none'}">
+                            <label>Until
+                                <input type="datetime-local" value="${until}" onchange="updateDeviceScheduling('${d.id}', null, this.value)" style="margin-bottom:0">
+                            </label>
+                        </div>
+                    </td>
                     <td data-label="Action">
-                        <button class="outline" style="margin:0; padding: 2px 8px;" onclick="toggleDevice('${d.id}', 'admin')">Toggle</button>
+                        <button class="outline" style="margin:0; padding: 2px 8px; width: 100%" onclick="toggleDevice('${d.id}', 'admin')">
+                            ${d.current_state === 'ON' ? 'Turn OFF' : 'Turn ON'}
+                        </button>
                     </td>
                 </tr>
             `;
@@ -550,6 +608,63 @@ async function renderAdmin() {
         app.innerHTML += `<p style="color: red;">${e.message}</p>`;
     }
 }
+
+window.handleSchedulingChange = async (id, type, mqtt_topic) => {
+    const untilContainer = document.getElementById(`until-container-${id}`);
+    if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
+        untilContainer.style.display = 'block';
+        // Default until to 1 hour from now if not set
+        const input = untilContainer.querySelector('input');
+        if (!input.value) {
+            const inOneHour = new Date(Date.now() + 3600000);
+            const offset = inOneHour.getTimezoneOffset() * 60000;
+            input.value = new Date(inOneHour.getTime() - offset).toISOString().slice(0, 16);
+        }
+        updateDeviceScheduling(id, type, input.value);
+    } else {
+        untilContainer.style.display = 'none';
+        updateDeviceScheduling(id, type, null);
+    }
+};
+
+window.updateDeviceConfig = async (id, load) => {
+    try {
+        const resp = await fetch(`/api/devices/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ expected_load: parseInt(load) })
+        });
+        if (!resp.ok) alert('Update failed');
+    } catch (e) {
+        alert('Update failed: ' + e);
+    }
+};
+
+window.updateDeviceScheduling = async (id, type, until) => {
+    try {
+        const body = { scheduling_type: {} };
+        if (!type) {
+            // Finding the current type from the select
+            const row = document.querySelector(`select[onchange*="${id}"]`);
+            type = row.value;
+        }
+
+        if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
+            body.scheduling_type = { type: type, until: new Date(until).toISOString() };
+        } else {
+            body.scheduling_type = { type: type };
+        }
+
+        const resp = await fetch(`/api/devices/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        if (!resp.ok) alert('Update failed');
+    } catch (e) {
+        alert('Update failed: ' + e);
+    }
+};
 
 window.toggleDevice = async (id, context = 'overview') => {
     try {

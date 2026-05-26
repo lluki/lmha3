@@ -3,13 +3,14 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use rand::{seq::SliceRandom, Rng};
 
-use crate::DeviceState;
+use crate::{DeviceState, SchedulingType};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub enum SchedulerAction {
     Nothing,
     SwitchOn(Uuid),
     SwitchOff(Uuid),
+    UpdateScheduling(Uuid, SchedulingType),
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -19,6 +20,7 @@ pub struct DeviceContext {
     pub last_state_change: Option<DateTime<Utc>>,
     pub is_enabled: bool,
     pub expected_load: i32,
+    pub scheduling_type: SchedulingType,
 }
 
 #[derive(Debug)]
@@ -32,13 +34,47 @@ pub struct SchedulerInput<R: Rng> {
 }
 
 pub fn decide_action<R: Rng>(mut input: SchedulerInput<R>) -> SchedulerAction {
+    // 1. Check for Forced state expirations
+    for device in &input.devices {
+        match &device.scheduling_type {
+            SchedulingType::ForceOn { until } | SchedulingType::ForceOff { until } => {
+                if input.now >= *until {
+                    return SchedulerAction::UpdateScheduling(device.id, SchedulingType::Boiler);
+                }
+            }
+            _ => {}
+        }
+    }
+
+    // 2. Handle absolute overrides (Skip debounce for forced states)
+    for device in &input.devices {
+        if !device.is_enabled {
+            continue;
+        }
+
+        match device.scheduling_type {
+            SchedulingType::ForceOn { .. } => {
+                if device.current_state != DeviceState::On {
+                    return SchedulerAction::SwitchOn(device.id);
+                }
+            }
+            SchedulingType::ForceOff { .. } => {
+                if device.current_state != DeviceState::Off {
+                    return SchedulerAction::SwitchOff(device.id);
+                }
+            }
+            _ => {}
+        }
+    }
+
+    // 3. Boiler Logic
     let net_balance = input.pv_production - input.house_consumption;
     
     let mut eligible_to_on = Vec::new();
     let mut eligible_to_off = Vec::new();
 
-    for device in input.devices {
-        if !device.is_enabled {
+    for device in &input.devices {
+        if !device.is_enabled || device.scheduling_type != SchedulingType::Boiler {
             continue;
         }
 
@@ -55,7 +91,7 @@ pub fn decide_action<R: Rng>(mut input: SchedulerInput<R>) -> SchedulerAction {
 
         let on_threshold = (0.7 * device.expected_load as f64) as i32;
         let off_threshold = (0.3 * device.expected_load as f64) as i32;
-
+        
         if device.current_state == DeviceState::Off && net_balance > on_threshold {
             eligible_to_on.push(device.id);
         } else if device.current_state == DeviceState::On && net_balance < off_threshold {
@@ -63,14 +99,15 @@ pub fn decide_action<R: Rng>(mut input: SchedulerInput<R>) -> SchedulerAction {
         }
     }
 
-    if let Some(&id) = eligible_to_on.choose(&mut input.rng) {
-        return SchedulerAction::SwitchOn(id);
-    }
-    
+    // Prioritize SwitchOff to ensure safety and energy saving
     if let Some(&id) = eligible_to_off.choose(&mut input.rng) {
         return SchedulerAction::SwitchOff(id);
     }
 
+    if let Some(&id) = eligible_to_on.choose(&mut input.rng) {
+        return SchedulerAction::SwitchOn(id);
+    }
+    
     SchedulerAction::Nothing
 }
 
@@ -96,6 +133,7 @@ mod tests {
                 last_state_change: Some(now - Duration::minutes(10)),
                 is_enabled: true,
                 expected_load: 5000,
+                scheduling_type: SchedulingType::Boiler,
             }],
             now,
             debounce_duration_secs: 300,
@@ -112,12 +150,86 @@ mod tests {
                 last_state_change: Some(now - Duration::minutes(10)),
                 is_enabled: true,
                 expected_load: 5000,
+                scheduling_type: SchedulingType::Boiler,
             }],
             now,
             debounce_duration_secs: 300,
             rng: rng.clone(),
         };
         assert_eq!(decide_action(input_off), SchedulerAction::SwitchOff(device_id));
+    }
+
+    #[test]
+    fn test_forced_states() {
+        let now = Utc::now();
+        let d1 = Uuid::new_v4();
+        let d2 = Uuid::new_v4();
+        let d3 = Uuid::new_v4();
+        let rng = StdRng::seed_from_u64(42);
+
+        let input = SchedulerInput {
+            pv_production: 0, // No production, but D1 is ForceOn
+            house_consumption: 1000,
+            devices: vec![
+                DeviceContext {
+                    id: d1,
+                    current_state: DeviceState::Off,
+                    last_state_change: None,
+                    is_enabled: true,
+                    expected_load: 2000,
+                    scheduling_type: SchedulingType::ForceOn { until: now + Duration::hours(1) },
+                },
+                DeviceContext {
+                    id: d2,
+                    current_state: DeviceState::On,
+                    last_state_change: None,
+                    is_enabled: true,
+                    expected_load: 2000,
+                    scheduling_type: SchedulingType::ForceOff { until: now + Duration::hours(1) },
+                },
+                DeviceContext {
+                    id: d3,
+                    current_state: DeviceState::Off,
+                    last_state_change: None,
+                    is_enabled: true,
+                    expected_load: 2000,
+                    scheduling_type: SchedulingType::None,
+                }
+            ],
+            now,
+            debounce_duration_secs: 300,
+            rng,
+        };
+
+        // Should prioritize D1 SwitchOn
+        assert_eq!(decide_action(input), SchedulerAction::SwitchOn(d1));
+    }
+
+    #[test]
+    fn test_forced_expiration() {
+        let now = Utc::now();
+        let d1 = Uuid::new_v4();
+        let rng = StdRng::seed_from_u64(42);
+
+        let input = SchedulerInput {
+            pv_production: 5000,
+            house_consumption: 0,
+            devices: vec![
+                DeviceContext {
+                    id: d1,
+                    current_state: DeviceState::On,
+                    last_state_change: None,
+                    is_enabled: true,
+                    expected_load: 2000,
+                    scheduling_type: SchedulingType::ForceOn { until: now - Duration::minutes(1) }, // Expired
+                }
+            ],
+            now,
+            debounce_duration_secs: 300,
+            rng,
+        };
+
+        assert_eq!(decide_action(input), SchedulerAction::UpdateScheduling(d1, SchedulingType::Boiler));
     }
 
     #[test]
@@ -137,6 +249,7 @@ mod tests {
                     last_state_change: None,
                     is_enabled: true,
                     expected_load: 5000,
+                    scheduling_type: SchedulingType::Boiler,
                 },
                 DeviceContext {
                     id: device_2,
@@ -144,6 +257,7 @@ mod tests {
                     last_state_change: None,
                     is_enabled: true,
                     expected_load: 5000,
+                    scheduling_type: SchedulingType::Boiler,
                 }
             ],
             now,

@@ -20,6 +20,9 @@ Physical Shelly 1 Pro switches associated with a tenant.
 - `name`: String
 - `is_enabled`: Boolean
 - `current_state`: Enum (ON, OFF, UNKNOWN)
+- `expected_load`: Integer (Watts)
+- `scheduling_type`: Enum (NONE, FORCE_ON, FORCE_OFF, BOILER)
+- `scheduling_until`: Timestamp (Optional, for FORCE_* transitions)
 
 ### 3. Telemetry (Time-Series)
 Historical data for system and devices.

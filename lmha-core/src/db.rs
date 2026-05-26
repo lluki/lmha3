@@ -96,20 +96,32 @@ impl Db {
     }
 
     pub fn list_devices(&mut self) -> Result<Vec<Device>, postgres::Error> {
-        let rows = self.client.query("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, last_heartbeat FROM devices", &[])?;
-        Ok(rows.into_iter().map(|row| Device {
-            id: row.get(0),
-            tenant_id: row.get(1),
-            mqtt_topic: row.get(2),
-            name: row.get(3),
-            is_enabled: row.get(4),
-            expected_load: row.get::<_, f64>(5) as i32,
-            current_state: match row.get::<_, &str>(6) {
-                "ON" => crate::DeviceState::On,
-                "OFF" => crate::DeviceState::Off,
-                _ => crate::DeviceState::Unknown,
-            },
-            last_heartbeat: row.get(7),
+            let rows = self.client.query("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, last_heartbeat, scheduling_type, scheduling_until FROM devices", &[])?;
+            Ok(rows.into_iter().map(|row| {
+                let s_type: String = row.get(8);
+                let s_until: Option<chrono::DateTime<chrono::Utc>> = row.get(9);
+
+                let scheduling_type = match s_type.as_str() {                "none" => crate::SchedulingType::None,
+                "force-on" => crate::SchedulingType::ForceOn { until: s_until.unwrap_or_else(Utc::now) },
+                "force-off" => crate::SchedulingType::ForceOff { until: s_until.unwrap_or_else(Utc::now) },
+                _ => crate::SchedulingType::Boiler,
+            };
+
+            Device {
+                id: row.get(0),
+                tenant_id: row.get(1),
+                mqtt_topic: row.get(2),
+                name: row.get(3),
+                is_enabled: row.get(4),
+                expected_load: row.get(5),
+                current_state: match row.get::<_, &str>(6) {
+                    "ON" => crate::DeviceState::On,
+                    "OFF" => crate::DeviceState::Off,
+                    _ => crate::DeviceState::Unknown,
+                },
+                last_heartbeat: row.get(7),
+                scheduling_type,
+            }
         }).collect())
     }
 
@@ -131,6 +143,28 @@ impl Db {
         self.client.execute(
             "UPDATE devices SET current_state = $1::text::device_state WHERE mqtt_topic = $2",
             &[&state_str, &mqtt_topic],
+        )?;
+        Ok(())
+    }
+
+    pub fn update_device_scheduling(&mut self, id: Uuid, scheduling_type: crate::SchedulingType) -> Result<(), postgres::Error> {
+        let (type_str, until) = match scheduling_type {
+            crate::SchedulingType::None => ("none", None),
+            crate::SchedulingType::ForceOn { until } => ("force-on", Some(until)),
+            crate::SchedulingType::ForceOff { until } => ("force-off", Some(until)),
+            crate::SchedulingType::Boiler => ("boiler", None),
+        };
+        self.client.execute(
+            "UPDATE devices SET scheduling_type = $1, scheduling_until = $2 WHERE id = $3",
+            &[&type_str, &until, &id],
+        )?;
+        Ok(())
+    }
+
+    pub fn update_device_config(&mut self, id: Uuid, expected_load: i32) -> Result<(), postgres::Error> {
+        self.client.execute(
+            "UPDATE devices SET expected_load = $1 WHERE id = $2",
+            &[&expected_load, &id],
         )?;
         Ok(())
     }

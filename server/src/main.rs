@@ -126,6 +126,7 @@ fn main() {
         include_str!("../../migrations/003_add_device_heartbeat.sql"),
         include_str!("../../migrations/004_add_device_consumption.sql"),
         include_str!("../../migrations/005_add_expected_load.sql"),
+        include_str!("../../migrations/006_add_device_management.sql"),
     ];
     for migration in migrations {
         client.batch_execute(migration).ok(); // Batch execute will ignore errors if columns already exist
@@ -243,7 +244,7 @@ fn main() {
                     match db.list_devices() {
                         Ok(devices) => Response::json(&devices),
                         Err(e) => {
-                            error!("DB Error listing devices: {}", e);
+                            error!("DB Error listing devices: {:?} | Error message: {}", e, e);
                             Response::text("DB Error").with_status_code(500)
                         }
                     }
@@ -275,6 +276,52 @@ fn main() {
                             error!("DB Error creating device: {}", e);
                             Response::text("DB Error").with_status_code(500)
                         }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (PATCH) (/api/devices/{id: Uuid}) => {
+                if let Some(user) = get_user(request, &state) {
+                    // Logic: Must be admin OR own the device
+                    let mut db = state.db.lock().unwrap();
+                    let devices = db.list_devices().unwrap_or_default();
+                    let device = devices.into_iter().find(|d| d.id == id);
+                    
+                    if let Some(d) = device {
+                        if !user.is_admin && d.tenant_id != user.tenant_id {
+                            return Response::text("Forbidden").with_status_code(403);
+                        }
+
+                        #[derive(serde::Deserialize)]
+                        struct DevicePatch {
+                            expected_load: Option<i32>,
+                            scheduling_type: Option<lmha_core::SchedulingType>,
+                        }
+
+                        let patch: DevicePatch = match rouille::input::json_input(request) {
+                            Ok(p) => p,
+                            Err(_) => return Response::text("Invalid JSON").with_status_code(400),
+                        };
+
+                        if let Some(load) = patch.expected_load {
+                            if let Err(e) = db.update_device_config(id, load) {
+                                error!("DB Error updating load: {}", e);
+                                return Response::text("DB Error").with_status_code(500);
+                            }
+                        }
+
+                        if let Some(sch) = patch.scheduling_type {
+                            if let Err(e) = db.update_device_scheduling(id, sch) {
+                                error!("DB Error updating scheduling: {}", e);
+                                return Response::text("DB Error").with_status_code(500);
+                            }
+                        }
+
+                        Response::json(&json!({"status": "ok"}))
+                    } else {
+                        Response::empty_404()
                     }
                 } else {
                     Response::text("Unauthorized").with_status_code(401)
@@ -378,6 +425,13 @@ fn get_user(request: &Request, state: &AppState) -> Option<lmha_core::UserInfo> 
 }
 
 fn run_scheduler_loop(state: Arc<AppState>) {
+    let (interval, debounce) = if std::env::var("LMHA_SCHEDULER_DEBUG").is_ok() {
+        info!("Scheduler Debug mode enabled: 10s interval, 15s debounce");
+        (Duration::from_secs(10), 15)
+    } else {
+        (Duration::from_secs(300), 300)
+    };
+
     loop {
         if !state.no_home_assistant {
             let config = &state.config;
@@ -424,42 +478,64 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                     last_state_change: d.last_heartbeat,
                     is_enabled: d.is_enabled,
                     expected_load: d.expected_load,
+                    scheduling_type: d.scheduling_type.clone(),
                 }).collect(),
                 now: chrono::Utc::now(),
-                debounce_duration_secs: 300,
+                debounce_duration_secs: debounce,
                 rng: rand::thread_rng(),
             };
 
-            info!("Scheduler invoked: PV={:.1}kW, Cons={:.1}kW, Devices={}", pv_production as f64 / 1000.0, house_consumption as f64 / 1000.0, input.devices.len());
-            tracing::debug!("Scheduler input (W): {:?}", input);
+            info!("Scheduler invoked: PV={:.1}kW, Cons={:.1}kW, Devices={}, Input={:?}", 
+                pv_production as f64 / 1000.0, 
+                house_consumption as f64 / 1000.0, 
+                input.devices.len(),
+                input
+            );
 
             let action = lmha_core::scheduler::decide_action(input);
-            info!("Scheduler action: {:?}", action);
+            if action != lmha_core::scheduler::SchedulerAction::Nothing {
+                info!("Scheduler action: {:?}", action);
+            }
 
             match action {
                 lmha_core::scheduler::SchedulerAction::SwitchOn(id) => {
                     if let Some(device) = devices.iter().find(|d| d.id == id) {
                         let mqtt_client = state.mqtt_client.lock().unwrap();
-                        let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, "on");
+                        let payload = json!({
+                            "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": true}
+                        }).to_string();
+                        let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
                     }
                 }
                 lmha_core::scheduler::SchedulerAction::SwitchOff(id) => {
                     if let Some(device) = devices.iter().find(|d| d.id == id) {
                         let mqtt_client = state.mqtt_client.lock().unwrap();
-                        let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, "off");
+                        let payload = json!({
+                            "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": false}
+                        }).to_string();
+                        let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
+                    }
+                }
+                lmha_core::scheduler::SchedulerAction::UpdateScheduling(id, new_type) => {
+                    if let Some(device) = devices.iter().find(|d| d.id == id) {
+                        info!("Device '{}' ({}) transitioning from {:?} to {:?}", device.name, device.id, device.scheduling_type, new_type);
+                        if let Err(e) = db.update_device_scheduling(id, new_type) {
+                            error!("DB Error updating scheduling for {}: {}", id, e);
+                        }
                     }
                 }
                 lmha_core::scheduler::SchedulerAction::Nothing => {}
             }
         }
-        thread::sleep(Duration::from_secs(300));
+        thread::sleep(interval);
     }
 }
 
 fn run_main_loop(state: Arc<AppState>) {
     loop {
-        let mut mqtt_options = MqttOptions::new("lmha3-server", &state.config.mqtt_host, state.config.mqtt_port);
-        mqtt_options.set_keep_alive(Duration::from_secs(5));
+        let client_id = format!("lmha3-server-{}", Uuid::new_v4().to_string().get(0..8).unwrap());
+        let mut mqtt_options = MqttOptions::new(client_id, &state.config.mqtt_host, state.config.mqtt_port);
+        mqtt_options.set_keep_alive(Duration::from_secs(30));
         if let (Some(u), Some(p)) = (&state.config.mqtt_user, &state.config.mqtt_password) {
             mqtt_options.set_credentials(u, p);
         }

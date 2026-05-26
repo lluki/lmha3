@@ -28,6 +28,12 @@ Use the token found in secrets/ha-token.md . The two sensors of interest are:
 HA runs on port 8123 . Use the IP 192.168.178.31 , it will work in prod as well as in development.
 
 ## Logic Priority
-1. Manual override (if implemented) takes precedence.
-2. Hardware safety limits (Debounce).
-3. Production/Demand matching.
+1. **Manual / Forced States:**
+   - `FORCE_ON` / `FORCE_OFF` take absolute precedence until `scheduling_until` is reached.
+   - `NONE` disables all automated scheduling for the device.
+2. **Auto-Transition:**
+   - When `now() > scheduling_until`, the device automatically transitions from `FORCE_*` back to `BOILER`.
+3. **Hardware safety limits (Debounce):** Minimum 5 minutes between state changes.
+4. **Production/Demand matching (BOILER):**
+   - Logic: `If PV_Production > (House_Consumption + Device_Load + Margin) -> ON`.
+   - Uses the device's `expected_load` for calculation.

@@ -56,6 +56,15 @@ pub enum DeviceState {
     Unknown,
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE", tag = "type")]
+pub enum SchedulingType {
+    None,
+    ForceOff { until: DateTime<Utc> },
+    ForceOn { until: DateTime<Utc> },
+    Boiler,
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Device {
     pub id: Uuid,
@@ -64,6 +73,7 @@ pub struct Device {
     pub name: String,
     pub is_enabled: bool,
     pub expected_load: i32,
+    pub scheduling_type: SchedulingType,
     pub current_state: DeviceState,
     pub last_heartbeat: Option<DateTime<Utc>>,
 }
