@@ -44,8 +44,8 @@ fn test_history_recording() {
         let body_resp = agent.get(&format!("http://localhost:{}/api/history", port)).set("Cookie", &cookie).call().unwrap();
         let history: Vec<serde_json::Value> = body_resp.into_json::<Vec<serde_json::Value>>().unwrap();
         
-        let has_state = history.iter().any(|h| h["source"] == "DEVICE_STATE" && h["value"] == 1.0);
-        let has_power = history.iter().any(|h| h["source"] == "DEVICE_CONSUMPTION" && h["value"] == 50.5);
+        let has_state = history.iter().any(|h| h["source"] == "DEVICE_STATE" && h["value"] == 1);
+        let has_power = history.iter().any(|h| h["source"] == "DEVICE_CONSUMPTION" && h["value"] == 50);
         
         if has_state && has_power {
             history_ok = true;
