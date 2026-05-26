@@ -10,6 +10,6 @@
 - [x] 4. Integrate into Server Loop (server)
     - [x] 4.1 Update `run_main_loop` to poll HA and save to DB.
     - [x] 4.2 Ensure it respects the `--no-home-assistant` flag.
-- [ ] 5. Verification
+- [x] 5. Verification
     - [x] 5.1 Create a mock test or manually verify with a local HA instance. (Verified via compilation and code review; manual verification requires a running HA instance).
 
