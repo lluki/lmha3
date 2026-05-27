@@ -7,8 +7,19 @@ The logic for matching load consumption with solar production and handling manua
 1. **Decision Engine (Background Thread):**
    - Runs in a dedicated background thread within the server process.
    - Periodically polls **Home Assistant (localhost)** for current PV production and house consumption.
-   - Logic: `If PV_Production > (House_Consumption + Device_Load + Margin) -> ON`.
-2. **Manual Override:**
+   - Incorporates historical device state data to fulfill long-term scheduling constraints.
+   - MUST accept an explicit "now" timestamp for deterministic behavior and testing.
+   - **Scenario: History-aware polling**
+     - **WHEN** the scheduler is invoked
+     - **THEN** it retrieves current PV/Consumption and the necessary history of ON/OFF events for all Boiler-mode devices
+2. **Mandatory Charging:**
+   - The system SHALL guarantee minimum charge levels and periodic full charges (defined as 4h of runtime within a 5am-5am window).
+   - **Full Charge Deadline**: If `full_charge_n_day` days have passed without a 4h charge, the system SHALL force the device ON starting at 1am (4h before the 5am deadline) on the final day.
+   - **Daily Minimum**: The system SHALL ensure `min_daily_charge` is met within every 5am-5am cycle, forcing the device ON if the deadline approaches and the quota is not met.
+   - **Scenario: Full charge trigger**
+     - **WHEN** it is 1am and a device requiring a full charge every 1 day has not reached 4h of runtime since 5am the previous day
+     - **THEN** the device is forced ON regardless of PV production
+3. **Manual Override:**
    - Tenants can manually toggle devices via the Web UI.
    - A manual toggle triggers an immediate MQTT command and sets a "Manual Override" state that lasts for a configurable duration (default 1 hour) before the scheduler resumes control.
 3. **Data Integration:**
@@ -34,6 +45,15 @@ HA runs on port 8123 . Use the IP 192.168.178.31 , it will work in prod as well 
 2. **Auto-Transition:**
    - When `now() > scheduling_until`, the device automatically transitions from `FORCE_*` back to `BOILER`.
 3. **Hardware safety limits (Debounce):** Minimum 5 minutes between state changes.
-4. **Production/Demand matching (BOILER):**
-   - Logic: `If PV_Production > (House_Consumption + Device_Load + Margin) -> ON`.
-   - Uses the device's `expected_load` for calculation.
+4. **Mandatory Charging:**
+   - Forces device ON if `full_charge_n_day` or `min_daily_charge` deadlines are approaching.
+5. **Production/Demand matching (BOILER):**
+   - **Fair Distribution**: Picks device OFF longest to turn ON; device ON longest to turn OFF.
+   - **Improved Hysteresis**: Stay ON if `PV_Production > (House_Consumption_Excl_Device + 0.3 * Device_Load)`.
+   - **Incremental Activation**: Supports activating multiple devices across sequential cycles.
+   - **Scenario: Longest idle activation**
+     - **WHEN** two devices are eligible for BOILER mode activation
+     - **THEN** the device that has been OFF for the longest duration is activated first
+   - **Scenario: Grid-assisted retention**
+     - **WHEN** a 4kW device is ON, PV is 3kW, and other house consumption is 1.5kW
+     - **THEN** the device remains ON

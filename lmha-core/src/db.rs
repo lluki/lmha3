@@ -96,7 +96,7 @@ impl Db {
     }
 
     pub fn list_devices(&mut self) -> Result<Vec<Device>, postgres::Error> {
-            let rows = self.client.query("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, last_heartbeat, scheduling_type, scheduling_until FROM devices", &[])?;
+            let rows = self.client.query("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, last_heartbeat, scheduling_type, scheduling_until, full_charge_n_day, min_daily_charge FROM devices", &[])?;
             Ok(rows.into_iter().map(|row| {
                 let s_type: String = row.get(8);
                 let s_until: Option<chrono::DateTime<chrono::Utc>> = row.get(9);
@@ -121,6 +121,8 @@ impl Db {
                 },
                 last_heartbeat: row.get(7),
                 scheduling_type,
+                full_charge_n_day: row.get(10),
+                min_daily_charge: row.get(11),
             }
         }).collect())
     }
@@ -161,10 +163,10 @@ impl Db {
         Ok(())
     }
 
-    pub fn update_device_config(&mut self, id: Uuid, expected_load: i32) -> Result<(), postgres::Error> {
+    pub fn update_device_config(&mut self, id: Uuid, expected_load: i32, full_charge_n_day: i32, min_daily_charge: i32) -> Result<(), postgres::Error> {
         self.client.execute(
-            "UPDATE devices SET expected_load = $1 WHERE id = $2",
-            &[&expected_load, &id],
+            "UPDATE devices SET expected_load = $1, full_charge_n_day = $2, min_daily_charge = $3 WHERE id = $4",
+            &[&expected_load, &full_charge_n_day, &min_daily_charge, &id],
         )?;
         Ok(())
     }
@@ -225,6 +227,20 @@ impl Db {
             device_id: row.get(2),
             value: row.get::<_, f64>(3) as i32,
             metadata: row.get(4),
+        }).collect())
+    }
+
+    pub fn get_device_history(&mut self, device_id: Uuid, since: chrono::DateTime<chrono::Utc>) -> Result<Vec<crate::scheduler::StateEvent>, postgres::Error> {
+        let rows = self.client.query(
+            "SELECT timestamp, value FROM telemetry 
+             WHERE source = 'DEVICE_STATE'::telemetry_source AND device_id = $1 AND timestamp >= $2
+             ORDER BY timestamp ASC",
+            &[&device_id, &since],
+        )?;
+
+        Ok(rows.into_iter().map(|row| crate::scheduler::StateEvent {
+            timestamp: row.get(0),
+            state: if row.get::<_, f64>(1) > 0.5 { crate::DeviceState::On } else { crate::DeviceState::Off },
         }).collect())
     }
 

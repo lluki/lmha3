@@ -76,6 +76,8 @@ pub struct Device {
     pub scheduling_type: SchedulingType,
     pub current_state: DeviceState,
     pub last_heartbeat: Option<DateTime<Utc>>,
+    pub full_charge_n_day: i32,
+    pub min_daily_charge: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

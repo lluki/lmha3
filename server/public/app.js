@@ -573,12 +573,20 @@ async function renderAdmin() {
                         <small class="secondary">${ownerName}</small><br>
                         <code>${d.mqtt_topic}</code>
                     </td>
-                    <td data-label="Owner">
-                        <label>Expected Load (W)
-                            <input type="number" value="${d.expected_load}" onchange="updateDeviceConfig('${d.id}', this.value)" style="margin-bottom:0">
-                        </label>
-                    </td>
                     <td data-label="Config">
+                        <label>Expected Load (W)
+                            <input type="number" value="${d.expected_load}" onchange="updateDeviceConfig('${d.id}', this.value, '${d.full_charge_n_day}', '${d.min_daily_charge}')" style="margin-bottom:0">
+                        </label>
+                        <div id="boiler-config-${d.id}" style="${schType === 'BOILER' ? '' : 'display:none'}">
+                            <label>Full Charge Every (Days)
+                                <input type="number" min="1" max="8" value="${d.full_charge_n_day}" onchange="updateDeviceConfig('${d.id}', null, this.value, null)" style="margin-bottom:0">
+                            </label>
+                            <label>Min Daily Charge (Mins)
+                                <input type="number" min="0" value="${d.min_daily_charge}" onchange="updateDeviceConfig('${d.id}', null, null, this.value)" style="margin-bottom:0">
+                            </label>
+                        </div>
+                    </td>
+                    <td data-label="Scheduling">
                         <label>Scheduling Mode
                             <select onchange="handleSchedulingChange('${d.id}', this.value, '${d.mqtt_topic}')" style="margin-bottom:0">
                                 <option value="BOILER" ${schType === 'BOILER' ? 'selected' : ''}>Boiler (Auto)</option>
@@ -611,8 +619,11 @@ async function renderAdmin() {
 
 window.handleSchedulingChange = async (id, type, mqtt_topic) => {
     const untilContainer = document.getElementById(`until-container-${id}`);
+    const boilerConfig = document.getElementById(`boiler-config-${id}`);
+    
     if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
         untilContainer.style.display = 'block';
+        boilerConfig.style.display = 'none';
         // Default until to 1 hour from now if not set
         const input = untilContainer.querySelector('input');
         if (!input.value) {
@@ -621,18 +632,28 @@ window.handleSchedulingChange = async (id, type, mqtt_topic) => {
             input.value = new Date(inOneHour.getTime() - offset).toISOString().slice(0, 16);
         }
         updateDeviceScheduling(id, type, input.value);
+    } else if (type === 'BOILER') {
+        untilContainer.style.display = 'none';
+        boilerConfig.style.display = 'block';
+        updateDeviceScheduling(id, type, null);
     } else {
         untilContainer.style.display = 'none';
+        boilerConfig.style.display = 'none';
         updateDeviceScheduling(id, type, null);
     }
 };
 
-window.updateDeviceConfig = async (id, load) => {
+window.updateDeviceConfig = async (id, load, full_charge, min_charge) => {
     try {
+        const body = {};
+        if (load !== null) body.expected_load = parseInt(load);
+        if (full_charge !== null) body.full_charge_n_day = parseInt(full_charge);
+        if (min_charge !== null) body.min_daily_charge = parseInt(min_charge);
+
         const resp = await fetch(`/api/devices/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ expected_load: parseInt(load) })
+            body: JSON.stringify(body)
         });
         if (!resp.ok) alert('Update failed');
     } catch (e) {

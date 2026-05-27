@@ -14,10 +14,8 @@ if ! psql -lqt | cut -d \| -f 1 | grep -qw "$DB_NAME"; then
     createdb "$DB_NAME"
 fi
 
-# 2. Apply migrations
-echo "Applying migrations..."
-psql "$DB_NAME" -f migrations/001_initial_schema.sql > /dev/null
-psql "$DB_NAME" -f migrations/002_add_sessions.sql > /dev/null
+# 2. (Migrations are now handled by the server on startup)
+echo "Ensuring DB is ready..."
 
 # 3. Check for admin user, create if missing
 CHECK_USER=$(psql -t -A -c "SELECT count(*) FROM tenants WHERE username='admin';" "$DB_NAME")

@@ -127,6 +127,7 @@ fn main() {
         include_str!("../../migrations/004_add_device_consumption.sql"),
         include_str!("../../migrations/005_add_expected_load.sql"),
         include_str!("../../migrations/006_add_device_management.sql"),
+        include_str!("../../migrations/007_boiler_advanced_config.sql"),
     ];
     for migration in migrations {
         client.batch_execute(migration).ok(); // Batch execute will ignore errors if columns already exist
@@ -298,6 +299,8 @@ fn main() {
                         struct DevicePatch {
                             expected_load: Option<i32>,
                             scheduling_type: Option<lmha_core::SchedulingType>,
+                            full_charge_n_day: Option<i32>,
+                            min_daily_charge: Option<i32>,
                         }
 
                         let patch: DevicePatch = match rouille::input::json_input(request) {
@@ -305,9 +308,13 @@ fn main() {
                             Err(_) => return Response::text("Invalid JSON").with_status_code(400),
                         };
 
-                        if let Some(load) = patch.expected_load {
-                            if let Err(e) = db.update_device_config(id, load) {
-                                error!("DB Error updating load: {}", e);
+                        if patch.expected_load.is_some() || patch.full_charge_n_day.is_some() || patch.min_daily_charge.is_some() {
+                            let load = patch.expected_load.unwrap_or(d.expected_load);
+                            let full_charge = patch.full_charge_n_day.unwrap_or(d.full_charge_n_day);
+                            let min_charge = patch.min_daily_charge.unwrap_or(d.min_daily_charge);
+                            
+                            if let Err(e) = db.update_device_config(id, load, full_charge, min_charge) {
+                                error!("DB Error updating config: {}", e);
                                 return Response::text("DB Error").with_status_code(500);
                             }
                         }
@@ -468,6 +475,17 @@ fn run_scheduler_loop(state: Arc<AppState>) {
             let mut db = state.db.lock().unwrap();
             let devices = db.list_devices().unwrap_or_default();
             let (pv_production, house_consumption) = db.get_latest_metrics().unwrap_or((0, 0));
+            
+            let now = chrono::Utc::now();
+            let history_since = now - chrono::Duration::days(8);
+            let mut history = std::collections::HashMap::new();
+
+            for d in &devices {
+                if d.scheduling_type == lmha_core::SchedulingType::Boiler {
+                    let device_history = db.get_device_history(d.id, history_since).unwrap_or_default();
+                    history.insert(d.id, device_history);
+                }
+            }
 
             let input = lmha_core::scheduler::SchedulerInput {
                 pv_production,
@@ -479,8 +497,11 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                     is_enabled: d.is_enabled,
                     expected_load: d.expected_load,
                     scheduling_type: d.scheduling_type.clone(),
+                    full_charge_n_day: d.full_charge_n_day,
+                    min_daily_charge: d.min_daily_charge,
                 }).collect(),
-                now: chrono::Utc::now(),
+                history,
+                now,
                 debounce_duration_secs: debounce,
                 rng: rand::thread_rng(),
             };
