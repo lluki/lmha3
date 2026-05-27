@@ -528,6 +528,7 @@ async function renderLogs() {
                 <strong>System Logs</strong>
                 <select id="log-level-filter" style="width: auto; margin: 0;">
                     <option value="ALL">All Levels</option>
+                    <option value="TRACE">Trace+</option>
                     <option value="INFO">Info+</option>
                     <option value="WARN">Warn+</option>
                     <option value="ERROR">Error</option>
@@ -558,6 +559,7 @@ async function fetchAndRenderLogs(elementId, levelFilter = 'ALL') {
                 if (levelFilter === 'ERROR') return l.level === 'ERROR';
                 if (levelFilter === 'WARN') return l.level === 'WARN' || l.level === 'ERROR';
                 if (levelFilter === 'INFO') return l.level === 'INFO' || l.level === 'WARN' || l.level === 'ERROR';
+                if (levelFilter === 'TRACE') return l.level === 'TRACE' || l.level === 'INFO' || l.level === 'WARN' || l.level === 'ERROR';
                 return true;
             });
         }

@@ -102,7 +102,8 @@ impl TestHarness {
         let house_id: Uuid = client.query_one("SELECT id FROM houses LIMIT 1", &[]).unwrap().get(0);
         let hashed = hash_password(password).unwrap();
         let id = Uuid::new_v4();
-        client.execute("INSERT INTO tenants (id, username, password_hash, house_id) VALUES ($1, $2, $3, $4)", &[&id, &username, &hashed, &house_id]).unwrap();
+        let is_admin = username == "admin";
+        client.execute("INSERT INTO tenants (id, username, password_hash, house_id, is_admin) VALUES ($1, $2, $3, $4, $5)", &[&id, &username, &hashed, &house_id, &is_admin]).unwrap();
         id
     }
 

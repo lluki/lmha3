@@ -11,7 +11,7 @@ use rumqttc::{Client, MqttOptions, QoS, Event, Packet};
 use serde::{Serialize};
 use serde_json::json;
 use std::collections::VecDeque;
-use tracing::{info, error};
+use tracing::{info, error, trace, debug};
 use tracing_subscriber::{fmt, prelude::*, Layer};
 
 #[derive(Serialize, Clone, Debug)]
@@ -101,7 +101,7 @@ fn main() {
     let log_buffer = Arc::new(Mutex::new(LogBuffer::new(1000)));
 
     let filter = tracing_subscriber::EnvFilter::from_default_env()
-        .add_directive(tracing::Level::INFO.into());
+        .add_directive(tracing::Level::TRACE.into());
 
     tracing_subscriber::registry()
         .with(fmt::layer().with_filter(filter.clone()))
@@ -788,7 +788,7 @@ fn run_scheduler_loop(state: Arc<AppState>) {
         };
 
         for house in houses {
-            info!("Processing House: {}", house.name);
+            trace!("Processing House: {}", house.name);
             
             if !state.no_home_assistant {
                 let ha_url = if house.ha_host.starts_with("http") {
@@ -862,7 +862,7 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                     rng: rand::thread_rng(),
                 };
 
-                info!("Scheduler invoked for {}: PV={:.1}kW, Cons={:.1}kW, Devices={}, Input={:?}", 
+                trace!("Scheduler invoked for {}: PV={:.1}kW, Cons={:.1}kW, Devices={}, Input={:?}", 
                     house.name,
                     pv_production as f64 / 1000.0, 
                     house_consumption as f64 / 1000.0, 
@@ -873,6 +873,8 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                 let action = lmha_core::scheduler::decide_action(input);
                 if action != lmha_core::scheduler::SchedulerAction::Nothing {
                     info!("Scheduler action for {}: {:?}", house.name, action);
+                } else {
+                    trace!("Scheduler action for {}: {:?}", house.name, action);
                 }
 
                 match action {
@@ -936,7 +938,7 @@ fn run_main_loop(state: Arc<AppState>) {
                 Ok(Event::Incoming(Packet::Publish(publish))) => {
                     let topic = publish.topic;
                     let payload_str = String::from_utf8_lossy(&publish.payload);
-                    info!("MQTT Incoming: {} | Payload: {}", topic, payload_str);
+                    trace!("MQTT Incoming: {} | Payload: {}", topic, payload_str);
 
                     let parts: Vec<&str> = topic.split('/').collect();
                     let (base_topic, is_gen1) = if parts.len() > 1 && parts[0] == "shellies" {
