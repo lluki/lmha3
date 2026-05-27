@@ -15,17 +15,30 @@ use argon2::{
 };
 
 #[derive(Debug, Serialize, Deserialize)]
+pub struct House {
+    pub id: Uuid,
+    pub name: String,
+    pub ha_host: String,
+    pub ha_token: String,
+    pub created_at: DateTime<Utc>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Tenant {
     pub id: Uuid,
+    pub house_id: Uuid,
     pub username: String,
     pub password_hash: String,
+    pub is_admin: bool,
     pub created_at: DateTime<Utc>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TenantPublic {
     pub id: Uuid,
+    pub house_id: Uuid,
     pub username: String,
+    pub is_admin: bool,
     pub created_at: DateTime<Utc>,
 }
 
@@ -69,6 +82,7 @@ pub enum SchedulingType {
 pub struct Device {
     pub id: Uuid,
     pub tenant_id: Uuid,
+    pub house_id: Uuid,
     pub mqtt_topic: String,
     pub name: String,
     pub is_enabled: bool,
@@ -104,12 +118,14 @@ pub struct Session {
     pub tenant_id: Uuid,
     pub expires_at: DateTime<Utc>,
     pub created_at: DateTime<Utc>,
+    pub current_view_house_id: Option<Uuid>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserInfo {
     pub session_id: Uuid,
     pub tenant_id: Uuid,
+    pub house_id: Uuid,
     pub username: String,
     pub is_admin: bool,
 }

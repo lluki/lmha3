@@ -106,9 +106,10 @@ fn test_global_read_access() {
     
     // Insert telemetry for admin's device
     let mut db_client = Client::connect(&harness.config.database_url, NoTls).unwrap();
+    let house_id: Uuid = db_client.query_one("SELECT house_id FROM devices WHERE id = $1", &[&device_id]).unwrap().get(0);
     db_client.execute(
-        "INSERT INTO telemetry (source, device_id, value) VALUES ('DEVICE_STATE', $1, 1.0)",
-        &[&device_id]
+        "INSERT INTO telemetry (source, device_id, value, house_id) VALUES ('DEVICE_STATE', $1, 1.0, $2)",
+        &[&device_id, &house_id]
     ).expect("Failed to insert telemetry");
 
     let agent = ureq::AgentBuilder::new()

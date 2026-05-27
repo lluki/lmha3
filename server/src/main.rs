@@ -128,6 +128,8 @@ fn main() {
         include_str!("../../migrations/005_add_expected_load.sql"),
         include_str!("../../migrations/006_add_device_management.sql"),
         include_str!("../../migrations/007_boiler_advanced_config.sql"),
+        include_str!("../../migrations/008_multi_house_support.sql"),
+        include_str!("../../migrations/009_add_is_admin.sql"),
     ];
     for migration in migrations {
         client.batch_execute(migration).ok(); // Batch execute will ignore errors if columns already exist
@@ -192,6 +194,124 @@ fn main() {
                 Response::json(&json!({ "version": env!("CARGO_PKG_VERSION") }))
             },
 
+            (GET) (/api/houses) => {
+                if let Some(_) = get_session(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    match db.list_houses() {
+                        Ok(houses) => Response::json(&houses),
+                        Err(e) => {
+                            error!("DB Error listing houses: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (POST) (/api/houses) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let data = rouille::post_input!(request, {
+                        name: String,
+                        ha_host: String,
+                        ha_token: String,
+                    }).expect("Invalid house creation form");
+
+                    let mut db = state.db.lock().unwrap();
+                    match db.create_house(&data.name, &data.ha_host, &data.ha_token) {
+                        Ok(id) => Response::json(&json!({"status": "ok", "id": id})),
+                        Err(e) => {
+                            error!("DB Error creating house: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (DELETE) (/api/houses/{id: Uuid}) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let mut db = state.db.lock().unwrap();
+                    match db.delete_house(id) {
+                        Ok(_) => Response::json(&json!({"status": "ok"})),
+                        Err(e) => Response::text(e).with_status_code(400),
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (POST) (/api/admin/select-house) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let data: serde_json::Value = match rouille::input::json_input(request) {
+                        Ok(p) => p,
+                        Err(_) => return Response::text("Invalid JSON").with_status_code(400),
+                    };
+                    let house_id_str = data.get("house_id").and_then(|v| v.as_str()).unwrap_or("");
+                    let house_id = match Uuid::parse_str(house_id_str) {
+                        Ok(id) => id,
+                        Err(_) => return Response::text("Invalid UUID").with_status_code(400),
+                    };
+
+                    let mut db = state.db.lock().unwrap();
+                    if let Err(e) = db.update_session_view_house(user.session_id, house_id) {
+                        error!("DB Error updating session house: {}", e);
+                        return Response::text("DB Error").with_status_code(500);
+                    }
+                    Response::json(&json!({"status": "ok"}))
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (GET) (/api/admin/discover-devices) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    
+                    let mut discovered_topics = std::collections::HashSet::new();
+                    // Scan current and old logs
+                    for log_file in ["logs/mqtt.log", "logs/mqtt2.log", "logs/mqtt3.log"] {
+                        if let Ok(content) = std::fs::read_to_string(log_file) {
+                            for line in content.lines() {
+                                if let Some(idx) = line.find("MQTT Incoming: ") {
+                                    let rest = &line[idx + 15..];
+                                    let topic = rest.split('|').next().unwrap_or("").trim();
+                                    let base_topic = topic.split('/').next().unwrap_or("");
+                                    if base_topic.starts_with("shelly") {
+                                        discovered_topics.insert(base_topic.to_string());
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    let mut db = state.db.lock().unwrap();
+                    let existing_devices = db.list_devices(None).unwrap_or_default();
+                    let existing_topics: std::collections::HashSet<_> = existing_devices.iter().map(|d| d.mqtt_topic.as_str()).collect();
+
+                    let mut new_topics: Vec<_> = discovered_topics.into_iter()
+                        .filter(|t| !existing_topics.contains(t.as_str()))
+                        .collect();
+                    new_topics.sort();
+
+                    Response::json(&new_topics)
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
             (GET) (/api/logs) => {
                 if let Some(_) = get_session(request, &state) {
                     let buffer = state.log_buffer.lock().unwrap();
@@ -202,15 +322,19 @@ fn main() {
             },
 
             (GET) (/api/tenants) => {
-                if let Some(_s) = get_session(request, &state) {
+                if let Some(user) = get_user(request, &state) {
                     let mut db = state.db.lock().unwrap();
                     match db.list_tenants() {
                         Ok(tenants) => {
-                            let public_tenants: Vec<lmha_core::TenantPublic> = tenants.into_iter().map(|t| lmha_core::TenantPublic {
-                                id: t.id,
-                                username: t.username,
-                                created_at: t.created_at,
-                            }).collect();
+                            let public_tenants: Vec<lmha_core::TenantPublic> = tenants.into_iter()
+                                .filter(|t| user.is_admin || t.house_id == user.house_id)
+                                .map(|t| lmha_core::TenantPublic {
+                                    id: t.id,
+                                    house_id: t.house_id,
+                                    username: t.username,
+                                    is_admin: t.is_admin,
+                                    created_at: t.created_at,
+                                }).collect();
                             Response::json(&public_tenants)
                         },
                         Err(e) => {
@@ -223,10 +347,60 @@ fn main() {
                 }
             },
 
-            (GET) (/api/metrics) => {
-                if let Some(_) = get_session(request, &state) {
+            (POST) (/api/tenants) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let data = rouille::post_input!(request, {
+                        username: String,
+                        password: Option<String>,
+                        house_id: String,
+                        is_admin: Option<String>,
+                    }).expect("Invalid tenant creation form");
+
+                    let house_id = match Uuid::parse_str(&data.house_id) {
+                        Ok(id) => id,
+                        Err(_) => return Response::text("Invalid UUID").with_status_code(400),
+                    };
+
+                    let is_admin = data.is_admin.map(|s| s == "true").unwrap_or(false);
+
+                    let password = data.password.unwrap_or_else(|| data.username.clone());
+                    let hashed = lmha_core::hash_password(&password).expect("Failed to hash password");
+
                     let mut db = state.db.lock().unwrap();
-                    match db.get_latest_metrics() {
+                    match db.create_tenant(&data.username, &hashed, house_id, is_admin) {
+                        Ok(id) => Response::json(&json!({"status": "ok", "id": id})),
+                        Err(e) => {
+                            error!("DB Error creating tenant: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (DELETE) (/api/tenants/{id: Uuid}) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let mut db = state.db.lock().unwrap();
+                    match db.delete_tenant(id) {
+                        Ok(_) => Response::json(&json!({"status": "ok"})),
+                        Err(e) => Response::text(e).with_status_code(400),
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (GET) (/api/metrics) => {
+                if let Some(user) = get_user(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    match db.get_latest_metrics(user.house_id) {
                         Ok((pv, cons)) => Response::json(&json!({ "pv": pv, "consumption": cons })),
                         Err(e) => {
                             error!("DB Error fetching metrics: {}", e);
@@ -239,11 +413,23 @@ fn main() {
             },
 
             (GET) (/api/devices) => {
-                if let Some(_) = get_session(request, &state) {
+                if let Some(user) = get_user(request, &state) {
                     let mut db = state.db.lock().unwrap();
-                    // Global Read: All users can see all devices
-                    match db.list_devices() {
-                        Ok(devices) => Response::json(&devices),
+                    match db.list_devices(Some(user.house_id)) {
+                        Ok(devices) => {
+                            let mut results = Vec::new();
+                            for d in devices {
+                                let runtime = if d.scheduling_type == lmha_core::SchedulingType::Boiler {
+                                    db.calc_boiler_runtime_24h(d.id).unwrap_or(0)
+                                } else {
+                                    0
+                                };
+                                let mut d_json = serde_json::to_value(&d).unwrap();
+                                d_json.as_object_mut().unwrap().insert("runtime_24h".to_string(), json!(runtime));
+                                results.push(d_json);
+                            }
+                            Response::json(&results)
+                        },
                         Err(e) => {
                             error!("DB Error listing devices: {:?} | Error message: {}", e, e);
                             Response::text("DB Error").with_status_code(500)
@@ -271,10 +457,127 @@ fn main() {
                     };
 
                     let mut db = state.db.lock().unwrap();
-                    match db.create_device(tenant_id, &data.mqtt_topic, &data.name) {
+                    match db.create_device(tenant_id, &data.mqtt_topic, &data.name, user.house_id) {
                         Ok(id) => Response::json(&json!({"status": "ok", "id": id})),
                         Err(e) => {
                             error!("DB Error creating device: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (PATCH) (/api/houses/{id: Uuid}) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let data = rouille::post_input!(request, {
+                        name: String,
+                        ha_host: String,
+                        ha_token: String,
+                    }).expect("Invalid house update form");
+
+                    let mut db = state.db.lock().unwrap();
+                    match db.update_house(id, &data.name, &data.ha_host, &data.ha_token) {
+                        Ok(_) => Response::json(&json!({"status": "ok"})),
+                        Err(e) => {
+                            error!("DB Error updating house: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (PATCH) (/api/tenants/{id: Uuid}) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let data = rouille::post_input!(request, {
+                        username: String,
+                        house_id: String,
+                        password: Option<String>,
+                        is_admin: Option<String>,
+                    }).expect("Invalid tenant update form");
+
+                    let house_id = match Uuid::parse_str(&data.house_id) {
+                        Ok(hid) => hid,
+                        Err(_) => return Response::text("Invalid UUID").with_status_code(400),
+                    };
+
+                    let is_admin = data.is_admin.map(|s| s == "true").unwrap_or(false);
+
+                    let mut db = state.db.lock().unwrap();
+                    if let Err(e) = db.update_tenant_admin(id, &data.username, house_id, is_admin) {
+                        error!("DB Error updating tenant: {}", e);
+                        return Response::text("DB Error").with_status_code(500);
+                    }
+
+                    if let Some(password) = data.password {
+                        if !password.is_empty() {
+                            let hashed = lmha_core::hash_password(&password).expect("Failed to hash password");
+                            if let Err(e) = db.update_tenant_password_admin(id, &hashed) {
+                                error!("DB Error updating tenant password: {}", e);
+                                return Response::text("DB Error").with_status_code(500);
+                            }
+                        }
+                    }
+
+                    Response::json(&json!({"status": "ok"}))
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (POST) (/api/tenants) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let data = rouille::post_input!(request, {
+                        username: String,
+                        password: Option<String>,
+                        house_id: String,
+                        is_admin: Option<String>,
+                    }).expect("Invalid tenant creation form");
+
+                    let house_id = match Uuid::parse_str(&data.house_id) {
+                        Ok(id) => id,
+                        Err(_) => return Response::text("Invalid UUID").with_status_code(400),
+                    };
+
+                    let is_admin = data.is_admin.map(|s| s == "true").unwrap_or(false);
+
+                    let password = data.password.unwrap_or_else(|| data.username.clone());
+                    let hashed = lmha_core::hash_password(&password).expect("Failed to hash password");
+
+                    let mut db = state.db.lock().unwrap();
+                    match db.create_tenant(&data.username, &hashed, house_id, is_admin) {
+                        Ok(id) => Response::json(&json!({"status": "ok", "id": id})),
+                        Err(e) => {
+                            error!("DB Error creating tenant: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+            (DELETE) (/api/devices/{id: Uuid}) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+                    let mut db = state.db.lock().unwrap();
+                    match db.delete_device(id) {
+                        Ok(_) => Response::json(&json!({"status": "ok"})),
+                        Err(e) => {
+                            error!("DB Error deleting device: {}", e);
                             Response::text("DB Error").with_status_code(500)
                         }
                     }
@@ -287,7 +590,7 @@ fn main() {
                 if let Some(user) = get_user(request, &state) {
                     // Logic: Must be admin OR own the device
                     let mut db = state.db.lock().unwrap();
-                    let devices = db.list_devices().unwrap_or_default();
+                    let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
                     let device = devices.into_iter().find(|d| d.id == id);
                     
                     if let Some(d) = device {
@@ -297,6 +600,9 @@ fn main() {
 
                         #[derive(serde::Deserialize)]
                         struct DevicePatch {
+                            name: Option<String>,
+                            mqtt_topic: Option<String>,
+                            tenant_id: Option<Uuid>,
                             expected_load: Option<i32>,
                             scheduling_type: Option<lmha_core::SchedulingType>,
                             full_charge_n_day: Option<i32>,
@@ -308,7 +614,19 @@ fn main() {
                             Err(_) => return Response::text("Invalid JSON").with_status_code(400),
                         };
 
-                        if patch.expected_load.is_some() || patch.full_charge_n_day.is_some() || patch.min_daily_charge.is_some() {
+                        if user.is_admin {
+                            let name = patch.name.unwrap_or(d.name);
+                            let mqtt_topic = patch.mqtt_topic.unwrap_or(d.mqtt_topic);
+                            let tenant_id = patch.tenant_id.unwrap_or(d.tenant_id);
+                            let load = patch.expected_load.unwrap_or(d.expected_load);
+                            let full_charge = patch.full_charge_n_day.unwrap_or(d.full_charge_n_day);
+                            let min_charge = patch.min_daily_charge.unwrap_or(d.min_daily_charge);
+
+                            if let Err(e) = db.update_device_config_admin(id, &name, &mqtt_topic, tenant_id, load, full_charge, min_charge) {
+                                error!("DB Error updating admin config: {}", e);
+                                return Response::text("DB Error").with_status_code(500);
+                            }
+                        } else if patch.expected_load.is_some() || patch.full_charge_n_day.is_some() || patch.min_daily_charge.is_some() {
                             let load = patch.expected_load.unwrap_or(d.expected_load);
                             let full_charge = patch.full_charge_n_day.unwrap_or(d.full_charge_n_day);
                             let min_charge = patch.min_daily_charge.unwrap_or(d.min_daily_charge);
@@ -336,10 +654,10 @@ fn main() {
             },
 
             (GET) (/api/history) => {
-                if let Some(_) = get_user(request, &state) {
+                if let Some(user) = get_user(request, &state) {
+                    let events_only = request.get_param("events_only").map(|v| v == "true").unwrap_or(false);
                     let mut db = state.db.lock().unwrap();
-                    // Global Read: All users see all history unconditionally
-                    match db.list_telemetry(None, 100) {
+                    match db.list_telemetry(user.house_id, 100, events_only) {
                         Ok(t) => Response::json(&t),
                         Err(e) => {
                             error!("DB Error listing telemetry: {}", e);
@@ -371,7 +689,7 @@ fn main() {
             (POST) (/api/devices/{id: Uuid}/toggle) => {
                 if let Some(user) = get_user(request, &state) {
                     let mut db = state.db.lock().unwrap();
-                    let devices = db.list_devices().unwrap_or_default();
+                    let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
                     if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
                         let new_on = device.current_state != DeviceState::On;
                         let payload = json!({
@@ -401,6 +719,30 @@ fn main() {
                 }
                 Response::json(&json!({"status": "ok"}))
                     .with_additional_header("Set-Cookie", "session_id=; HttpOnly; Path=/; Max-Age=0")
+            },
+
+            (POST) (/api/me/password) => {
+                if let Some(user) = get_user(request, &state) {
+                    let data = rouille::post_input!(request, {
+                        password: String,
+                    }).expect("Invalid password update form");
+
+                    if data.password.is_empty() {
+                        return Response::text("Password cannot be empty").with_status_code(400);
+                    }
+
+                    let hashed = lmha_core::hash_password(&data.password).expect("Failed to hash password");
+                    let mut db = state.db.lock().unwrap();
+                    match db.update_tenant_password_admin(user.tenant_id, &hashed) {
+                        Ok(_) => Response::json(&json!({"status": "ok"})),
+                        Err(e) => {
+                            error!("DB Error updating self password: {}", e);
+                            Response::text("DB Error").with_status_code(500)
+                        }
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
             },
 
             _ => Response::empty_404()
@@ -440,112 +782,128 @@ fn run_scheduler_loop(state: Arc<AppState>) {
     };
 
     loop {
-        if !state.no_home_assistant {
-            let config = &state.config;
-            if let Some(pv_id) = &config.ha_pv_entity_id {
-                match lmha_core::ha::fetch_ha_state(config, pv_id) {
-                    Ok(val) => {
-                        let mut db = state.db.lock().unwrap();
-                        if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::PvProduction, None, val, None) {
-                            error!("DB Error saving PV telemetry: {}", e);
-                        } else {
-                            tracing::debug!("Saved PV telemetry: {}", val);
-                        }
-                    }
-                    Err(e) => error!("HA Error polling PV ({}): {}", pv_id, e),
-                }
-            }
-            if let Some(cons_id) = &config.ha_consumption_entity_id {
-                match lmha_core::ha::fetch_ha_state(config, cons_id) {
-                    Ok(val) => {
-                        let mut db = state.db.lock().unwrap();
-                        if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::HouseConsumption, None, val, None) {
-                            error!("DB Error saving consumption telemetry: {}", e);
-                        } else {
-                            tracing::debug!("Saved Consumption telemetry: {}", val);
-                        }
-                    }
-                    Err(e) => error!("HA Error polling Consumption ({}): {}", cons_id, e),
-                }
-            }
-        }
-        
-        // Run Scheduler Logic
-        {
+        let houses = {
             let mut db = state.db.lock().unwrap();
-            let devices = db.list_devices().unwrap_or_default();
-            let (pv_production, house_consumption) = db.get_latest_metrics().unwrap_or((0, 0));
+            db.list_houses().unwrap_or_default()
+        };
+
+        for house in houses {
+            info!("Processing House: {}", house.name);
             
-            let now = chrono::Utc::now();
-            let history_since = now - chrono::Duration::days(8);
-            let mut history = std::collections::HashMap::new();
+            if !state.no_home_assistant {
+                let ha_url = if house.ha_host.starts_with("http") {
+                    house.ha_host.clone()
+                } else {
+                    format!("http://{}:8123", house.ha_host)
+                };
 
-            for d in &devices {
-                if d.scheduling_type == lmha_core::SchedulingType::Boiler {
-                    let device_history = db.get_device_history(d.id, history_since).unwrap_or_default();
-                    history.insert(d.id, device_history);
-                }
-            }
-
-            let input = lmha_core::scheduler::SchedulerInput {
-                pv_production,
-                house_consumption,
-                devices: devices.iter().map(|d| lmha_core::scheduler::DeviceContext {
-                    id: d.id,
-                    current_state: d.current_state,
-                    last_state_change: d.last_heartbeat,
-                    is_enabled: d.is_enabled,
-                    expected_load: d.expected_load,
-                    scheduling_type: d.scheduling_type.clone(),
-                    full_charge_n_day: d.full_charge_n_day,
-                    min_daily_charge: d.min_daily_charge,
-                }).collect(),
-                history,
-                now,
-                debounce_duration_secs: debounce,
-                rng: rand::thread_rng(),
-            };
-
-            info!("Scheduler invoked: PV={:.1}kW, Cons={:.1}kW, Devices={}, Input={:?}", 
-                pv_production as f64 / 1000.0, 
-                house_consumption as f64 / 1000.0, 
-                input.devices.len(),
-                input
-            );
-
-            let action = lmha_core::scheduler::decide_action(input);
-            if action != lmha_core::scheduler::SchedulerAction::Nothing {
-                info!("Scheduler action: {:?}", action);
-            }
-
-            match action {
-                lmha_core::scheduler::SchedulerAction::SwitchOn(id) => {
-                    if let Some(device) = devices.iter().find(|d| d.id == id) {
-                        let mqtt_client = state.mqtt_client.lock().unwrap();
-                        let payload = json!({
-                            "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": true}
-                        }).to_string();
-                        let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
+                let config = &state.config;
+                if let Some(pv_id) = &config.ha_pv_entity_id {
+                    match lmha_core::ha::fetch_ha_state(&ha_url, &house.ha_token, pv_id) {
+                        Ok(val) => {
+                            let mut db = state.db.lock().unwrap();
+                            if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::PvProduction, None, val, None, house.id) {
+                                error!("DB Error saving PV telemetry for {}: {}", house.name, e);
+                            } else {
+                                tracing::debug!("Saved PV telemetry for {}: {}", house.name, val);
+                            }
+                        }
+                        Err(e) => error!("HA Error polling PV for {} ({}): {}", house.name, pv_id, e),
                     }
                 }
-                lmha_core::scheduler::SchedulerAction::SwitchOff(id) => {
-                    if let Some(device) = devices.iter().find(|d| d.id == id) {
-                        let mqtt_client = state.mqtt_client.lock().unwrap();
-                        let payload = json!({
-                            "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": false}
-                        }).to_string();
-                        let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
+                if let Some(cons_id) = &config.ha_consumption_entity_id {
+                    match lmha_core::ha::fetch_ha_state(&ha_url, &house.ha_token, cons_id) {
+                        Ok(val) => {
+                            let mut db = state.db.lock().unwrap();
+                            if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::HouseConsumption, None, val, None, house.id) {
+                                error!("DB Error saving consumption telemetry for {}: {}", house.name, e);
+                            } else {
+                                tracing::debug!("Saved Consumption telemetry for {}: {}", house.name, val);
+                            }
+                        }
+                        Err(e) => error!("HA Error polling Consumption for {} ({}): {}", house.name, cons_id, e),
                     }
                 }
-                lmha_core::scheduler::SchedulerAction::UpdateScheduling(id, new_type) => {
-                    if let Some(device) = devices.iter().find(|d| d.id == id) {
-                        info!("Device '{}' ({}) transitioning from {:?} to {:?}", device.name, device.id, device.scheduling_type, new_type);
-                        if let Err(e) = db.update_device_scheduling(id, new_type) {
-                            error!("DB Error updating scheduling for {}: {}", id, e);
+            }
+            
+            // Run Scheduler Logic for this house
+            {
+                let mut db = state.db.lock().unwrap();
+                let devices = db.list_devices(Some(house.id)).unwrap_or_default();
+                let (pv_production, house_consumption) = db.get_latest_metrics(house.id).unwrap_or((0, 0));
+                
+                let now = chrono::Utc::now();
+                let history_since = now - chrono::Duration::days(8);
+                let mut history = std::collections::HashMap::new();
+
+                for d in &devices {
+                    if d.scheduling_type == lmha_core::SchedulingType::Boiler {
+                        let device_history = db.get_device_history(d.id, history_since).unwrap_or_default();
+                        history.insert(d.id, device_history);
+                    }
+                }
+
+                let input = lmha_core::scheduler::SchedulerInput {
+                    pv_production,
+                    house_consumption,
+                    devices: devices.iter().map(|d| lmha_core::scheduler::DeviceContext {
+                        id: d.id,
+                        current_state: d.current_state,
+                        last_state_change: d.last_heartbeat,
+                        is_enabled: d.is_enabled,
+                        expected_load: d.expected_load,
+                        scheduling_type: d.scheduling_type.clone(),
+                        full_charge_n_day: d.full_charge_n_day,
+                        min_daily_charge: d.min_daily_charge,
+                    }).collect(),
+                    history,
+                    now,
+                    debounce_duration_secs: debounce,
+                    rng: rand::thread_rng(),
+                };
+
+                info!("Scheduler invoked for {}: PV={:.1}kW, Cons={:.1}kW, Devices={}, Input={:?}", 
+                    house.name,
+                    pv_production as f64 / 1000.0, 
+                    house_consumption as f64 / 1000.0, 
+                    input.devices.len(),
+                    input
+                );
+
+                let action = lmha_core::scheduler::decide_action(input);
+                if action != lmha_core::scheduler::SchedulerAction::Nothing {
+                    info!("Scheduler action for {}: {:?}", house.name, action);
+                }
+
+                match action {
+                    lmha_core::scheduler::SchedulerAction::SwitchOn(id) => {
+                        if let Some(device) = devices.iter().find(|d| d.id == id) {
+                            let mqtt_client = state.mqtt_client.lock().unwrap();
+                            let payload = json!({
+                                "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": true}
+                            }).to_string();
+                            let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
                         }
                     }
+                    lmha_core::scheduler::SchedulerAction::SwitchOff(id) => {
+                        if let Some(device) = devices.iter().find(|d| d.id == id) {
+                            let mqtt_client = state.mqtt_client.lock().unwrap();
+                            let payload = json!({
+                                "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": false}
+                            }).to_string();
+                            let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
+                        }
+                    }
+                    lmha_core::scheduler::SchedulerAction::UpdateScheduling(id, new_type) => {
+                        if let Some(device) = devices.iter().find(|d| d.id == id) {
+                            info!("Device '{}' ({}) transitioning from {:?} to {:?}", device.name, device.id, device.scheduling_type, new_type);
+                            if let Err(e) = db.update_device_scheduling(id, new_type) {
+                                error!("DB Error updating scheduling for {}: {}", id, e);
+                            }
+                        }
+                    }
+                    lmha_core::scheduler::SchedulerAction::Nothing => {}
                 }
-                lmha_core::scheduler::SchedulerAction::Nothing => {}
             }
         }
         thread::sleep(interval);
@@ -626,7 +984,7 @@ fn run_main_loop(state: Arc<AppState>) {
                     }
 
                     if new_state.is_some() || apower.is_some() {
-                        let devices = db.list_devices().unwrap_or_default();
+                        let devices = db.list_devices(None).unwrap_or_default();
                         if let Some(d) = devices.iter().find(|d| d.mqtt_topic == base_topic) {
                             if let Some(s) = new_state {
                                 if s != d.current_state {
@@ -635,11 +993,11 @@ fn run_main_loop(state: Arc<AppState>) {
                                         error!("DB Error updating {}: {}", base_topic, e);
                                     }
                                     let val = if s == DeviceState::On { 1 } else { 0 };
-                                    let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceState, Some(d.id), val, None);
+                                    let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceState, Some(d.id), val, None, d.house_id);
                                 }
                             }
                             if let Some(p) = apower {
-                                let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceConsumption, Some(d.id), p as i32, None);
+                                let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceConsumption, Some(d.id), p as i32, None, d.house_id);
                             }
                         } else {
                             info!("MQTT: Received state/power for unknown device topic: {}", base_topic);

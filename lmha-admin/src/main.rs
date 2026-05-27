@@ -15,6 +15,10 @@ struct Args {
     /// Password for the user (if omitted, will prompt)
     #[arg(short, long)]
     password: Option<String>,
+
+    /// Give admin privileges
+    #[arg(short, long)]
+    admin: bool,
 }
 
 fn main() {
@@ -54,7 +58,14 @@ fn main() {
 
     let hashed = hash_password(&password).expect("Failed to hash password");
     
-    match db.create_tenant(&username, &hashed) {
+    let houses = db.list_houses().expect("Failed to list houses");
+    if houses.is_empty() {
+        eprintln!("No houses found in database. Please create a house first.");
+        return;
+    }
+    let house_id = houses[0].id; // Use first house as default
+
+    match db.create_tenant(&username, &hashed, house_id, args.admin) {
         Ok(id) => println!("Tenant '{}' created successfully with ID: {}", username, id),
         Err(e) => eprintln!("Failed to create tenant: {}", e),
     }

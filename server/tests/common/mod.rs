@@ -30,6 +30,9 @@ impl TestHarness {
             include_str!("../../../migrations/003_add_device_heartbeat.sql"),
             include_str!("../../../migrations/004_add_device_consumption.sql"),
             include_str!("../../../migrations/005_add_expected_load.sql"),
+            include_str!("../../../migrations/006_add_device_management.sql"),
+            include_str!("../../../migrations/007_boiler_advanced_config.sql"),
+            include_str!("../../../migrations/008_multi_house_support.sql"),
         ];
         
         let db_url = format!("host=/var/run/postgresql dbname={} user=lukas", db_name);
@@ -96,17 +99,19 @@ impl TestHarness {
     pub fn create_user(&self, username: &str, password: &str) -> Uuid {
         println!("TestHarness: Creating user {} in DB {}", username, self.db_name);
         let mut client = Client::connect(&self.config.database_url, NoTls).unwrap();
+        let house_id: Uuid = client.query_one("SELECT id FROM houses LIMIT 1", &[]).unwrap().get(0);
         let hashed = hash_password(password).unwrap();
         let id = Uuid::new_v4();
-        client.execute("INSERT INTO tenants (id, username, password_hash) VALUES ($1, $2, $3)", &[&id, &username, &hashed]).unwrap();
+        client.execute("INSERT INTO tenants (id, username, password_hash, house_id) VALUES ($1, $2, $3, $4)", &[&id, &username, &hashed, &house_id]).unwrap();
         id
     }
 
     #[allow(dead_code)]
     pub fn create_device(&self, tenant_id: Uuid, name: &str, topic: &str) -> Uuid {
         let mut client = Client::connect(&self.config.database_url, NoTls).unwrap();
+        let house_id: Uuid = client.query_one("SELECT house_id FROM tenants WHERE id = $1", &[&tenant_id]).unwrap().get(0);
         let id = Uuid::new_v4();
-        client.execute("INSERT INTO devices (id, tenant_id, name, mqtt_topic) VALUES ($1, $2, $3, $4)", &[&id, &tenant_id, &name, &topic]).unwrap();
+        client.execute("INSERT INTO devices (id, tenant_id, name, mqtt_topic, house_id) VALUES ($1, $2, $3, $4, $5)", &[&id, &tenant_id, &name, &topic, &house_id]).unwrap();
         id
     }
 }

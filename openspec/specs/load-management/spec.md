@@ -6,12 +6,16 @@ The logic for matching load consumption with solar production and handling manua
 ## Requirements
 1. **Decision Engine (Background Thread):**
    - Runs in a dedicated background thread within the server process.
-   - Periodically polls **Home Assistant (localhost)** for current PV production and house consumption.
-   - Incorporates historical device state data to fulfill long-term scheduling constraints.
-   - MUST accept an explicit "now" timestamp for deterministic behavior and testing.
+   - The decision engine SHALL run as a background process that iterates through all configured houses. For each house, it MUST:
+     - Retrieve current PV production and house consumption from its specific Home Assistant instance.
+     - Incorporate house-scoped historical device state data.
+     - MUST accept an explicit "now" timestamp for deterministic behavior and testing.
+   - **Scenario: Multi-house scheduling cycle**
+     - **WHEN** the scheduler triggers a new cycle
+     - **THEN** it sequentially processes "House A" (using its credentials) and "House B" (using its credentials) without cross-contamination of state
    - **Scenario: History-aware polling**
      - **WHEN** the scheduler is invoked
-     - **THEN** it retrieves current PV/Consumption and the necessary history of ON/OFF events for all Boiler-mode devices
+     - **THEN** it retrieves current PV/Consumption and the necessary history of ON/OFF events for all Boiler-mode devices for the active house cycle
 2. **Mandatory Charging:**
    - The system SHALL guarantee minimum charge levels and periodic full charges (defined as 4h of runtime within a 5am-5am window).
    - **Full Charge Deadline**: If `full_charge_n_day` days have passed without a 4h charge, the system SHALL force the device ON starting at 1am (4h before the 5am deadline) on the final day.
@@ -22,21 +26,39 @@ The logic for matching load consumption with solar production and handling manua
 3. **Manual Override:**
    - Tenants can manually toggle devices via the Web UI.
    - A manual toggle triggers an immediate MQTT command and sets a "Manual Override" state that lasts for a configurable duration (default 1 hour) before the scheduler resumes control.
-3. **Data Integration:**
-   - Use Home Assistant REST API for telemetry.
-   - Poll interval: 5 minutes.
-4. **Hysteresis & Safety:**
+   - **Reload Trigger**: A manual toggle MUST trigger an immediate refresh of the UI state for the affected house.
+   - **Scenario: Manual toggle refresh**
+     - **WHEN** a tenant clicks the toggle button for a device
+     - **THEN** the MQTT command is sent AND the web UI immediately reloads the house dashboard to reflect the pending/new state
+4. **Data Integration:**
+   - The system SHALL integrate with per-house Home Assistant REST APIs using credentials stored in the `houses` database table.
+   - Poll interval: 5 minutes per house.
+   - **Scenario: Fetching per-house telemetry**
+     - **WHEN** the system polls for House A production
+     - **THEN** it uses the specific IP and token associated with House A in the database
+5. **Hysteresis & Safety:**
    - **Debounce:** Minimum 5 minutes between state changes for any device to prevent rapid cycling.
    - **Margin:** Configurable buffer (e.g., 200W) to avoid toggling on minor fluctuations.
-3. **MQTT Integration:**
+6. **MQTT Integration:**
    - ON: Publish `on` to `[mqtt_topic]/rpc` (Shelly Switch.Set command).
    - OFF: Publish `off` to `[mqtt_topic]/rpc`.
    - Monitor `[mqtt_topic]/status/switch:0` for state confirmation.
+7. **Shelly ID Discovery:**
+   - The system SHALL scan MQTT logs for unregistered Shelly device IDs and provide them as suggestions in the Admin panel when creating new devices.
+   - **Scenario: Admin sees suggested Shelly IDs**
+     - **WHEN** an admin opens the "Create Device" form
+     - **THEN** the system displays a dropdown or list of recently seen MQTT topics/IDs that are not yet registered in the database
+8. **Improved Boiler Runtime Tracking:**
+   - The dashboard SHALL display the total duration a boiler-mode device has been ON during the current 24-hour period, starting from 5:00 AM.
+   - **Scenario: View daily runtime**
+     - **WHEN** a user views the device overview at 10:00 AM
+     - **THEN** the system shows the total ON time accumulated since 5:00 AM that day
 
 ## Home Assistant details
 
-Use the token found in secrets/ha-token.md . The two sensors of interest are:
-HA runs on port 8123 . Use the IP 192.168.178.31 , it will work in prod as well as in development.
+Home Assistant credentials (IP/Host and Access Token) are managed per-house in the `houses` table. The two sensors of interest for each house are:
+- `sensor.pv_production`
+- `sensor.house_consumption`
 
 ## Logic Priority
 1. **Manual / Forced States:**

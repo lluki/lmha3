@@ -18,8 +18,10 @@ mod db_tests {
         // Setup schema
         let migrations = [
             include_str!("../../migrations/001_initial_schema.sql"),
+            include_str!("../../migrations/002_add_sessions.sql"),
             include_str!("../../migrations/004_add_device_consumption.sql"),
             include_str!("../../migrations/005_add_expected_load.sql"),
+            include_str!("../../migrations/008_multi_house_support.sql"),
         ];
         for m in migrations { db_client.batch_execute(m).unwrap(); }
 
@@ -35,13 +37,15 @@ mod db_tests {
             ha_consumption_entity_id: None,
         }).unwrap();
 
-        // Insert some data
-        db.insert_telemetry(TelemetrySource::PvProduction, None, 100, None).unwrap();
-        db.insert_telemetry(TelemetrySource::PvProduction, None, 500, None).unwrap();
-        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 200, None).unwrap();
-        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 300, None).unwrap();
+        let house_id = db.list_houses().unwrap()[0].id;
 
-        let (pv, cons) = db.get_latest_metrics().unwrap();
+        // Insert some data
+        db.insert_telemetry(TelemetrySource::PvProduction, None, 100, None, house_id).unwrap();
+        db.insert_telemetry(TelemetrySource::PvProduction, None, 500, None, house_id).unwrap();
+        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 200, None, house_id).unwrap();
+        db.insert_telemetry(TelemetrySource::HouseConsumption, None, 300, None, house_id).unwrap();
+
+        let (pv, cons) = db.get_latest_metrics(house_id).unwrap();
         assert_eq!(pv, 500);
         assert_eq!(cons, 300);
 
