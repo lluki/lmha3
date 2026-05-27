@@ -101,7 +101,9 @@ fn main() {
     let log_buffer = Arc::new(Mutex::new(LogBuffer::new(1000)));
 
     let filter = tracing_subscriber::EnvFilter::from_default_env()
-        .add_directive(tracing::Level::TRACE.into());
+        .add_directive(tracing::Level::INFO.into())
+        .add_directive("server=trace".parse().unwrap())
+        .add_directive("lmha_core=trace".parse().unwrap());
 
     tracing_subscriber::registry()
         .with(fmt::layer().with_filter(filter.clone()))
