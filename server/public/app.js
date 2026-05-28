@@ -100,7 +100,14 @@ function renderLayout() {
     userInfo.innerHTML = ''; 
     
     const userInfoList = document.createElement('li');
-    userInfoList.innerHTML = `<span>${currentUser.username}</span>`;
+    userInfoList.style.display = 'flex';
+    userInfoList.style.flexDirection = 'column';
+    userInfoList.style.justifyContent = 'center';
+    userInfoList.style.lineHeight = '1.2';
+    userInfoList.innerHTML = `
+        <strong>${currentUser.username}</strong>
+        ${!currentUser.is_admin ? '<small id="user-house-name" class="secondary" style="font-size: 0.7rem; opacity: 0.8;"></small>' : ''}
+    `;
     userInfo.appendChild(userInfoList);
 
     const logoutList = document.createElement('li');
@@ -112,6 +119,16 @@ function renderLayout() {
         currentUser = null;
         checkAuth();
     });
+
+    if (!currentUser.is_admin) {
+        fetch('/api/houses').then(r => r.json()).then(houses => {
+            const h = houses.find(h => h.id === currentUser.house_id);
+            if (h) {
+                const el = document.getElementById('user-house-name');
+                if (el) el.textContent = h.name;
+            }
+        }).catch(e => console.error(e));
+    }
 
     if (currentUser.is_admin) {
         adminTab.closest('li').classList.remove('hidden');
@@ -194,7 +211,6 @@ async function renderOverview() {
             <article>
                 <header style="display: flex; justify-content: space-between; align-items: center;">
                     <strong>${currentUser.is_admin ? 'All Devices' : 'Your Devices'}</strong>
-                    <span id="active-house-name" class="secondary" style="font-size: 0.9rem; font-weight: normal;"></span>
                 </header>
                 <div id="overview-content" aria-busy="true">Loading...</div>
             </article>
@@ -218,12 +234,6 @@ async function renderOverview() {
         const history = await responses[2].json();
         const houses = await responses[3].json();
         const tenants = currentUser.is_admin ? await responses[4].json() : [];
-
-        const currentHouse = houses.find(h => h.id === currentUser.house_id);
-        if (currentHouse) {
-            const nameEl = document.getElementById('active-house-name');
-            if (nameEl) nameEl.textContent = currentHouse.name;
-        }
 
         // Update Stats
         if (metrics) {
