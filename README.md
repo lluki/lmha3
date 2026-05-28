@@ -1,6 +1,6 @@
 # lmha3: Load Management Hagenholz
 
-Synchronous Rust-based load management for the Hagenholz neighborhood. Matches physical tenant loads (Shelly 1 Pro) with solar production.
+Load management for multi-tenant houses sharing a photovoltaics installation. Matches physical tenant loads (Shelly 1 Pro) with solar production.
 
 ## Setup
 
