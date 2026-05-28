@@ -314,6 +314,116 @@ fn main() {
                 }
             },
 
+            (GET) (/api/admin/healthcheck) => {
+                if let Some(user) = get_user(request, &state) {
+                    if !user.is_admin {
+                        return Response::text("Forbidden").with_status_code(403);
+                    }
+
+                    let start_time = chrono::Utc::now();
+                    
+                    // 1. PV Check
+                    let mut pv_results = Vec::new();
+                    let houses = {
+                        let mut db = state.db.lock().unwrap();
+                        db.list_houses().unwrap_or_default()
+                    };
+
+                    for house in &houses {
+                        let ha_url = if house.ha_host.starts_with("http") {
+                            house.ha_host.clone()
+                        } else {
+                            format!("http://{}:8123", house.ha_host)
+                        };
+                        let pv_id = state.config.ha_pv_entity_id.clone().unwrap_or_default();
+                        match lmha_core::ha::fetch_ha_state(&ha_url, &house.ha_token, &pv_id) {
+                            Ok(_) => pv_results.push(json!({"house": house.name, "status": "ok"})),
+                            Err(e) => pv_results.push(json!({"house": house.name, "status": "error", "message": e})),
+                        }
+                    }
+
+                    let pv_success = pv_results.iter().all(|r| r["status"] == "ok");
+                    let pv_msg = if pv_success {
+                        format!("Fetched PV for {}/{} houses", pv_results.len(), houses.len())
+                    } else {
+                        let failed_count = pv_results.iter().filter(|r| r["status"] == "error").count();
+                        format!("PV fetch failed for {}/{} houses", failed_count, houses.len())
+                    };
+
+                    // 2. MQTT Check
+                    let mqtt_client = state.mqtt_client.lock().unwrap();
+                    let mqtt_status = match mqtt_client.publish("lmha3/healthcheck/ping", QoS::AtMostOnce, false, "ping") {
+                        Ok(_) => "ok",
+                        Err(_) => "error",
+                    };
+                    let mqtt_msg = if mqtt_status == "ok" {
+                        "MQTT Broker reachable and accepting messages"
+                    } else {
+                        "MQTT Broker unreachable or client not connected"
+                    };
+
+                    // 3. Device Check
+                    let devices = {
+                        let mut db = state.db.lock().unwrap();
+                        db.list_devices(None).unwrap_or_default()
+                    };
+
+                    for d in &devices {
+                        let topic = format!("{}/rpc", d.mqtt_topic);
+                        let payload = json!({
+                            "id": 99,
+                            "src": format!("{}/rpc-response", d.mqtt_topic),
+                            "method": "Shelly.GetStatus"
+                        }).to_string();
+                        let _ = mqtt_client.publish(topic, QoS::AtMostOnce, false, payload);
+                    }
+                    
+                    // Drop the lock before sleeping
+                    drop(mqtt_client);
+                    
+                    info!("Healthcheck: Sleeping 12s for device responses...");
+                    thread::sleep(Duration::from_secs(12));
+
+                    let mut device_results = Vec::new();
+                    let updated_devices = {
+                        let mut db = state.db.lock().unwrap();
+                        db.list_devices(None).unwrap_or_default()
+                    };
+
+                    let check_start = start_time;
+                    for d in updated_devices {
+                        let responsive = d.last_heartbeat.map(|t| t >= check_start).unwrap_or(false);
+                        device_results.push(json!({
+                            "name": d.name,
+                            "topic": d.mqtt_topic,
+                            "status": if responsive { "ok" } else { "error" }
+                        }));
+                    }
+
+                    let responsive_count = device_results.iter().filter(|r| r["status"] == "ok").count();
+                    let device_msg = format!("{}/{} devices responded via MQTT", responsive_count, devices.len());
+
+                    Response::json(&json!({
+                        "pv": {
+                            "status": if pv_success { "ok" } else { "error" },
+                            "message": pv_msg,
+                            "details": pv_results
+                        },
+                        "mqtt": {
+                            "status": mqtt_status,
+                            "message": mqtt_msg
+                        },
+                        "devices": {
+                            "status": if responsive_count == devices.len() { "ok" } else { "error" },
+                            "message": device_msg,
+                            "details": device_results
+                        }
+                    }))
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
             (GET) (/api/logs) => {
                 if let Some(_) = get_session(request, &state) {
                     let buffer = state.log_buffer.lock().unwrap();
@@ -704,7 +814,7 @@ fn main() {
                         let payload_str = payload.to_string();
                         info!("API: Publishing toggle to topic '{}' | Payload: {}", topic, payload_str);
                         let client = state.mqtt_client.lock().unwrap();
-                        let _ = client.publish(topic, QoS::AtLeastOnce, false, payload_str);
+                        let _ = client.publish(topic, QoS::AtMostOnce, false, payload_str);
                         Response::json(&json!({"status": "ok"}))
                     } else {
                         Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
@@ -917,7 +1027,7 @@ fn run_scheduler_loop(state: Arc<AppState>) {
 fn run_main_loop(state: Arc<AppState>) {
     loop {
         let client_id = format!("lmha3-server-{}", Uuid::new_v4().to_string().get(0..8).unwrap());
-        let mut mqtt_options = MqttOptions::new(client_id, &state.config.mqtt_host, state.config.mqtt_port);
+        let mut mqtt_options = MqttOptions::new(&client_id, &state.config.mqtt_host, state.config.mqtt_port);
         mqtt_options.set_keep_alive(Duration::from_secs(30));
         if let (Some(u), Some(p)) = (&state.config.mqtt_user, &state.config.mqtt_password) {
             mqtt_options.set_credentials(u, p);
@@ -929,7 +1039,7 @@ fn run_main_loop(state: Arc<AppState>) {
             *shared_client = client.clone();
         }
 
-        let subs = ["+/online", "+/status/#", "+/events/rpc", "shellies/#"];
+        let subs = ["+/online", "+/status/#", "+/events/rpc", "shellies/#", "+/rpc-response/#"];
         for sub in subs {
             info!("MQTT: Subscribing to {}", sub);
             let _ = client.subscribe(sub, QoS::AtMostOnce);
@@ -938,9 +1048,9 @@ fn run_main_loop(state: Arc<AppState>) {
         for notification in connection.iter() {
             match notification {
                 Ok(Event::Incoming(Packet::Publish(publish))) => {
-                    let topic = publish.topic;
+                    let topic = publish.topic.clone();
                     let payload_str = String::from_utf8_lossy(&publish.payload);
-                    trace!("MQTT Incoming: {} | Payload: {}", topic, payload_str);
+                    trace!("MQTT Incoming: {} | Payload length: {}", topic, publish.payload.len());
 
                     let parts: Vec<&str> = topic.split('/').collect();
                     let (base_topic, is_gen1) = if parts.len() > 1 && parts[0] == "shellies" {
@@ -949,12 +1059,15 @@ fn run_main_loop(state: Arc<AppState>) {
                         (parts[0], false)
                     };
 
-                    let mut db = state.db.lock().unwrap();
-                    
-                    if topic.ends_with("/online") || topic.contains("/status/") {
+                    if topic.ends_with("/online") || topic.contains("/status/") || topic.contains("/rpc-response") {
+                        if topic.contains("/rpc-response") {
+                            info!("MQTT Heartbeat (RPC Response) for {}: {}", base_topic, topic);
+                        }
+                        let mut db = state.db.lock().unwrap();
                         let _ = db.update_device_heartbeat(base_topic);
                     }
                     
+                    let mut db = state.db.lock().unwrap();
                     let mut new_state = None;
                     let mut apower = None;
                     if topic.ends_with("/status/switch:0") {
@@ -1004,7 +1117,7 @@ fn run_main_loop(state: Arc<AppState>) {
                                 let _ = db.insert_telemetry(lmha_core::TelemetrySource::DeviceConsumption, Some(d.id), p as i32, None, d.house_id);
                             }
                         } else {
-                            info!("MQTT: Received state/power for unknown device topic: {}", base_topic);
+                            trace!("MQTT: Received state/power for unknown device topic: {}", base_topic);
                         }
                     }
                 }

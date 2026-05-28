@@ -9,6 +9,30 @@ const createBtn = document.getElementById('floating-create-btn');
 
 let currentUser = null;
 let activeTab = 'overview';
+let healthcheckLoading = false;
+let healthcheckResults = null;
+
+async function runHealthcheck() {
+    healthcheckLoading = true;
+    healthcheckResults = null;
+    renderAdmin(); // Refresh UI to show loading state
+
+    try {
+        const resp = await fetch('/api/admin/healthcheck');
+        if (resp.ok) {
+            healthcheckResults = await resp.json();
+        } else {
+            alert('Healthcheck failed: ' + await resp.text());
+        }
+    } catch (e) {
+        alert('Healthcheck error: ' + e);
+    } finally {
+        healthcheckLoading = false;
+        renderAdmin();
+    }
+}
+
+window.runHealthcheck = runHealthcheck;
 
 window.showModal = (title, content) => {
     modalTitle.textContent = title;
@@ -971,7 +995,62 @@ async function renderHouseDetails(id, isEdit = false) {
 window.openHouseDetails = (id) => renderHouseDetails(id, false);
 
 async function renderAdmin() {
+    let healthcheckHtml = `
+        <section class="admin-section">
+            <header style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>System Health</h3>
+                <button class="outline" onclick="runHealthcheck()" ${healthcheckLoading ? 'disabled aria-busy="true"' : ''}>
+                    ${healthcheckLoading ? 'Running Healthcheck...' : 'Run Healthcheck'}
+                </button>
+            </header>
+            <div id="admin-healthcheck-results">
+                ${healthcheckResults ? `
+                    <div style="background: var(--pico-card-background-color); padding: 1.5rem; border-radius: var(--pico-border-radius); border: 1px solid var(--pico-card-border-color);">
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <h4 style="font-size: 1rem; margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                <span style="margin-right: 0.5rem;">${healthcheckResults.pv.status === 'ok' ? '✅' : '❌'}</span>
+                                PV Sources (${healthcheckResults.pv.message})
+                            </h4>
+                            <ul style="list-style: none; padding-left: 1.5rem; font-size: 0.85rem; margin: 0;">
+                                ${healthcheckResults.pv.details.map(d => `
+                                    <li style="margin-bottom: 0.2rem; color: ${d.status === 'ok' ? 'inherit' : 'var(--pico-del-color)'}">
+                                        ${d.status === 'ok' ? '✓' : '✗'} <strong>${d.house}</strong>: ${d.status === 'ok' ? 'Connected' : `Error: ${d.message}`}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <h4 style="font-size: 1rem; margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                <span style="margin-right: 0.5rem;">${healthcheckResults.mqtt.status === 'ok' ? '✅' : '❌'}</span>
+                                MQTT Broker
+                            </h4>
+                            <p style="padding-left: 1.5rem; font-size: 0.85rem; margin: 0;">${healthcheckResults.mqtt.message}</p>
+                        </div>
+
+                        <div>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                <span style="margin-right: 0.5rem;">${healthcheckResults.devices.status === 'ok' ? '✅' : '❌'}</span>
+                                Devices (${healthcheckResults.devices.message})
+                            </h4>
+                            <ul style="list-style: none; padding-left: 1.5rem; font-size: 0.85rem; margin: 0;">
+                                ${healthcheckResults.devices.details.map(d => `
+                                    <li style="margin-bottom: 0.2rem; color: ${d.status === 'ok' ? 'inherit' : 'var(--pico-del-color)'}">
+                                        ${d.status === 'ok' ? '✓' : '✗'} <strong>${d.name}</strong> (${d.topic}): ${d.status === 'ok' ? 'Responsive' : 'NO RESPONSE'}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                    </div>
+                ` : '<p class="secondary">No health check run recently.</p>'}
+            </div>
+        </section>
+    `;
+
     app.innerHTML = `
+        ${healthcheckHtml}
         <section class="admin-section">
             <header>
                 <h3>Houses</h3>

@@ -33,6 +33,7 @@ impl TestHarness {
             include_str!("../../../migrations/006_add_device_management.sql"),
             include_str!("../../../migrations/007_boiler_advanced_config.sql"),
             include_str!("../../../migrations/008_multi_house_support.sql"),
+            include_str!("../../../migrations/009_add_is_admin.sql"),
         ];
         
         let db_url = format!("host=/var/run/postgresql dbname={} user=lukas", db_name);
