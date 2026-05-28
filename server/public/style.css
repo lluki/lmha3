@@ -122,3 +122,73 @@ header {
         border-bottom: 0;
     }
 }
+
+/* Admin Refactor Styles */
+.admin-section {
+    margin-bottom: 3rem;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.summary-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 0 !important;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--pico-card-box-shadow);
+}
+
+.summary-card header {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-card .card-body {
+    font-size: 0.9rem;
+}
+
+.summary-card .card-footer {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+#floating-create-btn {
+    display: none; /* Controlled by JS */
+}
+
+#admin-modal article {
+    max-width: 600px;
+}
+
+#modal-content {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: var(--pico-secondary);
+}

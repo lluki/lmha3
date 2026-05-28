@@ -20,9 +20,6 @@
                 <li><a href="#" class="tab-link" data-tab="logs">Logs</a></li>
             </ul>
             <ul id="user-info">
-                <li id="house-selector-container" class="hidden">
-                    <select id="house-selector" style="margin: 0; padding: 4px 8px; font-size: 0.8rem; height: auto; width: auto;"></select>
-                </li>
                 <!-- User info & Logout will be injected here -->
             </ul>
         </nav>
@@ -30,6 +27,24 @@
     <main class="container" id="app">
         <div id="loading" aria-busy="true">Loading...</div>
     </main>
+    
+    <button id="floating-create-btn" class="secondary" title="Create New..." style="display: none; position: fixed; bottom: 2rem; right: 2rem; width: 4rem; height: 4rem; border-radius: 50%; font-size: 2rem; padding: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; align-items: center; justify-content: center;">+</button>
+
+    <dialog id="admin-modal">
+        <article>
+            <header>
+                <button aria-label="Close" rel="prev" onclick="closeModal()"></button>
+                <h3 id="modal-title">Modal Title</h3>
+            </header>
+            <div id="modal-content">
+                <!-- Content will be injected here -->
+            </div>
+            <footer>
+                <button class="secondary" onclick="closeModal()">Close</button>
+            </footer>
+        </article>
+    </dialog>
+
     <footer class="container">
         <hr>
         <small>Version: <span id="app-version">...</span></small>

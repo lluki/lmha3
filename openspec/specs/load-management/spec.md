@@ -44,10 +44,12 @@ The logic for matching load consumption with solar production and handling manua
    - OFF: Publish `off` to `[mqtt_topic]/rpc`.
    - Monitor `[mqtt_topic]/status/switch:0` for state confirmation.
 7. **Shelly ID Discovery:**
-   - The system SHALL scan MQTT logs for unregistered Shelly device IDs and provide them as suggestions in the Admin panel when creating new devices.
-   - **Scenario: Admin sees suggested Shelly IDs**
-     - **WHEN** an admin opens the "Create Device" form
-     - **THEN** the system displays a dropdown or list of recently seen MQTT topics/IDs that are not yet registered in the database
+   The system SHALL scan MQTT logs for unregistered Shelly device IDs and provide them as suggestions in the Admin panel when creating new devices. The interaction SHALL be integrated into the unified entity creation dialog.
+
+   #### Scenario: Admin sees suggested Shelly IDs
+   - **WHEN** an administrator opens the "Create Entity" dialog and selects "Device"
+   - **THEN** the system displays a list of recently discovered MQTT topics/IDs that are not yet registered, which can be selected to pre-fill the creation form
+
 8. **Improved Boiler Runtime Tracking:**
    - The dashboard SHALL display the total duration a boiler-mode device has been ON during the current 24-hour period, starting from 5:00 AM.
    - **Scenario: View daily runtime**

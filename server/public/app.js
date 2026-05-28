@@ -2,9 +2,29 @@ const app = document.getElementById('app');
 const userInfo = document.getElementById('user-info');
 const mainNav = document.getElementById('main-nav');
 const adminTab = document.getElementById('admin-tab');
+const adminModal = document.getElementById('admin-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalContent = document.getElementById('modal-content');
+const createBtn = document.getElementById('floating-create-btn');
 
 let currentUser = null;
 let activeTab = 'overview';
+
+window.showModal = (title, content) => {
+    modalTitle.textContent = title;
+    modalContent.innerHTML = content;
+    adminModal.showModal();
+};
+
+window.closeModal = () => {
+    adminModal.close();
+};
+
+if (createBtn) {
+    createBtn.addEventListener('click', () => {
+        if (typeof openCreationDialog === 'function') openCreationDialog();
+    });
+}
 
 async function fetchVersion() {
     try {
@@ -77,26 +97,7 @@ function renderLogin(error = '') {
 function renderLayout() {
     mainNav.classList.remove('hidden');
     
-    let selectorContainer = document.getElementById('house-selector-container');
-    if (!selectorContainer) {
-        // Recreate if it was cleared by renderLogin
-        const li = document.createElement('li');
-        li.id = 'house-selector-container';
-        li.className = 'hidden';
-        li.innerHTML = `<select id="house-selector" style="margin: 0; padding: 4px 8px; font-size: 0.8rem; height: auto; width: auto;"></select>`;
-        userInfo.appendChild(li);
-        selectorContainer = li;
-    }
-
-    if (currentUser.is_admin) {
-        selectorContainer.classList.remove('hidden');
-        populateHouseSelector();
-    } else {
-        selectorContainer.classList.add('hidden');
-    }
-
-    userInfo.innerHTML = ''; // Clear other items but we need to keep the selector
-    userInfo.appendChild(selectorContainer);
+    userInfo.innerHTML = ''; 
     
     const userInfoList = document.createElement('li');
     userInfoList.innerHTML = `<span>${currentUser.username}</span>`;
@@ -105,48 +106,6 @@ function renderLayout() {
     const logoutList = document.createElement('li');
     logoutList.innerHTML = `<button id="logout-btn" class="outline secondary" style="margin: 0; padding: 4px 12px; font-size: 0.8rem;">Logout</button>`;
     userInfo.appendChild(logoutList);
-
-    // Add Change Password section
-    if (!document.getElementById('change-password-container')) {
-        const passContainer = document.createElement('div');
-        passContainer.id = 'change-password-container';
-        passContainer.style = 'position: fixed; bottom: 1rem; right: 1rem; z-index: 1000;';
-        passContainer.innerHTML = `
-            <details class="dropdown">
-                <summary class="outline secondary" style="font-size: 0.8rem; padding: 4px 12px;">Settings</summary>
-                <ul style="padding: 1rem; width: 250px; right: 0; left: auto;">
-                    <li>
-                        <form id="change-self-password-form" style="margin: 0;">
-                            <label style="font-size: 0.8rem;">Change Password
-                                <input type="password" name="password" placeholder="New Password" required style="font-size: 0.8rem; margin-bottom: 0.5rem;" />
-                            </label>
-                            <button type="submit" style="font-size: 0.8rem; padding: 4px 12px; margin: 0; width: 100%;">Update</button>
-                        </form>
-                    </li>
-                </ul>
-            </details>
-        `;
-        document.body.appendChild(passContainer);
-
-        document.getElementById('change-self-password-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const params = new URLSearchParams(formData);
-            try {
-                const resp = await fetch('/api/me/password', {
-                    method: 'POST',
-                    body: params
-                });
-                if (resp.ok) {
-                    alert('Password updated successfully');
-                    e.target.reset();
-                    e.target.closest('details').open = false;
-                } else {
-                    alert('Update failed: ' + await resp.text());
-                }
-            } catch (err) { alert('Error: ' + err); }
-        });
-    }
 
     document.getElementById('logout-btn').addEventListener('click', async () => {
         await fetch('/api/logout', { method: 'POST' });
@@ -164,45 +123,16 @@ function renderLayout() {
     renderActiveTab();
 }
 
-async function populateHouseSelector() {
-    try {
-        const resp = await fetch('/api/houses');
-        if (!resp.ok) return;
-        const houses = await resp.json();
-        const selector = document.getElementById('house-selector');
-        
-        // Prevent re-adding listeners if already populated
-        if (selector.dataset.populated) return;
-        selector.dataset.populated = 'true';
-
-        selector.innerHTML = '';
-        houses.forEach(h => {
-            const opt = document.createElement('option');
-            opt.value = h.id;
-            opt.textContent = h.name;
-            if (h.id === currentUser.house_id) opt.selected = true;
-            selector.appendChild(opt);
-        });
-
-        selector.addEventListener('change', async (e) => {
-            await fetch('/api/admin/select-house', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ house_id: e.target.value })
-            });
-            window.location.reload();
-        });
-    } catch (e) {
-        console.error('Failed to populate houses:', e);
-    }
-}
-
 let overviewInterval = null;
 
 function renderActiveTab() {
     if (overviewInterval) {
         clearInterval(overviewInterval);
         overviewInterval = null;
+    }
+
+    if (createBtn) {
+        createBtn.style.display = activeTab === 'admin' ? 'flex' : 'none';
     }
 
     // Update tab links
@@ -590,73 +520,464 @@ async function fetchAndRenderLogs(elementId, levelFilter = 'ALL') {
     }
 }
 
-async function renderAdmin() {
-    app.innerHTML = `
-        <article>
-            <header style="display: flex; justify-content: space-between; align-items: center;">
-                <strong>Admin: Houses</strong>
-                <span id="admin-house-name" class="secondary" style="font-size: 0.9rem; font-weight: normal;"></span>
+function renderTenantCard(t, houseName) {
+    return `
+        <article class="summary-card" onclick="openTenantDetails('${t.id}')">
+            <header>
+                <strong>${t.username}</strong>
+                <span class="secondary" style="font-size: 0.8rem;">${t.is_admin ? 'Admin' : 'User'}</span>
             </header>
-            <form id="create-house-form" style="margin-bottom: 2rem;">
-                <div class="grid">
-                    <label>House Name <input name="name" required autocomplete="off" /></label>
-                    <label>HA Host <input name="ha_host" placeholder="192.168.1.100" required /></label>
-                    <label>HA Token <input name="ha_token" required autocomplete="off" /></label>
-                </div>
-                <button type="submit" class="outline">Create House</button>
-            </form>
-            <div id="admin-houses-list" aria-busy="true">Loading...</div>
+            <div class="card-body">
+                <div>House: ${houseName}</div>
+            </div>
+            <div class="card-footer">
+                Click for details
+            </div>
         </article>
+    `;
+}
 
-        <article>
-            <header><strong>User Management</strong></header>
-            <form id="create-tenant-form" style="margin-bottom: 2rem;">
-                <div class="grid">
-                    <label>Username <input name="username" required autocomplete="off" /></label>
-                    <label>Password <input name="password" type="password" placeholder="(default: username)" /></label>
+async function renderTenantDetails(id, isEdit = false) {
+    try {
+        const [tenantsResp, housesResp] = await Promise.all([
+            fetch('/api/tenants'),
+            fetch('/api/houses')
+        ]);
+        const tenants = await tenantsResp.json();
+        const houses = await housesResp.json();
+        const t = tenants.find(x => x.id === id);
+        if (!t) return;
+
+        const houseName = houses.find(h => h.id === t.house_id)?.name || 'Unknown';
+
+        let content = '';
+        if (isEdit) {
+            const hOpts = houses.map(h => `<option value="${h.id}" ${h.id === t.house_id ? 'selected' : ''}>${h.name}</option>`).join('');
+            content = `
+                <form id="edit-tenant-form">
+                    <label>Username <input name="username" value="${t.username}" required /></label>
                     <label>House 
-                        <select name="house_id" id="admin-tenant-house-select" required></select>
+                        <select name="house_id" required>${hOpts}</select>
                     </label>
-                    <label style="display: flex; align-items: center; height: 100%; margin-top: 1rem;">
-                        <input type="checkbox" name="is_admin" value="true" style="margin-right: 8px;"> Admin
+                    <label>
+                        <input type="checkbox" name="is_admin" value="true" ${t.is_admin ? 'checked' : ''}> Admin Access
                     </label>
+                    <label>New Password <input name="password" type="password" placeholder="Leave empty to keep" /></label>
+                    <div class="grid">
+                        <button type="submit">Save Changes</button>
+                        <button type="button" class="secondary" onclick="renderTenantDetails('${t.id}', false)">Cancel</button>
+                    </div>
+                </form>
+            `;
+        } else {
+            content = `
+                <div class="detail-row"><span class="detail-label">Username</span><span>${t.username}</span></div>
+                <div class="detail-row"><span class="detail-label">House</span><span>${houseName}</span></div>
+                <div class="detail-row"><span class="detail-label">Role</span><span>${t.is_admin ? 'Administrator' : 'Tenant'}</span></div>
+                <div class="grid" style="margin-top: 2rem;">
+                    <button onclick="renderTenantDetails('${t.id}', true)">Edit</button>
+                    <button class="secondary" onclick="deleteTenant('${t.id}')">Delete</button>
                 </div>
-                <button type="submit" class="outline">Create User</button>
-            </form>
-            <div id="admin-tenants" aria-busy="true">Loading...</div>
-        </article>
+            `;
+        }
 
-        <article>
-            <header><strong>Add New Device</strong></header>
-            <form id="create-device-form">
-                <div class="grid">
-                    <label>
-                        Name
-                        <input name="name" value="Boiler" required />
+        showModal(`User: ${t.username}`, content);
+
+        if (isEdit) {
+            document.getElementById('edit-tenant-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const username = formData.get('username');
+                const house_id = formData.get('house_id');
+                const is_admin = formData.get('is_admin') === 'true';
+                const password = formData.get('password');
+                
+                const params = new URLSearchParams({ username, house_id, is_admin });
+                if (password) params.append('password', password);
+                
+                const resp = await fetch(`/api/tenants/${t.id}`, {
+                    method: 'PATCH',
+                    body: params
+                });
+                if (resp.ok) {
+                    closeModal();
+                    renderAdmin();
+                } else {
+                    alert('Update failed: ' + await resp.text());
+                }
+            });
+        }
+    } catch (e) {
+        console.error('Failed to render tenant details:', e);
+    }
+}
+
+window.openTenantDetails = (id) => renderTenantDetails(id, false);
+
+function renderDeviceCard(d, tenantName) {
+    const schObj = d.scheduling_type;
+    const schType = (schObj && typeof schObj === 'object' ? schObj.type : schObj) || 'UNKNOWN';
+    return `
+        <article class="summary-card" onclick="openDeviceDetails('${d.id}')">
+            <header>
+                <strong>${d.name}</strong>
+                <span class="secondary" style="font-size: 0.8rem;">${schType}</span>
+            </header>
+            <div class="card-body">
+                <div>Owner: ${tenantName}</div>
+                <div>Topic: ${d.mqtt_topic}</div>
+            </div>
+            <div class="card-footer">
+                Click for details
+            </div>
+        </article>
+    `;
+}
+
+async function renderDeviceDetails(id, isEdit = false) {
+    try {
+        const [tenantsResp, devicesResp] = await Promise.all([
+            fetch('/api/tenants'),
+            fetch('/api/devices')
+        ]);
+        const tenants = await tenantsResp.json();
+        const devices = await devicesResp.json();
+        const d = devices.find(x => x.id === id);
+        if (!d) return;
+
+        const tenantName = tenants.find(t => t.id === d.tenant_id)?.username || 'Unknown';
+        const schObj = d.scheduling_type;
+        const schType = (schObj && typeof schObj === 'object' ? schObj.type : schObj) || 'UNKNOWN';
+        
+        let until = '';
+        if (schObj && schObj.until) {
+            const date = new Date(schObj.until);
+            const offset = date.getTimezoneOffset() * 60000;
+            until = new Date(date.getTime() - offset).toISOString().slice(0, 16);
+        }
+
+        let content = '';
+        if (isEdit) {
+            const tOpts = tenants.map(t => `<option value="${t.id}" ${t.id === d.tenant_id ? 'selected' : ''}>${t.username}</option>`).join('');
+            content = `
+                <form id="edit-device-form">
+                    <div class="grid">
+                        <label>Name <input name="name" value="${d.name}" required /></label>
+                        <label>MQTT Topic <input name="mqtt_topic" value="${d.mqtt_topic}" required /></label>
+                    </div>
+                    <label>Owner (Tenant)
+                        <select name="tenant_id" required>${tOpts}</select>
                     </label>
-                    <label>
-                        MQTT Topic
-                        <input name="mqtt_topic" id="device-topic-input" placeholder="shellypro1-123456" required />
-                        <div id="discovery-container" style="display: none; margin-top: 0.5rem;">
-                            <small class="secondary">Discovered IDs: </small>
-                            <span id="discovered-topics"></span>
+                    <div class="grid">
+                        <label>Load (W) <input type="number" name="expected_load" value="${d.expected_load}" required /></label>
+                        <label>Mode
+                            <select name="scheduling_type" id="edit-d-sch" onchange="handleSchedulingChangeInModal(this.value)">
+                                <option value="BOILER" ${schType === 'BOILER' ? 'selected' : ''}>Boiler</option>
+                                <option value="NONE" ${schType === 'NONE' ? 'selected' : ''}>Manual</option>
+                                <option value="FORCE_ON" ${schType === 'FORCE_ON' ? 'selected' : ''}>Force ON</option>
+                                <option value="FORCE_OFF" ${schType === 'FORCE_OFF' ? 'selected' : ''}>Force OFF</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div id="modal-boiler-config" style="${schType === 'BOILER' ? '' : 'display:none'}">
+                        <div class="grid">
+                            <label>Charge (Days) <input type="number" name="full_charge_n_day" min="1" max="8" value="${d.full_charge_n_day}" /></label>
+                            <label>Min (Mins) <input type="number" name="min_daily_charge" min="0" value="${d.min_daily_charge}" /></label>
                         </div>
-                    </label>
+                    </div>
+                    <div id="modal-until-container" style="${(schType === 'FORCE_ON' || schType === 'FORCE_OFF') ? '' : 'display:none'}">
+                        <label>Until <input type="datetime-local" name="scheduling_until" value="${until}" /></label>
+                    </div>
+                    <div class="grid" style="margin-top: 2rem;">
+                        <button type="submit">Save All</button>
+                        <button type="button" class="secondary" onclick="renderDeviceDetails('${d.id}', false)">Cancel</button>
+                    </div>
+                </form>
+            `;
+        } else {
+            content = `
+                <div class="detail-row"><span class="detail-label">Name</span><span>${d.name}</span></div>
+                <div class="detail-row"><span class="detail-label">MQTT Topic</span><span>${d.mqtt_topic}</span></div>
+                <div class="detail-row"><span class="detail-label">Owner</span><span>${tenantName}</span></div>
+                <div class="detail-row"><span class="detail-label">Load</span><span>${d.expected_load} W</span></div>
+                <div class="detail-row"><span class="detail-label">Mode</span><span>${schType}</span></div>
+                ${until ? `<div class="detail-row"><span class="detail-label">Until</span><span>${new Date(until).toLocaleString()}</span></div>` : ''}
+                ${schType === 'BOILER' ? `
+                    <div class="detail-row"><span class="detail-label">Charge Interval</span><span>${d.full_charge_n_day} days</span></div>
+                    <div class="detail-row"><span class="detail-label">Daily Min</span><span>${d.min_daily_charge} mins</span></div>
+                ` : ''}
+                <div class="grid" style="margin-top: 2rem;">
+                    <button onclick="renderDeviceDetails('${d.id}', true)">Edit</button>
+                    <button class="secondary" onclick="deleteDevice('${d.id}')">Delete</button>
                 </div>
+            `;
+        }
+
+        showModal(`Device: ${d.name}`, content);
+
+        if (isEdit) {
+            document.getElementById('edit-device-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const id = d.id;
+                
+                // Helper to gather all inputs and call updateDeviceConfigAdmin
+                const body = {
+                    name: formData.get('name'),
+                    mqtt_topic: formData.get('mqtt_topic'),
+                    tenant_id: formData.get('tenant_id'),
+                    expected_load: parseInt(formData.get('expected_load')),
+                    full_charge_n_day: parseInt(formData.get('full_charge_n_day') || 0),
+                    min_daily_charge: parseInt(formData.get('min_daily_charge') || 0),
+                    scheduling_type: {}
+                };
+
+                const type = formData.get('scheduling_type');
+                if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
+                    body.scheduling_type = { type: type, until: new Date(formData.get('scheduling_until')).toISOString() };
+                } else {
+                    body.scheduling_type = { type: type };
+                }
+
+                const resp = await fetch(`/api/devices/${id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                
+                if (resp.ok) {
+                    closeModal();
+                    renderAdmin();
+                } else {
+                    alert('Update failed: ' + await resp.text());
+                }
+            });
+        }
+    } catch (e) {
+        console.error('Failed to render device details:', e);
+    }
+}
+
+window.openDeviceDetails = (id) => renderDeviceDetails(id, false);
+
+window.openCreationDialog = () => {
+    const content = `
+        <div class="grid">
+            <button class="outline" onclick="renderCreateHouseForm()">New House</button>
+            <button class="outline" onclick="renderCreateTenantForm()">New User</button>
+            <button class="outline" onclick="renderCreateDeviceForm()">New Device</button>
+        </div>
+    `;
+    showModal('Create New Entity', content);
+};
+
+window.renderCreateHouseForm = () => {
+    const content = `
+        <form id="modal-create-house-form">
+            <label>House Name <input name="name" required autocomplete="off" /></label>
+            <label>HA Host <input name="ha_host" placeholder="192.168.1.100" required /></label>
+            <label>HA Token <input name="ha_token" required autocomplete="off" /></label>
+            <button type="submit">Create House</button>
+        </form>
+    `;
+    showModal('Create New House', content);
+    document.getElementById('modal-create-house-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const params = new URLSearchParams(formData);
+        try {
+            const resp = await fetch('/api/houses', { method: 'POST', body: params });
+            if (resp.ok) { closeModal(); renderAdmin(); }
+            else alert('Failed to create house: ' + await resp.text());
+        } catch (err) { alert('Error: ' + err); }
+    });
+};
+
+window.renderCreateTenantForm = async () => {
+    try {
+        const resp = await fetch('/api/houses');
+        const houses = await resp.json();
+        const hOpts = houses.map(h => `<option value="${h.id}" ${h.id === currentUser.house_id ? 'selected' : ''}>${h.name}</option>`).join('');
+        
+        const content = `
+            <form id="modal-create-tenant-form">
+                <label>Username <input name="username" required autocomplete="off" /></label>
+                <label>Password <input name="password" type="password" placeholder="(default: username)" /></label>
+                <label>House 
+                    <select name="house_id" required>${hOpts}</select>
+                </label>
                 <label>
-                    Owner (Tenant)
-                    <select name="tenant_id" id="tenant-select" required>
+                    <input type="checkbox" name="is_admin" value="true"> Admin Access
+                </label>
+                <button type="submit">Create User</button>
+            </form>
+        `;
+        showModal('Create New User', content);
+        document.getElementById('modal-create-tenant-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const params = new URLSearchParams(formData);
+            try {
+                const resp = await fetch('/api/tenants', { method: 'POST', body: params });
+                if (resp.ok) { closeModal(); renderAdmin(); }
+                else alert('Failed to create user: ' + await resp.text());
+            } catch (err) { alert('Error: ' + err); }
+        });
+    } catch (err) { alert('Error: ' + err); }
+};
+
+window.renderCreateDeviceForm = async () => {
+    try {
+        const [tenantsResp, discoveryResp] = await Promise.all([
+            fetch('/api/tenants'),
+            fetch('/api/admin/discover-devices')
+        ]);
+        const tenants = await tenantsResp.json();
+        const discovered = await discoveryResp.json();
+        const tOpts = tenants.map(t => `<option value="${t.id}">${t.username}</option>`).join('');
+        
+        const content = `
+            <form id="modal-create-device-form">
+                <div class="grid">
+                    <label>Name <input name="name" value="Boiler" required /></label>
+                    <label>MQTT Topic <input name="mqtt_topic" id="modal-device-topic-input" placeholder="shellypro1-123456" required /></label>
+                </div>
+                <div id="modal-discovery-container" style="${discovered && discovered.length > 0 ? '' : 'display: none'}; margin-bottom: 1rem;">
+                    <small class="secondary">Discovered IDs: </small>
+                    <span id="modal-discovered-topics">
+                        ${discovered.map(t => `<a href="#" onclick="document.getElementById('modal-device-topic-input').value='${t}'; return false;" style="margin-right: 8px; font-size: 0.8rem;">${t}</a>`).join('')}
+                    </span>
+                </div>
+                <label>Owner (Tenant)
+                    <select name="tenant_id" required>
                         <option value="" disabled selected>Select a tenant...</option>
+                        ${tOpts}
                     </select>
                 </label>
                 <button type="submit">Create Device</button>
             </form>
-        </article>
+        `;
+        showModal('Create New Device', content);
+        document.getElementById('modal-create-device-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const params = new URLSearchParams(formData);
+            try {
+                const resp = await fetch('/api/devices', { method: 'POST', body: params });
+                if (resp.ok) { closeModal(); renderAdmin(); }
+                else alert('Failed to create device: ' + await resp.text());
+            } catch (err) { alert('Error: ' + err); }
+        });
+    } catch (err) { alert('Error: ' + err); }
+};
 
-        <article>
-            <header><strong>Admin: All Devices in House</strong></header>
-            <div id="admin-devices" aria-busy="true">Loading...</div>
+window.handleSchedulingChangeInModal = (type) => {
+    const untilContainer = document.getElementById('modal-until-container');
+    const boilerConfig = document.getElementById('modal-boiler-config');
+    
+    if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
+        untilContainer.style.display = 'block';
+        boilerConfig.style.display = 'none';
+        const input = untilContainer.querySelector('input');
+        if (!input.value) {
+            const inOneHour = new Date(Date.now() + 3600000);
+            const offset = inOneHour.getTimezoneOffset() * 60000;
+            input.value = new Date(inOneHour.getTime() - offset).toISOString().slice(0, 16);
+        }
+    } else if (type === 'BOILER') {
+        untilContainer.style.display = 'none';
+        boilerConfig.style.display = 'block';
+    } else {
+        untilContainer.style.display = 'none';
+        boilerConfig.style.display = 'none';
+    }
+};
+
+function renderHouseCard(h) {
+    return `
+        <article class="summary-card" onclick="openHouseDetails('${h.id}')">
+            <header>
+                <strong>${h.name}</strong>
+                <span class="secondary" style="font-size: 0.8rem;">House</span>
+            </header>
+            <div class="card-body">
+                <div>Host: ${h.ha_host}</div>
+            </div>
+            <div class="card-footer">
+                Click for details
+            </div>
         </article>
+    `;
+}
+
+async function renderHouseDetails(id, isEdit = false) {
+    try {
+        const resp = await fetch('/api/houses');
+        const houses = await resp.json();
+        const h = houses.find(x => x.id === id);
+        if (!h) return;
+
+        let content = '';
+        if (isEdit) {
+            content = `
+                <form id="edit-house-form">
+                    <label>House Name <input name="name" value="${h.name}" required /></label>
+                    <label>HA Host <input name="ha_host" value="${h.ha_host}" required /></label>
+                    <label>HA Token <input name="ha_token" value="${h.ha_token}" required /></label>
+                    <div class="grid">
+                        <button type="submit">Save Changes</button>
+                        <button type="button" class="secondary" onclick="renderHouseDetails('${h.id}', false)">Cancel</button>
+                    </div>
+                </form>
+            `;
+        } else {
+            content = `
+                <div class="detail-row"><span class="detail-label">Name</span><span>${h.name}</span></div>
+                <div class="detail-row"><span class="detail-label">HA Host</span><span>${h.ha_host}</span></div>
+                <div class="detail-row"><span class="detail-label">HA Token</span><span>••••••••</span></div>
+                <div class="grid" style="margin-top: 2rem;">
+                    <button onclick="renderHouseDetails('${h.id}', true)">Edit</button>
+                    <button class="secondary" onclick="deleteHouse('${h.id}')">Delete</button>
+                </div>
+            `;
+        }
+
+        showModal(`House: ${h.name}`, content);
+
+        if (isEdit) {
+            document.getElementById('edit-house-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                await updateHouse(h.id, formData.get('name'), formData.get('ha_host'), formData.get('ha_token'));
+                closeModal();
+                renderAdmin();
+            });
+        }
+    } catch (e) {
+        console.error('Failed to render house details:', e);
+    }
+}
+
+window.openHouseDetails = (id) => renderHouseDetails(id, false);
+
+async function renderAdmin() {
+    app.innerHTML = `
+        <section class="admin-section">
+            <header>
+                <h3>Houses</h3>
+            </header>
+            <div id="admin-houses-list" class="admin-grid" aria-busy="true">Loading...</div>
+        </section>
+
+        <section class="admin-section">
+            <h3>User Management</h3>
+            <div id="admin-tenants" class="admin-grid" aria-busy="true">Loading...</div>
+        </section>
+
+        <section class="admin-section">
+            <h3>Devices</h3>
+            <div id="admin-devices" class="admin-grid" aria-busy="true">Loading...</div>
+        </section>
     `;
 
     try {
@@ -674,211 +995,33 @@ async function renderAdmin() {
         const houses = await housesResp.json();
         const discovered = await discoveryResp.json();
 
-        const currentHouse = houses.find(h => h.id === currentUser.house_id);
-        if (currentHouse) {
-            document.getElementById('admin-house-name').textContent = currentHouse.name;
-        }
-
         const houseMap = {};
-        const houseSelect = document.getElementById('admin-tenant-house-select');
-        houses.forEach(h => {
-            houseMap[h.id] = h.name;
-            const opt = document.createElement('option');
-            opt.value = h.id;
-            opt.textContent = h.name;
-            if (h.id === currentUser.house_id) opt.selected = true;
-            houseSelect.appendChild(opt);
-        });
+        houses.forEach(h => { houseMap[h.id] = h.name; });
 
         // Houses list
         const housesDiv = document.getElementById('admin-houses-list');
         housesDiv.removeAttribute('aria-busy');
-        let housesHtml = '<table><thead><tr><th>Name</th><th>HA Host</th><th>HA Token</th><th>Action</th></tr></thead><tbody>';
-        for (const h of houses) {
-            housesHtml += `
-                <tr>
-                    <td><input type="text" value="${h.name}" id="h-name-${h.id}" style="margin-bottom:0"></td>
-                    <td><input type="text" value="${h.ha_host}" id="h-host-${h.id}" style="margin-bottom:0"></td>
-                    <td><input type="text" value="${h.ha_token}" id="h-token-${h.id}" style="margin-bottom:0"></td>
-                    <td>
-                        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 8px;">
-                            <button class="outline" style="margin:0; padding: 2px 8px;" onclick="updateHouse('${h.id}', document.getElementById('h-name-${h.id}').value, document.getElementById('h-host-${h.id}').value, document.getElementById('h-token-${h.id}').value)">Save</button>
-                            <button class="outline secondary" style="margin:0; padding: 2px 8px;" onclick="deleteHouse('${h.id}')">Del</button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }
-        housesHtml += '</tbody></table>';
-        housesDiv.innerHTML = housesHtml;
-
-        // Create House Form
-        document.getElementById('create-house-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const params = new URLSearchParams(formData);
-            try {
-                const resp = await fetch('/api/houses', {
-                    method: 'POST',
-                    body: params
-                });
-                if (resp.ok) renderAdmin();
-                else alert('Failed to create house: ' + await resp.text());
-            } catch (err) { alert('Error: ' + err); }
-        });
+        houses.sort((a, b) => a.name.localeCompare(b.name));
+        housesDiv.innerHTML = houses.map(h => renderHouseCard(h)).join('');
 
         const tenantMap = {};
-        const select = document.getElementById('tenant-select');
-        tenants.forEach(t => {
-            tenantMap[t.id] = t.username;
-            const opt = document.createElement('option');
-            opt.value = t.id;
-            opt.textContent = t.username;
-            select.appendChild(opt);
-        });
+        tenants.forEach(t => { tenantMap[t.id] = t.username; });
 
-        // Discovery
-        if (discovered && discovered.length > 0) {
-            const container = document.getElementById('discovery-container');
-            const span = document.getElementById('discovered-topics');
-            container.style.display = 'block';
-            span.innerHTML = discovered.map(t => `<a href="#" onclick="setTopic('${t}'); return false;" style="margin-right: 8px; font-size: 0.8rem;">${t}</a>`).join('');
-        }
-
-        // Tenants
+        // Tenants list
         const tenantsDiv = document.getElementById('admin-tenants');
         tenantsDiv.removeAttribute('aria-busy');
-        let tenantsHtml = '<table><thead><tr><th>Username</th><th>House</th><th>Admin</th><th>New Password</th><th>Action</th></tr></thead><tbody>';
-        for (const t of tenants) {
-            const hOpts = houses.map(h => `<option value="${h.id}" ${h.id === t.house_id ? 'selected' : ''}>${h.name}</option>`).join('');
-            tenantsHtml += `
-                <tr>
-                    <td><input type="text" value="${t.username}" id="t-user-${t.id}" style="margin-bottom:0"></td>
-                    <td>
-                        <select id="t-house-${t.id}" style="margin-bottom:0">
-                            ${hOpts}
-                        </select>
-                    </td>
-                    <td>
-                        <input type="checkbox" id="t-admin-${t.id}" ${t.is_admin ? 'checked' : ''} style="margin-bottom:0">
-                    </td>
-                    <td>
-                        <input type="password" id="t-pass-${t.id}" placeholder="Leave empty to keep" style="margin-bottom:0">
-                    </td>
-                    <td>
-                        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 8px;">
-                            <button class="outline" style="margin:0; padding: 2px 8px;" onclick="updateTenant('${t.id}')">Save</button>
-                            <button class="outline secondary" style="margin:0; padding: 2px 8px;" onclick="deleteTenant('${t.id}')">Del</button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }
-        tenantsHtml += '</tbody></table>';
-        tenantsDiv.innerHTML = tenantsHtml;
-
-        // Create Tenant Form
-        document.getElementById('create-tenant-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const params = new URLSearchParams(formData);
-            try {
-                const resp = await fetch('/api/tenants', {
-                    method: 'POST',
-                    body: params
-                });
-                if (resp.ok) renderAdmin();
-                else alert('Failed to create tenant: ' + await resp.text());
-            } catch (err) { alert('Error: ' + err); }
-        });
-
-        // Create Device Form
-        document.getElementById('create-device-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const params = new URLSearchParams(formData);
-            try {
-                const resp = await fetch('/api/devices', {
-                    method: 'POST',
-                    body: params
-                });
-                if (resp.ok) renderAdmin();
-                else alert('Failed to create device: ' + await resp.text());
-            } catch (err) { alert('Error: ' + err); }
-        });
+        tenants.sort((a, b) => a.username.localeCompare(b.username));
+        tenantsDiv.innerHTML = tenants.map(t => renderTenantCard(t, houseMap[t.house_id])).join('');
 
         // Devices
         const devicesDiv = document.getElementById('admin-devices');
         devicesDiv.removeAttribute('aria-busy');
-        let devicesHtml = '<table><thead><tr><th>Device Info</th><th>Owner</th><th>Config</th><th>Scheduling</th><th>Action</th></tr></thead><tbody>';
-        for (const d of devices) {
-            const tOpts = tenants.map(t => `<option value="${t.id}" ${t.id === d.tenant_id ? 'selected' : ''}>${t.username}</option>`).join('');
-            const schObj = d.scheduling_type;
-            const schType = (schObj && typeof schObj === 'object' ? schObj.type : schObj) || 'UNKNOWN';
-            
-            let until = '';
-            if (schObj && schObj.until) {
-                const date = new Date(schObj.until);
-                const offset = date.getTimezoneOffset() * 60000;
-                until = new Date(date.getTime() - offset).toISOString().slice(0, 16);
-            }
-
-            devicesHtml += `
-                <tr>
-                    <td data-label="Name">
-                        <input type="text" value="${d.name}" id="d-name-${d.id}" placeholder="Name" style="margin-bottom:0.5rem">
-                        <input type="text" value="${d.mqtt_topic}" id="d-topic-${d.id}" placeholder="Topic" style="margin-bottom:0">
-                    </td>
-                    <td data-label="Owner">
-                        <select id="d-owner-${d.id}" style="margin-bottom:0">
-                            ${tOpts}
-                        </select>
-                    </td>
-                    <td data-label="Config">
-                        <label>Load (W)
-                            <input type="number" value="${d.expected_load}" id="d-load-${d.id}" style="margin-bottom:0.5rem">
-                        </label>
-                        <div id="boiler-config-${d.id}" style="${schType === 'BOILER' ? '' : 'display:none'}">
-                            <label>Charge (Days)
-                                <input type="number" min="1" max="8" value="${d.full_charge_n_day}" id="d-full-${d.id}" style="margin-bottom:0.5rem">
-                            </label>
-                            <label>Min (Mins)
-                                <input type="number" min="0" value="${d.min_daily_charge}" id="d-min-${d.id}" style="margin-bottom:0">
-                            </label>
-                        </div>
-                    </td>
-                    <td data-label="Scheduling">
-                        <label>Mode
-                            <select id="d-sch-${d.id}" onchange="handleSchedulingChange('${d.id}', this.value, '${d.mqtt_topic}')" style="margin-bottom:0.5rem">
-                                <option value="BOILER" ${schType === 'BOILER' ? 'selected' : ''}>Boiler</option>
-                                <option value="NONE" ${schType === 'NONE' ? 'selected' : ''}>Manual</option>
-                                <option value="FORCE_ON" ${schType === 'FORCE_ON' ? 'selected' : ''}>Force ON</option>
-                                <option value="FORCE_OFF" ${schType === 'FORCE_OFF' ? 'selected' : ''}>Force OFF</option>
-                            </select>
-                        </label>
-                        <div id="until-container-${d.id}" style="${(schType === 'FORCE_ON' || schType === 'FORCE_OFF') ? '' : 'display:none'}">
-                            <label>Until
-                                <input type="datetime-local" value="${until}" id="d-until-${d.id}" style="margin-bottom:0">
-                            </label>
-                        </div>
-                    </td>
-                    <td data-label="Action">
-                        <button class="outline" style="margin-bottom:0.5rem; padding: 2px 8px; width: 100%" onclick="updateDeviceConfigAdmin('${d.id}')">Save All</button>
-                        <button class="outline secondary" style="margin:0; padding: 2px 8px; width: 100%" onclick="deleteDevice('${d.id}')">Delete</button>
-                    </td>
-                </tr>
-            `;
-        }
-        devicesHtml += '</tbody></table>';
-        devicesDiv.innerHTML = devicesHtml;
+        devices.sort((a, b) => a.name.localeCompare(b.name));
+        devicesDiv.innerHTML = devices.map(d => renderDeviceCard(d, tenantMap[d.tenant_id])).join('');
 
     } catch (e) {
         app.innerHTML += `<p style="color: red;">${e.message}</p>`;
     }
-}
-
-window.setTopic = (topic) => {
-    document.getElementById('device-topic-input').value = topic;
 }
 
 window.handleSchedulingChangeOverview = async (id, type) => {
@@ -931,11 +1074,25 @@ window.updateDeviceConfigOverview = async (id) => {
     } catch (e) { alert('Error: ' + e); }
 };
 
+window.updateHouse = async (id, name, ha_host, ha_token) => {
+    try {
+        const params = new URLSearchParams({ name, ha_host, ha_token });
+        const resp = await fetch(`/api/houses/${id}`, {
+            method: 'PATCH',
+            body: params
+        });
+        if (!resp.ok) alert('Update failed: ' + await resp.text());
+    } catch (e) { alert('Update failed: ' + e); }
+};
+
 window.deleteHouse = async (id) => {
     if (!confirm('Are you sure you want to delete this house? This will also affect all tenants and devices associated with it.')) return;
     try {
         const resp = await fetch(`/api/houses/${id}`, { method: 'DELETE' });
-        if (resp.ok) renderAdmin();
+        if (resp.ok) {
+            closeModal();
+            renderAdmin();
+        }
         else alert('Failed to delete house: ' + await resp.text());
     } catch (err) { alert('Error: ' + err); }
 };
@@ -944,7 +1101,10 @@ window.deleteTenant = async (id) => {
     if (!confirm('Are you sure you want to delete this tenant? This cannot be undone.')) return;
     try {
         const resp = await fetch(`/api/tenants/${id}`, { method: 'DELETE' });
-        if (resp.ok) renderAdmin();
+        if (resp.ok) {
+            closeModal();
+            renderAdmin();
+        }
         else alert('Failed to delete: ' + await resp.text());
     } catch (err) { alert('Error: ' + err); }
 }
@@ -953,132 +1113,13 @@ window.deleteDevice = async (id) => {
     if (!confirm('Are you sure you want to delete this device? This will also remove its telemetry history.')) return;
     try {
         const resp = await fetch(`/api/devices/${id}`, { method: 'DELETE' });
-        if (resp.ok) renderAdmin();
+        if (resp.ok) {
+            closeModal();
+            renderAdmin();
+        }
         else alert('Failed to delete: ' + await resp.text());
     } catch (err) { alert('Error: ' + err); }
 }
-
-window.updateHouse = async (id, name, ha_host, ha_token) => {
-    try {
-        const params = new URLSearchParams({ name, ha_host, ha_token });
-        const resp = await fetch(`/api/houses/${id}`, {
-            method: 'PATCH',
-            body: params
-        });
-        if (resp.ok) renderAdmin();
-        else alert('Update failed: ' + await resp.text());
-    } catch (e) { alert('Update failed: ' + e); }
-};
-
-window.updateTenant = async (id) => {
-    try {
-        const username = document.getElementById(`t-user-${id}`).value;
-        const house_id = document.getElementById(`t-house-${id}`).value;
-        const is_admin = document.getElementById(`t-admin-${id}`).checked;
-        const password = document.getElementById(`t-pass-${id}`).value;
-        
-        const params = new URLSearchParams({ username, house_id, is_admin });
-        if (password) params.append('password', password);
-        
-        const resp = await fetch(`/api/tenants/${id}`, {
-            method: 'PATCH',
-            body: params
-        });
-        if (resp.ok) renderAdmin();
-        else alert('Update failed: ' + await resp.text());
-    } catch (e) { alert('Update failed: ' + e); }
-};
-
-window.handleSchedulingChange = async (id, type, mqtt_topic) => {
-    const untilContainer = document.getElementById(`until-container-${id}`);
-    const boilerConfig = document.getElementById(`boiler-config-${id}`);
-    
-    if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
-        untilContainer.style.display = 'block';
-        boilerConfig.style.display = 'none';
-        // Default until to 1 hour from now if not set
-        const input = untilContainer.querySelector('input');
-        if (!input.value) {
-            const inOneHour = new Date(Date.now() + 3600000);
-            const offset = inOneHour.getTimezoneOffset() * 60000;
-            input.value = new Date(inOneHour.getTime() - offset).toISOString().slice(0, 16);
-        }
-        updateDeviceScheduling(id, type, input.value);
-    } else if (type === 'BOILER') {
-        untilContainer.style.display = 'none';
-        boilerConfig.style.display = 'block';
-        updateDeviceScheduling(id, type, null);
-    } else {
-        untilContainer.style.display = 'none';
-        boilerConfig.style.display = 'none';
-        updateDeviceScheduling(id, type, null);
-    }
-};
-
-window.updateDeviceConfig = async (id, load, full_charge, min_charge) => {
-    try {
-        const body = {};
-        if (load !== null) body.expected_load = parseInt(load);
-        if (full_charge !== null) body.full_charge_n_day = parseInt(full_charge);
-        if (min_charge !== null) body.min_daily_charge = parseInt(min_charge);
-
-        const resp = await fetch(`/api/devices/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-        if (!resp.ok) alert('Update failed');
-    } catch (e) {
-        alert('Update failed: ' + e);
-    }
-};
-
-window.updateDeviceConfigAdmin = async (id) => {
-    try {
-        const body = {
-            name: document.getElementById(`d-name-${id}`).value,
-            mqtt_topic: document.getElementById(`d-topic-${id}`).value,
-            tenant_id: document.getElementById(`d-owner-${id}`).value,
-            expected_load: parseInt(document.getElementById(`d-load-${id}`).value),
-            full_charge_n_day: parseInt(document.getElementById(`d-full-${id}`)?.value || 0),
-            min_daily_charge: parseInt(document.getElementById(`d-min-${id}`)?.value || 0),
-        };
-
-        const resp = await fetch(`/api/devices/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-        if (resp.ok) renderAdmin();
-        else alert('Update failed: ' + await resp.text());
-    } catch (e) { alert('Error: ' + e); }
-};
-
-window.updateDeviceScheduling = async (id, type, until) => {
-    try {
-        const body = { scheduling_type: {} };
-        if (!type) {
-            // Finding the current type from the select
-            const row = document.querySelector(`select[onchange*="${id}"]`);
-            type = row.value;
-        }
-
-        if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
-            body.scheduling_type = { type: type, until: new Date(until).toISOString() };
-        } else {
-            body.scheduling_type = { type: type };
-        }
-
-        const resp = await fetch(`/api/devices/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-        if (!resp.ok) alert('Update failed');
-    } catch (e) {
-        alert('Update failed: ' + e);
-    }
-};
 
 window.toggleDevice = async (id, context = 'overview') => {
     try {

@@ -346,12 +346,19 @@ impl Db {
     }
 
     pub fn delete_tenant(&mut self, id: Uuid) -> Result<(), String> {
+        let tenant_row = self.client.query_one("SELECT username FROM tenants WHERE id = $1", &[&id]).map_err(|e| e.to_string())?;
+        let username: String = tenant_row.get(0);
+        if username == "admin" {
+            return Err("Cannot delete the system administrator account".to_string());
+        }
+
         let rows = self.client.query("SELECT COUNT(*) FROM devices WHERE tenant_id = $1", &[&id]).map_err(|e| e.to_string())?;
         let count: i64 = rows[0].get(0);
         if count > 0 {
             return Err("Cannot delete tenant with active devices".to_string());
         }
 
+        self.client.execute("DELETE FROM sessions WHERE tenant_id = $1", &[&id]).map_err(|e| e.to_string())?;
         self.client.execute("DELETE FROM tenants WHERE id = $1", &[&id]).map_err(|e| e.to_string())?;
         Ok(())
     }
