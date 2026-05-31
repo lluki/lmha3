@@ -30,6 +30,9 @@ Physical Shelly 1 Pro switches associated with a tenant.
 - `name`: String
 - `is_enabled`: Boolean
 - `current_state`: Enum (ON, OFF, UNKNOWN)
+- `desired_state`: Enum (ON, OFF)
+- `last_request_time`: Timestamp
+- `last_feedback_time`: Timestamp
 - `expected_load`: Integer (Watts)
 - `scheduling_type`: Enum (NONE, FORCE_ON, FORCE_OFF, BOILER)
 - `scheduling_until`: Timestamp (Optional, for FORCE_* transitions)
@@ -74,3 +77,14 @@ The system SHALL support advanced configuration for devices in Boiler mode:
 - **WHEN** a tenant updates the `expected_load` of a device they own
 - **THEN** the system persists the value and applies it to future scheduling decisions
 - **AND** the system prevents them from modifying `name`, `mqtt_topic`, or `tenant_id` (Admin only)
+
+### Requirement: Extended Device State Tracking
+The `devices` table SHALL be extended to support robust state synchronization and offline detection.
+
+- `desired_state`: Enum (ON, OFF) - The state the system intends for the device.
+- `last_request_time`: Timestamp - When the last state change command was sent.
+- `last_feedback_time`: Timestamp - When the last confirmed state message was received from the device.
+
+#### Scenario: Schema supports sync tracking
+- **WHEN** the `devices` table is inspected
+- **THEN** it MUST contain `desired_state`, `last_request_time`, and `last_feedback_time` columns.
