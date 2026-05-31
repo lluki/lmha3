@@ -35,6 +35,8 @@ mod db_tests {
             ha_token: "".to_string(),
             ha_pv_entity_id: None,
             ha_consumption_entity_id: None,
+            instance_id: "test".to_string(),
+            instance_priority: 10,
         }).unwrap();
 
         let house_id = db.list_houses().unwrap()[0].id;
