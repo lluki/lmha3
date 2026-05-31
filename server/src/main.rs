@@ -839,7 +839,7 @@ fn main() {
 
                         let payload = json!({
                             "id": 1,
-                            "src": "lmha3",
+                            "src": format!("{}/rpc-response", device.mqtt_topic),
                             "method": "Switch.Set",
                             "params": {"id": 0, "on": new_on}
                         });
@@ -848,6 +848,13 @@ fn main() {
                         info!("API: Publishing toggle to topic '{}' | Payload: {}", topic, payload_str);
                         let client = state.mqtt_client.lock().unwrap();
                         let _ = client.publish(topic, QoS::AtMostOnce, false, payload_str);
+
+                        // Follow-up status poll
+                        let poll_payload = json!({
+                            "id": 103, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Shelly.GetStatus"
+                        }).to_string();
+                        let _ = client.publish(format!("{}/rpc", device.mqtt_topic), QoS::AtMostOnce, false, poll_payload);
+
                         Response::json(&json!({"status": "ok"}))
                     } else {
                         Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
@@ -1036,9 +1043,15 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                             }
                             let mqtt_client = state.mqtt_client.lock().unwrap();
                             let payload = json!({
-                                "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": true}
+                                "id": 1, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Switch.Set", "params": {"id": 0, "on": true}
                             }).to_string();
                             let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
+
+                            // Follow-up status poll
+                            let poll_payload = json!({
+                                "id": 101, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Shelly.GetStatus"
+                            }).to_string();
+                            let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, poll_payload);
                         }
                     }
                     lmha_core::scheduler::SchedulerAction::SwitchOff(id) => {
@@ -1052,9 +1065,15 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                             }
                             let mqtt_client = state.mqtt_client.lock().unwrap();
                             let payload = json!({
-                                "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": false}
+                                "id": 1, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Switch.Set", "params": {"id": 0, "on": false}
                             }).to_string();
                             let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
+
+                            // Follow-up status poll
+                            let poll_payload = json!({
+                                "id": 102, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Shelly.GetStatus"
+                            }).to_string();
+                            let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, poll_payload);
                         }
                     }
                     lmha_core::scheduler::SchedulerAction::UpdateScheduling(id, new_type) => {
@@ -1209,11 +1228,20 @@ fn run_main_loop(state: Arc<AppState>) {
                                     } else {
                                         info!("Event-driven Sync for {}: current={:?}, desired={:?}", d.name, d.current_state, d.desired_state);
                                         let payload = json!({
-                                            "id": 1, "src": "lmha3-sync", "method": "Switch.Set", 
+                                            "id": 1, "src": format!("{}/rpc-response", d.mqtt_topic), "method": "Switch.Set", 
                                             "params": {"id": 0, "on": d.desired_state == DeviceState::On}
                                         }).to_string();
                                         let client = state.mqtt_client.lock().unwrap();
                                         let _ = client.publish(format!("{}/rpc", d.mqtt_topic), QoS::AtMostOnce, false, payload);
+                                        
+                                        // Follow-up status poll to ensure local state is updated even if NotifyStatus is lost
+                                        let poll_payload = json!({
+                                            "id": 100,
+                                            "src": format!("{}/rpc-response", d.mqtt_topic),
+                                            "method": "Shelly.GetStatus"
+                                        }).to_string();
+                                        let _ = client.publish(format!("{}/rpc", d.mqtt_topic), QoS::AtMostOnce, false, poll_payload);
+
                                         let _ = db.update_device_request_time(d.id);
                                     }
                                 }
@@ -1237,6 +1265,17 @@ fn run_main_loop(state: Arc<AppState>) {
                                 new_state = Some(if on { DeviceState::On } else { DeviceState::Off });
                             }
                             apower = val.get("apower").and_then(|v| v.as_f64());
+                        }
+                    } else if topic.contains("/rpc-response") {
+                        if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
+                            if let Some(result) = val.get("result") {
+                                if let Some(sw) = result.get("switch:0") {
+                                    if let Some(on) = sw.get("output").and_then(|v| v.as_bool()) {
+                                        new_state = Some(if on { DeviceState::On } else { DeviceState::Off });
+                                    }
+                                    apower = sw.get("apower").and_then(|v| v.as_f64());
+                                }
+                            }
                         }
                     } else if !is_gen1 && topic.ends_with("/events/rpc") {
                         if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {

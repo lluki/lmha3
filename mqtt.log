@@ -1,0 +1,1496 @@
+shellypro1-f8b3b7fa08bc/online true
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:54:34.289135743Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:54:44.289376071Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:54:54.289681611Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:55:04.290012159Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:55:14.290225073Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:55:24.290377647Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:55:34.290607722Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:55:44.290937133Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:55:54.291267192Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:56:04.291481063Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:56:14.291810099Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:56:24.292063169Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:56:34.292400446Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:56:44.292736620Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:56:54.292901767Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:57:04.293078816Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:57:14.293288063Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:57:24.293614297Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:57:34.293823232Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:57:44.294120999Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:57:54.294492018Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:58:04.294800579Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:58:14.295122579Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:58:24.295488284Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:58:34.295704710Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:58:44.296027018Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:58:54.296237865Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:59:04.296550975Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:59:14.296876443Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:59:24.297201907Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:59:34.297516010Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:59:44.297827822Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T17:59:54.298034104Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:00:04.298366187Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:00:14.298688548Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:00:24.299011244Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:00:34.299229789Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:00:44.299538717Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 741 1780250447.863 2|shelly_debug.cpp:149    Stopped streaming logs to 192.168.178.21:33508
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 742 1780250448.270 2|shos_rpc_inst.c:243     shelly.getdeviceinfo [0@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 743 1780250448.316 2|shos_rpc_inst.c:243     shelly.getcomponents [1@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 744 1780250448.387 2|shos_rpc_inst.c:243     shelly.getcomponents [2@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 745 1780250448.426 2|shos_rpc_inst.c:243     schedule.list [3@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 746 1780250449.010 2|shos_rpc_inst.c:243     shelly.listmethods [4@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 747 1780250449.011 2|shos_rpc_inst.c:243     webhook.list [5@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 748 1780250449.011 2|shos_rpc_inst.c:243     webhook.listsupported [6@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 749 1780250449.012 2|shos_rpc_inst.c:243     kvs.getmany [7@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 750 1780250449.012 2|shos_rpc_inst.c:243     schedule.list [8@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 751 1780250449.012 2|shos_rpc_inst.c:243     script.getcode [9@9a2ad44f-7f8a-46ba-8ec2-b14b1bf875ad] via WS_in 192.168.178.21:49784
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 752 1780250449.013 2|shelly_scripts_rpc.:345 Sending "script_1.js"
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 753 1780250449.013 2|shos_init.c:103         New min heap free: 114888
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 754 1780250449.032 2|shelly_debug.cpp:236    Streaming logs to 192.168.178.21:49790
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:00:54.299849542Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:01:04.300217752Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:01:14.300434762Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:01:24.300773581Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:01:34.300988071Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:01:44.301241370Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:01:54.301433037Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:02:04.301764475Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:02:14.301989618Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:02:24.302313609Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":322,"mem_peak":392,"mem_free":24864,"cpu":0},"switch:0":{"id":0, "source":"init", "output":false,"temperature":{"tC":28.8, "tF":83.8}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:02","unixtime":1780250554,"last_sync_ts":1780249558,"uptime":999,"ram_size":248852,"ram_free":132440,"ram_min_free":114888,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-65,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:02:34.302638282Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 755 1780250554.335 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:02:44.302963151Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:02:54.303306172Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:03:04.303629833Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:03:14.303952186Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:03:24.304294829Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3"}
+lmha3/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 756 1780250613.128 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:03:34.304440616Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:03:44.304731710Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:03:54.304948590Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:04:04.305178833Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:04:14.305501845Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:04:24.305654283Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 757 1780250665.494 2|shos_rpc_inst.c:243     shelly.getdeviceinfo [0@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 758 1780250665.546 2|shos_rpc_inst.c:243     shelly.getcomponents [1@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 759 1780250665.628 2|shos_rpc_inst.c:243     shelly.getcomponents [2@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 760 1780250665.669 2|shos_rpc_inst.c:243     schedule.list [3@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 761 1780250666.259 2|shos_rpc_inst.c:243     shelly.listmethods [4@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 762 1780250666.260 2|shos_rpc_inst.c:243     webhook.list [5@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 763 1780250666.261 2|shos_rpc_inst.c:243     webhook.listsupported [6@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 764 1780250666.262 2|shos_rpc_inst.c:243     kvs.getmany [7@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 765 1780250666.263 2|shos_rpc_inst.c:243     schedule.list [8@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 766 1780250666.264 2|shos_rpc_inst.c:243     script.getcode [9@1bb054d1-1080-4aa7-b3b1-953803046e62] via WS_in 192.168.178.113:52764
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 767 1780250666.265 2|shelly_scripts_rpc.:345 Sending "script_1.js"
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 768 1780250666.266 2|shos_init.c:103         New min heap free: 112748
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 769 1780250666.292 2|shos_init.c:103         New min heap free: 110992
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 770 1780250666.293 2|shelly_debug.cpp:236    Streaming logs to 192.168.178.113:52776
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 771 1780250666.316 2|shos_init.c:103         New min heap free: 110648
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 772 1780250666.317 2|shos_init.c:103         New min heap free: 108700
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:04:34.305865571Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:04:44.306062707Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 773 1780250689.803 2|shelly_debug.cpp:149    Stopped streaming logs to 192.168.178.113:52776
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:04:54.306215507Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:05:04.306413554Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:05:14.306582834Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:05:24.306815173Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:05:34.306962233Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:05:44.307124317Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:05:54.307308452Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:06:04.307460112Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:06:14.307618023Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:06:24.307772080Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:06:34.307918720Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:06:44.308120126Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:06:54.308251699Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:07:04.308366448Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:07:14.308537854Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:07:24.308687813Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:07:34.308826765Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-scheduler"}
+lmha3-scheduler/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-scheduler","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 774 1780250854.623 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-scheduler] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:07:44.308979586Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:07:54.309185125Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:08:04.309330385Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:08:14.309478110Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:08:24.309627881Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:08:34.309774468Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:08:44.309923227Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:08:54.310067851Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:09:04.310216147Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:09:14.310342291Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:09:24.310513736Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:09:34.310658852Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:09:44.310833521Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:09:54.310976277Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:10:04.311196481Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:10:14.311345443Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:10:24.311545127Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:10:34.311695292Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:10:44.311904376Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:10:54.312116457Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:11:04.312271025Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:11:14.312477463Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:11:24.312694563Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:11:34.312861635Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:11:44.313076151Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:11:54.313270108Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:12:04.313419904Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:12:14.313616151Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:12:24.313765550Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:12:34.313915477Z"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":322,"mem_peak":392,"mem_free":24864,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":28.9, "tF":84.1}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:12","unixtime":1780251154,"last_sync_ts":1780249558,"uptime":1600,"ram_size":248848,"ram_free":130240,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-65,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 775 1780251154.580 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 776 1780251154.604 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:12:44.314136211Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:12:54.314310907Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:13:04.314462328Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:13:14.314608731Z"}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780251203.40,"sys":{"last_sync_ts":1780251203}}}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:13","unixtime":1780251203,"last_sync_ts":1780251203,"uptime":1649,"ram_size":248776,"ram_free":126476,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:13","unixtime":1780251203,"last_sync_ts":1780251203,"uptime":1649,"ram_size":248748,"ram_free":125360,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780251203.40,"sys":{"time":"20:13","unixtime":1780251203}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 777 1780251203.465 2|shos_time.c:58          Setting time from SNTP (1780251203.388 delta -0.025)
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 778 1780251203.466 2|shelly_sys.cpp:292      Time set to 1649.019478 from 1
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 779 1780251203.467 2|shelly_notification:164 Status change of sys: {"last_sync_ts":1780251203}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 780 1780251203.468 2|shelly_notification:164 Status change of sys: {"time":"20:13","unixtime":1780251203}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 781 1780251203.542 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 782 1780251203.543 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:13:24.314806637Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:13:34.314952281Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:13:44.315169621Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:13:54.315367775Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:14:04.315506634Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:14:14.315653661Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:14:24.315802916Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:14:34.315996471Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:14:44.316218481Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:14:54.316364983Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:15:04.316514186Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:15:14.316883416Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:15:24.317110129Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:15:34.317283478Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:15:44.317490142Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:15:54.317697875Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 783 1780251355.438 2|shelly_script.cpp:205   script:1 0.0% CPU utilization
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:16:04.317902945Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:16:14.318107379Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:16:24.318347297Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:16:34.318551568Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:16:44.318883240Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:16:54.319215348Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:17:04.319462986Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:17:14.319797158Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:17:24.319948644Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:17:34.320183218Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:17:44.320540386Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:17:54.320784597Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:18:04.321010401Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:18:14.321186714Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:18:24.321390164Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:18:34.321598139Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:18:44.321915861Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:18:54.322074140Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:19:04.322196026Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:19:14.322287440Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:19:24.322585733Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:19:34.322739411Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:19:44.322874933Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:19:54.323073698Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:20:04.323261388Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:20:14.323589960Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:20:24.323946738Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:20:34.324265843Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:20:44.324608124Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:20:54.324832939Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:21:04.325046454Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:21:14.325275576Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:21:24.325434091Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:21:34.325748302Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:21:44.325975682Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:21:54.326289572Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:22:04.326659131Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:22:14.326975485Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:22:24.327189249Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:22:34.327340210Z"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":29.0, "tF":84.1}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:22","unixtime":1780251754,"last_sync_ts":1780251203,"uptime":2199,"ram_size":248848,"ram_free":130244,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-65,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 784 1780251754.340 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 785 1780251754.363 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:22:44.327481801Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:22:54.327678915Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:23:04.328073410Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:23:14.328410543Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:23:24.328634807Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:23:34.328953179Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:23:44.329106679Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:23:54.329444264Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:24:04.329600473Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:24:14.329916568Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:24:24.330229124Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:24:34.330444074Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:24:44.330764350Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:24:54.331098498Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:25:04.331458550Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:25:14.331797161Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:25:24.332124593Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:25:34.332497303Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:25:44.332878589Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:25:54.333225258Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:26:04.333547381Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:26:14.333868126Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:26:24.334212791Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:26:34.334539111Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:26:44.334864536Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:26:54.335211924Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:27:04.335360888Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:27:14.335476326Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:27:24.335654737Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:27:34.335963737Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:27:44.336291762Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:27:54.336633960Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:28:04.336902340Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:28:14.337281471Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:28:24.337465865Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:28:34.337791425Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:28:44.338112222Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:28:54.338393992Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:29:04.338727314Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:29:14.338895013Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:29:24.339230163Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:29:34.339558659Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:29:44.339740894Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:29:54.340074027Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:30:04.340402606Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:30:14.340723152Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:30:24.341061637Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:30:34.341401102Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:30:44.341780604Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:30:54.342011219Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:31:04.342325430Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:31:14.342689665Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:31:24.342842063Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:31:34.343201938Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:31:44.343406694Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:31:54.343728939Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:32:04.344045806Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:32:14.344384832Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:32:24.344708425Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":29.1, "tF":84.4}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:32","unixtime":1780252354,"last_sync_ts":1780251203,"uptime":2799,"ram_size":248844,"ram_free":130228,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-65,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 786 1780252354.345 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:32:34.345025854Z"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 787 1780252354.514 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:32:44.345346239Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:32:54.345673074Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:33:04.345992692Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:33:14.346304640Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:33:24.346620778Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:33:34.346944827Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:33:44.347284172Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:33:54.347619543Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:34:04.347778491Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:34:14.347987058Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:34:24.348203264Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:34:34.348525811Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:34:44.348860359Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:34:54.349222009Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:35:04.349545992Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:35:14.349875014Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:35:24.350097380Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:35:34.350458041Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:35:44.350779804Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:35:54.351138924Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:36:04.351386602Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:36:14.351534867Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:36:24.351648789Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:36:34.351864178Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:36:44.352226634Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:36:54.352552387Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:37:04.352860839Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:37:14.353226572Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:37:24.353383160Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:37:34.353587472Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-scheduler"}
+lmha3-scheduler/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-scheduler","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 788 1780252654.949 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-scheduler] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:37:44.353956270Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:37:54.354307401Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:38:04.354646023Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:38:14.354806142Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:38:24.355195215Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:38:34.355361541Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:38:44.355656108Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:38:54.355857904Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:39:04.356235926Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:39:14.356405184Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:39:24.356585852Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:39:34.356808491Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:39:44.357144347Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:39:54.357352766Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:40:04.357673343Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:40:14.357994363Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 789 1780252819.310 2|wifi                    I (3266248) wifi:[ADDBA]RX DELBA, reason:37, delete tid:3, initiator:1(originator)
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:40:24.358196425Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:40:34.358389487Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:40:44.358710863Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:40:54.358887746Z"}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780252860.17,"sys":{"last_sync_ts":1780252860}}}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:41","unixtime":1780252860,"last_sync_ts":1780252860,"uptime":3305,"ram_size":248792,"ram_free":129600,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:41","unixtime":1780252860,"last_sync_ts":1780252860,"uptime":3305,"ram_size":248764,"ram_free":128500,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780252860.17,"sys":{"time":"20:41","unixtime":1780252860}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 790 1780252860.200 2|shos_time.c:58          Setting time from SNTP (1780252860.154 delta -0.025)
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 791 1780252860.201 2|shelly_sys.cpp:292      Time set to 3305.810812 from 1
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 792 1780252860.202 2|shelly_notification:164 Status change of sys: {"last_sync_ts":1780252860}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 793 1780252860.203 2|shelly_notification:164 Status change of sys: {"time":"20:41","unixtime":1780252860}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 794 1780252860.277 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 795 1780252860.278 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:41:04.359216696Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:41:14.359421370Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:41:24.359744874Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:41:34.360069636Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:41:44.360398633Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:41:54.360728032Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:42:04.360895173Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:42:14.361229874Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:42:24.361554223Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 796 1780252952.410 2|wifi                    I (3399368) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:42:34.361775427Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:42:44.362110943Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:42:54.362468043Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:43:04.362928849Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:43:14.363252020Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:43:24.363597111Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:43:34.363749631Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:43:44.364111407Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:43:54.364471599Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:44:04.364795877Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:44:14.364950316Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:44:24.365110934Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:44:34.365464982Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:44:44.365680924Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:44:54.365998980Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:45:04.366311896Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:45:14.366470256Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:45:24.366831241Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:45:34.366996579Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:45:44.367318093Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:45:54.367546168Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 797 1780253155.411 2|shelly_script.cpp:205   script:1 0.0% CPU utilization
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:46:04.367865786Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:46:14.368238696Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:46:24.368475435Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:46:34.368790083Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:46:44.369113451Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:46:54.369375257Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:47:04.369607485Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:47:14.369918702Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:47:24.370218544Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":29.1, "tF":84.4}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:47","unixtime":1780253254,"last_sync_ts":1780252860,"uptime":3699,"ram_size":248852,"ram_free":130272,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-65,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 798 1780253254.335 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 799 1780253254.355 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:47:34.370336767Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:47:44.370460215Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:47:54.370791497Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:48:04.371099307Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:48:14.371455260Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:48:24.371785297Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:48:34.372120247Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:48:44.372494393Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:48:54.372852708Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:49:04.373215399Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:49:14.373533894Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:49:24.373747746Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:49:34.374073282Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:49:44.374396395Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:49:54.374556953Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:50:04.374714548Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:50:14.374921420Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:50:24.375248616Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:50:34.375582993Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:50:44.375902331Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:50:54.376226504Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:51:04.376545783Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:51:14.376867093Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:51:24.377209793Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:51:34.377549720Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:51:44.377703773Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:51:54.378039624Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:52:04.378364165Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:52:14.378676571Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:52:24.378825761Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:52:34.379047139Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:52:44.379276461Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:52:54.379404725Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:53:04.379693804Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:53:14.380055293Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:53:24.380391022Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:53:34.380714476Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:53:44.381046487Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:53:54.381385348Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:54:04.381705295Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:54:14.382031389Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:54:24.382345777Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:54:34.382666809Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:54:44.382862222Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:54:54.383208294Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:55:04.383524486Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:55:14.383683659Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:55:24.384003685Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:55:34.384332484Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:55:44.384657137Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:55:54.384939312Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:56:04.385257063Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:56:14.385577437Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:56:24.385938315Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:56:34.386272730Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:56:44.386593259Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:56:54.386895850Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:57:04.387220776Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:57:14.387536867Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:57:24.387856711Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:57:34.388209759Z"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":29.0, "tF":84.3}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"20:57","unixtime":1780253854,"last_sync_ts":1780252860,"uptime":4300,"ram_size":248848,"ram_free":130240,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-66,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 800 1780253854.421 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 801 1780253854.441 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:57:44.388532025Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:57:54.388850893Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:58:04.389203207Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:58:14.389359221Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:58:24.389591308Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:58:34.389736480Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:58:44.389898997Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:58:54.390220440Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:59:04.390555442Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:59:14.390783590Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:59:24.390947608Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:59:34.391324304Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:59:44.391555360Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T18:59:54.391871218Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:00:04.392203914Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:00:14.392449419Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:00:24.392766761Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:00:34.392986673Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:00:44.393308419Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:00:54.393630873Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:01:04.393961120Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:01:14.394199551Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:01:24.394523080Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:01:34.394855553Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:01:44.395217053Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:01:54.395420197Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:02:04.395530152Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:02:14.395841105Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:02:24.396219210Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:02:34.396433137Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:02:44.396793053Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:02:54.397129340Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:03:04.397333202Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:03:14.397484505Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:03:24.397642755Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:03:34.397882411Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:03:44.398219525Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:03:54.398719202Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:04:04.399048619Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:04:14.399383244Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:04:24.399758574Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:04:34.399925522Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:04:44.400260704Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:04:54.400588265Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:05:04.400751979Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:05:14.400904809Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:05:24.401237034Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:05:34.401391120Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:05:44.401539861Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:05:54.401672198Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:06:04.401960211Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:06:14.402285794Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:06:24.402612506Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:06:34.402950640Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:06:44.403183901Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:06:54.403580113Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:07:04.403735716Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:07:14.404065578Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:07:24.404274155Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:07:34.404606578Z"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":29.1, "tF":84.4}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:07","unixtime":1780254454,"last_sync_ts":1780252860,"uptime":4900,"ram_size":248832,"ram_free":130032,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-67,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 802 1780254454.552 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 803 1780254454.573 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:07:44.404763883Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:07:54.404876818Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:08:04.405062921Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 804 1780254493.243 2|wifi                    I (4940198) wifi:new:<11,0>, old:<11,2>, ap:<255,255>, sta:<11,0>, prof:1, snd_ch_cfg:0x0
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:08:14.405418600Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:08:24.405853382Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:08:34.406011315Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:08:44.406337387Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:08:54.406502014Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:09:04.406862991Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:09:14.407214432Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:09:24.407370801Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:09:34.407577796Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:09:44.407730227Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:09:54.408065900Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:10:04.408404864Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:10:14.408617941Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:10:24.409005165Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:10:34.409339748Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:10:44.409674759Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:10:54.409998551Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:11:04.410328071Z"}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780254670.55,"sys":{"last_sync_ts":1780254670}}}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:11","unixtime":1780254670,"last_sync_ts":1780254670,"uptime":5116,"ram_size":248792,"ram_free":129596,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:11","unixtime":1780254670,"last_sync_ts":1780254670,"uptime":5116,"ram_size":248764,"ram_free":128480,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780254670.55,"sys":{"time":"21:11","unixtime":1780254670}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 805 1780254670.583 2|shos_time.c:58          Setting time from SNTP (1780254670.536 delta -0.028)
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 806 1780254670.584 2|shelly_sys.cpp:292      Time set to 5116.219899 from 1
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 807 1780254670.584 2|shelly_notification:164 Status change of sys: {"last_sync_ts":1780254670}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 808 1780254670.585 2|shelly_notification:164 Status change of sys: {"time":"21:11","unixtime":1780254670}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 809 1780254670.611 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 810 1780254670.651 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:11:14.410652472Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:11:24.410878164Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:11:34.411198206Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:11:44.411535124Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:11:54.411697594Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:12:04.412015918Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:12:14.412195276Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:12:24.412536160Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:12:34.412768782Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:12:44.413088476Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:12:54.414028796Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:13:04.414356345Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:13:14.414692980Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:13:24.414976125Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:13:34.415236892Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:13:44.415581253Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:13:54.415920905Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:14:04.416256811Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:14:14.416580371Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:14:24.416739127Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:14:34.417056759Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:14:44.417392846Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:14:54.417717063Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:15:04.418038619Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:15:14.418370320Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:15:24.418695479Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:15:34.418903558Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:15:44.419220756Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:15:54.419595669Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 811 1780254955.383 2|shelly_script.cpp:205   script:1 0.0% CPU utilization
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:16:04.419908851Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:16:14.420243845Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:16:24.420582150Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:16:34.420810848Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:16:44.421114492Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:16:54.421450873Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:17:04.421785288Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:17:14.422106517Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:17:24.422357556Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":29.0, "tF":84.2}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:17","unixtime":1780255054,"last_sync_ts":1780254670,"uptime":5500,"ram_size":248820,"ram_free":129340,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-65,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 812 1780255054.359 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 813 1780255054.380 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:17:34.422508112Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:17:44.422703897Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:17:54.422854799Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:18:04.423020042Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:18:14.423244349Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:18:24.423409610Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:18:34.423621553Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:18:44.423784294Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:18:54.424105724Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:19:04.424530005Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:19:14.424858020Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:19:24.425089306Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:19:34.425447466Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:19:44.425784407Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:19:54.426100800Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:20:04.426307155Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:20:14.426462749Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:20:24.426623640Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:20:34.426834270Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:20:44.427212089Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:20:54.427535043Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:21:04.427689710Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:21:14.428020902Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:21:24.428240644Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:21:34.428450647Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:21:44.428596688Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:21:54.428754738Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:22:04.428957598Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:22:14.429291378Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:22:24.429627681Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:22:34.429798603Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:22:44.430103457Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:22:54.430204150Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:23:04.430324648Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:23:14.430631294Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:23:24.430846948Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:23:34.431006893Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:23:44.431135286Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:23:54.431281393Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:24:04.431566811Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:24:14.431728846Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:24:24.432050202Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:24:34.432192248Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:24:44.432508267Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:24:54.432874680Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:25:04.433229426Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:25:14.433564051Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:25:24.433915495Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:25:34.434280536Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:25:44.434603274Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:25:54.434943631Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:26:04.435175013Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:26:14.435503673Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:26:24.435659186Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:26:34.435968720Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:26:44.436304508Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:26:54.436641731Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:27:04.437003931Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:27:14.437302426Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:27:24.437458623Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":28.8, "tF":83.9}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:27","unixtime":1780255654,"last_sync_ts":1780254670,"uptime":6100,"ram_size":248848,"ram_free":130256,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-65,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 814 1780255654.356 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 815 1780255654.440 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:27:34.437778777Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:27:44.438104581Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:27:54.438472616Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:28:04.438628277Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:28:14.438919800Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:28:24.439130331Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:28:34.439486837Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:28:44.439814161Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:28:54.440056989Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:29:04.440385491Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:29:14.440536174Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:29:24.440743989Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:29:34.440959473Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:29:44.441276650Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:29:54.441498045Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:30:04.441665225Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:30:14.441814415Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:30:24.442021700Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:30:34.442183836Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:30:44.442515354Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:30:54.442742634Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:31:04.443059872Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:31:14.443399805Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:31:24.443777955Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:31:34.444121145Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:31:44.444482148Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:31:54.444634971Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:32:04.444791500Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:32:14.444991306Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:32:24.445199651Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:32:34.445483452Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:32:44.445639436Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:32:54.445787892Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:33:04.446005606Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:33:14.446127367Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:33:24.446438628Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:33:34.446565570Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:33:44.446850926Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:33:54.447224330Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:34:04.447354700Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:34:14.447482492Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:34:24.447665656Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:34:34.448043352Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:34:44.448394547Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:34:54.448720078Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 816 1780256100.302 2|wifi                    I (6547288) wifi:new:<11,2>, old:<11,0>, ap:<255,255>, sta:<11,2>, prof:1, snd_ch_cfg:0x0
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:35:04.449036275Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:35:14.449357546Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:35:24.449685998Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:35:34.450005833Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:35:44.450330430Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:35:54.450557294Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:36:04.450883392Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:36:14.451211215Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:36:24.451532984Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:36:34.451860836Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:36:44.452111413Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:36:54.452475058Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:37:04.452795876Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:37:14.453032735Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:37:24.453352146Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":29.0, "tF":84.1}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:37","unixtime":1780256254,"last_sync_ts":1780254670,"uptime":6700,"ram_size":248852,"ram_free":130272,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-65,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 817 1780256254.369 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 818 1780256254.391 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:37:34.453578816Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:37:44.453774562Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:37:54.453940335Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:38:04.454355290Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:38:14.454714665Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:38:24.454872161Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:38:34.455215273Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:38:44.455537228Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:38:54.455845711Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:39:04.456211487Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:39:14.456538503Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:39:24.456817481Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:39:34.457141172Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:39:44.457439703Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:39:54.457680257Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:40:04.458020912Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:40:14.458356748Z"}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780256415.79,"sys":{"last_sync_ts":1780256415}}}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:40","unixtime":1780256415,"last_sync_ts":1780256415,"uptime":6861,"ram_size":248792,"ram_free":129592,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:40","unixtime":1780256415,"last_sync_ts":1780256415,"uptime":6861,"ram_size":248764,"ram_free":128472,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780256415.79,"sys":{"time":"21:40","unixtime":1780256415}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 819 1780256415.824 2|shos_time.c:58          Setting time from SNTP (1780256415.779 delta -0.026)
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 820 1780256415.826 2|shelly_sys.cpp:292      Time set to 6861.489667 from 1
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 821 1780256415.826 2|shelly_notification:164 Status change of sys: {"last_sync_ts":1780256415}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 822 1780256415.827 2|shelly_notification:164 Status change of sys: {"time":"21:40","unixtime":1780256415}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 823 1780256415.854 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 824 1780256415.893 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:40:24.458680462Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:40:34.458838279Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:40:44.459230734Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:40:54.459559213Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:41:04.459880769Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:41:14.460103586Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:41:24.460451240Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:41:34.460615281Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:41:44.460776902Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:41:54.461108909Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:42:04.461298389Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:42:14.461613943Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:42:24.461851469Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:42:34.462083907Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:42:44.462316760Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:42:54.462463835Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:43:04.462687957Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:43:14.463021372Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:43:24.463347979Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:43:34.463513531Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:43:44.463661802Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:43:54.464097430Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:44:04.464463163Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:44:14.464617030Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:44:24.465105997Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:44:34.465279158Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:44:44.465603561Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:44:54.465919237Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:45:04.466293102Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:45:14.466612341Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:45:24.466864564Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:45:34.467231048Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:45:44.467449400Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:45:54.467610252Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 825 1780256755.357 2|shelly_script.cpp:205   script:1 0.0% CPU utilization
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:46:04.467826478Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:46:14.468184747Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:46:24.468525330Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:46:34.468753510Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:46:44.469077165Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:46:54.469236530Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:47:04.469568340Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:47:14.469907738Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:47:24.470229690Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":29.0, "tF":84.3}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:47","unixtime":1780256854,"last_sync_ts":1780256415,"uptime":7300,"ram_size":248852,"ram_free":130272,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-65,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 826 1780256854.355 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 827 1780256854.377 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:47:34.470560143Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:47:44.470691313Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:47:54.470818344Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:48:04.471177780Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:48:14.471302167Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:48:24.471387010Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:48:34.471474150Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:48:44.471638666Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:48:54.471961072Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:49:04.472282692Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:49:14.472441685Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:49:24.472759196Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:49:34.472975206Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:49:44.473218582Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:49:54.473553255Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:50:04.473710455Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:50:14.474027777Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:50:24.474383631Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:50:34.474600741Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:50:44.474759077Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:50:54.475083166Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:51:04.475216890Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:51:14.475382319Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:51:24.475539903Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:51:34.475847726Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:51:44.476071484Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:51:54.476198106Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:52:04.476519959Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:52:14.476836245Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 828 1780257143.746 2|wifi                    I (7590758) wifi:new:<11,0>, old:<11,2>, ap:<255,255>, sta:<11,0>, prof:1, snd_ch_cfg:0x0
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:52:24.477205223Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:52:34.477568881Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:52:44.478019597Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:52:54.478240156Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:53:04.478395748Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:53:14.478710270Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:53:24.478934163Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:53:34.479176221Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:53:44.479497223Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:53:54.479815482Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:54:04.480145691Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:54:14.480516211Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:54:24.480680917Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:54:34.480837662Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:54:44.481214931Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:54:54.481366741Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:55:04.481642458Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:55:14.481975477Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:55:24.482314114Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:55:34.482644336Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:55:44.482802494Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:55:54.483106368Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:56:04.483473355Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:56:14.483801715Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:56:24.484136226Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:56:34.484517165Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:56:44.484681574Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:56:54.484840542Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:57:04.485043337Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:57:14.485369741Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:57:24.485691729Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":28.9, "tF":84.0}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"21:57","unixtime":1780257454,"last_sync_ts":1780256415,"uptime":7900,"ram_size":248844,"ram_free":130140,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-67,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 829 1780257454.366 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 830 1780257454.389 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:57:34.486010889Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:57:44.486247132Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:57:54.486568828Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:58:04.486723234Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:58:14.487050768Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:58:24.487192320Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:58:34.487489659Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:58:44.487830964Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:58:54.488202325Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:59:04.488527693Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:59:14.488834541Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:59:24.489000882Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:59:34.489319459Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:59:44.489639612Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T19:59:54.489958429Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:00:04.490286740Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:00:14.490613668Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:00:24.490942688Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:00:34.491193890Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:00:44.491517584Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:00:54.491683225Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:01:04.492005960Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:01:14.492331498Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:01:24.492659973Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:01:34.492839279Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:01:44.492985695Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:01:54.493134368Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:02:04.493305198Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:02:14.493549049Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:02:24.493885543Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:02:34.494031514Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:02:44.494351558Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:02:54.494684394Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:03:04.495021111Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:03:14.495264365Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:03:24.495423034Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:03:34.495764250Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:03:44.495929002Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:03:54.496055664Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:04:04.496342848Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:04:14.496662766Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:04:24.496983535Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:04:34.497305311Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:04:44.497640542Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:04:54.497953676Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:05:04.498284887Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:05:14.498611305Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:05:24.498938753Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:05:34.499202937Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:05:44.499526981Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:05:54.499850958Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:06:04.500208887Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:06:14.500546530Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:06:24.500768865Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:06:34.501077271Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:06:44.501410294Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:06:54.501642505Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:07:04.501949604Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:07:14.502278857Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:07:24.502612958Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1442,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":28.8, "tF":83.9}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"22:07","unixtime":1780258054,"last_sync_ts":1780256415,"uptime":8500,"ram_size":248852,"ram_free":130240,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-67,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 831 1780258054.518 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:07:34.502944683Z"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 832 1780258054.538 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:07:44.503273212Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:07:54.503620540Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:08:04.503952318Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:08:14.504192134Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:08:24.504416947Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:08:34.504540961Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:08:44.504723675Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:08:54.505038059Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:09:04.505358717Z"}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780258150.80,"sys":{"last_sync_ts":1780258150}}}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"22:09","unixtime":1780258150,"last_sync_ts":1780258150,"uptime":8596,"ram_size":248792,"ram_free":129588,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"22:09","unixtime":1780258150,"last_sync_ts":1780258150,"uptime":8596,"ram_size":248764,"ram_free":128468,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780258150.80,"sys":{"time":"22:09","unixtime":1780258150}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 833 1780258150.830 2|shos_time.c:58          Setting time from SNTP (1780258150.784 delta -0.026)
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 834 1780258150.831 2|shelly_sys.cpp:292      Time set to 8596.520425 from 1
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 835 1780258150.832 2|shelly_notification:164 Status change of sys: {"last_sync_ts":1780258150}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 836 1780258150.833 2|shelly_notification:164 Status change of sys: {"time":"22:09","unixtime":1780258150}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 837 1780258150.859 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 838 1780258150.898 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:09:14.505583054Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:09:24.505742410Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:09:34.506058017Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:09:44.506382270Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:09:54.506715299Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:10:04.506876123Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:10:14.507196048Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:10:24.507424312Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:10:34.507761385Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:10:44.507928836Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:10:54.508260326Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:11:04.508581800Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:11:14.508917721Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:11:24.509237933Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:11:34.509400470Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:11:44.509716664Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:11:54.509880995Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:12:04.510025702Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:12:14.510454678Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:12:24.510786666Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:12:34.511194094Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:12:44.511423068Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:12:54.511621315Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:13:04.511959166Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:13:14.512205561Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:13:24.512543657Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:13:34.512873231Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:13:44.513206718Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:13:54.513546647Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:14:04.513872916Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:14:14.514214400Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:14:24.514448755Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:14:34.514763383Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:14:44.515086370Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:14:54.515409230Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:15:04.515647722Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:15:14.515801540Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:15:24.516086579Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:15:34.516408422Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:15:44.516574384Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:15:54.516909145Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 839 1780258555.333 2|shelly_script.cpp:205   script:1 0.0% CPU utilization
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:16:04.517125021Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:16:14.517323373Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:16:24.517645963Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:16:34.517982204Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:16:44.518327753Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:16:54.518534586Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:17:04.518855909Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:17:14.519201305Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:17:24.519358040Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1456,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":28.8, "tF":83.9}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"22:17","unixtime":1780258654,"last_sync_ts":1780258150,"uptime":9100,"ram_size":248852,"ram_free":130256,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-67,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 840 1780258654.365 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 841 1780258654.387 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:17:34.519542670Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:17:44.519759200Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 842 1780258673.700 2|wifi                    I (9120738) wifi:new:<11,2>, old:<11,0>, ap:<255,255>, sta:<11,2>, prof:1, snd_ch_cfg:0x0
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:17:54.520069654Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 843 1780258676.710 2|wifi                    I (9123748) wifi:[ADDBA]RX DELBA, reason:37, delete tid:3, initiator:1(originator)
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:18:04.520398201Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:18:14.520723939Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:18:24.521064302Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:18:34.521396902Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:18:44.521554223Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:18:54.521824644Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:19:04.521980283Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:19:14.522321354Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:19:24.522482707Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:19:34.522689059Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:19:44.523000725Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:19:54.523326694Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:20:04.523644168Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:20:14.523960372Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:20:24.524298072Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:20:34.524632827Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:20:44.524950868Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:20:54.525273613Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:21:04.525594621Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:21:14.525815228Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:21:24.526144717Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:21:34.526509005Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:21:44.526834168Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:21:54.527179812Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:22:04.527516536Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:22:14.527737313Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:22:24.528072611Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:22:34.528399430Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:22:44.528721458Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:22:54.528947204Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:23:04.529193047Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:23:14.529426094Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:23:24.529764900Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:23:34.530096119Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:23:44.530479919Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:23:54.530812613Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:24:04.531141439Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:24:14.531404099Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:24:24.531562636Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:24:34.531864181Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:24:44.532215932Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:24:54.532535655Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:25:04.532866771Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:25:14.533028833Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:25:24.533205149Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:25:34.533528926Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:25:44.533853795Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:25:54.534215749Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:26:04.534540126Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:26:14.534670350Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:26:24.534959120Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:26:34.535298921Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:26:44.535535676Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:26:54.535868402Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:27:04.536114399Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:27:14.536293889Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:27:24.536569598Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1456,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":28.9, "tF":84.0}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"22:27","unixtime":1780259254,"last_sync_ts":1780258150,"uptime":9700,"ram_size":248852,"ram_free":130260,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-68,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 844 1780259254.376 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 845 1780259254.399 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:27:34.536901993Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:27:44.537234715Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:27:54.537572769Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:28:04.537898214Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:28:14.538062641Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:28:24.538382500Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:28:34.538702206Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:28:44.538822503Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:28:54.539120727Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:29:04.539366609Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:29:14.539526075Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:29:24.539825697Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:29:34.540188064Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:29:44.540400165Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:29:54.540722785Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:30:04.541056458Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:30:14.541233418Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:30:24.541542713Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:30:34.541864990Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:30:44.542078682Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:30:54.542409236Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:31:04.542621619Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:31:14.542782173Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:31:24.543089580Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:31:34.543456412Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:31:44.543662407Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:31:54.543984829Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:32:04.544141978Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:32:14.544350843Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:32:24.544656608Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:32:34.544989626Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:32:44.545310765Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:32:54.545669512Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:33:04.545992695Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:33:14.546205884Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:33:24.546484077Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:33:34.546703571Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:33:44.547023758Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:33:54.547310589Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:34:04.547522803Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:34:14.548170444Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:34:24.548430151Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:34:34.548776337Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:34:44.549108880Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:34:54.549455561Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:35:04.549779606Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:35:14.549937093Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:35:24.550142299Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:35:34.550479358Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:35:44.550802987Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:35:54.551138455Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:36:04.551513605Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:36:14.551724868Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:36:24.552024084Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:36:34.552361058Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:36:44.552684349Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:36:54.552923261Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:37:04.553244350Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:37:14.553383497Z"}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780259843.36,"sys":{"last_sync_ts":1780259843}}}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"22:37","unixtime":1780259843,"last_sync_ts":1780259843,"uptime":10289,"ram_size":248784,"ram_free":129368,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"22:37","unixtime":1780259843,"last_sync_ts":1780259843,"uptime":10289,"ram_size":248756,"ram_free":128260,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780259843.36,"sys":{"time":"22:37","unixtime":1780259843}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 846 1780259843.397 2|shos_time.c:58          Setting time from SNTP (1780259843.347 delta -0.029)
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 847 1780259843.398 2|shelly_sys.cpp:292      Time set to 10289.112592 from 1
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 848 1780259843.399 2|shelly_notification:164 Status change of sys: {"last_sync_ts":1780259843}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 849 1780259843.400 2|shelly_notification:164 Status change of sys: {"time":"22:37","unixtime":1780259843}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 850 1780259843.424 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 851 1780259843.465 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:37:24.553678294Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:37:34.553909670Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:37:44.554244729Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:37:54.554573296Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:38:04.554856974Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:38:14.555101982Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:38:24.555392903Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:38:34.555729698Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:38:44.556040853Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:38:54.556192841Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:39:04.556476591Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:39:14.556636968Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:39:24.556937442Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:39:34.557191708Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:39:44.557341497Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:39:54.557650608Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:40:04.557869013Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 852 1780260007.933 2|wifi                    I (10455008) wifi:[ADDBA]RX DELBA, reason:37, delete tid:4, initiator:1(originator)
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:40:14.558086747Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:40:24.558278349Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:40:34.558573920Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:40:44.558792619Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:40:54.559126586Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:41:04.559467872Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:41:14.559619170Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:41:24.559930582Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:41:34.560254216Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:41:44.560595228Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:41:54.560929944Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:42:04.561254854Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 853 1780260129.820 2|wifi                    I (10576888) wifi:new:<11,0>, old:<11,2>, ap:<255,255>, sta:<11,0>, prof:1, snd_ch_cfg:0x0
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:42:14.561406269Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:42:24.561715946Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1456,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":28.8, "tF":83.9}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"22:42","unixtime":1780260154,"last_sync_ts":1780259843,"uptime":10600,"ram_size":248852,"ram_free":130240,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-67,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 854 1780260154.365 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 855 1780260154.388 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:42:34.562035092Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:42:44.562361875Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:42:54.562691778Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:43:04.563018576Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:43:14.563249021Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:43:24.563393228Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:43:34.563714137Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:43:44.564026279Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:43:54.564350300Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:44:04.564665756Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:44:14.564818769Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:44:24.565034160Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:44:34.565354001Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:44:44.565669256Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:44:54.566004551Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:45:04.566329979Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:45:14.566484782Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:45:24.566800051Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:45:34.567034614Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:45:44.567241230Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:45:54.567605055Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 856 1780260355.303 2|shelly_script.cpp:205   script:1 0.0% CPU utilization
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:46:04.567939111Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:46:14.568166539Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:46:24.568485495Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:46:34.568723285Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:46:44.569046497Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:46:54.569267130Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:47:04.569582560Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:47:14.569740365Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:47:24.569940076Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:47:34.570263387Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:47:44.570628224Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:47:54.570959827Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:48:04.571286219Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:48:14.571444419Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:48:24.571753687Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:48:34.572089642Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:48:44.572316212Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:48:54.572476371Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:49:04.572643805Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:49:14.572970772Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:49:24.573201622Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:49:34.573527999Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-scheduler"}
+lmha3-scheduler/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-scheduler","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 857 1780260576.560 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-scheduler] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:49:44.573690217Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:49:54.573838348Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:50:04.574081628Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:50:14.574319250Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:50:24.574547316Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:50:34.574870023Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:50:44.575237363Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:50:54.575574981Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:51:04.575778568Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:51:14.575978213Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:51:24.576194894Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:51:34.576400984Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:51:44.576725599Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:51:54.577048545Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:52:04.577372600Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:52:14.577517563Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:52:24.577842477Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1456,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":28.9, "tF":84.0}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"22:52","unixtime":1780260754,"last_sync_ts":1780259843,"uptime":11200,"ram_size":248832,"ram_free":129844,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-67,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 858 1780260754.381 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 859 1780260754.570 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:52:34.578247886Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:52:44.578570754Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:52:54.578893958Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:53:04.579221497Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:53:14.579562042Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:53:24.579881180Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:53:34.580221458Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:53:44.580432974Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:53:54.580593586Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:54:04.580971401Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:54:14.581185444Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:54:24.581490326Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:54:34.581817312Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:54:44.582138151Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:54:54.582567306Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:55:04.582894473Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:55:14.583214984Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:55:24.583367987Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:55:34.583706762Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:55:44.584031987Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:55:54.584344521Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:56:04.584658862Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:56:14.584977830Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:56:24.585312563Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:56:34.585640382Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:56:44.585976253Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:56:54.586303531Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:57:04.586620761Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:57:14.586789260Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:57:24.587118550Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:57:34.587486050Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:57:44.587804952Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:57:54.588116639Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:58:04.588375660Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:58:14.588709474Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:58:24.589038815Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:58:34.589375213Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:58:44.589698968Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:58:54.589906443Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:59:04.590133478Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:59:14.590484624Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:59:24.590802434Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:59:34.591125381Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:59:44.591511431Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T20:59:54.591839713Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:00:04.592199675Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:00:14.592523494Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:00:24.592733647Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:00:34.593065785Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:00:44.593407413Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:00:54.593743775Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:01:04.594068222Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:01:14.594402008Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:01:24.594612861Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:01:34.594931945Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-scheduler"}
+lmha3-scheduler/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-scheduler","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 860 1780261296.715 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-scheduler] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:01:44.595252494Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:01:54.595587881Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:02:04.595926821Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:02:14.596079982Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:02:24.596397615Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1456,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":28.8, "tF":83.9}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"23:02","unixtime":1780261354,"last_sync_ts":1780259843,"uptime":11800,"ram_size":248848,"ram_free":130244,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-67,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 861 1780261354.389 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 862 1780261354.448 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:02:34.596729669Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:02:44.597050196Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:02:54.597374270Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:03:04.597756913Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:03:14.598138245Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:03:24.598514191Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:03:34.598842014Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:03:44.599204564Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:03:54.599441532Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:04:04.599784218Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:04:14.599991166Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:04:24.600216707Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:04:34.600542288Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:04:44.600865489Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:04:54.601226451Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:05:04.601452242Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:05:14.601603412Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:05:24.601760992Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:05:34.602079817Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:05:44.602279511Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:05:54.602527807Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:06:04.602800407Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:06:14.603033126Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:06:24.603362633Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:06:34.603610423Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:06:44.603776078Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:06:54.604087301Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:07:04.604408410Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:07:14.604746115Z"}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780261641.03,"sys":{"last_sync_ts":1780261641}}}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"23:07","unixtime":1780261641,"last_sync_ts":1780261641,"uptime":12086,"ram_size":248768,"ram_free":126320,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"23:07","unixtime":1780261641,"last_sync_ts":1780261641,"uptime":12086,"ram_size":248740,"ram_free":125176,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
+shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780261641.03,"sys":{"time":"23:07","unixtime":1780261641}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 863 1780261641.098 2|shos_time.c:58          Setting time from SNTP (1780261641.020 delta -0.024)
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 864 1780261641.099 2|shelly_sys.cpp:292      Time set to 12086.809565 from 1
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 865 1780261641.100 2|shelly_notification:164 Status change of sys: {"last_sync_ts":1780261641}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 866 1780261641.101 2|shelly_notification:164 Status change of sys: {"time":"23:07","unixtime":1780261641}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 867 1780261641.126 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 868 1780261641.165 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:07:24.605078051Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:07:34.605408983Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:07:44.605741870Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:07:54.606080777Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:08:04.606265720Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:08:14.606425498Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 869 1780261695.923 2|wifi                    I (12143018) wifi:new:<11,2>, old:<11,0>, ap:<255,255>, sta:<11,2>, prof:1, snd_ch_cfg:0x0
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:08:24.606581948Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:08:34.606803453Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:08:44.607121665Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:08:54.607391754Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:09:04.607752338Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:09:14.607878413Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:09:24.607997665Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:09:34.608252625Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:09:44.608571062Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:09:54.608904938Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:10:04.609236311Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:10:14.609452086Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:10:24.609601677Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:10:34.609799859Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:10:44.610123290Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:10:54.610495070Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:11:04.610711076Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:11:14.611032454Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:11:24.611346993Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:11:34.611676590Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:11:44.611995949Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:11:54.612319736Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:12:04.612652098Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:12:14.612816501Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:12:24.613138848Z"}
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1456,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":false,"temperature":{"tC":29.0, "tF":84.2}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"23:12","unixtime":1780261954,"last_sync_ts":1780261641,"uptime":12400,"ram_size":248852,"ram_free":130260,"ram_min_free":108700,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-68,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/rpc {"id":1,"method":"Switch.Set","params":{"id":0,"on":false},"src":"lmha3-sync"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 870 1780261954.379 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+lmha3-sync/rpc {"id":1,"src":"shellypro1-f8b3b7fa08bc","dst":"lmha3-sync","result":{"was_on":false}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 871 1780261954.400 2|shos_rpc_inst.c:243     Switch.Set [1@lmha3-sync] via MQTT 
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:12:34.613499283Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:12:44.613826968Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:12:54.614204780Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:13:04.614437318Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:13:14.614670508Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:13:24.614911904Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:13:34.615241451Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:13:44.615496272Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:13:54.615810831Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:14:04.616140342Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:14:14.616505681Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:14:24.616745611Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:14:34.617078155Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:14:44.617401420Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:14:54.617741070Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:15:04.618089138Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:15:14.618503468Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:15:24.618724544Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:15:34.618896500Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:15:44.619220167Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:15:54.619558039Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 872 1780262155.279 2|shelly_script.cpp:205   script:1 0.0% CPU utilization
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:16:04.619904083Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:16:14.620236846Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:16:24.620573473Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:16:34.620895552Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:16:44.621216878Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:16:54.621553710Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:17:04.621865412Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:17:14.622214866Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:17:24.622546589Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:17:34.622886844Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:17:44.623206873Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:17:54.623541362Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:18:04.623912186Z"}
+lmha3/instances/lmha3-e3f210c6 {"priority":10,"timestamp":"2026-05-31T21:18:14.624222598Z"}

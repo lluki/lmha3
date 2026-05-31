@@ -161,3 +161,52 @@ fn test_instance_conflict_passive_mode() {
     }
     assert!(is_passive, "Server did not enter passive mode after high-priority heartbeat");
 }
+
+#[test]
+fn test_rpc_response_updates_feedback_timestamp() {
+    let port = 8016;
+    let harness = TestHarness::new(port, true);
+    let tenant_id = harness.create_user("rpc_test", "password123");
+    let device_topic = format!("rpc-test-{}", uuid::Uuid::new_v4().simple());
+    let _device_id = harness.create_device(tenant_id, "RPC Tester", &device_topic);
+
+    // 1. Login
+    let agent = ureq::AgentBuilder::new().redirects(0).build();
+    let login_resp = agent.post(&format!("http://localhost:{}/api/login", port))
+        .send_form(&[("username", "rpc_test"), ("password", "password123")])
+        .unwrap();
+    let cookie = login_resp.header("Set-Cookie").unwrap().to_string();
+
+    let before = chrono::Utc::now();
+    thread::sleep(Duration::from_millis(500));
+
+    // 2. Mock a response from the device on the standard response topic
+    let mut mqtt_options = MqttOptions::new("shelly-mock-rpc", &harness.config.mqtt_host, harness.config.mqtt_port);
+    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    let (client, mut connection) = Client::new(mqtt_options, 10);
+    thread::spawn(move || { for _ in connection.iter() {} });
+
+    let response_topic = format!("{}/rpc-response/rpc", device_topic);
+    let payload = json!({
+        "id": 1,
+        "src": device_topic,
+        "result": {"was_on": false}
+    }).to_string();
+    client.publish(response_topic, QoS::AtMostOnce, false, payload).unwrap();
+
+    // 3. Verify last_feedback_time updated
+    let mut updated = false;
+    for _ in 0..10 {
+        thread::sleep(Duration::from_millis(500));
+        let devices_resp = agent.get(&format!("http://localhost:{}/api/devices", port)).set("Cookie", &cookie).call().unwrap();
+        let devices: serde_json::Value = devices_resp.into_json().unwrap();
+        if let Some(feedback) = devices[0]["last_feedback_time"].as_str() {
+            let feedback_time = chrono::DateTime::parse_from_rfc3339(feedback).unwrap();
+            if feedback_time > before {
+                updated = true;
+                break;
+            }
+        }
+    }
+    assert!(updated, "last_feedback_time did not update after RPC response");
+}
