@@ -106,15 +106,15 @@ impl Db {
 
     pub fn list_devices(&mut self, house_id: Option<Uuid>) -> Result<Vec<Device>, postgres::Error> {
             let (query, params): (&str, &[&(dyn postgres::types::ToSql + Sync)]) = if let Some(hid) = &house_id {
-                ("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, last_heartbeat, scheduling_type, scheduling_until, full_charge_n_day, min_daily_charge, house_id FROM devices WHERE house_id = $1", &[hid])
+                ("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, desired_state::TEXT, last_request_time, last_feedback_time, scheduling_type, scheduling_until, full_charge_n_day, min_daily_charge, house_id FROM devices WHERE house_id = $1", &[hid])
             } else {
-                ("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, last_heartbeat, scheduling_type, scheduling_until, full_charge_n_day, min_daily_charge, house_id FROM devices", &[])
+                ("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, desired_state::TEXT, last_request_time, last_feedback_time, scheduling_type, scheduling_until, full_charge_n_day, min_daily_charge, house_id FROM devices", &[])
             };
 
             let rows = self.client.query(query, params)?;
             Ok(rows.into_iter().map(|row| {
-                let s_type: String = row.get(8);
-                let s_until: Option<chrono::DateTime<chrono::Utc>> = row.get(9);
+                let s_type: String = row.get(10);
+                let s_until: Option<chrono::DateTime<chrono::Utc>> = row.get(11);
 
                 let scheduling_type = match s_type.as_str() {                "none" => crate::SchedulingType::None,
                 "force-on" => crate::SchedulingType::ForceOn { until: s_until.unwrap_or_else(Utc::now) },
@@ -134,11 +134,17 @@ impl Db {
                     "OFF" => crate::DeviceState::Off,
                     _ => crate::DeviceState::Unknown,
                 },
-                last_heartbeat: row.get(7),
+                desired_state: match row.get::<_, &str>(7) {
+                    "ON" => crate::DeviceState::On,
+                    "OFF" => crate::DeviceState::Off,
+                    _ => crate::DeviceState::Unknown,
+                },
+                last_request_time: row.get(8),
+                last_feedback_time: row.get(9),
                 scheduling_type,
-                full_charge_n_day: row.get(10),
-                min_daily_charge: row.get(11),
-                house_id: row.get(12),
+                full_charge_n_day: row.get(12),
+                min_daily_charge: row.get(13),
+                house_id: row.get(14),
             }
         }).collect())
     }
@@ -198,12 +204,79 @@ impl Db {
     }
 
 
-    pub fn update_device_heartbeat(&mut self, mqtt_topic: &str) -> Result<(), postgres::Error> {
+    pub fn update_device_feedback(&mut self, mqtt_topic: &str) -> Result<(), postgres::Error> {
         self.client.execute(
-            "UPDATE devices SET last_heartbeat = NOW() WHERE mqtt_topic = $1",
+            "UPDATE devices SET last_feedback_time = NOW() WHERE mqtt_topic = $1",
             &[&mqtt_topic],
         )?;
         Ok(())
+    }
+
+    pub fn update_device_desired_state(&mut self, id: Uuid, state: crate::DeviceState) -> Result<(), postgres::Error> {
+        let state_str = match state {
+            crate::DeviceState::On => "ON",
+            crate::DeviceState::Off => "OFF",
+            crate::DeviceState::Unknown => "UNKNOWN",
+        };
+        self.client.execute(
+            "UPDATE devices SET desired_state = $1::text::device_state, last_request_time = NOW() WHERE id = $2",
+            &[&state_str, &id],
+        )?;
+        Ok(())
+    }
+
+    pub fn update_device_request_time(&mut self, id: Uuid) -> Result<(), postgres::Error> {
+        self.client.execute(
+            "UPDATE devices SET last_request_time = NOW() WHERE id = $1",
+            &[&id],
+        )?;
+        Ok(())
+    }
+
+    pub fn get_out_of_sync_devices(&mut self) -> Result<Vec<Device>, postgres::Error> {
+        let rows = self.client.query(
+            "SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, desired_state::TEXT, last_request_time, last_feedback_time, scheduling_type, scheduling_until, full_charge_n_day, min_daily_charge, house_id 
+             FROM devices 
+             WHERE desired_state != current_state AND is_enabled = TRUE",
+            &[],
+        )?;
+        
+        Ok(rows.into_iter().map(|row| {
+            let s_type: String = row.get(10);
+            let s_until: Option<chrono::DateTime<chrono::Utc>> = row.get(11);
+
+            let scheduling_type = match s_type.as_str() {
+                "none" => crate::SchedulingType::None,
+                "force-on" => crate::SchedulingType::ForceOn { until: s_until.unwrap_or_else(Utc::now) },
+                "force-off" => crate::SchedulingType::ForceOff { until: s_until.unwrap_or_else(Utc::now) },
+                _ => crate::SchedulingType::Boiler,
+            };
+
+            Device {
+                id: row.get(0),
+                tenant_id: row.get(1),
+                mqtt_topic: row.get(2),
+                name: row.get(3),
+                is_enabled: row.get(4),
+                expected_load: row.get(5),
+                current_state: match row.get::<_, &str>(6) {
+                    "ON" => crate::DeviceState::On,
+                    "OFF" => crate::DeviceState::Off,
+                    _ => crate::DeviceState::Unknown,
+                },
+                desired_state: match row.get::<_, &str>(7) {
+                    "ON" => crate::DeviceState::On,
+                    "OFF" => crate::DeviceState::Off,
+                    _ => crate::DeviceState::Unknown,
+                },
+                last_request_time: row.get(8),
+                last_feedback_time: row.get(9),
+                scheduling_type,
+                full_charge_n_day: row.get(12),
+                min_daily_charge: row.get(13),
+                house_id: row.get(14),
+            }
+        }).collect())
     }
 
     pub fn update_device_state(&mut self, mqtt_topic: &str, state: crate::DeviceState) -> Result<(), postgres::Error> {

@@ -95,6 +95,8 @@ struct AppState {
     no_scheduler: bool,
     mqtt_client: Mutex<Client>,
     log_buffer: Arc<Mutex<LogBuffer>>,
+    is_passive: Mutex<bool>,
+    last_high_priority_heartbeat: Mutex<Option<chrono::DateTime<chrono::Utc>>>,
 }
 
 fn main() {
@@ -132,10 +134,15 @@ fn main() {
         include_str!("../../migrations/007_boiler_advanced_config.sql"),
         include_str!("../../migrations/008_multi_house_support.sql"),
         include_str!("../../migrations/009_add_is_admin.sql"),
+        include_str!("../../migrations/010_add_device_sync_fields.sql"),
     ];
     for migration in migrations {
         client.batch_execute(migration).ok(); // Batch execute will ignore errors if columns already exist
     }
+
+    // Initial state alignment: set desired_state = current_state for all devices
+    info!("Performing initial state alignment...");
+    client.execute("UPDATE devices SET desired_state = current_state", &[]).ok();
 
     let state = Arc::new(AppState {
         db: Mutex::new(db),
@@ -144,6 +151,8 @@ fn main() {
         no_scheduler: args.no_scheduler,
         mqtt_client: Mutex::new(dummy_client()),
         log_buffer,
+        is_passive: Mutex::new(false),
+        last_high_priority_heartbeat: Mutex::new(None),
     });
 
     if !state.no_scheduler {
@@ -156,6 +165,16 @@ fn main() {
     let loop_state = state.clone();
     thread::spawn(move || {
         run_main_loop(loop_state);
+    });
+
+    let health_state = state.clone();
+    thread::spawn(move || {
+        run_health_check_loop(health_state);
+    });
+
+    let ib_state = state.clone();
+    thread::spawn(move || {
+        run_instance_heartbeat_loop(ib_state);
     });
 
     info!("LMHA3 Server Starting on 0.0.0.0:{}...", args.port);
@@ -185,8 +204,15 @@ fn main() {
             // --- API Endpoints ---
 
             (GET) (/api/me) => {
-                if let Some(s) = get_user(request, &state) {
-                    Response::json(&s)
+                if let Some(user) = get_user(request, &state) {
+                    let is_passive = *state.is_passive.lock().unwrap();
+                    Response::json(&json!({
+                        "username": user.username,
+                        "tenant_id": user.tenant_id,
+                        "house_id": user.house_id,
+                        "is_admin": user.is_admin,
+                        "is_passive": is_passive
+                    }))
                 } else {
                     Response::text("Unauthorized").with_status_code(401)
                 }
@@ -392,7 +418,7 @@ fn main() {
 
                     let check_start = start_time;
                     for d in updated_devices {
-                        let responsive = d.last_heartbeat.map(|t| t >= check_start).unwrap_or(false);
+                        let responsive = d.last_feedback_time.map(|t| t >= check_start).unwrap_or(false);
                         device_results.push(json!({
                             "name": d.name,
                             "topic": d.mqtt_topic,
@@ -804,6 +830,13 @@ fn main() {
                     let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
                     if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
                         let new_on = device.current_state != DeviceState::On;
+                        let new_state = if new_on { DeviceState::On } else { DeviceState::Off };
+                        
+                        // Update desired state in DB
+                        if let Err(e) = db.update_device_desired_state(id, new_state) {
+                            error!("DB Error updating desired state: {}", e);
+                        }
+
                         let payload = json!({
                             "id": 1,
                             "src": "lmha3",
@@ -961,7 +994,7 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                     devices: devices.iter().map(|d| lmha_core::scheduler::DeviceContext {
                         id: d.id,
                         current_state: d.current_state,
-                        last_state_change: d.last_heartbeat,
+                        last_state_change: d.last_feedback_time,
                         is_enabled: d.is_enabled,
                         expected_load: d.expected_load,
                         scheduling_type: d.scheduling_type.clone(),
@@ -989,9 +1022,18 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                     trace!("Scheduler action for {}: {:?}", house.name, action);
                 }
 
+                let is_passive = *state.is_passive.lock().unwrap();
+
                 match action {
                     lmha_core::scheduler::SchedulerAction::SwitchOn(id) => {
                         if let Some(device) = devices.iter().find(|d| d.id == id) {
+                            if let Err(e) = db.update_device_desired_state(id, DeviceState::On) {
+                                error!("DB Error updating desired state (On) for {}: {}", id, e);
+                            }
+                            if is_passive {
+                                debug!("Passive Mode: Skipping SwitchOn for {}", device.name);
+                                continue;
+                            }
                             let mqtt_client = state.mqtt_client.lock().unwrap();
                             let payload = json!({
                                 "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": true}
@@ -1001,6 +1043,13 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                     }
                     lmha_core::scheduler::SchedulerAction::SwitchOff(id) => {
                         if let Some(device) = devices.iter().find(|d| d.id == id) {
+                            if let Err(e) = db.update_device_desired_state(id, DeviceState::Off) {
+                                error!("DB Error updating desired state (Off) for {}: {}", id, e);
+                            }
+                            if is_passive {
+                                debug!("Passive Mode: Skipping SwitchOff for {}", device.name);
+                                continue;
+                            }
                             let mqtt_client = state.mqtt_client.lock().unwrap();
                             let payload = json!({
                                 "id": 1, "src": "lmha3-scheduler", "method": "Switch.Set", "params": {"id": 0, "on": false}
@@ -1024,6 +1073,70 @@ fn run_scheduler_loop(state: Arc<AppState>) {
     }
 }
 
+fn run_instance_heartbeat_loop(state: Arc<AppState>) {
+    loop {
+        // 1. Publish our heartbeat
+        {
+            let client = state.mqtt_client.lock().unwrap();
+            let payload = json!({
+                "priority": state.config.instance_priority,
+                "timestamp": chrono::Utc::now()
+            }).to_string();
+            let _ = client.publish(format!("lmha3/instances/{}", state.config.instance_id), QoS::AtMostOnce, false, payload);
+        }
+
+        // 2. Check if the high priority instance is still there
+        {
+            let mut is_passive = state.is_passive.lock().unwrap();
+            let last_high = state.last_high_priority_heartbeat.lock().unwrap();
+            
+            if let Some(last_time) = *last_high {
+                if chrono::Utc::now() - last_time > chrono::Duration::seconds(30) {
+                    if *is_passive {
+                        info!("High priority instance lost. Resuming control mode.");
+                        *is_passive = false;
+                    }
+                }
+            }
+        }
+
+        thread::sleep(Duration::from_secs(10));
+    }
+}
+
+fn run_health_check_loop(state: Arc<AppState>) {
+    loop {
+        thread::sleep(Duration::from_secs(300));
+        info!("Running periodic device health check poll...");
+        let devices = {
+            let mut db = state.db.lock().unwrap();
+            db.list_devices(None).unwrap_or_default()
+        };
+
+        let now = chrono::Utc::now();
+        let is_passive = *state.is_passive.lock().unwrap();
+        for d in devices {
+            if !d.is_enabled { continue; }
+            let last_feedback = d.last_feedback_time.unwrap_or_else(|| now - chrono::Duration::days(365));
+            if now - last_feedback > chrono::Duration::seconds(300) {
+                if is_passive {
+                    debug!("Passive Mode: Skipping Health Check Poll for {}", d.name);
+                    continue;
+                }
+                debug!("Polling inactive device: {}", d.name);
+                let topic = format!("{}/rpc", d.mqtt_topic);
+                let payload = json!({
+                    "id": 99,
+                    "src": format!("{}/rpc-response", d.mqtt_topic),
+                    "method": "Shelly.GetStatus"
+                }).to_string();
+                let client = state.mqtt_client.lock().unwrap();
+                let _ = client.publish(topic, QoS::AtMostOnce, false, payload);
+            }
+        }
+    }
+}
+
 fn run_main_loop(state: Arc<AppState>) {
     loop {
         let client_id = format!("lmha3-server-{}", Uuid::new_v4().to_string().get(0..8).unwrap());
@@ -1039,7 +1152,7 @@ fn run_main_loop(state: Arc<AppState>) {
             *shared_client = client.clone();
         }
 
-        let subs = ["+/online", "+/status/#", "+/events/rpc", "shellies/#", "+/rpc-response/#"];
+        let subs = ["+/online", "+/status/#", "+/events/rpc", "shellies/#", "+/rpc-response/#", "lmha3/instances/+"];
         for sub in subs {
             info!("MQTT: Subscribing to {}", sub);
             let _ = client.subscribe(sub, QoS::AtMostOnce);
@@ -1053,6 +1166,27 @@ fn run_main_loop(state: Arc<AppState>) {
                     trace!("MQTT Incoming: {} | Payload length: {}", topic, publish.payload.len());
 
                     let parts: Vec<&str> = topic.split('/').collect();
+                    
+                    if topic.starts_with("lmha3/instances/") {
+                        if let Some(other_id) = parts.get(2) {
+                            if *other_id != state.config.instance_id {
+                                if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
+                                    let priority = val.get("priority").and_then(|v| v.as_u64()).unwrap_or(0) as u32;
+                                    if priority > state.config.instance_priority {
+                                        let mut is_passive = state.is_passive.lock().unwrap();
+                                        let mut last_high = state.last_high_priority_heartbeat.lock().unwrap();
+                                        *last_high = Some(chrono::Utc::now());
+                                        if !*is_passive {
+                                            error!("!!! BIG FAT WARNING: HIGHER PRIORITY INSTANCE DETECTED ({}) !!!", other_id);
+                                            error!("ENTERING PASSIVE MODE. ACTIVE CONTROL DISABLED.");
+                                            *is_passive = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     let (base_topic, is_gen1) = if parts.len() > 1 && parts[0] == "shellies" {
                         (parts[1], true)
                     } else {
@@ -1064,7 +1198,27 @@ fn run_main_loop(state: Arc<AppState>) {
                             info!("MQTT Heartbeat (RPC Response) for {}: {}", base_topic, topic);
                         }
                         let mut db = state.db.lock().unwrap();
-                        let _ = db.update_device_heartbeat(base_topic);
+                        let _ = db.update_device_feedback(base_topic);
+
+                        // Event-driven sync: if device comes online or sends status, check if sync is needed
+                        if let Ok(devices) = db.list_devices(None) {
+                            if let Some(d) = devices.iter().find(|d| d.mqtt_topic == base_topic) {
+                                if d.desired_state != d.current_state && d.is_enabled {
+                                    if *state.is_passive.lock().unwrap() {
+                                        debug!("Passive Mode: Skipping Event-driven sync for {}", d.name);
+                                    } else {
+                                        info!("Event-driven Sync for {}: current={:?}, desired={:?}", d.name, d.current_state, d.desired_state);
+                                        let payload = json!({
+                                            "id": 1, "src": "lmha3-sync", "method": "Switch.Set", 
+                                            "params": {"id": 0, "on": d.desired_state == DeviceState::On}
+                                        }).to_string();
+                                        let client = state.mqtt_client.lock().unwrap();
+                                        let _ = client.publish(format!("{}/rpc", d.mqtt_topic), QoS::AtMostOnce, false, payload);
+                                        let _ = db.update_device_request_time(d.id);
+                                    }
+                                }
+                            }
+                        }
                     }
                     
                     let mut db = state.db.lock().unwrap();

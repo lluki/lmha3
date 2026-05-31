@@ -121,6 +121,11 @@ function renderLogin(error = '') {
 function renderLayout() {
     mainNav.classList.remove('hidden');
     
+    const banner = document.getElementById('passive-banner');
+    if (banner) {
+        banner.style.display = currentUser.is_passive ? 'block' : 'none';
+    }
+
     userInfo.innerHTML = ''; 
     
     const userInfoList = document.createElement('li');
@@ -283,8 +288,18 @@ async function renderOverview() {
         html += '<th>Mode</th><th>Status</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
 
         for (const d of userDevices) {
-            let lastSeen = d.last_heartbeat ? new Date(d.last_heartbeat).toLocaleString() : 'Never';
+            // Offline and Syncing detection
+            const now = Date.now();
+            const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).getTime() : 0;
+            const lastRequest = d.last_request_time ? new Date(d.last_request_time).getTime() : 0;
+            const isOffline = (lastRequest > lastFeedback + 20000) || (now - lastFeedback > 300000);
+            const isSyncing = d.desired_state !== d.current_state;
+
+            let lastSeen = d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString() : 'Never';
             let statusText = `<code>${d.current_state}</code>`;
+            if (isSyncing) statusText += ` <small class="syncing-indicator" style="display: block; font-size: 0.65rem; color: var(--pico-ins-color);">Syncing...</small>`;
+            if (isOffline) statusText += ` <span class="offline-badge" style="background: var(--pico-del-color); color: white; padding: 1px 4px; border-radius: 3px; font-size: 0.6rem; font-weight: bold; margin-left: 4px; vertical-align: middle;">OFFLINE</span>`;
+            
             let modeText = '';
 
             const schObj = d.scheduling_type;
@@ -651,11 +666,22 @@ window.openTenantDetails = (id) => renderTenantDetails(id, false);
 function renderDeviceCard(d, tenantName) {
     const schObj = d.scheduling_type;
     const schType = (schObj && typeof schObj === 'object' ? schObj.type : schObj) || 'UNKNOWN';
+    
+    // Offline and Syncing detection
+    const now = Date.now();
+    const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).getTime() : 0;
+    const lastRequest = d.last_request_time ? new Date(d.last_request_time).getTime() : 0;
+    const isOffline = (lastRequest > lastFeedback + 20000) || (now - lastFeedback > 300000);
+    const isSyncing = d.desired_state !== d.current_state;
+
     return `
         <article class="summary-card" onclick="openDeviceDetails('${d.id}')">
             <header>
-                <strong>${d.name}</strong>
-                <span class="secondary" style="font-size: 0.8rem;">${schType}</span>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+                    <strong>${d.name}</strong>
+                    ${isOffline ? '<span style="background: var(--pico-del-color); color: white; padding: 1px 4px; border-radius: 3px; font-size: 0.6rem; font-weight: bold;">OFFLINE</span>' : ''}
+                </div>
+                <span class="secondary" style="font-size: 0.8rem;">${schType} ${isSyncing ? '<small style="color: var(--pico-ins-color)">(Syncing...)</small>' : ''}</span>
             </header>
             <div class="card-body">
                 <div>Owner: ${tenantName}</div>

@@ -34,6 +34,7 @@ impl TestHarness {
             include_str!("../../../migrations/007_boiler_advanced_config.sql"),
             include_str!("../../../migrations/008_multi_house_support.sql"),
             include_str!("../../../migrations/009_add_is_admin.sql"),
+            include_str!("../../../migrations/010_add_device_sync_fields.sql"),
         ];
         
         let db_url = format!("host=/var/run/postgresql dbname={} user=lukas", db_name);
@@ -52,6 +53,8 @@ impl TestHarness {
             ha_token: "test_token".to_string(),
             ha_pv_entity_id: Some("sensor.pv".to_string()),
             ha_consumption_entity_id: Some("sensor.consumption".to_string()),
+            instance_id: format!("test-{}", Uuid::new_v4().simple()),
+            instance_priority: 10,
         };
 
         // 3. Start Server
