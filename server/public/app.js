@@ -755,20 +755,38 @@ async function renderDeviceDetails(id, isEdit = false) {
                 </form>
             `;
         } else {
+            const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString() : 'Never';
+            const lastRequest = d.last_request_time ? new Date(d.last_request_time).toLocaleString() : 'Never';
+            const isSyncing = d.desired_state !== d.current_state;
+
             content = `
-                <div class="detail-row"><span class="detail-label">Name</span><span>${d.name}</span></div>
+                <div class="detail-row">
+                    <span class="detail-label">Observed State</span>
+                    <span style="text-align: right;">
+                        <code>${d.current_state}</code><br>
+                        <small class="secondary">Last Feedback: ${lastFeedback}</small>
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Requested State</span>
+                    <span style="text-align: right;">
+                        <code>${d.desired_state}</code> ${isSyncing ? '<small style="color: var(--pico-ins-color); font-weight: bold;">(PENDING)</small>' : ''}<br>
+                        <small class="secondary">Last Request: ${lastRequest}</small>
+                    </span>
+                </div>
+                <hr>
                 <div class="detail-row"><span class="detail-label">MQTT Topic</span><span>${d.mqtt_topic}</span></div>
                 <div class="detail-row"><span class="detail-label">Owner</span><span>${tenantName}</span></div>
                 <div class="detail-row"><span class="detail-label">Load</span><span>${d.expected_load} W</span></div>
-                <div class="detail-row"><span class="detail-label">Mode</span><span>${schType}</span></div>
-                ${until ? `<div class="detail-row"><span class="detail-label">Until</span><span>${new Date(until).toLocaleString()}</span></div>` : ''}
+                <div class="detail-row"><span class="detail-label">Scheduling Mode</span><span>${schType}</span></div>
+                ${until ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${new Date(until).toLocaleString()}</span></div>` : ''}
                 ${schType === 'BOILER' ? `
                     <div class="detail-row"><span class="detail-label">Charge Interval</span><span>${d.full_charge_n_day} days</span></div>
                     <div class="detail-row"><span class="detail-label">Daily Min</span><span>${d.min_daily_charge} mins</span></div>
                 ` : ''}
                 <div class="grid" style="margin-top: 2rem;">
-                    <button onclick="renderDeviceDetails('${d.id}', true)">Edit</button>
-                    <button class="secondary" onclick="deleteDevice('${d.id}')">Delete</button>
+                    <button onclick="renderDeviceDetails('${d.id}', true)">Edit Config</button>
+                    <button class="secondary" onclick="deleteDevice('${d.id}')">Delete Device</button>
                 </div>
             `;
         }
