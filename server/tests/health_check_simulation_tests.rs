@@ -52,7 +52,18 @@ fn test_healthcheck_simulation() {
                     if payload["method"] == "Shelly.GetStatus" {
                         let src = payload["src"].as_str().unwrap();
                         println!("Mock Device: Received healthcheck, responding to {}", src);
-                        client.publish(src, QoS::AtMostOnce, false, "{\"status\":\"ok\"}").unwrap();
+                        let response = json!({
+                            "id": payload["id"],
+                            "src": good_topic,
+                            "result": {
+                                "switch:0": {
+                                    "id": 0,
+                                    "output": false,
+                                    "apower": 0.0
+                                }
+                            }
+                        }).to_string();
+                        client.publish(src, QoS::AtMostOnce, false, response).unwrap();
                     }
                 }
                 Ok(_) => {},

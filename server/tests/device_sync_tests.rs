@@ -190,7 +190,14 @@ fn test_rpc_response_updates_feedback_timestamp() {
     let payload = json!({
         "id": 1,
         "src": device_topic,
-        "result": {"was_on": false}
+        "result": {
+            "was_on": false,
+            "switch:0": {
+                "id": 0,
+                "output": false,
+                "apower": 0.0
+            }
+        }
     }).to_string();
     client.publish(response_topic, QoS::AtMostOnce, false, payload).unwrap();
 
@@ -209,4 +216,56 @@ fn test_rpc_response_updates_feedback_timestamp() {
         }
     }
     assert!(updated, "last_feedback_time did not update after RPC response");
+}
+
+#[test]
+fn test_lwt_sets_unknown_and_online_triggers_poll() {
+    let port = 8017;
+    let harness = TestHarness::new(port, true);
+    let tenant_id = harness.create_user("lwt_test", "password123");
+    let device_topic = format!("lwt-test-{}", uuid::Uuid::new_v4().simple());
+    let _device_id = harness.create_device(tenant_id, "LWT Tester", &device_topic);
+
+    // 1. Setup mock device
+    let mut mqtt_options = MqttOptions::new("shelly-mock-lwt", &harness.config.mqtt_host, harness.config.mqtt_port);
+    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    let (client, mut connection) = Client::new(mqtt_options, 10);
+    client.subscribe(format!("{}/rpc", device_topic), QoS::AtMostOnce).unwrap();
+
+    // 2. Login
+    let agent = ureq::AgentBuilder::new().redirects(0).build();
+    let login_resp = agent.post(&format!("http://localhost:{}/api/login", port))
+        .send_form(&[("username", "lwt_test"), ("password", "password123")])
+        .unwrap();
+    let cookie = login_resp.header("Set-Cookie").unwrap().to_string();
+
+    // 3. Device goes offline (LWT)
+    client.publish(format!("{}/online", device_topic), QoS::AtMostOnce, false, "false").unwrap();
+    thread::sleep(Duration::from_millis(500));
+
+    // Verify state is UNKNOWN
+    let devices_resp = agent.get(&format!("http://localhost:{}/api/devices", port)).set("Cookie", &cookie).call().unwrap();
+    let devices: serde_json::Value = devices_resp.into_json().unwrap();
+    assert_eq!(devices[0]["current_state"], "UNKNOWN");
+
+    // 4. Device comes online
+    client.publish(format!("{}/online", device_topic), QoS::AtMostOnce, false, "true").unwrap();
+
+    // 5. Verify server sends Shelly.GetStatus immediately
+    let mut poll_received = false;
+    let start = std::time::Instant::now();
+    while start.elapsed() < Duration::from_secs(5) {
+        if let Ok(notification) = connection.recv_timeout(Duration::from_millis(100)) {
+            if let Ok(Event::Incoming(Packet::Publish(p))) = notification {
+                if p.topic == format!("{}/rpc", device_topic) {
+                    let payload: serde_json::Value = serde_json::from_slice(&p.payload).unwrap();
+                    if payload["method"] == "Shelly.GetStatus" {
+                        poll_received = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    assert!(poll_received, "Server did not send Shelly.GetStatus after device came online");
 }

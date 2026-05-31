@@ -1219,6 +1219,23 @@ fn run_main_loop(state: Arc<AppState>) {
                         let mut db = state.db.lock().unwrap();
                         let _ = db.update_device_feedback(base_topic);
 
+                        if topic.ends_with("/online") {
+                            if payload_str == "false" {
+                                info!("Device {} went OFFLINE (LWT). Setting state to UNKNOWN.", base_topic);
+                                let _ = db.update_device_state(base_topic, DeviceState::Unknown);
+                            } else if payload_str == "true" {
+                                info!("Device {} came ONLINE. Triggering immediate status poll.", base_topic);
+                                // Force a poll even if we think we are in sync, because our local current_state might be stale
+                                let poll_payload = json!({
+                                    "id": 104,
+                                    "src": format!("{}/rpc-response", base_topic),
+                                    "method": "Shelly.GetStatus"
+                                }).to_string();
+                                let client = state.mqtt_client.lock().unwrap();
+                                let _ = client.publish(format!("{}/rpc", base_topic), QoS::AtMostOnce, false, poll_payload);
+                            }
+                        }
+
                         // Event-driven sync: if device comes online or sends status, check if sync is needed
                         if let Ok(devices) = db.list_devices(None) {
                             if let Some(d) = devices.iter().find(|d| d.mqtt_topic == base_topic) {
