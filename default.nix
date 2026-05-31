@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage {
   pname = "lmha3";
-  version = "0.0.14";
+  version = "0.0.16";
 
   src = ./.;
 
