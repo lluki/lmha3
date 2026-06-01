@@ -289,10 +289,9 @@ async function renderOverview() {
 
         for (const d of userDevices) {
             // Offline and Syncing detection
-            const now = Date.now();
             const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).getTime() : 0;
             const lastRequest = d.last_request_time ? new Date(d.last_request_time).getTime() : 0;
-            const isOffline = (lastRequest > lastFeedback + 20000) || (now - lastFeedback > 300000);
+            const isOffline = (lastRequest > lastFeedback) && (lastRequest > lastFeedback + 20000);
             const isSyncing = d.desired_state !== d.current_state;
 
             let lastSeen = d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString() : 'Never';
@@ -668,10 +667,9 @@ function renderDeviceCard(d, tenantName) {
     const schType = (schObj && typeof schObj === 'object' ? schObj.type : schObj) || 'UNKNOWN';
     
     // Offline and Syncing detection
-    const now = Date.now();
     const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).getTime() : 0;
     const lastRequest = d.last_request_time ? new Date(d.last_request_time).getTime() : 0;
-    const isOffline = (lastRequest > lastFeedback + 20000) || (now - lastFeedback > 300000);
+    const isOffline = (lastRequest > lastFeedback) && (lastRequest > lastFeedback + 20000);
     const isSyncing = d.desired_state !== d.current_state;
 
     return `

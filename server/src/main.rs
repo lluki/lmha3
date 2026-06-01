@@ -1014,16 +1014,30 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                     rng: rand::thread_rng(),
                 };
 
-                trace!("Scheduler invoked for {}: PV={:.1}kW, Cons={:.1}kW, Devices={}, Input={:?}", 
+                trace!("Scheduler invoked for {}: PV={:.1}kW, Cons={:.1}kW, Devices={}",
                     house.name,
-                    pv_production as f64 / 1000.0, 
-                    house_consumption as f64 / 1000.0, 
-                    input.devices.len(),
-                    input
+                    pv_production as f64 / 1000.0,
+                    house_consumption as f64 / 1000.0,
+                    input.devices.len()
                 );
 
-                let action = lmha_core::scheduler::decide_action(input);
-                if action != lmha_core::scheduler::SchedulerAction::Nothing {
+                if log::log_enabled!(log::Level::Trace) {
+                    for (id, evs) in &input.history {
+                        if let Some(d) = devices.iter().find(|d| d.id == *id) {
+                            let ev_str = evs.iter()
+                                .map(|e| format!("{}@{}", match e.state {
+                                    lmha_core::DeviceState::On => "ON",
+                                    lmha_core::DeviceState::Off => "OFF",
+                                    _ => "??",
+                                }, e.timestamp.format("%H:%M")))
+                                .collect::<Vec<_>>()
+                                .join(",");
+                            trace!("History for {}: [{}]", d.name, ev_str);
+                        }
+                    }
+                }
+
+                let action = lmha_core::scheduler::decide_action(input);                if action != lmha_core::scheduler::SchedulerAction::Nothing {
                     info!("Scheduler action for {}: {:?}", house.name, action);
                 } else {
                     trace!("Scheduler action for {}: {:?}", house.name, action);
