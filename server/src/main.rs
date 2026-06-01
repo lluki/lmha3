@@ -1021,7 +1021,7 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                     input.devices.len()
                 );
 
-                if log::log_enabled!(log::Level::Trace) {
+                if tracing::enabled!(tracing::Level::TRACE) {
                     for (id, evs) in &input.history {
                         if let Some(d) = devices.iter().find(|d| d.id == *id) {
                             let ev_str = evs.iter()
