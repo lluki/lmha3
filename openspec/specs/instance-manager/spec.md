@@ -20,17 +20,18 @@ Each LMHA instance SHALL have a unique identity and an assigned priority level.
 ### Requirement: Conflict Detection via MQTT
 The system SHALL use MQTT heartbeats to detect other running instances and prevent control conflicts.
 
-#### Scenario: Heartbeat broadcast
-- **WHEN** an instance is running
-- **THEN** it SHALL publish a heartbeat to `lmha3/instances/<id>` every 10 seconds containing its priority.
+#### Scenario: Heartbeat announcement
+- **WHEN** an instance starts
+- **THEN** it SHALL publish a heartbeat to `lmha3/instances/<id>` with `retain=true` containing its priority and `status: "online"`.
+- **AND** it SHALL configure a Last Will and Testament (LWT) to publish `status: "offline"` with `retain=true` to the same topic.
 
 #### Scenario: Detecting higher priority instance
 - **WHEN** an instance receives a heartbeat from a different ID on `lmha3/instances/+`
-- **AND** the received priority is HIGHER than its own priority
-- **THEN** it SHALL log a "BIG FAT WARNING" to the console and UI.
-- **AND** it SHALL enter "PASSIVE" mode, disabling automatic state synchronization and scheduling to prevent fighting.
+- **THEN** it SHALL track the priority of all known instances.
+- **IF** any known instance has a priority HIGHER than its own priority
+- **THEN** it SHALL enter "PASSIVE" mode, disabling automatic state synchronization and scheduling.
 
 #### Scenario: Resuming control
 - **WHEN** an instance is in "PASSIVE" mode
-- **AND** it has not seen a higher-priority heartbeat for more than 30 seconds
+- **AND** no higher-priority instances are currently detected as "online"
 - **THEN** it SHALL exit "PASSIVE" mode and resume normal operation.

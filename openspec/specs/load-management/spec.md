@@ -38,10 +38,12 @@ The logic for matching load consumption with solar production and handling manua
      - **THEN** it uses the specific IP and token associated with House A in the database
 5. **Hysteresis & Safety:**
    - **Debounce:** Minimum 5 minutes between state changes for any device to prevent rapid cycling.
+   - **Activation Threshold (OFF -> ON):** A device in `BOILER` mode SHALL only turn ON if `PV_Production - House_Consumption > 0.7 * Device_Expected_Load`.
+   - **Retention Threshold (ON -> ON):** A device in `BOILER` mode SHALL remain ON if `PV_Production > (House_Consumption_Excl_Devices + 0.3 * Device_Expected_Load)`.
    - **Margin:** Configurable buffer (e.g., 200W) to avoid toggling on minor fluctuations.
 6. **MQTT Integration:**
-   - ON: Publish `on` to `[mqtt_topic]/rpc` (Shelly Switch.Set command).
-   - OFF: Publish `off` to `[mqtt_topic]/rpc`.
+   - ON: Publish `Switch.Set(on: true)` to `[mqtt_topic]/rpc`.
+   - OFF: Publish `Switch.Set(on: false)` to `[mqtt_topic]/rpc`.
    - Monitor `[mqtt_topic]/status/switch:0` for state confirmation.
 7. **Shelly ID Discovery:**
    The system SHALL scan MQTT logs for unregistered Shelly device IDs and provide them as suggestions in the Admin panel when creating new devices. The interaction SHALL be integrated into the unified entity creation dialog.
@@ -67,17 +69,20 @@ Home Assistant credentials (IP/Host and Access Token) are managed per-house in t
    - `FORCE_ON` / `FORCE_OFF` take absolute precedence until `scheduling_until` is reached.
    - `NONE` disables all automated scheduling for the device.
 2. **Auto-Transition:**
-   - When `now() > scheduling_until`, the device automatically transitions from `FORCE_*` back to `BOILER`.
+   - When `now() > scheduling_until`, the device automatically transitions from `FORCE_*` back to `BOILER`. The scheduler returns an `UpdateScheduling` action to persist this transition.
 3. **Hardware safety limits (Debounce):** Minimum 5 minutes between state changes.
 4. **Mandatory Charging:**
    - Forces device ON if `full_charge_n_day` or `min_daily_charge` deadlines are approaching.
+   - Mandatory window is 1:00 AM to 5:00 AM.
 5. **Production/Demand matching (BOILER):**
    - **Fair Distribution**: Picks device OFF longest to turn ON; device ON longest to turn OFF.
-   - **Improved Hysteresis**: Stay ON if `PV_Production > (House_Consumption_Excl_Device + 0.3 * Device_Load)`.
-   - **Incremental Activation**: Supports activating multiple devices across sequential cycles.
+   - **Hysteresis**:
+     - Turn ON if Net PV > 70% of Expected Load.
+     - Turn OFF if Total PV < (House Consumption Excl. Devices + 30% of Expected Load).
+   - **Incremental Activation**: Supports activating multiple devices across sequential cycles (one action per cycle).
    - **Scenario: Longest idle activation**
      - **WHEN** two devices are eligible for BOILER mode activation
      - **THEN** the device that has been OFF for the longest duration is activated first
    - **Scenario: Grid-assisted retention**
-     - **WHEN** a 4kW device is ON, PV is 3kW, and other house consumption is 1.5kW
-     - **THEN** the device remains ON
+     - **WHEN** a 4kW device is ON, PV is 3kW, and other house consumption is 1.5kW (Total consumption 5.5kW)
+     - **THEN** 1.5kW (other) + 0.3 * 4kW = 2.7kW. Since 3kW > 2.7kW, the device remains ON

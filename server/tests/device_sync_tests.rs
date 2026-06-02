@@ -135,12 +135,13 @@ fn test_instance_conflict_passive_mode() {
     let (client, mut connection) = Client::new(mqtt_options, 10);
     thread::spawn(move || { for _ in connection.iter() {} });
 
-    // 2. Publish high priority heartbeat
+    // 2. Publish high priority heartbeat (Retained)
     let payload = json!({
         "priority": 100,
+        "status": "online",
         "timestamp": chrono::Utc::now()
     }).to_string();
-    client.publish("lmha3/instances/prod-mock-1", QoS::AtMostOnce, false, payload).unwrap();
+    client.publish("lmha3/instances/prod-mock-1", QoS::AtMostOnce, true, payload).unwrap();
 
     // 3. Verify server enters passive mode
     let agent = ureq::AgentBuilder::new().redirects(0).build();
@@ -159,8 +160,23 @@ fn test_instance_conflict_passive_mode() {
             break;
         }
     }
-    assert!(is_passive, "Server did not enter passive mode after high-priority heartbeat");
-}
+    assert!(is_passive, "Server did not enter passive mode after high priority heartbeat");
+
+    // 4. Clear high priority heartbeat and verify server resumes control mode
+    client.publish("lmha3/instances/prod-mock-1", QoS::AtMostOnce, true, "").unwrap(); // Clear retained
+
+    let mut resumed = false;
+    for _ in 0..20 {
+        thread::sleep(Duration::from_millis(500));
+        let me_resp = agent.get(&format!("http://localhost:{}/api/me", port)).set("Cookie", &cookie).call().unwrap();
+        let me: serde_json::Value = me_resp.into_json().unwrap();
+        if me["is_passive"] == false {
+            resumed = true;
+            break;
+        }
+    }
+    assert!(resumed, "Server did not resume control mode after high priority instance disappeared");
+    }
 
 #[test]
 fn test_rpc_response_updates_feedback_timestamp() {

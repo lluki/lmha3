@@ -7,10 +7,10 @@ use std::thread;
 use std::time::Duration;
 use uuid::Uuid;
 use clap::Parser;
-use rumqttc::{Client, MqttOptions, QoS, Event, Packet};
+use rumqttc::{Client, MqttOptions, QoS, Event, Packet, LastWill};
 use serde::{Serialize};
 use serde_json::json;
-use std::collections::VecDeque;
+use std::collections::{VecDeque, HashMap};
 use tracing::{info, error, trace, debug};
 use tracing_subscriber::{fmt, prelude::*, Layer};
 
@@ -96,7 +96,7 @@ struct AppState {
     mqtt_client: Mutex<Client>,
     log_buffer: Arc<Mutex<LogBuffer>>,
     is_passive: Mutex<bool>,
-    last_high_priority_heartbeat: Mutex<Option<chrono::DateTime<chrono::Utc>>>,
+    other_instances: Mutex<HashMap<String, u32>>,
 }
 
 fn main() {
@@ -152,7 +152,7 @@ fn main() {
         mqtt_client: Mutex::new(dummy_client()),
         log_buffer,
         is_passive: Mutex::new(false),
-        last_high_priority_heartbeat: Mutex::new(None),
+        other_instances: Mutex::new(HashMap::new()),
     });
 
     if !state.no_scheduler {
@@ -831,10 +831,19 @@ fn main() {
                     if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
                         let new_on = device.current_state != DeviceState::On;
                         let new_state = if new_on { DeviceState::On } else { DeviceState::Off };
+                        let until = chrono::Utc::now() + chrono::Duration::hours(1);
+                        let new_scheduling = if new_on {
+                            lmha_core::SchedulingType::ForceOn { until }
+                        } else {
+                            lmha_core::SchedulingType::ForceOff { until }
+                        };
                         
-                        // Update desired state in DB
+                        // Update desired state and scheduling in DB
                         if let Err(e) = db.update_device_desired_state(id, new_state) {
                             error!("DB Error updating desired state: {}", e);
+                        }
+                        if let Err(e) = db.update_device_scheduling(id, new_scheduling) {
+                            error!("DB Error updating scheduling: {}", e);
                         }
 
                         let payload = json!({
@@ -998,15 +1007,21 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                 let input = lmha_core::scheduler::SchedulerInput {
                     pv_production,
                     house_consumption,
-                    devices: devices.iter().map(|d| lmha_core::scheduler::DeviceContext {
-                        id: d.id,
-                        current_state: d.current_state,
-                        last_state_change: d.last_feedback_time,
-                        is_enabled: d.is_enabled,
-                        expected_load: d.expected_load,
-                        scheduling_type: d.scheduling_type.clone(),
-                        full_charge_n_day: d.full_charge_n_day,
-                        min_daily_charge: d.min_daily_charge,
+                    devices: devices.iter().map(|d| {
+                        let last_change = history.get(&d.id)
+                            .and_then(|h| h.last().map(|e| e.timestamp))
+                            .or(d.last_feedback_time);
+                            
+                        lmha_core::scheduler::DeviceContext {
+                            id: d.id,
+                            current_state: d.current_state,
+                            last_state_change: last_change,
+                            is_enabled: d.is_enabled,
+                            expected_load: d.expected_load,
+                            scheduling_type: d.scheduling_type.clone(),
+                            full_charge_n_day: d.full_charge_n_day,
+                            min_daily_charge: d.min_daily_charge,
+                        }
                     }).collect(),
                     history,
                     now,
@@ -1108,32 +1123,20 @@ fn run_scheduler_loop(state: Arc<AppState>) {
 
 fn run_instance_heartbeat_loop(state: Arc<AppState>) {
     loop {
-        // 1. Publish our heartbeat
+        // 1. Publish our heartbeat (Retained)
         {
             let client = state.mqtt_client.lock().unwrap();
             let payload = json!({
                 "priority": state.config.instance_priority,
+                "status": "online",
                 "timestamp": chrono::Utc::now()
             }).to_string();
-            let _ = client.publish(format!("lmha3/instances/{}", state.config.instance_id), QoS::AtMostOnce, false, payload);
+            // Use retain=true to reduce chatter (instances only need to publish once, but we refresh every 5 min)
+            let _ = client.publish(format!("lmha3/instances/{}", state.config.instance_id), QoS::AtMostOnce, true, payload);
         }
 
-        // 2. Check if the high priority instance is still there
-        {
-            let mut is_passive = state.is_passive.lock().unwrap();
-            let last_high = state.last_high_priority_heartbeat.lock().unwrap();
-            
-            if let Some(last_time) = *last_high {
-                if chrono::Utc::now() - last_time > chrono::Duration::seconds(30) {
-                    if *is_passive {
-                        info!("High priority instance lost. Resuming control mode.");
-                        *is_passive = false;
-                    }
-                }
-            }
-        }
-
-        thread::sleep(Duration::from_secs(10));
+        // We no longer check timeout here because we use LWT and explicit state tracking in the MQTT handler.
+        thread::sleep(Duration::from_secs(300));
     }
 }
 
@@ -1178,6 +1181,15 @@ fn run_main_loop(state: Arc<AppState>) {
         if let (Some(u), Some(p)) = (&state.config.mqtt_user, &state.config.mqtt_password) {
             mqtt_options.set_credentials(u, p);
         }
+
+        // Set Last Will for instance heartbeat
+        let lwt_topic = format!("lmha3/instances/{}", state.config.instance_id);
+        let lwt_payload = json!({
+            "priority": 0,
+            "status": "offline",
+            "timestamp": chrono::Utc::now()
+        }).to_string();
+        mqtt_options.set_last_will(LastWill::new(lwt_topic, lwt_payload, QoS::AtMostOnce, true));
         
         let (client, mut connection) = Client::new(mqtt_options, 50);
         {
@@ -1202,18 +1214,41 @@ fn run_main_loop(state: Arc<AppState>) {
                     
                     if topic.starts_with("lmha3/instances/") {
                         if let Some(other_id) = parts.get(2) {
-                            if *other_id != state.config.instance_id {
-                                if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
+                            let other_id = other_id.to_string();
+                            if other_id != state.config.instance_id {
+                                if publish.payload.is_empty() {
+                                    let mut other_instances = state.other_instances.lock().unwrap();
+                                    other_instances.remove(&other_id);
+                                    info!("Instance {} disappeared (cleared).", other_id);
+                                    
+                                    let mut is_passive = state.is_passive.lock().unwrap();
+                                    let has_higher = other_instances.values().any(|&p| p > state.config.instance_priority);
+                                    if !has_higher && *is_passive {
+                                        info!("No more high priority instances detected. Resuming control mode.");
+                                        *is_passive = false;
+                                    }
+                                } else if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
                                     let priority = val.get("priority").and_then(|v| v.as_u64()).unwrap_or(0) as u32;
-                                    if priority > state.config.instance_priority {
-                                        let mut is_passive = state.is_passive.lock().unwrap();
-                                        let mut last_high = state.last_high_priority_heartbeat.lock().unwrap();
-                                        *last_high = Some(chrono::Utc::now());
-                                        if !*is_passive {
-                                            error!("!!! BIG FAT WARNING: HIGHER PRIORITY INSTANCE DETECTED ({}) !!!", other_id);
-                                            error!("ENTERING PASSIVE MODE. ACTIVE CONTROL DISABLED.");
-                                            *is_passive = true;
-                                        }
+                                    let status = val.get("status").and_then(|v| v.as_str()).unwrap_or("online");
+                                    
+                                    let mut other_instances = state.other_instances.lock().unwrap();
+                                    if status == "offline" || priority == 0 {
+                                        other_instances.remove(&other_id);
+                                        info!("Instance {} went offline.", other_id);
+                                    } else {
+                                        other_instances.insert(other_id.clone(), priority);
+                                    }
+
+                                    let mut is_passive = state.is_passive.lock().unwrap();
+                                    let has_higher = other_instances.values().any(|&p| p > state.config.instance_priority);
+                                    
+                                    if has_higher && !*is_passive {
+                                        error!("!!! BIG FAT WARNING: HIGHER PRIORITY INSTANCE DETECTED !!!");
+                                        error!("ENTERING PASSIVE MODE. ACTIVE CONTROL DISABLED.");
+                                        *is_passive = true;
+                                    } else if !has_higher && *is_passive {
+                                        info!("No more high priority instances detected. Resuming control mode.");
+                                        *is_passive = false;
                                     }
                                 }
                             }
