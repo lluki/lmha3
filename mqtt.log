@@ -1,234 +1,96 @@
 shellypro1-f8b3b7fa08bc/online true
-lmha3/instances/lmha3-fdd1d9e4 {"priority":10,"timestamp":"2026-05-31T22:22:30.682276908Z"}
-lmha3/instances/lmha3-fdd1d9e4 {"priority":10,"timestamp":"2026-05-31T22:22:40.682435623Z"}
-shellypro1-f8b3b7fa08bc/online false
-shellypro1-f8b3b7fa08bc/online true
-shellypro1-f8b3b7fa08bc/status/mqtt {"connected":true}
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 56 1780266165.627 2|shos_mqtt_conn.c:506    MQTT0: Connect status 0
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 57 1780266165.628 2|shelly_notification:164 Status change of mqtt: {"connected":true}
-shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780266165.61,"mqtt":{"connected":true}}}
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 58 1780266165.658 2|wifi                    I (6278) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 59 1780266165.658 2|wifi                    I (6278) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:9, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 60 1780266165.708 2|shos_init.c:103         New min heap free: 125444
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 61 1780266165.739 2|shos_lwip.cpp:196       ws(0x3ffdecfc): IPv6 addrs: fe80::fab3:b7ff:fefa:8bc,t1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 62 1780266165.756 2|shos_lwip.cpp:196       ws(0x3ffdecfc): IPv6 addrs: fe80::fab3:b7ff:fefa:8bc,t1 2001:8e0:39ce:701:fab3:b7ff:fefa:8bc,t0
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 63 1780266165.775 2|shos_lwip.cpp:196       ws(0x3ffdecfc): IPv6 addrs: fe80::fab3:b7ff:fefa:8bc,t1 2001:8e0:39ce:701:fab3:b7ff:fefa:8bc,t0 fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc,t0
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 64 1780266166.178 2|wifi                    I (6798) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 65 1780266166.180 2|wifi                    I (6798) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:16, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 66 1780266166.698 2|wifi                    I (7318) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 67 1780266166.699 2|wifi                    I (7318) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:17, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 68 1780266166.745 2|shos_lwip.cpp:196       ws(0x3ffdecfc): IPv6 addrs: fe80::fab3:b7ff:fefa:8bc,P 2001:8e0:39ce:701:fab3:b7ff:fefa:8bc,t0 fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc,t0
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 69 1780266166.779 2|shos_lwip.cpp:196       ws(0x3ffdecfc): IPv6 addrs: fe80::fab3:b7ff:fefa:8bc,P 2001:8e0:39ce:701:fab3:b7ff:fefa:8bc,t1 fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc,t0
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 70 1780266166.780 2|shos_lwip.cpp:196       ws(0x3ffdecfc): IPv6 addrs: fe80::fab3:b7ff:fefa:8bc,P 2001:8e0:39ce:701:fab3:b7ff:fefa:8bc,t1 fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc,t1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 71 1780266167.208 2|wifi                    I (7838) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 72 1780266167.218 2|wifi                    I (7838) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:22, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 73 1780266167.370 2|shos_dns_sd_respond:236 ws(0x3ffdecfc): Announced ShellyPro1-F8B3B7FA08BC any@any (192.168.178.122)
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 74 1780266167.728 2|wifi                    I (8358) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 75 1780266167.738 2|wifi                    I (8358) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:24, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 76 1780266167.771 2|shos_lwip.cpp:196       ws(0x3ffdecfc): IPv6 addrs: fe80::fab3:b7ff:fefa:8bc,P 2001:8e0:39ce:701:fab3:b7ff:fefa:8bc,P fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc,t1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 77 1780266167.771 2|shos_lwip.cpp:196       ws(0x3ffdecfc): IPv6 addrs: fe80::fab3:b7ff:fefa:8bc,P 2001:8e0:39ce:701:fab3:b7ff:fefa:8bc,P fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc,P
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 78 1780266168.248 2|wifi                    I (8878) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 79 1780266168.259 2|wifi                    I (8878) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:27, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 80 1780266168.778 2|wifi                    I (9398) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 81 1780266168.778 2|wifi                    I (9398) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:28, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 82 1780266169.298 2|wifi                    I (9918) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 83 1780266169.298 2|wifi                    I (9918) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:30, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 84 1780266169.818 2|wifi                    I (10438) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 85 1780266169.819 2|wifi                    I (10438) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:31, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 86 1780266170.328 2|wifi                    I (10958) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 87 1780266170.338 2|wifi                    I (10958) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:33, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 88 1780266170.560 2|shos_dns_sd_respond:236 ws(0x3ffdecfc): Announced ShellyPro1-F8B3B7FA08BC any@any (fe80::fab3:b7ff:fefa:8bc,2001:8e0:39ce:701:fab3:b7ff:fefa:8bc,fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc)
-lmha3/instances/lmha3-fdd1d9e4 {"priority":10,"timestamp":"2026-05-31T22:22:50.682762579Z"}
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 89 1780266170.848 2|wifi                    I (11478) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 90 1780266170.859 2|wifi                    I (11478) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:35, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 91 1780266171.368 2|wifi                    I (11998) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 92 1780266171.378 2|wifi                    I (11998) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:37, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 93 1780266171.902 2|wifi                    I (12518) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 94 1780266171.903 2|wifi                    I (12518) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:38, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 95 1780266171.903 2|shos_init.c:103         New min heap free: 125412
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 96 1780266172.408 2|wifi                    I (13038) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 97 1780266172.419 2|wifi                    I (13038) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:40, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 98 1780266172.939 2|wifi                    I (13558) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 99 1780266172.939 2|wifi                    I (13558) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:41, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 100 1780266173.459 2|wifi                    I (14078) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 101 1780266173.460 2|wifi                    I (14078) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:43, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 102 1780266173.968 2|wifi                    I (14598) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 103 1780266173.978 2|wifi                    I (14598) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:44, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 104 1780266174.488 2|wifi                    I (15118) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 105 1780266174.498 2|wifi                    I (15118) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:46, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 106 1780266175.008 2|wifi                    I (15638) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 107 1780266175.018 2|wifi                    I (15638) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:47, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 108 1780266175.529 2|wifi                    I (16158) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 109 1780266175.539 2|wifi                    I (16158) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:49, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 110 1780266176.049 2|wifi                    I (16678) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 111 1780266176.059 2|wifi                    I (16678) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:50, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 112 1780266176.578 2|wifi                    I (17198) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 113 1780266176.579 2|wifi                    I (17198) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:52, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 114 1780266177.120 2|shelly_update.cpp:355   Checking for updates (1.7.5 20260311-095847/1.7.5-g9979d16 {"bl":16777983,"t":1780266177.072,"ut":16389437,"hf":138912,"hmf":125412,"fs":524288,"fsf":200704,"pkw":0})
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 115 1780266177.122 2|shos_http_client.cp:316 0x3ffdf9f8: HTTPS GET https://updates.shelly.cloud/update/Pro1?src=auto1 (CA shelly_cloud.pem,ca.pem)
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 116 1780266177.122 2|wifi                    I (17718) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 117 1780266177.122 2|wifi                    I (17738) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:53, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 118 1780266177.612 2|shos_init.c:103         New min heap free: 125396
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 119 1780266177.622 2|wifi                    I (18238) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 120 1780266177.623 2|wifi                    I (18248) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:59, winSize:64
-shellypro1-f8b3b7fa08bc/events/rpc {"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/events","method":"NotifyStatus","params":{"ts":1780266177.66,"sys":{"available_updates":{"beta":{"version":"2.0.0-beta2"}}}}}
-shellypro1-f8b3b7fa08bc/status/sys {"mac":"F8B3B7FA08BC","restart_required":false,"time":"00:22","unixtime":1780266177,"last_sync_ts":1780266165,"uptime":16,"ram_size":248924,"ram_free":136528,"ram_min_free":125396,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200}
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 121 1780266177.678 2|shos_http_client.cp:656 0x3ffdf9f8: Finished; bytes 755, code 200, redir 0/3, auth 0, status OK
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 122 1780266177.679 2|shelly_notification:164 Status change of sys: {"available_updates":{"beta":{"version":"2.0.0-beta2"}}}
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 123 1780266178.138 2|wifi                    I (18758) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 124 1780266178.139 2|wifi                    I (18758) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:65, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 125 1780266178.649 2|wifi                    I (19278) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 126 1780266178.659 2|wifi                    I (19278) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:67, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 127 1780266179.168 2|wifi                    I (19798) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 128 1780266179.179 2|wifi                    I (19798) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:68, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 129 1780266179.688 2|wifi                    I (20318) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 130 1780266179.700 2|wifi                    I (20318) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:70, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 131 1780266180.219 2|wifi                    I (20838) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 132 1780266180.220 2|wifi                    I (20838) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:71, winSize:64
-lmha3/instances/lmha3-fdd1d9e4 {"priority":10,"timestamp":"2026-05-31T22:23:00.683077482Z"}
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 133 1780266180.739 2|wifi                    I (21358) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 134 1780266180.741 2|wifi                    I (21358) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:73, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 135 1780266181.258 2|wifi                    I (21878) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 136 1780266181.259 2|wifi                    I (21878) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:74, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 137 1780266181.778 2|wifi                    I (22398) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 138 1780266181.779 2|wifi                    I (22398) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:76, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 139 1780266182.288 2|wifi                    I (22918) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 140 1780266182.299 2|wifi                    I (22918) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:77, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 141 1780266182.820 2|wifi                    I (23438) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 142 1780266182.821 2|wifi                    I (23448) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:79, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 143 1780266183.329 2|wifi                    I (23958) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 144 1780266183.339 2|wifi                    I (23958) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:80, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 145 1780266183.858 2|wifi                    I (24478) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 146 1780266183.859 2|wifi                    I (24478) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:82, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 147 1780266184.328 2|shos_init.c:103         New min heap free: 120960
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 148 1780266184.379 2|wifi                    I (24998) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 149 1780266184.379 2|wifi                    I (24998) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:84, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 150 1780266184.801 2|shos_rpc_inst.c:243     shelly.getdeviceinfo [0@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 151 1780266184.862 2|shos_rpc_inst.c:243     shelly.getcomponents [1@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 152 1780266184.889 2|wifi                    I (25518) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 153 1780266184.899 2|wifi                    I (25518) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:87, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 154 1780266184.935 2|shos_rpc_inst.c:243     shelly.getcomponents [2@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 155 1780266184.977 2|shos_rpc_inst.c:243     schedule.list [3@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 156 1780266185.569 2|shos_rpc_inst.c:243     shelly.listmethods [4@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 157 1780266185.570 2|wifi                    I (26038) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 158 1780266185.571 2|wifi                    I (26038) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:90, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 159 1780266185.571 2|shos_rpc_inst.c:243     webhook.list [5@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 160 1780266185.571 2|shos_rpc_inst.c:243     webhook.listsupported [6@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 161 1780266185.572 2|shos_rpc_inst.c:243     kvs.getmany [7@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 162 1780266185.572 2|shos_rpc_inst.c:243     schedule.list [8@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 163 1780266185.572 2|shos_init.c:103         New min heap free: 115172
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 164 1780266185.606 2|shos_rpc_inst.c:243     script.getcode [9@0948889b-22e1-4ea8-8d58-0b315522b9cc] via WS_in 192.168.178.21:56128
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 165 1780266185.607 2|shelly_scripts_rpc.:345 Sending "script_1.js"
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 166 1780266185.929 2|wifi                    I (26558) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 167 1780266185.939 2|wifi                    I (26558) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:96, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 168 1780266185.981 2|shos_rpc_inst.c:243     shelly.getdeviceinfo [0@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 169 1780266186.029 2|shos_rpc_inst.c:243     shelly.getcomponents [1@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 170 1780266186.103 2|shos_rpc_inst.c:243     shelly.getcomponents [2@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 171 1780266186.145 2|shos_rpc_inst.c:243     schedule.list [3@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 172 1780266186.722 2|shos_rpc_inst.c:243     shelly.listmethods [4@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 173 1780266186.723 2|wifi                    I (27078) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 174 1780266186.724 2|wifi                    I (27078) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:100, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 175 1780266186.724 2|shos_rpc_inst.c:243     webhook.list [5@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 176 1780266186.725 2|shos_rpc_inst.c:243     webhook.listsupported [6@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 177 1780266186.725 2|shos_rpc_inst.c:243     kvs.getmany [7@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 178 1780266186.725 2|shos_rpc_inst.c:243     schedule.list [8@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 179 1780266186.748 2|shelly_debug.cpp:236    Streaming logs to 192.168.178.21:56156
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 180 1780266186.863 2|shos_rpc_inst.c:243     script.getcode [9@6652ba9c-512b-47d7-b1a9-feda849f68a6] via WS_in 192.168.178.21:56152
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 181 1780266186.864 2|shelly_scripts_rpc.:345 Sending "script_1.js"
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 182 1780266186.981 2|wifi                    I (27598) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 183 1780266186.982 2|wifi                    I (27598) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:106, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 184 1780266187.500 2|wifi                    I (28118) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 185 1780266187.501 2|wifi                    I (28118) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:108, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 186 1780266188.011 2|wifi                    I (28638) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 187 1780266188.020 2|wifi                    I (28638) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:110, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 188 1780266188.540 2|wifi                    I (29158) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 189 1780266188.541 2|wifi                    I (29158) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:111, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 190 1780266189.060 2|wifi                    I (29678) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 191 1780266189.062 2|wifi                    I (29678) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:113, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 192 1780266189.580 2|wifi                    I (30198) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 193 1780266189.581 2|wifi                    I (30198) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:114, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 194 1780266190.091 2|wifi                    I (30718) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 195 1780266190.100 2|wifi                    I (30718) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:116, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 196 1780266190.611 2|wifi                    I (31238) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 197 1780266190.620 2|wifi                    I (31238) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:117, winSize:64
-lmha3/instances/lmha3-fdd1d9e4 {"priority":10,"timestamp":"2026-05-31T22:23:10.683414280Z"}
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 198 1780266191.140 2|wifi                    I (31758) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 199 1780266191.141 2|wifi                    I (31758) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:119, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 200 1780266191.651 2|wifi                    I (32278) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 201 1780266191.660 2|wifi                    I (32278) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:120, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 202 1780266192.171 2|wifi                    I (32798) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 203 1780266192.180 2|wifi                    I (32798) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:122, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 204 1780266192.691 2|wifi                    I (33318) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 205 1780266192.701 2|wifi                    I (33318) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:123, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 206 1780266193.221 2|wifi                    I (33838) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 207 1780266193.222 2|wifi                    I (33838) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:125, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 208 1780266193.734 2|wifi                    I (34358) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 209 1780266193.745 2|wifi                    I (34368) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:126, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 210 1780266194.251 2|wifi                    I (34878) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 211 1780266194.262 2|wifi                    I (34878) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:128, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 212 1780266194.780 2|wifi                    I (35398) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 213 1780266194.781 2|wifi                    I (35398) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:129, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 214 1780266195.300 2|wifi                    I (35918) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 215 1780266195.301 2|wifi                    I (35918) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:131, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 216 1780266195.820 2|wifi                    I (36438) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 217 1780266195.821 2|wifi                    I (36438) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:132, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 218 1780266196.331 2|wifi                    I (36958) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 219 1780266196.346 2|wifi                    I (36968) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:134, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 220 1780266196.860 2|wifi                    I (37478) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 221 1780266196.861 2|wifi                    I (37478) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:135, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 222 1780266197.382 2|wifi                    I (37998) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 223 1780266197.383 2|wifi                    I (37998) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:137, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 224 1780266197.900 2|wifi                    I (38518) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 225 1780266197.901 2|wifi                    I (38518) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:138, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 226 1780266198.411 2|wifi                    I (39038) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 227 1780266198.422 2|wifi                    I (39038) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:140, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 228 1780266198.940 2|wifi                    I (39558) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 229 1780266198.942 2|wifi                    I (39558) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:141, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 230 1780266199.461 2|wifi                    I (40078) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 231 1780266199.462 2|wifi                    I (40078) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:143, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 232 1780266199.981 2|wifi                    I (40598) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 233 1780266199.982 2|wifi                    I (40598) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:144, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 234 1780266200.491 2|wifi                    I (41118) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 235 1780266200.533 2|wifi                    I (41128) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:146, winSize:64
-lmha3/instances/lmha3-fdd1d9e4 {"priority":10,"timestamp":"2026-05-31T22:23:20.683583170Z"}
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 236 1780266201.020 2|wifi                    I (41638) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 237 1780266201.022 2|wifi                    I (41638) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:147, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 238 1780266201.541 2|wifi                    I (42158) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 239 1780266201.542 2|wifi                    I (42158) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:149, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 240 1780266202.051 2|wifi                    I (42678) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 241 1780266202.062 2|wifi                    I (42678) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:150, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 242 1780266202.580 2|wifi                    I (43198) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 243 1780266202.582 2|wifi                    I (43198) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:152, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 244 1780266203.101 2|wifi                    I (43718) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 245 1780266203.102 2|wifi                    I (43718) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:153, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 246 1780266203.611 2|wifi                    I (44238) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 247 1780266203.622 2|wifi                    I (44238) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:155, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 248 1780266204.141 2|wifi                    I (44758) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 249 1780266204.142 2|wifi                    I (44758) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:156, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 250 1780266204.661 2|wifi                    I (45278) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 251 1780266204.662 2|wifi                    I (45278) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:158, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 252 1780266205.171 2|wifi                    I (45798) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 253 1780266205.185 2|wifi                    I (45808) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:159, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 254 1780266205.701 2|wifi                    I (46318) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 255 1780266205.702 2|wifi                    I (46318) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:161, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 256 1780266206.221 2|wifi                    I (46838) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 257 1780266206.222 2|wifi                    I (46838) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:162, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 258 1780266206.741 2|wifi                    I (47358) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 259 1780266206.742 2|wifi                    I (47358) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:164, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 260 1780266207.261 2|wifi                    I (47878) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 261 1780266207.262 2|wifi                    I (47878) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:165, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 262 1780266207.781 2|wifi                    I (48398) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 263 1780266207.782 2|wifi                    I (48398) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:167, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 264 1780266208.291 2|wifi                    I (48918) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 265 1780266208.330 2|wifi                    I (48928) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:168, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 266 1780266208.821 2|wifi                    I (49438) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 267 1780266208.822 2|wifi                    I (49438) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:169, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 268 1780266209.334 2|wifi                    I (49958) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 269 1780266209.345 2|wifi                    I (49968) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:171, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 270 1780266209.861 2|wifi                    I (50478) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 271 1780266209.862 2|wifi                    I (50478) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:173, winSize:64
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 272 1780266210.381 2|wifi                    I (50998) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 273 1780266210.382 2|wifi                    I (50998) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:174, winSize:64
-lmha3/instances/lmha3-fdd1d9e4 {"priority":10,"timestamp":"2026-05-31T22:23:30.683914991Z"}
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 274 1780266210.901 2|wifi                    I (51518) wifi:<ba-del>idx:1, tid:1
-shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 275 1780266210.902 2|wifi                    I (51518) wifi:<ba-add>idx:1 (ifx:0, e0:08:55:3e:6e:63), tid:1, ssn:176, winSize:64
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:37:17.957342233Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:37:27.957678985Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:37:37.958002399Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1673 1780303061.673 2|shelly_debug.cpp:149    Stopped streaming logs to 192.168.178.113:60562
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:37:47.958322839Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:37:57.958665403Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:38:07.958986081Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1674 1780303095.074 2|shelly_debug.cpp:149    Stopped streaming logs to 192.168.178.21:33316
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1675 1780303095.761 2|shos_rpc_inst.c:243     shelly.getdeviceinfo [0@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1676 1780303095.811 2|shos_rpc_inst.c:243     shelly.getcomponents [1@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1677 1780303095.883 2|shos_rpc_inst.c:243     shelly.getcomponents [2@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1678 1780303095.920 2|shos_rpc_inst.c:243     schedule.list [3@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1679 1780303096.512 2|shos_rpc_inst.c:243     shelly.listmethods [4@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1680 1780303096.513 2|shos_rpc_inst.c:243     webhook.list [5@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1681 1780303096.514 2|shos_rpc_inst.c:243     webhook.listsupported [6@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1682 1780303096.514 2|shos_rpc_inst.c:243     kvs.getmany [7@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1683 1780303096.515 2|shos_rpc_inst.c:243     schedule.list [8@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1684 1780303096.515 2|shos_rpc_inst.c:243     script.getcode [9@79552db2-f092-4a62-ba59-d25c8e8c0dd1] via WS_in 192.168.178.21:39728
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1685 1780303096.516 2|shelly_scripts_rpc.:345 Sending "script_1.js"
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1686 1780303096.534 2|shelly_debug.cpp:236    Streaming logs to 192.168.178.21:39742
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:38:17.959197107Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1687 1780303099.021 2|wifi                    I (35882308) wifi:[ADDBA]RX DELBA, reason:37, delete tid:2, initiator:1(originator)
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:38:27.959526654Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:38:37.959844538Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:38:47.960189771Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:38:57.960346298Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:39:07.960649626Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:39:17.960876285Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1688 1780303165.583 2|wifi                    I (35948868) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:39:27.961083584Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:39:37.961314376Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:39:47.961627747Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:39:57.961955864Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:40:07.962284618Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:40:17.962431638Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1689 1780303219.086 2|shelly_script.cpp:205   script:1 0.0% CPU utilization
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:40:27.962687955Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:40:37.963025611Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1690 1780303246.902 2|shelly_debug.cpp:149    Stopped streaming logs to 192.168.178.21:39742
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1691 1780303246.915 2|shos_http_server.cp:266 192.168.178.21: No handler for '/status'
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1692 1780303246.983 2|shos_http_server.cp:266 192.168.178.21: No handler for '/favicon.ico'
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:40:47.963244256Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:40:57.963563096Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:41:07.963883583Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1693 1780303277.878 2|shos_http_server.cp:266 192.168.178.21: No handler for '/status'
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:41:17.964227992Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1694 1780303285.774 2|shos_http_server.cp:266 192.168.178.21: No handler for '/settings'
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:41:27.964558907Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1695 1780303291.476 2|shos_http_server.cp:266 192.168.178.21: No handler for '/shelly/status'
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:41:37.964874512Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1696 1780303301.595 2|shos_rpc_inst.c:243     shelly.getdeviceinfo [0@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1697 1780303301.653 2|shos_rpc_inst.c:243     shelly.getcomponents [1@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1698 1780303301.734 2|shos_rpc_inst.c:243     shelly.getcomponents [2@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1699 1780303301.774 2|shos_rpc_inst.c:243     schedule.list [3@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1700 1780303302.338 2|shos_rpc_inst.c:243     shelly.listmethods [4@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1701 1780303302.339 2|shos_rpc_inst.c:243     webhook.list [5@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1702 1780303302.340 2|shos_rpc_inst.c:243     webhook.listsupported [6@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1703 1780303302.340 2|shos_rpc_inst.c:243     kvs.getmany [7@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1704 1780303302.340 2|shos_rpc_inst.c:243     schedule.list [8@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1705 1780303302.381 2|shos_rpc_inst.c:243     script.getcode [9@77532d1f-f4df-475e-a506-4bfaeff31c74] via WS_in 192.168.178.21:48452
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1706 1780303302.382 2|shelly_scripts_rpc.:345 Sending "script_1.js"
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1707 1780303302.396 2|shelly_debug.cpp:236    Streaming logs to 192.168.178.21:48466
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:41:47.965073643Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:41:57.965396568Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:42:07.965720655Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:42:17.965944063Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:42:27.966278380Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:42:37.966646596Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1708 1780303365.619 2|shos_rpc_inst.c:243     Shelly.GetStatus [1640771360@] via HTTP_in GET 192.168.178.21:38410
+shellypro1-f8b3b7fa08bc/rpc {"id":99,"method":"Shelly.GetStatus","src":"shellypro1-f8b3b7fa08bc/rpc-response"}
+shellypro1-f8b3b7fa08bc/rpc-response/rpc {"id":99,"src":"shellypro1-f8b3b7fa08bc","dst":"shellypro1-f8b3b7fa08bc/rpc-response","result":{"ble":{},"bthome":{"errors":["bluetooth_disabled"]},"cloud":{"connected":false},"eth":{"ip":null,"ip6":null},"input:0":{"id":0,"state":false},"input:1":{"id":1,"state":false},"knx":{},"mqtt":{"connected":true},"script:1":{"id":1,"running":true,"mem_used":364,"mem_peak":1456,"mem_free":24822,"cpu":0},"switch:0":{"id":0, "source":"MQTT", "output":true,"temperature":{"tC":36.1, "tF":96.9}},"sys":{"mac":"F8B3B7FA08BC","restart_required":false,"time":"10:42","unixtime":1780303367,"last_sync_ts":1780301964,"uptime":36149,"ram_size":248832,"ram_free":129912,"ram_min_free":111200,"fs_size":524288,"fs_free":200704,"cfg_rev":14,"kvs_rev":0,"schedule_rev":0,"webhook_rev":0,"btrelay_rev":0,"bthc_rev":0,"available_updates":{"beta":{"version":"2.0.0-beta2"}},"reset_reason":1,"utc_offset":7200},"wifi":{"sta_ip":"192.168.178.122","status":"got ip","ssid":"ARPANET","bssid":"e0:08:55:3e:6e:63","rssi":-64,"sta_ip6":["fe80::fab3:b7ff:fefa:8bc","2001:8e0:39ce:701:fab3:b7ff:fefa:8bc","fd5d:5528:adfd:0:fab3:b7ff:fefa:8bc"]},"ws":{"connected":false}}}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1709 1780303367.856 2|shos_rpc_inst.c:243     Shelly.GetStatus [99@shellypro1-f8b3b7fa08bc/rpc-response] via MQTT 
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:42:47.966958612Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1710 1780303375.707 2|shos_rpc_inst.c:243     Shelly.GetStatus [506157729@] via HTTP_in GET 192.168.178.21:45976
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:42:57.967210433Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:43:07.967532050Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:43:17.967850757Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:43:27.968213984Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:43:37.968539620Z"}
+shellypro1-f8b3b7fa08bc/debug/log shellypro1-f8b3b7fa08bc 1711 1780303426.268 2|shelly_debug.cpp:149    Stopped streaming logs to 192.168.178.21:48466
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:43:47.968858123Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:43:57.969210337Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:44:07.969555479Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:44:17.969711054Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:44:27.970071826Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:44:37.970269628Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:44:47.970489396Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:44:57.970814182Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:45:07.971046647Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:45:17.971251628Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:45:27.971558061Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:45:37.971888521Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:45:47.972229158Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:45:57.972542172Z"}
+lmha3/instances/lmha3-c5385f49 {"priority":10,"timestamp":"2026-06-01T08:46:07.972690958Z"}

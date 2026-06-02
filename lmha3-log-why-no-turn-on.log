@@ -1,0 +1,1200 @@
+Jun 02 09:30:00 lisa lmha3-start[3127804]: 2026-06-02T07:30:00.303201Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:30:10 lisa lmha3-start[3127804]: 2026-06-02T07:30:10.303225Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:30:20 lisa lmha3-start[3127804]: 2026-06-02T07:30:20.303689Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:30:30 lisa lmha3-start[3127804]: 2026-06-02T07:30:30.303981Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:30:40 lisa lmha3-start[3127804]: 2026-06-02T07:30:40.304308Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:30:50 lisa lmha3-start[3127804]: 2026-06-02T07:30:50.304685Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:31:00 lisa lmha3-start[3127804]: 2026-06-02T07:31:00.304853Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:31:05 lisa lmha3-start[3127804]: 2026-06-02T07:31:05.451990Z TRACE server: Processing House: Default House
+Jun 02 09:31:05 lisa lmha3-start[3127804]: 2026-06-02T07:31:05.457324Z DEBUG server: Saved PV telemetry for Default House: 3007
+Jun 02 09:31:05 lisa lmha3-start[3127804]: 2026-06-02T07:31:05.462072Z DEBUG server: Saved Consumption telemetry for Default House: 1269
+Jun 02 09:31:05 lisa lmha3-start[3127804]: 2026-06-02T07:31:05.464502Z TRACE server: Scheduler invoked for Default House: PV=3.0kW, Cons=1.3kW, Devices=0
+Jun 02 09:31:05 lisa lmha3-start[3127804]: 2026-06-02T07:31:05.464568Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 09:31:05 lisa lmha3-start[3127804]: 2026-06-02T07:31:05.464593Z TRACE server: Processing House: Hagenholz 81
+Jun 02 09:31:10 lisa lmha3-start[3127804]: 2026-06-02T07:31:10.305122Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:31:20 lisa lmha3-start[3127804]: 2026-06-02T07:31:20.305230Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:31:30 lisa lmha3-start[3127804]: 2026-06-02T07:31:30.305704Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:31:35 lisa lmha3-start[3127804]: 2026-06-02T07:31:35.494034Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:31:40 lisa lmha3-start[3127804]: 2026-06-02T07:31:40.305806Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:31:50 lisa lmha3-start[3127804]: 2026-06-02T07:31:50.306092Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:32:00 lisa lmha3-start[3127804]: 2026-06-02T07:32:00.306451Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:32:05 lisa lmha3-start[3127804]: 2026-06-02T07:32:05.518292Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:32:05 lisa lmha3-start[3127804]: 2026-06-02T07:32:05.524044Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 09:32:05 lisa lmha3-start[3127804]: 2026-06-02T07:32:05.524116Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 09:32:05 lisa lmha3-start[3127804]: 2026-06-02T07:32:05.524140Z TRACE server: Processing House: Hagenholz 83
+Jun 02 09:32:05 lisa lmha3-start[3127804]: 2026-06-02T07:32:05.529052Z DEBUG server: Saved PV telemetry for Hagenholz 83: 3007
+Jun 02 09:32:05 lisa lmha3-start[3127804]: 2026-06-02T07:32:05.533660Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1269
+Jun 02 09:32:05 lisa lmha3-start[3127804]: 2026-06-02T07:32:05.537900Z TRACE server: Scheduler invoked for Hagenholz 83: PV=3.0kW, Cons=1.3kW, Devices=1
+Jun 02 09:32:05 lisa lmha3-start[3127804]: 2026-06-02T07:32:05.538064Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31]
+Jun 02 09:32:05 lisa lmha3-start[3127804]: 2026-06-02T07:32:05.538119Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 09:32:10 lisa lmha3-start[3127804]: 2026-06-02T07:32:10.306174Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:32:20 lisa lmha3-start[3127804]: 2026-06-02T07:32:20.306705Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:32:30 lisa lmha3-start[3127804]: 2026-06-02T07:32:30.306885Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:32:40 lisa lmha3-start[3127804]: 2026-06-02T07:32:40.307013Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:32:48 lisa lmha3-start[3127804]: 2026-06-02T07:32:48.240721Z  INFO server: Running periodic device health check poll...
+Jun 02 09:32:50 lisa lmha3-start[3127804]: 2026-06-02T07:32:50.307306Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:33:00 lisa lmha3-start[3127804]: 2026-06-02T07:33:00.307467Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:33:10 lisa lmha3-start[3127804]: 2026-06-02T07:33:10.307666Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:33:20 lisa lmha3-start[3127804]: 2026-06-02T07:33:20.307780Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:33:30 lisa lmha3-start[3127804]: 2026-06-02T07:33:30.307916Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:33:40 lisa lmha3-start[3127804]: 2026-06-02T07:33:40.308093Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:33:50 lisa lmha3-start[3127804]: 2026-06-02T07:33:50.308376Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:34:00 lisa lmha3-start[3127804]: 2026-06-02T07:34:00.308534Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:34:10 lisa lmha3-start[3127804]: 2026-06-02T07:34:10.308669Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:34:17 lisa lmha3-start[3127804]: 2026-06-02T07:34:17.645888Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 160
+Jun 02 09:34:17 lisa lmha3-start[3127804]: 2026-06-02T07:34:17.649689Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/sys | Payload length: 395
+Jun 02 09:34:17 lisa lmha3-start[3127804]: 2026-06-02T07:34:17.652351Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/sys | Payload length: 395
+Jun 02 09:34:17 lisa lmha3-start[3127804]: 2026-06-02T07:34:17.655211Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 171
+Jun 02 09:34:20 lisa lmha3-start[3127804]: 2026-06-02T07:34:20.308852Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:34:30 lisa lmha3-start[3127804]: 2026-06-02T07:34:30.309038Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:34:40 lisa lmha3-start[3127804]: 2026-06-02T07:34:40.309193Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:34:50 lisa lmha3-start[3127804]: 2026-06-02T07:34:50.309301Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:35:00 lisa lmha3-start[3127804]: 2026-06-02T07:35:00.309465Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:35:10 lisa lmha3-start[3127804]: 2026-06-02T07:35:10.309667Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:35:20 lisa lmha3-start[3127804]: 2026-06-02T07:35:20.309780Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:35:30 lisa lmha3-start[3127804]: 2026-06-02T07:35:30.309990Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:35:40 lisa lmha3-start[3127804]: 2026-06-02T07:35:40.310139Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:35:50 lisa lmha3-start[3127804]: 2026-06-02T07:35:50.310372Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:36:00 lisa lmha3-start[3127804]: 2026-06-02T07:36:00.310433Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:36:10 lisa lmha3-start[3127804]: 2026-06-02T07:36:10.310647Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:36:20 lisa lmha3-start[3127804]: 2026-06-02T07:36:20.310825Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:36:30 lisa lmha3-start[3127804]: 2026-06-02T07:36:30.310976Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:36:40 lisa lmha3-start[3127804]: 2026-06-02T07:36:40.311105Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:36:50 lisa lmha3-start[3127804]: 2026-06-02T07:36:50.311215Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:37:00 lisa lmha3-start[3127804]: 2026-06-02T07:37:00.311480Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:37:05 lisa lmha3-start[3127804]: 2026-06-02T07:37:05.539545Z TRACE server: Processing House: Default House
+Jun 02 09:37:05 lisa lmha3-start[3127804]: 2026-06-02T07:37:05.564036Z DEBUG server: Saved PV telemetry for Default House: 3205
+Jun 02 09:37:05 lisa lmha3-start[3127804]: 2026-06-02T07:37:05.565817Z DEBUG server: Saved Consumption telemetry for Default House: 1455
+Jun 02 09:37:05 lisa lmha3-start[3127804]: 2026-06-02T07:37:05.566239Z TRACE server: Scheduler invoked for Default House: PV=3.2kW, Cons=1.5kW, Devices=0
+Jun 02 09:37:05 lisa lmha3-start[3127804]: 2026-06-02T07:37:05.566250Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 09:37:05 lisa lmha3-start[3127804]: 2026-06-02T07:37:05.566255Z TRACE server: Processing House: Hagenholz 81
+Jun 02 09:37:10 lisa lmha3-start[3127804]: 2026-06-02T07:37:10.311304Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:37:20 lisa lmha3-start[3127804]: 2026-06-02T07:37:20.311775Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:37:30 lisa lmha3-start[3127804]: 2026-06-02T07:37:30.311974Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:37:35 lisa lmha3-start[3127804]: 2026-06-02T07:37:35.568943Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:37:40 lisa lmha3-start[3127804]: 2026-06-02T07:37:40.312127Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:37:48 lisa lmha3-start[3127804]: 2026-06-02T07:37:48.242343Z  INFO server: Running periodic device health check poll...
+Jun 02 09:37:50 lisa lmha3-start[3127804]: 2026-06-02T07:37:50.312286Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:38:00 lisa lmha3-start[3127804]: 2026-06-02T07:38:00.312507Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:38:05 lisa lmha3-start[3127804]: 2026-06-02T07:38:05.598556Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:38:05 lisa lmha3-start[3127804]: 2026-06-02T07:38:05.603863Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 09:38:05 lisa lmha3-start[3127804]: 2026-06-02T07:38:05.603928Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 09:38:05 lisa lmha3-start[3127804]: 2026-06-02T07:38:05.603953Z TRACE server: Processing House: Hagenholz 83
+Jun 02 09:38:05 lisa lmha3-start[3127804]: 2026-06-02T07:38:05.609411Z DEBUG server: Saved PV telemetry for Hagenholz 83: 4274
+Jun 02 09:38:05 lisa lmha3-start[3127804]: 2026-06-02T07:38:05.614444Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1366
+Jun 02 09:38:05 lisa lmha3-start[3127804]: 2026-06-02T07:38:05.618995Z TRACE server: Scheduler invoked for Hagenholz 83: PV=4.3kW, Cons=1.4kW, Devices=1
+Jun 02 09:38:05 lisa lmha3-start[3127804]: 2026-06-02T07:38:05.619171Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31]
+Jun 02 09:38:05 lisa lmha3-start[3127804]: 2026-06-02T07:38:05.619225Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 09:38:10 lisa lmha3-start[3127804]: 2026-06-02T07:38:10.312708Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:38:20 lisa lmha3-start[3127804]: 2026-06-02T07:38:20.312919Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:38:30 lisa lmha3-start[3127804]: 2026-06-02T07:38:30.313103Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:38:40 lisa lmha3-start[3127804]: 2026-06-02T07:38:40.313295Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:38:50 lisa lmha3-start[3127804]: 2026-06-02T07:38:50.313496Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:39:00 lisa lmha3-start[3127804]: 2026-06-02T07:39:00.313664Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:39:10 lisa lmha3-start[3127804]: 2026-06-02T07:39:10.313916Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:39:20 lisa lmha3-start[3127804]: 2026-06-02T07:39:20.313993Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:39:30 lisa lmha3-start[3127804]: 2026-06-02T07:39:30.314286Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:39:40 lisa lmha3-start[3127804]: 2026-06-02T07:39:40.314464Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:39:50 lisa lmha3-start[3127804]: 2026-06-02T07:39:50.314671Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:40:00 lisa lmha3-start[3127804]: 2026-06-02T07:40:00.314843Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:40:10 lisa lmha3-start[3127804]: 2026-06-02T07:40:10.315024Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:40:20 lisa lmha3-start[3127804]: 2026-06-02T07:40:20.315079Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:40:30 lisa lmha3-start[3127804]: 2026-06-02T07:40:30.315230Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:40:40 lisa lmha3-start[3127804]: 2026-06-02T07:40:40.315371Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:40:50 lisa lmha3-start[3127804]: 2026-06-02T07:40:50.315677Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:41:00 lisa lmha3-start[3127804]: 2026-06-02T07:41:00.315797Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:41:10 lisa lmha3-start[3127804]: 2026-06-02T07:41:10.316030Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:41:20 lisa lmha3-start[3127804]: 2026-06-02T07:41:20.316067Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:41:30 lisa lmha3-start[3127804]: 2026-06-02T07:41:30.316322Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:41:40 lisa lmha3-start[3127804]: 2026-06-02T07:41:40.316589Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:41:50 lisa lmha3-start[3127804]: 2026-06-02T07:41:50.316758Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:42:00 lisa lmha3-start[3127804]: 2026-06-02T07:42:00.316973Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:42:10 lisa lmha3-start[3127804]: 2026-06-02T07:42:10.317100Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:42:20 lisa lmha3-start[3127804]: 2026-06-02T07:42:20.317429Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:42:30 lisa lmha3-start[3127804]: 2026-06-02T07:42:30.317568Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:42:40 lisa lmha3-start[3127804]: 2026-06-02T07:42:40.317687Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:42:48 lisa lmha3-start[3127804]: 2026-06-02T07:42:48.243953Z  INFO server: Running periodic device health check poll...
+Jun 02 09:42:48 lisa lmha3-start[3127804]: 2026-06-02T07:42:48.245276Z DEBUG server: Polling inactive device: Boiler
+Jun 02 09:42:48 lisa lmha3-start[3127804]: 2026-06-02T07:42:48.285306Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1141
+Jun 02 09:42:48 lisa lmha3-start[3127804]: 2026-06-02T07:42:48.285383Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 09:42:50 lisa lmha3-start[3127804]: 2026-06-02T07:42:50.317843Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:43:00 lisa lmha3-start[3127804]: 2026-06-02T07:43:00.318025Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:43:05 lisa lmha3-start[3127804]: 2026-06-02T07:43:05.620676Z TRACE server: Processing House: Default House
+Jun 02 09:43:05 lisa lmha3-start[3127804]: 2026-06-02T07:43:05.626119Z DEBUG server: Saved PV telemetry for Default House: 2477
+Jun 02 09:43:05 lisa lmha3-start[3127804]: 2026-06-02T07:43:05.630791Z DEBUG server: Saved Consumption telemetry for Default House: 1512
+Jun 02 09:43:05 lisa lmha3-start[3127804]: 2026-06-02T07:43:05.632718Z TRACE server: Scheduler invoked for Default House: PV=2.5kW, Cons=1.5kW, Devices=0
+Jun 02 09:43:05 lisa lmha3-start[3127804]: 2026-06-02T07:43:05.632769Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 09:43:05 lisa lmha3-start[3127804]: 2026-06-02T07:43:05.632795Z TRACE server: Processing House: Hagenholz 81
+Jun 02 09:43:10 lisa lmha3-start[3127804]: 2026-06-02T07:43:10.317741Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:43:20 lisa lmha3-start[3127804]: 2026-06-02T07:43:20.318317Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:43:30 lisa lmha3-start[3127804]: 2026-06-02T07:43:30.318452Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:43:35 lisa lmha3-start[3127804]: 2026-06-02T07:43:35.662391Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:43:40 lisa lmha3-start[3127804]: 2026-06-02T07:43:40.318633Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:43:50 lisa lmha3-start[3127804]: 2026-06-02T07:43:50.318867Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:44:00 lisa lmha3-start[3127804]: 2026-06-02T07:44:00.318965Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:44:05 lisa lmha3-start[3127804]: 2026-06-02T07:44:05.692039Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:44:05 lisa lmha3-start[3127804]: 2026-06-02T07:44:05.697591Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 09:44:05 lisa lmha3-start[3127804]: 2026-06-02T07:44:05.697660Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 09:44:05 lisa lmha3-start[3127804]: 2026-06-02T07:44:05.697684Z TRACE server: Processing House: Hagenholz 83
+Jun 02 09:44:05 lisa lmha3-start[3127804]: 2026-06-02T07:44:05.702816Z DEBUG server: Saved PV telemetry for Hagenholz 83: 2477
+Jun 02 09:44:05 lisa lmha3-start[3127804]: 2026-06-02T07:44:05.707211Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1512
+Jun 02 09:44:05 lisa lmha3-start[3127804]: 2026-06-02T07:44:05.711027Z TRACE server: Scheduler invoked for Hagenholz 83: PV=2.5kW, Cons=1.5kW, Devices=1
+Jun 02 09:44:05 lisa lmha3-start[3127804]: 2026-06-02T07:44:05.711199Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31]
+Jun 02 09:44:05 lisa lmha3-start[3127804]: 2026-06-02T07:44:05.711249Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 09:44:10 lisa lmha3-start[3127804]: 2026-06-02T07:44:10.319183Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:44:20 lisa lmha3-start[3127804]: 2026-06-02T07:44:20.319385Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:44:30 lisa lmha3-start[3127804]: 2026-06-02T07:44:30.319582Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:44:40 lisa lmha3-start[3127804]: 2026-06-02T07:44:40.319785Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:44:50 lisa lmha3-start[3127804]: 2026-06-02T07:44:50.319935Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:45:00 lisa lmha3-start[3127804]: 2026-06-02T07:45:00.320281Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:45:10 lisa lmha3-start[3127804]: 2026-06-02T07:45:10.320401Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:45:20 lisa lmha3-start[3127804]: 2026-06-02T07:45:20.320757Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:45:30 lisa lmha3-start[3127804]: 2026-06-02T07:45:30.321191Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:45:40 lisa lmha3-start[3127804]: 2026-06-02T07:45:40.321236Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:45:50 lisa lmha3-start[3127804]: 2026-06-02T07:45:50.321582Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:46:00 lisa lmha3-start[3127804]: 2026-06-02T07:46:00.321792Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:46:10 lisa lmha3-start[3127804]: 2026-06-02T07:46:10.322075Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:46:20 lisa lmha3-start[3127804]: 2026-06-02T07:46:20.322461Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:46:30 lisa lmha3-start[3127804]: 2026-06-02T07:46:30.322529Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:46:40 lisa lmha3-start[3127804]: 2026-06-02T07:46:40.322763Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:46:50 lisa lmha3-start[3127804]: 2026-06-02T07:46:50.322891Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:47:00 lisa lmha3-start[3127804]: 2026-06-02T07:47:00.323077Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:47:10 lisa lmha3-start[3127804]: 2026-06-02T07:47:10.323468Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:47:20 lisa lmha3-start[3127804]: 2026-06-02T07:47:20.323177Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:47:30 lisa lmha3-start[3127804]: 2026-06-02T07:47:30.323857Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:47:40 lisa lmha3-start[3127804]: 2026-06-02T07:47:40.324138Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:47:48 lisa lmha3-start[3127804]: 2026-06-02T07:47:48.245630Z  INFO server: Running periodic device health check poll...
+Jun 02 09:47:50 lisa lmha3-start[3127804]: 2026-06-02T07:47:50.324284Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:48:00 lisa lmha3-start[3127804]: 2026-06-02T07:48:00.324442Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:48:10 lisa lmha3-start[3127804]: 2026-06-02T07:48:10.324851Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:48:20 lisa lmha3-start[3127804]: 2026-06-02T07:48:20.325211Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:48:30 lisa lmha3-start[3127804]: 2026-06-02T07:48:30.325452Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:48:40 lisa lmha3-start[3127804]: 2026-06-02T07:48:40.325819Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:48:50 lisa lmha3-start[3127804]: 2026-06-02T07:48:50.326019Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:49:00 lisa lmha3-start[3127804]: 2026-06-02T07:49:00.326403Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:49:05 lisa lmha3-start[3127804]: 2026-06-02T07:49:05.712730Z TRACE server: Processing House: Default House
+Jun 02 09:49:05 lisa lmha3-start[3127804]: 2026-06-02T07:49:05.718338Z DEBUG server: Saved PV telemetry for Default House: 5332
+Jun 02 09:49:05 lisa lmha3-start[3127804]: 2026-06-02T07:49:05.722991Z DEBUG server: Saved Consumption telemetry for Default House: 1347
+Jun 02 09:49:05 lisa lmha3-start[3127804]: 2026-06-02T07:49:05.724996Z TRACE server: Scheduler invoked for Default House: PV=5.3kW, Cons=1.3kW, Devices=0
+Jun 02 09:49:05 lisa lmha3-start[3127804]: 2026-06-02T07:49:05.725046Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 09:49:05 lisa lmha3-start[3127804]: 2026-06-02T07:49:05.725070Z TRACE server: Processing House: Hagenholz 81
+Jun 02 09:49:10 lisa lmha3-start[3127804]: 2026-06-02T07:49:10.326728Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:49:20 lisa lmha3-start[3127804]: 2026-06-02T07:49:20.326817Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:49:30 lisa lmha3-start[3127804]: 2026-06-02T07:49:30.327226Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:49:35 lisa lmha3-start[3127804]: 2026-06-02T07:49:35.752991Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:49:40 lisa lmha3-start[3127804]: 2026-06-02T07:49:40.327352Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:49:50 lisa lmha3-start[3127804]: 2026-06-02T07:49:50.327618Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:50:00 lisa lmha3-start[3127804]: 2026-06-02T07:50:00.327899Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.753933Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.759569Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.759635Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.759658Z TRACE server: Processing House: Hagenholz 83
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.765054Z DEBUG server: Saved PV telemetry for Hagenholz 83: 5332
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.769916Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1347
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.774348Z TRACE server: Scheduler invoked for Hagenholz 83: PV=5.3kW, Cons=1.3kW, Devices=1
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.774504Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31]
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.774566Z  INFO server: Scheduler action for Hagenholz 83: SwitchOn(355e9fa9-0989-4230-a4b9-f5b6fad8aa14)
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.796577Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 111
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.796659Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.800217Z  INFO server: Event-driven Sync for Boiler: current=Off, desired=On
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.808712Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/switch:0 | Payload length: 77
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.812117Z  INFO server: Event-driven Sync for Boiler: current=Off, desired=On
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.815129Z  INFO server: MQTT State Update for Boiler: Off -> On
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.819864Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 169
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.925801Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1141
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.925882Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.988130Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 110
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.988244Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.991856Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1141
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.991917Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.996327Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 110
+Jun 02 09:50:05 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.996397Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 09:50:06 lisa lmha3-start[3127804]: 2026-06-02T07:50:05.999935Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1141
+Jun 02 09:50:06 lisa lmha3-start[3127804]: 2026-06-02T07:50:06.000001Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 09:50:10 lisa lmha3-start[3127804]: 2026-06-02T07:50:10.328212Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:50:20 lisa lmha3-start[3127804]: 2026-06-02T07:50:20.328609Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:50:30 lisa lmha3-start[3127804]: 2026-06-02T07:50:30.328900Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:50:40 lisa lmha3-start[3127804]: 2026-06-02T07:50:40.329247Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:50:50 lisa lmha3-start[3127804]: 2026-06-02T07:50:50.329546Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:51:00 lisa lmha3-start[3127804]: 2026-06-02T07:51:00.329878Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:51:10 lisa lmha3-start[3127804]: 2026-06-02T07:51:10.330241Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:51:20 lisa lmha3-start[3127804]: 2026-06-02T07:51:20.330605Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:51:30 lisa lmha3-start[3127804]: 2026-06-02T07:51:30.330858Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:51:40 lisa lmha3-start[3127804]: 2026-06-02T07:51:40.331220Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:51:50 lisa lmha3-start[3127804]: 2026-06-02T07:51:50.331497Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:52:00 lisa lmha3-start[3127804]: 2026-06-02T07:52:00.331836Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:52:10 lisa lmha3-start[3127804]: 2026-06-02T07:52:10.332000Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:52:20 lisa lmha3-start[3127804]: 2026-06-02T07:52:20.332189Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:52:30 lisa lmha3-start[3127804]: 2026-06-02T07:52:30.332448Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:52:40 lisa lmha3-start[3127804]: 2026-06-02T07:52:40.332863Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:52:48 lisa lmha3-start[3127804]: 2026-06-02T07:52:48.247187Z  INFO server: Running periodic device health check poll...
+Jun 02 09:52:50 lisa lmha3-start[3127804]: 2026-06-02T07:52:50.333199Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:53:00 lisa lmha3-start[3127804]: 2026-06-02T07:53:00.333293Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:53:10 lisa lmha3-start[3127804]: 2026-06-02T07:53:10.333479Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:53:20 lisa lmha3-start[3127804]: 2026-06-02T07:53:20.333870Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:53:30 lisa lmha3-start[3127804]: 2026-06-02T07:53:30.334222Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:53:40 lisa lmha3-start[3127804]: 2026-06-02T07:53:40.334585Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:53:50 lisa lmha3-start[3127804]: 2026-06-02T07:53:50.334804Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:54:00 lisa lmha3-start[3127804]: 2026-06-02T07:54:00.335133Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:54:10 lisa lmha3-start[3127804]: 2026-06-02T07:54:10.335373Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:54:20 lisa lmha3-start[3127804]: 2026-06-02T07:54:20.335696Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:54:30 lisa lmha3-start[3127804]: 2026-06-02T07:54:30.335861Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:54:40 lisa lmha3-start[3127804]: 2026-06-02T07:54:40.336307Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:54:50 lisa lmha3-start[3127804]: 2026-06-02T07:54:50.336589Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:55:00 lisa lmha3-start[3127804]: 2026-06-02T07:55:00.336812Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:55:05 lisa lmha3-start[3127804]: 2026-06-02T07:55:05.778141Z TRACE server: Processing House: Default House
+Jun 02 09:55:05 lisa lmha3-start[3127804]: 2026-06-02T07:55:05.784139Z DEBUG server: Saved PV telemetry for Default House: 5824
+Jun 02 09:55:05 lisa lmha3-start[3127804]: 2026-06-02T07:55:05.788840Z DEBUG server: Saved Consumption telemetry for Default House: 5876
+Jun 02 09:55:05 lisa lmha3-start[3127804]: 2026-06-02T07:55:05.791030Z TRACE server: Scheduler invoked for Default House: PV=5.8kW, Cons=5.9kW, Devices=0
+Jun 02 09:55:05 lisa lmha3-start[3127804]: 2026-06-02T07:55:05.791091Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 09:55:05 lisa lmha3-start[3127804]: 2026-06-02T07:55:05.791116Z TRACE server: Processing House: Hagenholz 81
+Jun 02 09:55:10 lisa lmha3-start[3127804]: 2026-06-02T07:55:10.337221Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:55:20 lisa lmha3-start[3127804]: 2026-06-02T07:55:20.337569Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:55:30 lisa lmha3-start[3127804]: 2026-06-02T07:55:30.337745Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:55:35 lisa lmha3-start[3127804]: 2026-06-02T07:55:35.809258Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:55:40 lisa lmha3-start[3127804]: 2026-06-02T07:55:40.338201Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:55:50 lisa lmha3-start[3127804]: 2026-06-02T07:55:50.338237Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:56:00 lisa lmha3-start[3127804]: 2026-06-02T07:56:00.338693Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:56:05 lisa lmha3-start[3127804]: 2026-06-02T07:56:05.838241Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 09:56:05 lisa lmha3-start[3127804]: 2026-06-02T07:56:05.843959Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 09:56:05 lisa lmha3-start[3127804]: 2026-06-02T07:56:05.844027Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 09:56:05 lisa lmha3-start[3127804]: 2026-06-02T07:56:05.844051Z TRACE server: Processing House: Hagenholz 83
+Jun 02 09:56:05 lisa lmha3-start[3127804]: 2026-06-02T07:56:05.849073Z DEBUG server: Saved PV telemetry for Hagenholz 83: 5824
+Jun 02 09:56:05 lisa lmha3-start[3127804]: 2026-06-02T07:56:05.851446Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 5876
+Jun 02 09:56:05 lisa lmha3-start[3127804]: 2026-06-02T07:56:05.855382Z TRACE server: Scheduler invoked for Hagenholz 83: PV=5.8kW, Cons=5.9kW, Devices=1
+Jun 02 09:56:05 lisa lmha3-start[3127804]: 2026-06-02T07:56:05.855553Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50]
+Jun 02 09:56:05 lisa lmha3-start[3127804]: 2026-06-02T07:56:05.855619Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 09:56:10 lisa lmha3-start[3127804]: 2026-06-02T07:56:10.338933Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:56:20 lisa lmha3-start[3127804]: 2026-06-02T07:56:20.339202Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:56:30 lisa lmha3-start[3127804]: 2026-06-02T07:56:30.339408Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:56:40 lisa lmha3-start[3127804]: 2026-06-02T07:56:40.339782Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:56:50 lisa lmha3-start[3127804]: 2026-06-02T07:56:50.340221Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:57:00 lisa lmha3-start[3127804]: 2026-06-02T07:57:00.340654Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:57:10 lisa lmha3-start[3127804]: 2026-06-02T07:57:10.340974Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:57:20 lisa lmha3-start[3127804]: 2026-06-02T07:57:20.341090Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:57:30 lisa lmha3-start[3127804]: 2026-06-02T07:57:30.340914Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:57:40 lisa lmha3-start[3127804]: 2026-06-02T07:57:40.341586Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:57:48 lisa lmha3-start[3127804]: 2026-06-02T07:57:48.249047Z  INFO server: Running periodic device health check poll...
+Jun 02 09:57:48 lisa lmha3-start[3127804]: 2026-06-02T07:57:48.250392Z DEBUG server: Polling inactive device: Boiler
+Jun 02 09:57:48 lisa lmha3-start[3127804]: 2026-06-02T07:57:48.289625Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1140
+Jun 02 09:57:48 lisa lmha3-start[3127804]: 2026-06-02T07:57:48.289702Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 09:57:50 lisa lmha3-start[3127804]: 2026-06-02T07:57:50.341860Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:58:00 lisa lmha3-start[3127804]: 2026-06-02T07:58:00.342006Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:58:10 lisa lmha3-start[3127804]: 2026-06-02T07:58:10.342440Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:58:20 lisa lmha3-start[3127804]: 2026-06-02T07:58:20.342466Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:58:30 lisa lmha3-start[3127804]: 2026-06-02T07:58:30.342852Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:58:40 lisa lmha3-start[3127804]: 2026-06-02T07:58:40.343212Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:58:42 lisa lmha3-start[3127804]: 2026-06-02T07:58:42.305614Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 177
+Jun 02 09:58:42 lisa lmha3-start[3127804]: 2026-06-02T07:58:42.310250Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/switch:0 | Payload length: 77
+Jun 02 09:58:50 lisa lmha3-start[3127804]: 2026-06-02T07:58:50.343574Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:59:00 lisa lmha3-start[3127804]: 2026-06-02T07:59:00.343827Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:59:10 lisa lmha3-start[3127804]: 2026-06-02T07:59:10.344100Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:59:20 lisa lmha3-start[3127804]: 2026-06-02T07:59:20.344368Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:59:30 lisa lmha3-start[3127804]: 2026-06-02T07:59:30.344848Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:59:40 lisa lmha3-start[3127804]: 2026-06-02T07:59:40.345204Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 09:59:50 lisa lmha3-start[3127804]: 2026-06-02T07:59:50.345471Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:00:00 lisa lmha3-start[3127804]: 2026-06-02T08:00:00.345353Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:00:10 lisa lmha3-start[3127804]: 2026-06-02T08:00:10.345825Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:00:20 lisa lmha3-start[3127804]: 2026-06-02T08:00:20.346099Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:00:30 lisa lmha3-start[3127804]: 2026-06-02T08:00:30.346441Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:00:40 lisa lmha3-start[3127804]: 2026-06-02T08:00:40.346646Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:00:50 lisa lmha3-start[3127804]: 2026-06-02T08:00:50.347094Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:01:00 lisa lmha3-start[3127804]: 2026-06-02T08:01:00.347422Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:01:05 lisa lmha3-start[3127804]: 2026-06-02T08:01:05.856984Z TRACE server: Processing House: Default House
+Jun 02 10:01:05 lisa lmha3-start[3127804]: 2026-06-02T08:01:05.862306Z DEBUG server: Saved PV telemetry for Default House: 4277
+Jun 02 10:01:05 lisa lmha3-start[3127804]: 2026-06-02T08:01:05.867018Z DEBUG server: Saved Consumption telemetry for Default House: 5940
+Jun 02 10:01:05 lisa lmha3-start[3127804]: 2026-06-02T08:01:05.869073Z TRACE server: Scheduler invoked for Default House: PV=4.3kW, Cons=5.9kW, Devices=0
+Jun 02 10:01:05 lisa lmha3-start[3127804]: 2026-06-02T08:01:05.869124Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:01:05 lisa lmha3-start[3127804]: 2026-06-02T08:01:05.869166Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:01:10 lisa lmha3-start[3127804]: 2026-06-02T08:01:10.347651Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:01:20 lisa lmha3-start[3127804]: 2026-06-02T08:01:20.347850Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:01:30 lisa lmha3-start[3127804]: 2026-06-02T08:01:30.348191Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:01:35 lisa lmha3-start[3127804]: 2026-06-02T08:01:35.898614Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:01:40 lisa lmha3-start[3127804]: 2026-06-02T08:01:40.348450Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:01:50 lisa lmha3-start[3127804]: 2026-06-02T08:01:50.348631Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:02:00 lisa lmha3-start[3127804]: 2026-06-02T08:02:00.348938Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:02:05 lisa lmha3-start[3127804]: 2026-06-02T08:02:05.923815Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:02:05 lisa lmha3-start[3127804]: 2026-06-02T08:02:05.929320Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:02:05 lisa lmha3-start[3127804]: 2026-06-02T08:02:05.929385Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:02:05 lisa lmha3-start[3127804]: 2026-06-02T08:02:05.929408Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:02:05 lisa lmha3-start[3127804]: 2026-06-02T08:02:05.934433Z DEBUG server: Saved PV telemetry for Hagenholz 83: 4277
+Jun 02 10:02:05 lisa lmha3-start[3127804]: 2026-06-02T08:02:05.938851Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 5940
+Jun 02 10:02:05 lisa lmha3-start[3127804]: 2026-06-02T08:02:05.942784Z TRACE server: Scheduler invoked for Hagenholz 83: PV=4.3kW, Cons=5.9kW, Devices=1
+Jun 02 10:02:05 lisa lmha3-start[3127804]: 2026-06-02T08:02:05.942943Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50]
+Jun 02 10:02:05 lisa lmha3-start[3127804]: 2026-06-02T08:02:05.942993Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 10:02:10 lisa lmha3-start[3127804]: 2026-06-02T08:02:10.349042Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:02:20 lisa lmha3-start[3127804]: 2026-06-02T08:02:20.349388Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:02:30 lisa lmha3-start[3127804]: 2026-06-02T08:02:30.349800Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:02:40 lisa lmha3-start[3127804]: 2026-06-02T08:02:40.350190Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:02:48 lisa lmha3-start[3127804]: 2026-06-02T08:02:48.250769Z  INFO server: Running periodic device health check poll...
+Jun 02 10:02:50 lisa lmha3-start[3127804]: 2026-06-02T08:02:50.350552Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:03:00 lisa lmha3-start[3127804]: 2026-06-02T08:03:00.350754Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:03:10 lisa lmha3-start[3127804]: 2026-06-02T08:03:10.350822Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:03:20 lisa lmha3-start[3127804]: 2026-06-02T08:03:20.351243Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:03:30 lisa lmha3-start[3127804]: 2026-06-02T08:03:30.351459Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:03:40 lisa lmha3-start[3127804]: 2026-06-02T08:03:40.351821Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:03:50 lisa lmha3-start[3127804]: 2026-06-02T08:03:50.352190Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:04:00 lisa lmha3-start[3127804]: 2026-06-02T08:04:00.352405Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:04:10 lisa lmha3-start[3127804]: 2026-06-02T08:04:10.352854Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:04:20 lisa lmha3-start[3127804]: 2026-06-02T08:04:20.353218Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:04:30 lisa lmha3-start[3127804]: 2026-06-02T08:04:30.353440Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:04:40 lisa lmha3-start[3127804]: 2026-06-02T08:04:40.353777Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:04:50 lisa lmha3-start[3127804]: 2026-06-02T08:04:50.354099Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:05:00 lisa lmha3-start[3127804]: 2026-06-02T08:05:00.354458Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:05:10 lisa lmha3-start[3127804]: 2026-06-02T08:05:10.354714Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:05:20 lisa lmha3-start[3127804]: 2026-06-02T08:05:20.355122Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:05:30 lisa lmha3-start[3127804]: 2026-06-02T08:05:30.355451Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:05:40 lisa lmha3-start[3127804]: 2026-06-02T08:05:40.355731Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:05:50 lisa lmha3-start[3127804]: 2026-06-02T08:05:50.356029Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:06:00 lisa lmha3-start[3127804]: 2026-06-02T08:06:00.356404Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:06:10 lisa lmha3-start[3127804]: 2026-06-02T08:06:10.356716Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:06:20 lisa lmha3-start[3127804]: 2026-06-02T08:06:20.357082Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:06:30 lisa lmha3-start[3127804]: 2026-06-02T08:06:30.357414Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:06:40 lisa lmha3-start[3127804]: 2026-06-02T08:06:40.357724Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:06:45 lisa lmha3-start[3127804]: 2026-06-02T08:06:45.877534Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 160
+Jun 02 10:06:45 lisa lmha3-start[3127804]: 2026-06-02T08:06:45.881397Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/sys | Payload length: 395
+Jun 02 10:06:45 lisa lmha3-start[3127804]: 2026-06-02T08:06:45.884762Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/sys | Payload length: 395
+Jun 02 10:06:45 lisa lmha3-start[3127804]: 2026-06-02T08:06:45.887781Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 171
+Jun 02 10:06:50 lisa lmha3-start[3127804]: 2026-06-02T08:06:50.358027Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:07:00 lisa lmha3-start[3127804]: 2026-06-02T08:07:00.358381Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:07:05 lisa lmha3-start[3127804]: 2026-06-02T08:07:05.944509Z TRACE server: Processing House: Default House
+Jun 02 10:07:05 lisa lmha3-start[3127804]: 2026-06-02T08:07:05.949854Z DEBUG server: Saved PV telemetry for Default House: 3084
+Jun 02 10:07:05 lisa lmha3-start[3127804]: 2026-06-02T08:07:05.954478Z DEBUG server: Saved Consumption telemetry for Default House: 5586
+Jun 02 10:07:05 lisa lmha3-start[3127804]: 2026-06-02T08:07:05.956598Z TRACE server: Scheduler invoked for Default House: PV=3.1kW, Cons=5.6kW, Devices=0
+Jun 02 10:07:05 lisa lmha3-start[3127804]: 2026-06-02T08:07:05.956647Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:07:05 lisa lmha3-start[3127804]: 2026-06-02T08:07:05.956671Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:07:10 lisa lmha3-start[3127804]: 2026-06-02T08:07:10.358401Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:07:20 lisa lmha3-start[3127804]: 2026-06-02T08:07:20.358833Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:07:30 lisa lmha3-start[3127804]: 2026-06-02T08:07:30.359192Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:07:35 lisa lmha3-start[3127804]: 2026-06-02T08:07:35.985985Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:07:40 lisa lmha3-start[3127804]: 2026-06-02T08:07:40.360004Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:07:48 lisa lmha3-start[3127804]: 2026-06-02T08:07:48.252277Z  INFO server: Running periodic device health check poll...
+Jun 02 10:07:50 lisa lmha3-start[3127804]: 2026-06-02T08:07:50.359862Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:08:00 lisa lmha3-start[3127804]: 2026-06-02T08:08:00.360226Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:08:06 lisa lmha3-start[3127804]: 2026-06-02T08:08:06.015433Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:08:06 lisa lmha3-start[3127804]: 2026-06-02T08:08:06.021084Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:08:06 lisa lmha3-start[3127804]: 2026-06-02T08:08:06.021175Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:08:06 lisa lmha3-start[3127804]: 2026-06-02T08:08:06.021204Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:08:06 lisa lmha3-start[3127804]: 2026-06-02T08:08:06.026520Z DEBUG server: Saved PV telemetry for Hagenholz 83: 3084
+Jun 02 10:08:06 lisa lmha3-start[3127804]: 2026-06-02T08:08:06.031103Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 5586
+Jun 02 10:08:06 lisa lmha3-start[3127804]: 2026-06-02T08:08:06.034947Z TRACE server: Scheduler invoked for Hagenholz 83: PV=3.1kW, Cons=5.6kW, Devices=1
+Jun 02 10:08:06 lisa lmha3-start[3127804]: 2026-06-02T08:08:06.035103Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50]
+Jun 02 10:08:06 lisa lmha3-start[3127804]: 2026-06-02T08:08:06.035169Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 10:08:10 lisa lmha3-start[3127804]: 2026-06-02T08:08:10.360511Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:08:20 lisa lmha3-start[3127804]: 2026-06-02T08:08:20.360918Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:08:30 lisa lmha3-start[3127804]: 2026-06-02T08:08:30.360967Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:08:40 lisa lmha3-start[3127804]: 2026-06-02T08:08:40.361446Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:08:50 lisa lmha3-start[3127804]: 2026-06-02T08:08:50.361720Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:09:00 lisa lmha3-start[3127804]: 2026-06-02T08:09:00.361874Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:09:10 lisa lmha3-start[3127804]: 2026-06-02T08:09:10.362074Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:09:20 lisa lmha3-start[3127804]: 2026-06-02T08:09:20.362490Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:09:30 lisa lmha3-start[3127804]: 2026-06-02T08:09:30.362779Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:09:40 lisa lmha3-start[3127804]: 2026-06-02T08:09:40.363127Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:09:50 lisa lmha3-start[3127804]: 2026-06-02T08:09:50.363422Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:10:00 lisa lmha3-start[3127804]: 2026-06-02T08:10:00.363852Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:10:10 lisa lmha3-start[3127804]: 2026-06-02T08:10:10.364189Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:10:20 lisa lmha3-start[3127804]: 2026-06-02T08:10:20.364448Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:10:30 lisa lmha3-start[3127804]: 2026-06-02T08:10:30.364826Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:10:40 lisa lmha3-start[3127804]: 2026-06-02T08:10:40.365138Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:10:50 lisa lmha3-start[3127804]: 2026-06-02T08:10:50.365527Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:11:00 lisa lmha3-start[3127804]: 2026-06-02T08:11:00.365817Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:11:10 lisa lmha3-start[3127804]: 2026-06-02T08:11:10.365967Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:11:20 lisa lmha3-start[3127804]: 2026-06-02T08:11:20.366426Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:11:30 lisa lmha3-start[3127804]: 2026-06-02T08:11:30.366709Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:11:40 lisa lmha3-start[3127804]: 2026-06-02T08:11:40.366909Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:11:50 lisa lmha3-start[3127804]: 2026-06-02T08:11:50.367233Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:12:00 lisa lmha3-start[3127804]: 2026-06-02T08:12:00.367602Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:12:10 lisa lmha3-start[3127804]: 2026-06-02T08:12:10.367885Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:12:20 lisa lmha3-start[3127804]: 2026-06-02T08:12:20.367990Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:12:30 lisa lmha3-start[3127804]: 2026-06-02T08:12:30.368366Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:12:40 lisa lmha3-start[3127804]: 2026-06-02T08:12:40.368752Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:12:48 lisa lmha3-start[3127804]: 2026-06-02T08:12:48.253900Z  INFO server: Running periodic device health check poll...
+Jun 02 10:12:48 lisa lmha3-start[3127804]: 2026-06-02T08:12:48.255277Z DEBUG server: Polling inactive device: Boiler
+Jun 02 10:12:48 lisa lmha3-start[3127804]: 2026-06-02T08:12:48.294205Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1140
+Jun 02 10:12:48 lisa lmha3-start[3127804]: 2026-06-02T08:12:48.294285Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:12:50 lisa lmha3-start[3127804]: 2026-06-02T08:12:50.368802Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:13:00 lisa lmha3-start[3127804]: 2026-06-02T08:13:00.369245Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:13:06 lisa lmha3-start[3127804]: 2026-06-02T08:13:06.036673Z TRACE server: Processing House: Default House
+Jun 02 10:13:06 lisa lmha3-start[3127804]: 2026-06-02T08:13:06.041973Z DEBUG server: Saved PV telemetry for Default House: 2147
+Jun 02 10:13:06 lisa lmha3-start[3127804]: 2026-06-02T08:13:06.046636Z DEBUG server: Saved Consumption telemetry for Default House: 5836
+Jun 02 10:13:06 lisa lmha3-start[3127804]: 2026-06-02T08:13:06.048743Z TRACE server: Scheduler invoked for Default House: PV=2.1kW, Cons=5.8kW, Devices=0
+Jun 02 10:13:06 lisa lmha3-start[3127804]: 2026-06-02T08:13:06.048793Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:13:06 lisa lmha3-start[3127804]: 2026-06-02T08:13:06.048820Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:13:10 lisa lmha3-start[3127804]: 2026-06-02T08:13:10.369523Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:13:20 lisa lmha3-start[3127804]: 2026-06-02T08:13:20.369685Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:13:30 lisa lmha3-start[3127804]: 2026-06-02T08:13:30.370075Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:13:36 lisa lmha3-start[3127804]: 2026-06-02T08:13:36.074851Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:13:40 lisa lmha3-start[3127804]: 2026-06-02T08:13:40.370142Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:13:50 lisa lmha3-start[3127804]: 2026-06-02T08:13:50.370259Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:14:00 lisa lmha3-start[3127804]: 2026-06-02T08:14:00.370502Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:14:06 lisa lmha3-start[3127804]: 2026-06-02T08:14:06.086689Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:14:06 lisa lmha3-start[3127804]: 2026-06-02T08:14:06.091911Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:14:06 lisa lmha3-start[3127804]: 2026-06-02T08:14:06.091925Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:14:06 lisa lmha3-start[3127804]: 2026-06-02T08:14:06.091930Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:14:06 lisa lmha3-start[3127804]: 2026-06-02T08:14:06.094026Z DEBUG server: Saved PV telemetry for Hagenholz 83: 2147
+Jun 02 10:14:06 lisa lmha3-start[3127804]: 2026-06-02T08:14:06.098534Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 5836
+Jun 02 10:14:06 lisa lmha3-start[3127804]: 2026-06-02T08:14:06.102363Z TRACE server: Scheduler invoked for Hagenholz 83: PV=2.1kW, Cons=5.8kW, Devices=1
+Jun 02 10:14:06 lisa lmha3-start[3127804]: 2026-06-02T08:14:06.102520Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50]
+Jun 02 10:14:06 lisa lmha3-start[3127804]: 2026-06-02T08:14:06.102570Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 10:14:10 lisa lmha3-start[3127804]: 2026-06-02T08:14:10.370716Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:14:20 lisa lmha3-start[3127804]: 2026-06-02T08:14:20.370829Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:14:30 lisa lmha3-start[3127804]: 2026-06-02T08:14:30.371095Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:14:40 lisa lmha3-start[3127804]: 2026-06-02T08:14:40.371397Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:14:50 lisa lmha3-start[3127804]: 2026-06-02T08:14:50.371664Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:15:00 lisa lmha3-start[3127804]: 2026-06-02T08:15:00.371939Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:15:10 lisa lmha3-start[3127804]: 2026-06-02T08:15:10.372318Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:15:20 lisa lmha3-start[3127804]: 2026-06-02T08:15:20.372654Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:15:30 lisa lmha3-start[3127804]: 2026-06-02T08:15:30.372884Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:15:40 lisa lmha3-start[3127804]: 2026-06-02T08:15:40.373321Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:15:50 lisa lmha3-start[3127804]: 2026-06-02T08:15:50.373662Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:16:00 lisa lmha3-start[3127804]: 2026-06-02T08:16:00.373952Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:16:10 lisa lmha3-start[3127804]: 2026-06-02T08:16:10.374233Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:16:20 lisa lmha3-start[3127804]: 2026-06-02T08:16:20.374604Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:16:30 lisa lmha3-start[3127804]: 2026-06-02T08:16:30.374932Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:16:40 lisa lmha3-start[3127804]: 2026-06-02T08:16:40.375251Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:16:50 lisa lmha3-start[3127804]: 2026-06-02T08:16:50.375628Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:17:00 lisa lmha3-start[3127804]: 2026-06-02T08:17:00.375962Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:17:10 lisa lmha3-start[3127804]: 2026-06-02T08:17:10.376303Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:17:20 lisa lmha3-start[3127804]: 2026-06-02T08:17:20.376591Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:17:30 lisa lmha3-start[3127804]: 2026-06-02T08:17:30.376897Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:17:40 lisa lmha3-start[3127804]: 2026-06-02T08:17:40.376631Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:17:48 lisa lmha3-start[3127804]: 2026-06-02T08:17:48.255626Z  INFO server: Running periodic device health check poll...
+Jun 02 10:17:50 lisa lmha3-start[3127804]: 2026-06-02T08:17:50.377131Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:18:00 lisa lmha3-start[3127804]: 2026-06-02T08:18:00.377522Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:18:10 lisa lmha3-start[3127804]: 2026-06-02T08:18:10.377815Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:18:20 lisa lmha3-start[3127804]: 2026-06-02T08:18:20.377986Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:18:30 lisa lmha3-start[3127804]: 2026-06-02T08:18:30.378102Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:18:40 lisa lmha3-start[3127804]: 2026-06-02T08:18:40.378447Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:18:50 lisa lmha3-start[3127804]: 2026-06-02T08:18:50.378854Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:19:00 lisa lmha3-start[3127804]: 2026-06-02T08:19:00.379050Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:19:06 lisa lmha3-start[3127804]: 2026-06-02T08:19:06.104033Z TRACE server: Processing House: Default House
+Jun 02 10:19:06 lisa lmha3-start[3127804]: 2026-06-02T08:19:06.109726Z DEBUG server: Saved PV telemetry for Default House: 2217
+Jun 02 10:19:06 lisa lmha3-start[3127804]: 2026-06-02T08:19:06.114316Z DEBUG server: Saved Consumption telemetry for Default House: 5656
+Jun 02 10:19:06 lisa lmha3-start[3127804]: 2026-06-02T08:19:06.116190Z TRACE server: Scheduler invoked for Default House: PV=2.2kW, Cons=5.7kW, Devices=0
+Jun 02 10:19:06 lisa lmha3-start[3127804]: 2026-06-02T08:19:06.116246Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:19:06 lisa lmha3-start[3127804]: 2026-06-02T08:19:06.116270Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:19:10 lisa lmha3-start[3127804]: 2026-06-02T08:19:10.379395Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:19:20 lisa lmha3-start[3127804]: 2026-06-02T08:19:20.379710Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:19:30 lisa lmha3-start[3127804]: 2026-06-02T08:19:30.379977Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:19:36 lisa lmha3-start[3127804]: 2026-06-02T08:19:36.126217Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:19:40 lisa lmha3-start[3127804]: 2026-06-02T08:19:40.380068Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:19:50 lisa lmha3-start[3127804]: 2026-06-02T08:19:50.380235Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:20:00 lisa lmha3-start[3127804]: 2026-06-02T08:20:00.380676Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.146825Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.152317Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.152383Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.152407Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.157487Z DEBUG server: Saved PV telemetry for Hagenholz 83: 2217
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.161986Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 5656
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.166161Z TRACE server: Scheduler invoked for Hagenholz 83: PV=2.2kW, Cons=5.7kW, Devices=1
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.166322Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50]
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.166384Z  INFO server: Scheduler action for Hagenholz 83: SwitchOff(355e9fa9-0989-4230-a4b9-f5b6fad8aa14)
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.187372Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 110
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.187452Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.191058Z  INFO server: Event-driven Sync for Boiler: current=On, desired=Off
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.201968Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/switch:0 | Payload length: 78
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.205812Z  INFO server: Event-driven Sync for Boiler: current=On, desired=Off
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.209000Z  INFO server: MQTT State Update for Boiler: On -> Off
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.212906Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 170
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.303307Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.303384Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.349718Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 111
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.349795Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.352906Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.352961Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.356424Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 111
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.356499Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.359000Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 10:20:06 lisa lmha3-start[3127804]: 2026-06-02T08:20:06.359046Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:20:10 lisa lmha3-start[3127804]: 2026-06-02T08:20:10.380940Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:20:20 lisa lmha3-start[3127804]: 2026-06-02T08:20:20.381060Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:20:30 lisa lmha3-start[3127804]: 2026-06-02T08:20:30.381382Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:20:40 lisa lmha3-start[3127804]: 2026-06-02T08:20:40.381818Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:20:50 lisa lmha3-start[3127804]: 2026-06-02T08:20:50.381948Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:21:00 lisa lmha3-start[3127804]: 2026-06-02T08:21:00.382344Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:21:10 lisa lmha3-start[3127804]: 2026-06-02T08:21:10.382480Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:21:20 lisa lmha3-start[3127804]: 2026-06-02T08:21:20.382823Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:21:30 lisa lmha3-start[3127804]: 2026-06-02T08:21:30.383218Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:21:40 lisa lmha3-start[3127804]: 2026-06-02T08:21:40.382945Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:21:50 lisa lmha3-start[3127804]: 2026-06-02T08:21:50.383643Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:22:00 lisa lmha3-start[3127804]: 2026-06-02T08:22:00.383922Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:22:10 lisa lmha3-start[3127804]: 2026-06-02T08:22:10.384254Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:22:20 lisa lmha3-start[3127804]: 2026-06-02T08:22:20.384613Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:22:30 lisa lmha3-start[3127804]: 2026-06-02T08:22:30.384900Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:22:40 lisa lmha3-start[3127804]: 2026-06-02T08:22:40.385250Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:22:48 lisa lmha3-start[3127804]: 2026-06-02T08:22:48.257234Z  INFO server: Running periodic device health check poll...
+Jun 02 10:22:50 lisa lmha3-start[3127804]: 2026-06-02T08:22:50.385336Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:23:00 lisa lmha3-start[3127804]: 2026-06-02T08:23:00.385505Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:23:10 lisa lmha3-start[3127804]: 2026-06-02T08:23:10.385790Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:23:20 lisa lmha3-start[3127804]: 2026-06-02T08:23:20.386207Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:23:30 lisa lmha3-start[3127804]: 2026-06-02T08:23:30.386389Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:23:40 lisa lmha3-start[3127804]: 2026-06-02T08:23:40.386667Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:23:50 lisa lmha3-start[3127804]: 2026-06-02T08:23:50.387005Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:24:00 lisa lmha3-start[3127804]: 2026-06-02T08:24:00.387307Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:24:10 lisa lmha3-start[3127804]: 2026-06-02T08:24:10.387684Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:24:20 lisa lmha3-start[3127804]: 2026-06-02T08:24:20.387872Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:24:30 lisa lmha3-start[3127804]: 2026-06-02T08:24:30.388234Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:24:40 lisa lmha3-start[3127804]: 2026-06-02T08:24:40.388418Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:24:50 lisa lmha3-start[3127804]: 2026-06-02T08:24:50.388866Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:25:00 lisa lmha3-start[3127804]: 2026-06-02T08:25:00.389128Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:25:06 lisa lmha3-start[3127804]: 2026-06-02T08:25:06.169741Z TRACE server: Processing House: Default House
+Jun 02 10:25:06 lisa lmha3-start[3127804]: 2026-06-02T08:25:06.175313Z DEBUG server: Saved PV telemetry for Default House: 2665
+Jun 02 10:25:06 lisa lmha3-start[3127804]: 2026-06-02T08:25:06.179996Z DEBUG server: Saved Consumption telemetry for Default House: 5746
+Jun 02 10:25:06 lisa lmha3-start[3127804]: 2026-06-02T08:25:06.182092Z TRACE server: Scheduler invoked for Default House: PV=2.7kW, Cons=5.7kW, Devices=0
+Jun 02 10:25:06 lisa lmha3-start[3127804]: 2026-06-02T08:25:06.182143Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:25:06 lisa lmha3-start[3127804]: 2026-06-02T08:25:06.182191Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:25:10 lisa lmha3-start[3127804]: 2026-06-02T08:25:10.389449Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:25:20 lisa lmha3-start[3127804]: 2026-06-02T08:25:20.389610Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:25:30 lisa lmha3-start[3127804]: 2026-06-02T08:25:30.390017Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:25:36 lisa lmha3-start[3127804]: 2026-06-02T08:25:36.194408Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:25:40 lisa lmha3-start[3127804]: 2026-06-02T08:25:40.390134Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:25:50 lisa lmha3-start[3127804]: 2026-06-02T08:25:50.390417Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:26:00 lisa lmha3-start[3127804]: 2026-06-02T08:26:00.390788Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:26:06 lisa lmha3-start[3127804]: 2026-06-02T08:26:06.197232Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:26:06 lisa lmha3-start[3127804]: 2026-06-02T08:26:06.202797Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:26:06 lisa lmha3-start[3127804]: 2026-06-02T08:26:06.202866Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:26:06 lisa lmha3-start[3127804]: 2026-06-02T08:26:06.202890Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:26:06 lisa lmha3-start[3127804]: 2026-06-02T08:26:06.208020Z DEBUG server: Saved PV telemetry for Hagenholz 83: 2665
+Jun 02 10:26:06 lisa lmha3-start[3127804]: 2026-06-02T08:26:06.212590Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 5746
+Jun 02 10:26:06 lisa lmha3-start[3127804]: 2026-06-02T08:26:06.217005Z TRACE server: Scheduler invoked for Hagenholz 83: PV=2.7kW, Cons=5.7kW, Devices=1
+Jun 02 10:26:06 lisa lmha3-start[3127804]: 2026-06-02T08:26:06.217181Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 10:26:06 lisa lmha3-start[3127804]: 2026-06-02T08:26:06.217247Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 10:26:10 lisa lmha3-start[3127804]: 2026-06-02T08:26:10.390951Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:26:20 lisa lmha3-start[3127804]: 2026-06-02T08:26:20.391289Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:26:30 lisa lmha3-start[3127804]: 2026-06-02T08:26:30.391663Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:26:40 lisa lmha3-start[3127804]: 2026-06-02T08:26:40.391826Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:26:50 lisa lmha3-start[3127804]: 2026-06-02T08:26:50.392213Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:27:00 lisa lmha3-start[3127804]: 2026-06-02T08:27:00.392622Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:27:10 lisa lmha3-start[3127804]: 2026-06-02T08:27:10.392951Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:27:20 lisa lmha3-start[3127804]: 2026-06-02T08:27:20.393237Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:27:30 lisa lmha3-start[3127804]: 2026-06-02T08:27:30.393615Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:27:40 lisa lmha3-start[3127804]: 2026-06-02T08:27:40.393919Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:27:48 lisa lmha3-start[3127804]: 2026-06-02T08:27:48.258728Z  INFO server: Running periodic device health check poll...
+Jun 02 10:27:48 lisa lmha3-start[3127804]: 2026-06-02T08:27:48.260005Z DEBUG server: Polling inactive device: Boiler
+Jun 02 10:27:48 lisa lmha3-start[3127804]: 2026-06-02T08:27:48.301455Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1141
+Jun 02 10:27:48 lisa lmha3-start[3127804]: 2026-06-02T08:27:48.301534Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:27:50 lisa lmha3-start[3127804]: 2026-06-02T08:27:50.393611Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:28:00 lisa lmha3-start[3127804]: 2026-06-02T08:28:00.394033Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:28:10 lisa lmha3-start[3127804]: 2026-06-02T08:28:10.394499Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:28:20 lisa lmha3-start[3127804]: 2026-06-02T08:28:20.394790Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:28:30 lisa lmha3-start[3127804]: 2026-06-02T08:28:30.395090Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:28:40 lisa lmha3-start[3127804]: 2026-06-02T08:28:40.395445Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:28:50 lisa lmha3-start[3127804]: 2026-06-02T08:28:50.395559Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:29:00 lisa lmha3-start[3127804]: 2026-06-02T08:29:00.395908Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:29:10 lisa lmha3-start[3127804]: 2026-06-02T08:29:10.396199Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:29:20 lisa lmha3-start[3127804]: 2026-06-02T08:29:20.396497Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:29:30 lisa lmha3-start[3127804]: 2026-06-02T08:29:30.396784Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:29:40 lisa lmha3-start[3127804]: 2026-06-02T08:29:40.397229Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:29:50 lisa lmha3-start[3127804]: 2026-06-02T08:29:50.397513Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:30:00 lisa lmha3-start[3127804]: 2026-06-02T08:30:00.397821Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:30:10 lisa lmha3-start[3127804]: 2026-06-02T08:30:10.398144Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:30:20 lisa lmha3-start[3127804]: 2026-06-02T08:30:20.398514Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:30:30 lisa lmha3-start[3127804]: 2026-06-02T08:30:30.398806Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:30:40 lisa lmha3-start[3127804]: 2026-06-02T08:30:40.399139Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:30:50 lisa lmha3-start[3127804]: 2026-06-02T08:30:50.399471Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:31:00 lisa lmha3-start[3127804]: 2026-06-02T08:31:00.399831Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:31:06 lisa lmha3-start[3127804]: 2026-06-02T08:31:06.218626Z TRACE server: Processing House: Default House
+Jun 02 10:31:06 lisa lmha3-start[3127804]: 2026-06-02T08:31:06.224094Z DEBUG server: Saved PV telemetry for Default House: 2451
+Jun 02 10:31:06 lisa lmha3-start[3127804]: 2026-06-02T08:31:06.229079Z DEBUG server: Saved Consumption telemetry for Default House: 1318
+Jun 02 10:31:06 lisa lmha3-start[3127804]: 2026-06-02T08:31:06.231046Z TRACE server: Scheduler invoked for Default House: PV=2.5kW, Cons=1.3kW, Devices=0
+Jun 02 10:31:06 lisa lmha3-start[3127804]: 2026-06-02T08:31:06.231107Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:31:06 lisa lmha3-start[3127804]: 2026-06-02T08:31:06.231132Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:31:10 lisa lmha3-start[3127804]: 2026-06-02T08:31:10.400131Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:31:20 lisa lmha3-start[3127804]: 2026-06-02T08:31:20.400326Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:31:30 lisa lmha3-start[3127804]: 2026-06-02T08:31:30.400673Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:31:36 lisa lmha3-start[3127804]: 2026-06-02T08:31:36.260734Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:31:40 lisa lmha3-start[3127804]: 2026-06-02T08:31:40.400986Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:31:50 lisa lmha3-start[3127804]: 2026-06-02T08:31:50.401369Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:32:00 lisa lmha3-start[3127804]: 2026-06-02T08:32:00.401655Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:32:06 lisa lmha3-start[3127804]: 2026-06-02T08:32:06.290396Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:32:06 lisa lmha3-start[3127804]: 2026-06-02T08:32:06.296014Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:32:06 lisa lmha3-start[3127804]: 2026-06-02T08:32:06.296089Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:32:06 lisa lmha3-start[3127804]: 2026-06-02T08:32:06.296114Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:32:06 lisa lmha3-start[3127804]: 2026-06-02T08:32:06.298753Z DEBUG server: Saved PV telemetry for Hagenholz 83: 2451
+Jun 02 10:32:06 lisa lmha3-start[3127804]: 2026-06-02T08:32:06.303320Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1318
+Jun 02 10:32:06 lisa lmha3-start[3127804]: 2026-06-02T08:32:06.308014Z TRACE server: Scheduler invoked for Hagenholz 83: PV=2.5kW, Cons=1.3kW, Devices=1
+Jun 02 10:32:06 lisa lmha3-start[3127804]: 2026-06-02T08:32:06.308209Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 10:32:06 lisa lmha3-start[3127804]: 2026-06-02T08:32:06.308271Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 10:32:10 lisa lmha3-start[3127804]: 2026-06-02T08:32:10.401961Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:32:20 lisa lmha3-start[3127804]: 2026-06-02T08:32:20.402088Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:32:30 lisa lmha3-start[3127804]: 2026-06-02T08:32:30.402531Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:32:40 lisa lmha3-start[3127804]: 2026-06-02T08:32:40.402828Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:32:48 lisa lmha3-start[3127804]: 2026-06-02T08:32:48.260380Z  INFO server: Running periodic device health check poll...
+Jun 02 10:32:50 lisa lmha3-start[3127804]: 2026-06-02T08:32:50.403186Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:33:00 lisa lmha3-start[3127804]: 2026-06-02T08:33:00.403485Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:33:10 lisa lmha3-start[3127804]: 2026-06-02T08:33:10.403867Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:33:20 lisa lmha3-start[3127804]: 2026-06-02T08:33:20.404201Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:33:30 lisa lmha3-start[3127804]: 2026-06-02T08:33:30.404536Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:33:40 lisa lmha3-start[3127804]: 2026-06-02T08:33:40.404835Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:33:50 lisa lmha3-start[3127804]: 2026-06-02T08:33:50.405189Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:34:00 lisa lmha3-start[3127804]: 2026-06-02T08:34:00.405457Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:34:10 lisa lmha3-start[3127804]: 2026-06-02T08:34:10.405797Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:34:10 lisa lmha3-start[3127804]: 2026-06-02T08:34:10.513800Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 160
+Jun 02 10:34:10 lisa lmha3-start[3127804]: 2026-06-02T08:34:10.518260Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/sys | Payload length: 395
+Jun 02 10:34:10 lisa lmha3-start[3127804]: 2026-06-02T08:34:10.521997Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/sys | Payload length: 395
+Jun 02 10:34:10 lisa lmha3-start[3127804]: 2026-06-02T08:34:10.525105Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 171
+Jun 02 10:34:20 lisa lmha3-start[3127804]: 2026-06-02T08:34:20.406121Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:34:30 lisa lmha3-start[3127804]: 2026-06-02T08:34:30.406471Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:34:40 lisa lmha3-start[3127804]: 2026-06-02T08:34:40.406825Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:34:50 lisa lmha3-start[3127804]: 2026-06-02T08:34:50.407193Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:35:00 lisa lmha3-start[3127804]: 2026-06-02T08:35:00.407449Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:35:10 lisa lmha3-start[3127804]: 2026-06-02T08:35:10.407653Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:35:20 lisa lmha3-start[3127804]: 2026-06-02T08:35:20.407828Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:35:30 lisa lmha3-start[3127804]: 2026-06-02T08:35:30.408224Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:35:40 lisa lmha3-start[3127804]: 2026-06-02T08:35:40.408338Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:35:50 lisa lmha3-start[3127804]: 2026-06-02T08:35:50.408694Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:36:00 lisa lmha3-start[3127804]: 2026-06-02T08:36:00.409037Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:36:10 lisa lmha3-start[3127804]: 2026-06-02T08:36:10.409346Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:36:20 lisa lmha3-start[3127804]: 2026-06-02T08:36:20.409687Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:36:30 lisa lmha3-start[3127804]: 2026-06-02T08:36:30.409848Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:36:40 lisa lmha3-start[3127804]: 2026-06-02T08:36:40.410146Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:36:50 lisa lmha3-start[3127804]: 2026-06-02T08:36:50.410451Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:37:00 lisa lmha3-start[3127804]: 2026-06-02T08:37:00.410812Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:37:06 lisa lmha3-start[3127804]: 2026-06-02T08:37:06.309480Z TRACE server: Processing House: Default House
+Jun 02 10:37:06 lisa lmha3-start[3127804]: 2026-06-02T08:37:06.314945Z DEBUG server: Saved PV telemetry for Default House: 2546
+Jun 02 10:37:06 lisa lmha3-start[3127804]: 2026-06-02T08:37:06.319482Z DEBUG server: Saved Consumption telemetry for Default House: 1116
+Jun 02 10:37:06 lisa lmha3-start[3127804]: 2026-06-02T08:37:06.321620Z TRACE server: Scheduler invoked for Default House: PV=2.5kW, Cons=1.1kW, Devices=0
+Jun 02 10:37:06 lisa lmha3-start[3127804]: 2026-06-02T08:37:06.321673Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:37:06 lisa lmha3-start[3127804]: 2026-06-02T08:37:06.321697Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:37:10 lisa lmha3-start[3127804]: 2026-06-02T08:37:10.411117Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:37:20 lisa lmha3-start[3127804]: 2026-06-02T08:37:20.411326Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:37:30 lisa lmha3-start[3127804]: 2026-06-02T08:37:30.411539Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:37:36 lisa lmha3-start[3127804]: 2026-06-02T08:37:36.348217Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:37:40 lisa lmha3-start[3127804]: 2026-06-02T08:37:40.411872Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:37:48 lisa lmha3-start[3127804]: 2026-06-02T08:37:48.261990Z  INFO server: Running periodic device health check poll...
+Jun 02 10:37:50 lisa lmha3-start[3127804]: 2026-06-02T08:37:50.411923Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:38:00 lisa lmha3-start[3127804]: 2026-06-02T08:38:00.411745Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:38:06 lisa lmha3-start[3127804]: 2026-06-02T08:38:06.370403Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:38:06 lisa lmha3-start[3127804]: 2026-06-02T08:38:06.375721Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:38:06 lisa lmha3-start[3127804]: 2026-06-02T08:38:06.375777Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:38:06 lisa lmha3-start[3127804]: 2026-06-02T08:38:06.375800Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:38:06 lisa lmha3-start[3127804]: 2026-06-02T08:38:06.380913Z DEBUG server: Saved PV telemetry for Hagenholz 83: 2546
+Jun 02 10:38:06 lisa lmha3-start[3127804]: 2026-06-02T08:38:06.385392Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1116
+Jun 02 10:38:06 lisa lmha3-start[3127804]: 2026-06-02T08:38:06.389681Z TRACE server: Scheduler invoked for Hagenholz 83: PV=2.5kW, Cons=1.1kW, Devices=1
+Jun 02 10:38:06 lisa lmha3-start[3127804]: 2026-06-02T08:38:06.389843Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 10:38:06 lisa lmha3-start[3127804]: 2026-06-02T08:38:06.389904Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 10:38:10 lisa lmha3-start[3127804]: 2026-06-02T08:38:10.411862Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:38:20 lisa lmha3-start[3127804]: 2026-06-02T08:38:20.412621Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:38:30 lisa lmha3-start[3127804]: 2026-06-02T08:38:30.412931Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:38:40 lisa lmha3-start[3127804]: 2026-06-02T08:38:40.413232Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:38:50 lisa lmha3-start[3127804]: 2026-06-02T08:38:50.413572Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:39:00 lisa lmha3-start[3127804]: 2026-06-02T08:39:00.413743Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:39:10 lisa lmha3-start[3127804]: 2026-06-02T08:39:10.413931Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:39:20 lisa lmha3-start[3127804]: 2026-06-02T08:39:20.414109Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:39:30 lisa lmha3-start[3127804]: 2026-06-02T08:39:30.414453Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:39:40 lisa lmha3-start[3127804]: 2026-06-02T08:39:40.414547Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:39:50 lisa lmha3-start[3127804]: 2026-06-02T08:39:50.414948Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:40:00 lisa lmha3-start[3127804]: 2026-06-02T08:40:00.415310Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:40:10 lisa lmha3-start[3127804]: 2026-06-02T08:40:10.415436Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:40:20 lisa lmha3-start[3127804]: 2026-06-02T08:40:20.415685Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:40:30 lisa lmha3-start[3127804]: 2026-06-02T08:40:30.415779Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:40:40 lisa lmha3-start[3127804]: 2026-06-02T08:40:40.416123Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:40:50 lisa lmha3-start[3127804]: 2026-06-02T08:40:50.416399Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:41:00 lisa lmha3-start[3127804]: 2026-06-02T08:41:00.416787Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:41:10 lisa lmha3-start[3127804]: 2026-06-02T08:41:10.417143Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:41:20 lisa lmha3-start[3127804]: 2026-06-02T08:41:20.417421Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:41:30 lisa lmha3-start[3127804]: 2026-06-02T08:41:30.417688Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:41:40 lisa lmha3-start[3127804]: 2026-06-02T08:41:40.417859Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:41:50 lisa lmha3-start[3127804]: 2026-06-02T08:41:50.418233Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:42:00 lisa lmha3-start[3127804]: 2026-06-02T08:42:00.418589Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:42:10 lisa lmha3-start[3127804]: 2026-06-02T08:42:10.418859Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:42:20 lisa lmha3-start[3127804]: 2026-06-02T08:42:20.419021Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:42:30 lisa lmha3-start[3127804]: 2026-06-02T08:42:30.419239Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:42:40 lisa lmha3-start[3127804]: 2026-06-02T08:42:40.419385Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:42:48 lisa lmha3-start[3127804]: 2026-06-02T08:42:48.263642Z  INFO server: Running periodic device health check poll...
+Jun 02 10:42:48 lisa lmha3-start[3127804]: 2026-06-02T08:42:48.264948Z DEBUG server: Polling inactive device: Boiler
+Jun 02 10:42:48 lisa lmha3-start[3127804]: 2026-06-02T08:42:48.304435Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1141
+Jun 02 10:42:48 lisa lmha3-start[3127804]: 2026-06-02T08:42:48.304512Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:42:50 lisa lmha3-start[3127804]: 2026-06-02T08:42:50.419447Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:43:00 lisa lmha3-start[3127804]: 2026-06-02T08:43:00.419836Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:43:06 lisa lmha3-start[3127804]: 2026-06-02T08:43:06.391330Z TRACE server: Processing House: Default House
+Jun 02 10:43:06 lisa lmha3-start[3127804]: 2026-06-02T08:43:06.396636Z DEBUG server: Saved PV telemetry for Default House: 3314
+Jun 02 10:43:06 lisa lmha3-start[3127804]: 2026-06-02T08:43:06.401254Z DEBUG server: Saved Consumption telemetry for Default House: 1295
+Jun 02 10:43:06 lisa lmha3-start[3127804]: 2026-06-02T08:43:06.403405Z TRACE server: Scheduler invoked for Default House: PV=3.3kW, Cons=1.3kW, Devices=0
+Jun 02 10:43:06 lisa lmha3-start[3127804]: 2026-06-02T08:43:06.403459Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:43:06 lisa lmha3-start[3127804]: 2026-06-02T08:43:06.403484Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:43:10 lisa lmha3-start[3127804]: 2026-06-02T08:43:10.420136Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:43:20 lisa lmha3-start[3127804]: 2026-06-02T08:43:20.420440Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:43:30 lisa lmha3-start[3127804]: 2026-06-02T08:43:30.420656Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:43:36 lisa lmha3-start[3127804]: 2026-06-02T08:43:36.404466Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:43:40 lisa lmha3-start[3127804]: 2026-06-02T08:43:40.420825Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:43:50 lisa lmha3-start[3127804]: 2026-06-02T08:43:50.421084Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:44:00 lisa lmha3-start[3127804]: 2026-06-02T08:44:00.421452Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:44:06 lisa lmha3-start[3127804]: 2026-06-02T08:44:06.408051Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:44:06 lisa lmha3-start[3127804]: 2026-06-02T08:44:06.413531Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:44:06 lisa lmha3-start[3127804]: 2026-06-02T08:44:06.413596Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:44:06 lisa lmha3-start[3127804]: 2026-06-02T08:44:06.413621Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:44:06 lisa lmha3-start[3127804]: 2026-06-02T08:44:06.418994Z DEBUG server: Saved PV telemetry for Hagenholz 83: 3314
+Jun 02 10:44:06 lisa lmha3-start[3127804]: 2026-06-02T08:44:06.423565Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1295
+Jun 02 10:44:06 lisa lmha3-start[3127804]: 2026-06-02T08:44:06.428395Z TRACE server: Scheduler invoked for Hagenholz 83: PV=3.3kW, Cons=1.3kW, Devices=1
+Jun 02 10:44:06 lisa lmha3-start[3127804]: 2026-06-02T08:44:06.428568Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 10:44:06 lisa lmha3-start[3127804]: 2026-06-02T08:44:06.428622Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 10:44:10 lisa lmha3-start[3127804]: 2026-06-02T08:44:10.421724Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:44:20 lisa lmha3-start[3127804]: 2026-06-02T08:44:20.422026Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:44:30 lisa lmha3-start[3127804]: 2026-06-02T08:44:30.422243Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:44:40 lisa lmha3-start[3127804]: 2026-06-02T08:44:40.422597Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:44:50 lisa lmha3-start[3127804]: 2026-06-02T08:44:50.422777Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:45:00 lisa lmha3-start[3127804]: 2026-06-02T08:45:00.423130Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:45:10 lisa lmha3-start[3127804]: 2026-06-02T08:45:10.423457Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:45:20 lisa lmha3-start[3127804]: 2026-06-02T08:45:20.423613Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:45:30 lisa lmha3-start[3127804]: 2026-06-02T08:45:30.423824Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:45:40 lisa lmha3-start[3127804]: 2026-06-02T08:45:40.424065Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:45:50 lisa lmha3-start[3127804]: 2026-06-02T08:45:50.424216Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:46:00 lisa lmha3-start[3127804]: 2026-06-02T08:46:00.424478Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:46:10 lisa lmha3-start[3127804]: 2026-06-02T08:46:10.424713Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:46:20 lisa lmha3-start[3127804]: 2026-06-02T08:46:20.425114Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:46:30 lisa lmha3-start[3127804]: 2026-06-02T08:46:30.425417Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:46:40 lisa lmha3-start[3127804]: 2026-06-02T08:46:40.425718Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:46:50 lisa lmha3-start[3127804]: 2026-06-02T08:46:50.426043Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:47:00 lisa lmha3-start[3127804]: 2026-06-02T08:47:00.426269Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:47:10 lisa lmha3-start[3127804]: 2026-06-02T08:47:10.426434Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:47:20 lisa lmha3-start[3127804]: 2026-06-02T08:47:20.426699Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:47:30 lisa lmha3-start[3127804]: 2026-06-02T08:47:30.426959Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:47:40 lisa lmha3-start[3127804]: 2026-06-02T08:47:40.427114Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:47:48 lisa lmha3-start[3127804]: 2026-06-02T08:47:48.265304Z  INFO server: Running periodic device health check poll...
+Jun 02 10:47:50 lisa lmha3-start[3127804]: 2026-06-02T08:47:50.427223Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:48:00 lisa lmha3-start[3127804]: 2026-06-02T08:48:00.427650Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:48:10 lisa lmha3-start[3127804]: 2026-06-02T08:48:10.427638Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:48:20 lisa lmha3-start[3127804]: 2026-06-02T08:48:20.427962Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:48:30 lisa lmha3-start[3127804]: 2026-06-02T08:48:30.428359Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:48:40 lisa lmha3-start[3127804]: 2026-06-02T08:48:40.428407Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:48:50 lisa lmha3-start[3127804]: 2026-06-02T08:48:50.428836Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:48:53 lisa lmha3-start[3127804]: 2026-06-02T08:48:53.263076Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 177
+Jun 02 10:48:53 lisa lmha3-start[3127804]: 2026-06-02T08:48:53.265556Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/switch:0 | Payload length: 78
+Jun 02 10:49:00 lisa lmha3-start[3127804]: 2026-06-02T08:49:00.429184Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:49:06 lisa lmha3-start[3127804]: 2026-06-02T08:49:06.429960Z TRACE server: Processing House: Default House
+Jun 02 10:49:06 lisa lmha3-start[3127804]: 2026-06-02T08:49:06.435299Z DEBUG server: Saved PV telemetry for Default House: 4013
+Jun 02 10:49:06 lisa lmha3-start[3127804]: 2026-06-02T08:49:06.439913Z DEBUG server: Saved Consumption telemetry for Default House: 1694
+Jun 02 10:49:06 lisa lmha3-start[3127804]: 2026-06-02T08:49:06.442012Z TRACE server: Scheduler invoked for Default House: PV=4.0kW, Cons=1.7kW, Devices=0
+Jun 02 10:49:06 lisa lmha3-start[3127804]: 2026-06-02T08:49:06.442063Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:49:06 lisa lmha3-start[3127804]: 2026-06-02T08:49:06.442087Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:49:10 lisa lmha3-start[3127804]: 2026-06-02T08:49:10.429346Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:49:20 lisa lmha3-start[3127804]: 2026-06-02T08:49:20.429678Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:49:30 lisa lmha3-start[3127804]: 2026-06-02T08:49:30.429937Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:49:36 lisa lmha3-start[3127804]: 2026-06-02T08:49:36.447765Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:49:40 lisa lmha3-start[3127804]: 2026-06-02T08:49:40.430068Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:49:50 lisa lmha3-start[3127804]: 2026-06-02T08:49:50.430258Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:50:00 lisa lmha3-start[3127804]: 2026-06-02T08:50:00.430429Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:50:06 lisa lmha3-start[3127804]: 2026-06-02T08:50:06.448896Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:50:06 lisa lmha3-start[3127804]: 2026-06-02T08:50:06.454598Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:50:06 lisa lmha3-start[3127804]: 2026-06-02T08:50:06.454666Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:50:06 lisa lmha3-start[3127804]: 2026-06-02T08:50:06.454690Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:50:06 lisa lmha3-start[3127804]: 2026-06-02T08:50:06.458911Z DEBUG server: Saved PV telemetry for Hagenholz 83: 4013
+Jun 02 10:50:06 lisa lmha3-start[3127804]: 2026-06-02T08:50:06.462518Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1694
+Jun 02 10:50:06 lisa lmha3-start[3127804]: 2026-06-02T08:50:06.466378Z TRACE server: Scheduler invoked for Hagenholz 83: PV=4.0kW, Cons=1.7kW, Devices=1
+Jun 02 10:50:06 lisa lmha3-start[3127804]: 2026-06-02T08:50:06.466527Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 10:50:06 lisa lmha3-start[3127804]: 2026-06-02T08:50:06.466574Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 10:50:10 lisa lmha3-start[3127804]: 2026-06-02T08:50:10.430817Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:50:20 lisa lmha3-start[3127804]: 2026-06-02T08:50:20.430938Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:50:30 lisa lmha3-start[3127804]: 2026-06-02T08:50:30.431334Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:50:40 lisa lmha3-start[3127804]: 2026-06-02T08:50:40.431576Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:50:50 lisa lmha3-start[3127804]: 2026-06-02T08:50:50.431639Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:51:00 lisa lmha3-start[3127804]: 2026-06-02T08:51:00.431933Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:51:10 lisa lmha3-start[3127804]: 2026-06-02T08:51:10.432325Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:51:20 lisa lmha3-start[3127804]: 2026-06-02T08:51:20.432594Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:51:30 lisa lmha3-start[3127804]: 2026-06-02T08:51:30.432906Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:51:40 lisa lmha3-start[3127804]: 2026-06-02T08:51:40.433251Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:51:50 lisa lmha3-start[3127804]: 2026-06-02T08:51:50.433631Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:52:00 lisa lmha3-start[3127804]: 2026-06-02T08:52:00.433955Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:52:10 lisa lmha3-start[3127804]: 2026-06-02T08:52:10.433953Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:52:20 lisa lmha3-start[3127804]: 2026-06-02T08:52:20.434444Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:52:30 lisa lmha3-start[3127804]: 2026-06-02T08:52:30.434745Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:52:40 lisa lmha3-start[3127804]: 2026-06-02T08:52:40.435070Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:52:48 lisa lmha3-start[3127804]: 2026-06-02T08:52:48.266782Z  INFO server: Running periodic device health check poll...
+Jun 02 10:52:50 lisa lmha3-start[3127804]: 2026-06-02T08:52:50.435450Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:53:00 lisa lmha3-start[3127804]: 2026-06-02T08:53:00.435633Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:53:10 lisa lmha3-start[3127804]: 2026-06-02T08:53:10.435831Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:53:20 lisa lmha3-start[3127804]: 2026-06-02T08:53:20.435977Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:53:30 lisa lmha3-start[3127804]: 2026-06-02T08:53:30.436255Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:53:40 lisa lmha3-start[3127804]: 2026-06-02T08:53:40.436663Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:53:50 lisa lmha3-start[3127804]: 2026-06-02T08:53:50.436904Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:54:00 lisa lmha3-start[3127804]: 2026-06-02T08:54:00.436999Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:54:10 lisa lmha3-start[3127804]: 2026-06-02T08:54:10.437410Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:54:20 lisa lmha3-start[3127804]: 2026-06-02T08:54:20.437505Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:54:30 lisa lmha3-start[3127804]: 2026-06-02T08:54:30.437924Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:54:40 lisa lmha3-start[3127804]: 2026-06-02T08:54:40.438234Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:54:50 lisa lmha3-start[3127804]: 2026-06-02T08:54:50.438600Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:55:00 lisa lmha3-start[3127804]: 2026-06-02T08:55:00.438947Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:55:06 lisa lmha3-start[3127804]: 2026-06-02T08:55:06.467925Z TRACE server: Processing House: Default House
+Jun 02 10:55:06 lisa lmha3-start[3127804]: 2026-06-02T08:55:06.473091Z DEBUG server: Saved PV telemetry for Default House: 3815
+Jun 02 10:55:06 lisa lmha3-start[3127804]: 2026-06-02T08:55:06.477756Z DEBUG server: Saved Consumption telemetry for Default House: 1455
+Jun 02 10:55:06 lisa lmha3-start[3127804]: 2026-06-02T08:55:06.479670Z TRACE server: Scheduler invoked for Default House: PV=3.8kW, Cons=1.5kW, Devices=0
+Jun 02 10:55:06 lisa lmha3-start[3127804]: 2026-06-02T08:55:06.479720Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 10:55:06 lisa lmha3-start[3127804]: 2026-06-02T08:55:06.479745Z TRACE server: Processing House: Hagenholz 81
+Jun 02 10:55:10 lisa lmha3-start[3127804]: 2026-06-02T08:55:10.439040Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:55:20 lisa lmha3-start[3127804]: 2026-06-02T08:55:20.439422Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:55:30 lisa lmha3-start[3127804]: 2026-06-02T08:55:30.439791Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:55:36 lisa lmha3-start[3127804]: 2026-06-02T08:55:36.509048Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:55:40 lisa lmha3-start[3127804]: 2026-06-02T08:55:40.440113Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:55:50 lisa lmha3-start[3127804]: 2026-06-02T08:55:50.440297Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:56:00 lisa lmha3-start[3127804]: 2026-06-02T08:56:00.440671Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:56:06 lisa lmha3-start[3127804]: 2026-06-02T08:56:06.519844Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 10:56:06 lisa lmha3-start[3127804]: 2026-06-02T08:56:06.521234Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 10:56:06 lisa lmha3-start[3127804]: 2026-06-02T08:56:06.521247Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 10:56:06 lisa lmha3-start[3127804]: 2026-06-02T08:56:06.521252Z TRACE server: Processing House: Hagenholz 83
+Jun 02 10:56:06 lisa lmha3-start[3127804]: 2026-06-02T08:56:06.523226Z DEBUG server: Saved PV telemetry for Hagenholz 83: 3815
+Jun 02 10:56:06 lisa lmha3-start[3127804]: 2026-06-02T08:56:06.524930Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1455
+Jun 02 10:56:06 lisa lmha3-start[3127804]: 2026-06-02T08:56:06.525980Z TRACE server: Scheduler invoked for Hagenholz 83: PV=3.8kW, Cons=1.5kW, Devices=1
+Jun 02 10:56:06 lisa lmha3-start[3127804]: 2026-06-02T08:56:06.526020Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 10:56:06 lisa lmha3-start[3127804]: 2026-06-02T08:56:06.526034Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 10:56:10 lisa lmha3-start[3127804]: 2026-06-02T08:56:10.440983Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:56:20 lisa lmha3-start[3127804]: 2026-06-02T08:56:20.441362Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:56:30 lisa lmha3-start[3127804]: 2026-06-02T08:56:30.441449Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:56:40 lisa lmha3-start[3127804]: 2026-06-02T08:56:40.441559Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:56:50 lisa lmha3-start[3127804]: 2026-06-02T08:56:50.441784Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:57:00 lisa lmha3-start[3127804]: 2026-06-02T08:57:00.442207Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:57:10 lisa lmha3-start[3127804]: 2026-06-02T08:57:10.442380Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:57:20 lisa lmha3-start[3127804]: 2026-06-02T08:57:20.442600Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:57:30 lisa lmha3-start[3127804]: 2026-06-02T08:57:30.442928Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:57:40 lisa lmha3-start[3127804]: 2026-06-02T08:57:40.443108Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:57:48 lisa lmha3-start[3127804]: 2026-06-02T08:57:48.268397Z  INFO server: Running periodic device health check poll...
+Jun 02 10:57:48 lisa lmha3-start[3127804]: 2026-06-02T08:57:48.269708Z DEBUG server: Polling inactive device: Boiler
+Jun 02 10:57:48 lisa lmha3-start[3127804]: 2026-06-02T08:57:48.309019Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1141
+Jun 02 10:57:48 lisa lmha3-start[3127804]: 2026-06-02T08:57:48.309088Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 10:57:50 lisa lmha3-start[3127804]: 2026-06-02T08:57:50.443482Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:58:00 lisa lmha3-start[3127804]: 2026-06-02T08:58:00.443659Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:58:10 lisa lmha3-start[3127804]: 2026-06-02T08:58:10.443997Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:58:20 lisa lmha3-start[3127804]: 2026-06-02T08:58:20.444121Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:58:30 lisa lmha3-start[3127804]: 2026-06-02T08:58:30.444502Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:58:40 lisa lmha3-start[3127804]: 2026-06-02T08:58:40.444690Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:58:50 lisa lmha3-start[3127804]: 2026-06-02T08:58:50.444989Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:59:00 lisa lmha3-start[3127804]: 2026-06-02T08:59:00.445299Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:59:10 lisa lmha3-start[3127804]: 2026-06-02T08:59:10.445637Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:59:20 lisa lmha3-start[3127804]: 2026-06-02T08:59:20.445818Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:59:30 lisa lmha3-start[3127804]: 2026-06-02T08:59:30.446189Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:59:40 lisa lmha3-start[3127804]: 2026-06-02T08:59:40.446305Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 10:59:50 lisa lmha3-start[3127804]: 2026-06-02T08:59:50.446655Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:00:00 lisa lmha3-start[3127804]: 2026-06-02T09:00:00.446714Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:00:10 lisa lmha3-start[3127804]: 2026-06-02T09:00:10.446901Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:00:20 lisa lmha3-start[3127804]: 2026-06-02T09:00:20.447262Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:00:30 lisa lmha3-start[3127804]: 2026-06-02T09:00:30.447641Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:00:40 lisa lmha3-start[3127804]: 2026-06-02T09:00:40.447961Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:00:50 lisa lmha3-start[3127804]: 2026-06-02T09:00:50.448248Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:01:00 lisa lmha3-start[3127804]: 2026-06-02T09:01:00.448648Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:01:06 lisa lmha3-start[3127804]: 2026-06-02T09:01:06.527555Z TRACE server: Processing House: Default House
+Jun 02 11:01:06 lisa lmha3-start[3127804]: 2026-06-02T09:01:06.533100Z DEBUG server: Saved PV telemetry for Default House: 3973
+Jun 02 11:01:06 lisa lmha3-start[3127804]: 2026-06-02T09:01:06.537816Z DEBUG server: Saved Consumption telemetry for Default House: 1461
+Jun 02 11:01:06 lisa lmha3-start[3127804]: 2026-06-02T09:01:06.539627Z TRACE server: Scheduler invoked for Default House: PV=4.0kW, Cons=1.5kW, Devices=0
+Jun 02 11:01:06 lisa lmha3-start[3127804]: 2026-06-02T09:01:06.539679Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 11:01:06 lisa lmha3-start[3127804]: 2026-06-02T09:01:06.539703Z TRACE server: Processing House: Hagenholz 81
+Jun 02 11:01:10 lisa lmha3-start[3127804]: 2026-06-02T09:01:10.448896Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:01:20 lisa lmha3-start[3127804]: 2026-06-02T09:01:20.449230Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:01:30 lisa lmha3-start[3127804]: 2026-06-02T09:01:30.449337Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:01:36 lisa lmha3-start[3127804]: 2026-06-02T09:01:36.555450Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 11:01:40 lisa lmha3-start[3127804]: 2026-06-02T09:01:40.449698Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:01:50 lisa lmha3-start[3127804]: 2026-06-02T09:01:50.449845Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:02:00 lisa lmha3-start[3127804]: 2026-06-02T09:02:00.449959Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:02:06 lisa lmha3-start[3127804]: 2026-06-02T09:02:06.585068Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 11:02:06 lisa lmha3-start[3127804]: 2026-06-02T09:02:06.590707Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 11:02:06 lisa lmha3-start[3127804]: 2026-06-02T09:02:06.590772Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 11:02:06 lisa lmha3-start[3127804]: 2026-06-02T09:02:06.590797Z TRACE server: Processing House: Hagenholz 83
+Jun 02 11:02:06 lisa lmha3-start[3127804]: 2026-06-02T09:02:06.595941Z DEBUG server: Saved PV telemetry for Hagenholz 83: 3973
+Jun 02 11:02:06 lisa lmha3-start[3127804]: 2026-06-02T09:02:06.600410Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1461
+Jun 02 11:02:06 lisa lmha3-start[3127804]: 2026-06-02T09:02:06.605001Z TRACE server: Scheduler invoked for Hagenholz 83: PV=4.0kW, Cons=1.5kW, Devices=1
+Jun 02 11:02:06 lisa lmha3-start[3127804]: 2026-06-02T09:02:06.605202Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 11:02:06 lisa lmha3-start[3127804]: 2026-06-02T09:02:06.605261Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 11:02:10 lisa lmha3-start[3127804]: 2026-06-02T09:02:10.450377Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:02:20 lisa lmha3-start[3127804]: 2026-06-02T09:02:20.450703Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:02:30 lisa lmha3-start[3127804]: 2026-06-02T09:02:30.450983Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:02:40 lisa lmha3-start[3127804]: 2026-06-02T09:02:40.451358Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:02:48 lisa lmha3-start[3127804]: 2026-06-02T09:02:48.270073Z  INFO server: Running periodic device health check poll...
+Jun 02 11:02:50 lisa lmha3-start[3127804]: 2026-06-02T09:02:50.451656Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:03:00 lisa lmha3-start[3127804]: 2026-06-02T09:03:00.451950Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:03:10 lisa lmha3-start[3127804]: 2026-06-02T09:03:10.452264Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:03:20 lisa lmha3-start[3127804]: 2026-06-02T09:03:20.452642Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:03:30 lisa lmha3-start[3127804]: 2026-06-02T09:03:30.452886Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:03:40 lisa lmha3-start[3127804]: 2026-06-02T09:03:40.453315Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:03:50 lisa lmha3-start[3127804]: 2026-06-02T09:03:50.279193Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 160
+Jun 02 11:03:50 lisa lmha3-start[3127804]: 2026-06-02T09:03:50.283354Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/sys | Payload length: 395
+Jun 02 11:03:50 lisa lmha3-start[3127804]: 2026-06-02T09:03:50.286561Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/status/sys | Payload length: 395
+Jun 02 11:03:50 lisa lmha3-start[3127804]: 2026-06-02T09:03:50.290248Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/events/rpc | Payload length: 171
+Jun 02 11:03:50 lisa lmha3-start[3127804]: 2026-06-02T09:03:50.453397Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:04:00 lisa lmha3-start[3127804]: 2026-06-02T09:04:00.453690Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:04:10 lisa lmha3-start[3127804]: 2026-06-02T09:04:10.453879Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:04:20 lisa lmha3-start[3127804]: 2026-06-02T09:04:20.454274Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:04:30 lisa lmha3-start[3127804]: 2026-06-02T09:04:30.454386Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:04:40 lisa lmha3-start[3127804]: 2026-06-02T09:04:40.454711Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:04:50 lisa lmha3-start[3127804]: 2026-06-02T09:04:50.454967Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:05:00 lisa lmha3-start[3127804]: 2026-06-02T09:05:00.455284Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:05:10 lisa lmha3-start[3127804]: 2026-06-02T09:05:10.455656Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:05:20 lisa lmha3-start[3127804]: 2026-06-02T09:05:20.455805Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:05:30 lisa lmha3-start[3127804]: 2026-06-02T09:05:30.456140Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:05:40 lisa lmha3-start[3127804]: 2026-06-02T09:05:40.456459Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:05:50 lisa lmha3-start[3127804]: 2026-06-02T09:05:50.456871Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:06:00 lisa lmha3-start[3127804]: 2026-06-02T09:06:00.456995Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:06:10 lisa lmha3-start[3127804]: 2026-06-02T09:06:10.457397Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:06:20 lisa lmha3-start[3127804]: 2026-06-02T09:06:20.457693Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:06:30 lisa lmha3-start[3127804]: 2026-06-02T09:06:30.457961Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:06:40 lisa lmha3-start[3127804]: 2026-06-02T09:06:40.458484Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:06:50 lisa lmha3-start[3127804]: 2026-06-02T09:06:50.458922Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:07:00 lisa lmha3-start[3127804]: 2026-06-02T09:07:00.459237Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:07:06 lisa lmha3-start[3127804]: 2026-06-02T09:07:06.606670Z TRACE server: Processing House: Default House
+Jun 02 11:07:06 lisa lmha3-start[3127804]: 2026-06-02T09:07:06.612073Z DEBUG server: Saved PV telemetry for Default House: 11459
+Jun 02 11:07:06 lisa lmha3-start[3127804]: 2026-06-02T09:07:06.616763Z DEBUG server: Saved Consumption telemetry for Default House: 3876
+Jun 02 11:07:06 lisa lmha3-start[3127804]: 2026-06-02T09:07:06.618561Z TRACE server: Scheduler invoked for Default House: PV=11.5kW, Cons=3.9kW, Devices=0
+Jun 02 11:07:06 lisa lmha3-start[3127804]: 2026-06-02T09:07:06.618613Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 11:07:06 lisa lmha3-start[3127804]: 2026-06-02T09:07:06.618639Z TRACE server: Processing House: Hagenholz 81
+Jun 02 11:07:10 lisa lmha3-start[3127804]: 2026-06-02T09:07:10.459510Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:07:20 lisa lmha3-start[3127804]: 2026-06-02T09:07:20.459590Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:07:30 lisa lmha3-start[3127804]: 2026-06-02T09:07:30.460051Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:07:36 lisa lmha3-start[3127804]: 2026-06-02T09:07:36.634506Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 11:07:40 lisa lmha3-start[3127804]: 2026-06-02T09:07:40.460463Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:07:48 lisa lmha3-start[3127804]: 2026-06-02T09:07:48.271547Z  INFO server: Running periodic device health check poll...
+Jun 02 11:07:50 lisa lmha3-start[3127804]: 2026-06-02T09:07:50.460726Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:08:00 lisa lmha3-start[3127804]: 2026-06-02T09:08:00.461009Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:08:06 lisa lmha3-start[3127804]: 2026-06-02T09:08:06.657227Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 11:08:06 lisa lmha3-start[3127804]: 2026-06-02T09:08:06.662794Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 11:08:06 lisa lmha3-start[3127804]: 2026-06-02T09:08:06.662860Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 11:08:06 lisa lmha3-start[3127804]: 2026-06-02T09:08:06.662885Z TRACE server: Processing House: Hagenholz 83
+Jun 02 11:08:06 lisa lmha3-start[3127804]: 2026-06-02T09:08:06.668095Z DEBUG server: Saved PV telemetry for Hagenholz 83: 11459
+Jun 02 11:08:06 lisa lmha3-start[3127804]: 2026-06-02T09:08:06.676536Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 3876
+Jun 02 11:08:06 lisa lmha3-start[3127804]: 2026-06-02T09:08:06.680351Z TRACE server: Scheduler invoked for Hagenholz 83: PV=11.5kW, Cons=3.9kW, Devices=1
+Jun 02 11:08:06 lisa lmha3-start[3127804]: 2026-06-02T09:08:06.680479Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 11:08:06 lisa lmha3-start[3127804]: 2026-06-02T09:08:06.680520Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 11:08:10 lisa lmha3-start[3127804]: 2026-06-02T09:08:10.461411Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:08:20 lisa lmha3-start[3127804]: 2026-06-02T09:08:20.461059Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:08:30 lisa lmha3-start[3127804]: 2026-06-02T09:08:30.461850Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:08:40 lisa lmha3-start[3127804]: 2026-06-02T09:08:40.462199Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:08:50 lisa lmha3-start[3127804]: 2026-06-02T09:08:50.462480Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:09:00 lisa lmha3-start[3127804]: 2026-06-02T09:09:00.462869Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:09:10 lisa lmha3-start[3127804]: 2026-06-02T09:09:10.462942Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:09:20 lisa lmha3-start[3127804]: 2026-06-02T09:09:20.463361Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:09:30 lisa lmha3-start[3127804]: 2026-06-02T09:09:30.463450Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:09:40 lisa lmha3-start[3127804]: 2026-06-02T09:09:40.463829Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:09:50 lisa lmha3-start[3127804]: 2026-06-02T09:09:50.463880Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:09:51 lisa lmha3-start[3127804]: 2026-06-02T09:09:51.847842Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:09:51 lisa lmha3-start[3127804]: 2026-06-02T09:09:51.847922Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.019106Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.019220Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.070854Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.070936Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.075650Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.075713Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.079749Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.079806Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.083300Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.083347Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.471318Z TRACE server: MQTT Incoming: lmha3/instances/prod-mock-1 | Payload length: 61
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.471400Z ERROR server: !!! BIG FAT WARNING: HIGHER PRIORITY INSTANCE DETECTED (prod-mock-1) !!!
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.471426Z ERROR server: ENTERING PASSIVE MODE. ACTIVE CONTROL DISABLED.
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.518032Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-532fab80 | Payload length: 78
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.925474Z TRACE server: MQTT Incoming: feedback-test-d75ccf1acba74494870a7a75bbe7ef7a/online | Payload length: 4
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.926667Z  INFO server: Device feedback-test-d75ccf1acba74494870a7a75bbe7ef7a came ONLINE. Triggering immediate status poll.
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.942905Z TRACE server: MQTT Incoming: sync-test-209c66ef8cdc424daf6cc013ff986ea1/online | Payload length: 4
+Jun 02 11:09:52 lisa lmha3-start[3127804]: 2026-06-02T09:09:52.943801Z  INFO server: Device sync-test-209c66ef8cdc424daf6cc013ff986ea1 came ONLINE. Triggering immediate status poll.
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.484549Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-bb747ddd | Payload length: 78
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.525497Z TRACE server: MQTT Incoming: rpc-test-15b4a3e029b845fa9b044ad8206ca043/rpc-response/rpc | Payload length: 132
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.525565Z  INFO server: MQTT Heartbeat (RPC Response) for rpc-test-15b4a3e029b845fa9b044ad8206ca043: rpc-test-15b4a3e029b845fa9b044ad8206ca043/rpc-response/rpc
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.528631Z TRACE server: MQTT: Received state/power for unknown device topic: rpc-test-15b4a3e029b845fa9b044ad8206ca043
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.531108Z TRACE server: MQTT Incoming: lwt-test-f0ea120e423c473eb86ecff3ba02b7e3/online | Payload length: 5
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.532179Z  INFO server: Device lwt-test-f0ea120e423c473eb86ecff3ba02b7e3 went OFFLINE (LWT). Setting state to UNKNOWN.
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.533606Z TRACE server: MQTT Incoming: lwt-test-f0ea120e423c473eb86ecff3ba02b7e3/online | Payload length: 4
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.534399Z  INFO server: Device lwt-test-f0ea120e423c473eb86ecff3ba02b7e3 came ONLINE. Triggering immediate status poll.
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.539947Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-0a56e92c | Payload length: 78
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.871570Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c7ead026 | Payload length: 78
+Jun 02 11:09:53 lisa lmha3-start[3127804]: 2026-06-02T09:09:53.985139Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-ed986279 | Payload length: 78
+Jun 02 11:09:57 lisa lmha3-start[3127804]: 2026-06-02T09:09:57.945444Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-743b78aa | Payload length: 78
+Jun 02 11:10:00 lisa lmha3-start[3127804]: 2026-06-02T09:10:00.464283Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:10:10 lisa lmha3-start[3127804]: 2026-06-02T09:10:10.464646Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:10:18 lisa lmha3-start[3127804]: 2026-06-02T09:10:18.503293Z TRACE server: MQTT Incoming: lmha3/instances/prod-mock-1 | Payload length: 0
+Jun 02 11:10:20 lisa lmha3-start[3127804]: 2026-06-02T09:10:20.464955Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.126563Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.126638Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.165929Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.166009Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.300718Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.300795Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.353129Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.353254Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.357719Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.357780Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.396683Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.396761Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.789585Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-5291f5f5 | Payload length: 78
+Jun 02 11:10:23 lisa lmha3-start[3127804]: 2026-06-02T09:10:23.812609Z TRACE server: MQTT Incoming: lmha3/instances/prod-mock-1 | Payload length: 79
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.283583Z TRACE server: MQTT Incoming: feedback-test-44eb71303dbd433e82631b9921df8b3b/online | Payload length: 4
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.284804Z  INFO server: Device feedback-test-44eb71303dbd433e82631b9921df8b3b came ONLINE. Triggering immediate status poll.
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.351524Z TRACE server: MQTT Incoming: sync-test-f5d3157861c547b9a8d3bec2cc389fa8/online | Payload length: 4
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.352640Z  INFO server: Device sync-test-f5d3157861c547b9a8d3bec2cc389fa8 came ONLINE. Triggering immediate status poll.
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.401827Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-2b1ad349 | Payload length: 78
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.837773Z TRACE server: MQTT Incoming: lmha3/instances/prod-mock-1 | Payload length: 0
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.866449Z TRACE server: MQTT Incoming: rpc-test-f4f18ad34c044af19da1037d53d7a0be/rpc-response/rpc | Payload length: 132
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.866519Z  INFO server: MQTT Heartbeat (RPC Response) for rpc-test-f4f18ad34c044af19da1037d53d7a0be: rpc-test-f4f18ad34c044af19da1037d53d7a0be/rpc-response/rpc
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.869557Z TRACE server: MQTT: Received state/power for unknown device topic: rpc-test-f4f18ad34c044af19da1037d53d7a0be
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.893482Z TRACE server: MQTT Incoming: lwt-test-37983ea6b3be4a1ea9daa3dbe4986768/online | Payload length: 5
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.894635Z  INFO server: Device lwt-test-37983ea6b3be4a1ea9daa3dbe4986768 went OFFLINE (LWT). Setting state to UNKNOWN.
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.896509Z TRACE server: MQTT Incoming: lwt-test-37983ea6b3be4a1ea9daa3dbe4986768/online | Payload length: 4
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.897330Z  INFO server: Device lwt-test-37983ea6b3be4a1ea9daa3dbe4986768 came ONLINE. Triggering immediate status poll.
+Jun 02 11:10:24 lisa lmha3-start[3127804]: 2026-06-02T09:10:24.904462Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-b1fdc56c | Payload length: 78
+Jun 02 11:10:25 lisa lmha3-start[3127804]: 2026-06-02T09:10:25.237975Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-99241a5d | Payload length: 78
+Jun 02 11:10:25 lisa lmha3-start[3127804]: 2026-06-02T09:10:25.370566Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-98825db0 | Payload length: 78
+Jun 02 11:10:30 lisa lmha3-start[3127804]: 2026-06-02T09:10:30.465290Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:10:34 lisa lmha3-start[3127804]: 2026-06-02T09:10:34.921715Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-50fd5b41 | Payload length: 78
+Jun 02 11:10:40 lisa lmha3-start[3127804]: 2026-06-02T09:10:40.465649Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.034812Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.034888Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.073710Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.073787Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.211576Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.211660Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.220892Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.220972Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.225735Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.225801Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.233814Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.233880Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.465913Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.726771Z TRACE server: MQTT Incoming: lmha3/instances/prod-mock-1 | Payload length: 79
+Jun 02 11:10:50 lisa lmha3-start[3127804]: 2026-06-02T09:10:50.729227Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-9bf51a40 | Payload length: 78
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.186829Z TRACE server: MQTT Incoming: feedback-test-3337789234c240b191bb7a8ed745464d/online | Payload length: 4
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.188083Z  INFO server: Device feedback-test-3337789234c240b191bb7a8ed745464d came ONLINE. Triggering immediate status poll.
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.202589Z TRACE server: MQTT Incoming: sync-test-9ff26c890135450fa2451e796e0e9f20/online | Payload length: 4
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.203638Z  INFO server: Device sync-test-9ff26c890135450fa2451e796e0e9f20 came ONLINE. Triggering immediate status poll.
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.737505Z TRACE server: MQTT Incoming: lmha3/instances/prod-mock-1 | Payload length: 0
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.765734Z TRACE server: MQTT Incoming: rpc-test-f226adb73058489da4a91f07da31820d/rpc-response/rpc | Payload length: 132
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.765809Z  INFO server: MQTT Heartbeat (RPC Response) for rpc-test-f226adb73058489da4a91f07da31820d: rpc-test-f226adb73058489da4a91f07da31820d/rpc-response/rpc
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.769028Z TRACE server: MQTT: Received state/power for unknown device topic: rpc-test-f226adb73058489da4a91f07da31820d
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.769142Z TRACE server: MQTT Incoming: lwt-test-45da8a8419fd4a67b5d1ba2a08582e23/online | Payload length: 5
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.770074Z  INFO server: Device lwt-test-45da8a8419fd4a67b5d1ba2a08582e23 went OFFLINE (LWT). Setting state to UNKNOWN.
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.771454Z TRACE server: MQTT Incoming: lwt-test-45da8a8419fd4a67b5d1ba2a08582e23/online | Payload length: 4
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.772132Z  INFO server: Device lwt-test-45da8a8419fd4a67b5d1ba2a08582e23 came ONLINE. Triggering immediate status poll.
+Jun 02 11:10:51 lisa lmha3-start[3127804]: 2026-06-02T09:10:51.777935Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-b8171caa | Payload length: 78
+Jun 02 11:10:52 lisa lmha3-start[3127804]: 2026-06-02T09:10:52.119407Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-531506d4 | Payload length: 78
+Jun 02 11:10:52 lisa lmha3-start[3127804]: 2026-06-02T09:10:52.240277Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-26b21e22 | Payload length: 78
+Jun 02 11:10:52 lisa lmha3-start[3127804]: 2026-06-02T09:10:52.258110Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-8d7caaee | Payload length: 78
+Jun 02 11:10:56 lisa lmha3-start[3127804]: 2026-06-02T09:10:56.215448Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-dc623a34 | Payload length: 78
+Jun 02 11:10:59 lisa lmha3-start[3127804]: 2026-06-02T09:10:59.774584Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:10:59 lisa lmha3-start[3127804]: 2026-06-02T09:10:59.774662Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:11:00 lisa lmha3-start[3127804]: 2026-06-02T09:11:00.466326Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:11:00 lisa lmha3-start[3127804]: 2026-06-02T09:11:00.676571Z TRACE server: MQTT Incoming: sync-test-12e170c893594354a100dfbd15806c49/online | Payload length: 4
+Jun 02 11:11:00 lisa lmha3-start[3127804]: 2026-06-02T09:11:00.677565Z  INFO server: Device sync-test-12e170c893594354a100dfbd15806c49 came ONLINE. Triggering immediate status poll.
+Jun 02 11:11:00 lisa lmha3-start[3127804]: 2026-06-02T09:11:00.737106Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-ee24889a | Payload length: 78
+Jun 02 11:11:01 lisa lmha3-start[3127804]: 2026-06-02T09:11:01.014319Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:11:01 lisa lmha3-start[3127804]: 2026-06-02T09:11:01.014395Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:11:01 lisa lmha3-start[3127804]: 2026-06-02T09:11:01.952232Z TRACE server: MQTT Incoming: feedback-test-4dd9aae94313495895156bf77edffcbb/online | Payload length: 4
+Jun 02 11:11:01 lisa lmha3-start[3127804]: 2026-06-02T09:11:01.953424Z  INFO server: Device feedback-test-4dd9aae94313495895156bf77edffcbb came ONLINE. Triggering immediate status poll.
+Jun 02 11:11:02 lisa lmha3-start[3127804]: 2026-06-02T09:11:02.884395Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-1a0d9957 | Payload length: 78
+Jun 02 11:11:03 lisa lmha3-start[3127804]: 2026-06-02T09:11:03.150828Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:11:03 lisa lmha3-start[3127804]: 2026-06-02T09:11:03.150906Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:11:03 lisa lmha3-start[3127804]: 2026-06-02T09:11:03.602429Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-d70a66af | Payload length: 78
+Jun 02 11:11:03 lisa lmha3-start[3127804]: 2026-06-02T09:11:03.818954Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:11:03 lisa lmha3-start[3127804]: 2026-06-02T09:11:03.819034Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:11:04 lisa lmha3-start[3127804]: 2026-06-02T09:11:04.260032Z TRACE server: MQTT Incoming: lmha3/instances/prod-mock-1 | Payload length: 79
+Jun 02 11:11:05 lisa lmha3-start[3127804]: 2026-06-02T09:11:05.173308Z TRACE server: MQTT Incoming: lmha3/instances/prod-mock-1 | Payload length: 0
+Jun 02 11:11:05 lisa lmha3-start[3127804]: 2026-06-02T09:11:05.677284Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-1c67753f | Payload length: 78
+Jun 02 11:11:05 lisa lmha3-start[3127804]: 2026-06-02T09:11:05.933729Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:11:05 lisa lmha3-start[3127804]: 2026-06-02T09:11:05.933803Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:11:07 lisa lmha3-start[3127804]: 2026-06-02T09:11:07.314968Z TRACE server: MQTT Incoming: lwt-test-2d75df6826174a95bc169bcf62acea94/online | Payload length: 5
+Jun 02 11:11:07 lisa lmha3-start[3127804]: 2026-06-02T09:11:07.315978Z  INFO server: Device lwt-test-2d75df6826174a95bc169bcf62acea94 went OFFLINE (LWT). Setting state to UNKNOWN.
+Jun 02 11:11:07 lisa lmha3-start[3127804]: 2026-06-02T09:11:07.317831Z TRACE server: MQTT Incoming: lwt-test-2d75df6826174a95bc169bcf62acea94/online | Payload length: 4
+Jun 02 11:11:07 lisa lmha3-start[3127804]: 2026-06-02T09:11:07.318799Z  INFO server: Device lwt-test-2d75df6826174a95bc169bcf62acea94 came ONLINE. Triggering immediate status poll.
+Jun 02 11:11:07 lisa lmha3-start[3127804]: 2026-06-02T09:11:07.326447Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-0ef86947 | Payload length: 78
+Jun 02 11:11:07 lisa lmha3-start[3127804]: 2026-06-02T09:11:07.607798Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1142
+Jun 02 11:11:07 lisa lmha3-start[3127804]: 2026-06-02T09:11:07.607874Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:11:08 lisa lmha3-start[3127804]: 2026-06-02T09:11:08.970518Z TRACE server: MQTT Incoming: rpc-test-8d036f49797c429396774db212fe4f86/rpc-response/rpc | Payload length: 132
+Jun 02 11:11:08 lisa lmha3-start[3127804]: 2026-06-02T09:11:08.970593Z  INFO server: MQTT Heartbeat (RPC Response) for rpc-test-8d036f49797c429396774db212fe4f86: rpc-test-8d036f49797c429396774db212fe4f86/rpc-response/rpc
+Jun 02 11:11:08 lisa lmha3-start[3127804]: 2026-06-02T09:11:08.973508Z TRACE server: MQTT: Received state/power for unknown device topic: rpc-test-8d036f49797c429396774db212fe4f86
+Jun 02 11:11:09 lisa lmha3-start[3127804]: 2026-06-02T09:11:09.462848Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-57870dfb | Payload length: 78
+Jun 02 11:11:10 lisa lmha3-start[3127804]: 2026-06-02T09:11:10.466618Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:11:20 lisa lmha3-start[3127804]: 2026-06-02T09:11:20.466904Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:11:30 lisa lmha3-start[3127804]: 2026-06-02T09:11:30.467264Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:11:40 lisa lmha3-start[3127804]: 2026-06-02T09:11:40.467060Z  INFO server: High priority instance lost. Resuming control mode.
+Jun 02 11:11:40 lisa lmha3-start[3127804]: 2026-06-02T09:11:40.467758Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:11:50 lisa lmha3-start[3127804]: 2026-06-02T09:11:50.468086Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:12:00 lisa lmha3-start[3127804]: 2026-06-02T09:12:00.468443Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:12:10 lisa lmha3-start[3127804]: 2026-06-02T09:12:10.468777Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:12:20 lisa lmha3-start[3127804]: 2026-06-02T09:12:20.469237Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:12:30 lisa lmha3-start[3127804]: 2026-06-02T09:12:30.469398Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:12:40 lisa lmha3-start[3127804]: 2026-06-02T09:12:40.469794Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:12:48 lisa lmha3-start[3127804]: 2026-06-02T09:12:48.272944Z  INFO server: Running periodic device health check poll...
+Jun 02 11:12:50 lisa lmha3-start[3127804]: 2026-06-02T09:12:50.470146Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:13:00 lisa lmha3-start[3127804]: 2026-06-02T09:13:00.470500Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:13:06 lisa lmha3-start[3127804]: 2026-06-02T09:13:06.682043Z TRACE server: Processing House: Default House
+Jun 02 11:13:06 lisa lmha3-start[3127804]: 2026-06-02T09:13:06.687652Z DEBUG server: Saved PV telemetry for Default House: 11567
+Jun 02 11:13:06 lisa lmha3-start[3127804]: 2026-06-02T09:13:06.692435Z DEBUG server: Saved Consumption telemetry for Default House: 3236
+Jun 02 11:13:06 lisa lmha3-start[3127804]: 2026-06-02T09:13:06.694584Z TRACE server: Scheduler invoked for Default House: PV=11.6kW, Cons=3.2kW, Devices=0
+Jun 02 11:13:06 lisa lmha3-start[3127804]: 2026-06-02T09:13:06.694636Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 11:13:06 lisa lmha3-start[3127804]: 2026-06-02T09:13:06.694659Z TRACE server: Processing House: Hagenholz 81
+Jun 02 11:13:10 lisa lmha3-start[3127804]: 2026-06-02T09:13:10.470846Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:13:20 lisa lmha3-start[3127804]: 2026-06-02T09:13:20.471236Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:13:30 lisa lmha3-start[3127804]: 2026-06-02T09:13:30.471376Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:13:36 lisa lmha3-start[3127804]: 2026-06-02T09:13:36.698837Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 11:13:40 lisa lmha3-start[3127804]: 2026-06-02T09:13:40.471692Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:13:50 lisa lmha3-start[3127804]: 2026-06-02T09:13:50.472064Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:14:00 lisa lmha3-start[3127804]: 2026-06-02T09:14:00.472447Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:14:06 lisa lmha3-start[3127804]: 2026-06-02T09:14:06.726913Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 11:14:06 lisa lmha3-start[3127804]: 2026-06-02T09:14:06.732421Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 11:14:06 lisa lmha3-start[3127804]: 2026-06-02T09:14:06.732487Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 11:14:06 lisa lmha3-start[3127804]: 2026-06-02T09:14:06.732510Z TRACE server: Processing House: Hagenholz 83
+Jun 02 11:14:06 lisa lmha3-start[3127804]: 2026-06-02T09:14:06.737592Z DEBUG server: Saved PV telemetry for Hagenholz 83: 11567
+Jun 02 11:14:06 lisa lmha3-start[3127804]: 2026-06-02T09:14:06.742012Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 3236
+Jun 02 11:14:06 lisa lmha3-start[3127804]: 2026-06-02T09:14:06.745945Z TRACE server: Scheduler invoked for Hagenholz 83: PV=11.6kW, Cons=3.2kW, Devices=1
+Jun 02 11:14:06 lisa lmha3-start[3127804]: 2026-06-02T09:14:06.746106Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 11:14:06 lisa lmha3-start[3127804]: 2026-06-02T09:14:06.746191Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 11:14:10 lisa lmha3-start[3127804]: 2026-06-02T09:14:10.472708Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:14:20 lisa lmha3-start[3127804]: 2026-06-02T09:14:20.472997Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:14:30 lisa lmha3-start[3127804]: 2026-06-02T09:14:30.473382Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:14:40 lisa lmha3-start[3127804]: 2026-06-02T09:14:40.473703Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:14:50 lisa lmha3-start[3127804]: 2026-06-02T09:14:50.474011Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:15:00 lisa lmha3-start[3127804]: 2026-06-02T09:15:00.474224Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:15:10 lisa lmha3-start[3127804]: 2026-06-02T09:15:10.474536Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:15:20 lisa lmha3-start[3127804]: 2026-06-02T09:15:20.474725Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:15:30 lisa lmha3-start[3127804]: 2026-06-02T09:15:30.475088Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:15:40 lisa lmha3-start[3127804]: 2026-06-02T09:15:40.475299Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:15:50 lisa lmha3-start[3127804]: 2026-06-02T09:15:50.475673Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:16:00 lisa lmha3-start[3127804]: 2026-06-02T09:16:00.475875Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:16:10 lisa lmha3-start[3127804]: 2026-06-02T09:16:10.476203Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:16:20 lisa lmha3-start[3127804]: 2026-06-02T09:16:20.476397Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:16:30 lisa lmha3-start[3127804]: 2026-06-02T09:16:30.476616Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:16:40 lisa lmha3-start[3127804]: 2026-06-02T09:16:40.476786Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:16:50 lisa lmha3-start[3127804]: 2026-06-02T09:16:50.477235Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:17:00 lisa lmha3-start[3127804]: 2026-06-02T09:17:00.477393Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:17:10 lisa lmha3-start[3127804]: 2026-06-02T09:17:10.477719Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:17:20 lisa lmha3-start[3127804]: 2026-06-02T09:17:20.477989Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:17:30 lisa lmha3-start[3127804]: 2026-06-02T09:17:30.478057Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:17:40 lisa lmha3-start[3127804]: 2026-06-02T09:17:40.478393Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:17:48 lisa lmha3-start[3127804]: 2026-06-02T09:17:48.274538Z  INFO server: Running periodic device health check poll...
+Jun 02 11:17:48 lisa lmha3-start[3127804]: 2026-06-02T09:17:48.275874Z DEBUG server: Polling inactive device: Boiler
+Jun 02 11:17:48 lisa lmha3-start[3127804]: 2026-06-02T09:17:48.316075Z TRACE server: MQTT Incoming: shellypro1-f8b3b7fa08bc/rpc-response/rpc | Payload length: 1141
+Jun 02 11:17:48 lisa lmha3-start[3127804]: 2026-06-02T09:17:48.316181Z  INFO server: MQTT Heartbeat (RPC Response) for shellypro1-f8b3b7fa08bc: shellypro1-f8b3b7fa08bc/rpc-response/rpc
+Jun 02 11:17:50 lisa lmha3-start[3127804]: 2026-06-02T09:17:50.478839Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:18:00 lisa lmha3-start[3127804]: 2026-06-02T09:18:00.479212Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:18:10 lisa lmha3-start[3127804]: 2026-06-02T09:18:10.479343Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:18:20 lisa lmha3-start[3127804]: 2026-06-02T09:18:20.479695Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:18:30 lisa lmha3-start[3127804]: 2026-06-02T09:18:30.479365Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:18:40 lisa lmha3-start[3127804]: 2026-06-02T09:18:40.480081Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:18:50 lisa lmha3-start[3127804]: 2026-06-02T09:18:50.480464Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:19:00 lisa lmha3-start[3127804]: 2026-06-02T09:19:00.480787Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:19:06 lisa lmha3-start[3127804]: 2026-06-02T09:19:06.747454Z TRACE server: Processing House: Default House
+Jun 02 11:19:06 lisa lmha3-start[3127804]: 2026-06-02T09:19:06.752680Z DEBUG server: Saved PV telemetry for Default House: 10861
+Jun 02 11:19:06 lisa lmha3-start[3127804]: 2026-06-02T09:19:06.757186Z DEBUG server: Saved Consumption telemetry for Default House: 1878
+Jun 02 11:19:06 lisa lmha3-start[3127804]: 2026-06-02T09:19:06.758964Z TRACE server: Scheduler invoked for Default House: PV=10.9kW, Cons=1.9kW, Devices=0
+Jun 02 11:19:06 lisa lmha3-start[3127804]: 2026-06-02T09:19:06.759013Z TRACE server: Scheduler action for Default House: Nothing
+Jun 02 11:19:06 lisa lmha3-start[3127804]: 2026-06-02T09:19:06.759040Z TRACE server: Processing House: Hagenholz 81
+Jun 02 11:19:10 lisa lmha3-start[3127804]: 2026-06-02T09:19:10.480562Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:19:20 lisa lmha3-start[3127804]: 2026-06-02T09:19:20.481258Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:19:30 lisa lmha3-start[3127804]: 2026-06-02T09:19:30.481610Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:19:36 lisa lmha3-start[3127804]: 2026-06-02T09:19:36.787864Z ERROR server: HA Error polling PV for Hagenholz 81 (sensor.panel_production_power): Request failed: http://192.168.1.1:8123/api/states/sensor.panel_production_power: Connection Failed: Connect error: connection timed out
+Jun 02 11:19:40 lisa lmha3-start[3127804]: 2026-06-02T09:19:40.481934Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:19:50 lisa lmha3-start[3127804]: 2026-06-02T09:19:50.482246Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:20:00 lisa lmha3-start[3127804]: 2026-06-02T09:20:00.482515Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:20:06 lisa lmha3-start[3127804]: 2026-06-02T09:20:06.804499Z ERROR server: HA Error polling Consumption for Hagenholz 81 (sensor.house_load_power): Request failed: http://192.168.1.1:8123/api/states/sensor.house_load_power: Connection Failed: Connect error: connection timed out
+Jun 02 11:20:06 lisa lmha3-start[3127804]: 2026-06-02T09:20:06.809969Z TRACE server: Scheduler invoked for Hagenholz 81: PV=0.0kW, Cons=0.0kW, Devices=0
+Jun 02 11:20:06 lisa lmha3-start[3127804]: 2026-06-02T09:20:06.810035Z TRACE server: Scheduler action for Hagenholz 81: Nothing
+Jun 02 11:20:06 lisa lmha3-start[3127804]: 2026-06-02T09:20:06.810058Z TRACE server: Processing House: Hagenholz 83
+Jun 02 11:20:06 lisa lmha3-start[3127804]: 2026-06-02T09:20:06.815014Z DEBUG server: Saved PV telemetry for Hagenholz 83: 10861
+Jun 02 11:20:06 lisa lmha3-start[3127804]: 2026-06-02T09:20:06.819449Z DEBUG server: Saved Consumption telemetry for Hagenholz 83: 1878
+Jun 02 11:20:06 lisa lmha3-start[3127804]: 2026-06-02T09:20:06.823674Z TRACE server: Scheduler invoked for Hagenholz 83: PV=10.9kW, Cons=1.9kW, Devices=1
+Jun 02 11:20:06 lisa lmha3-start[3127804]: 2026-06-02T09:20:06.823838Z TRACE server: History for Boiler: [ON@20:13,OFF@20:13,ON@20:14,OFF@20:20,ON@21:48,OFF@21:48,ON@20:39,OFF@20:39,ON@20:43,OFF@20:43,ON@20:48,OFF@20:48,ON@20:52,OFF@20:57,ON@21:08,OFF@21:08,ON@21:56,OFF@21:56,ON@21:56,OFF@21:57,ON@06:06,OFF@06:06,ON@07:56,OFF@08:11,ON@08:26,OFF@10:26,ON@10:41,OFF@13:31,ON@13:46,OFF@14:56,ON@15:51,OFF@16:01,ON@16:41,OFF@16:56,ON@18:28,OFF@18:28,ON@07:59,OFF@14:49,ON@19:51,OFF@19:51,ON@20:13,OFF@20:13,ON@21:01,OFF@21:01,ON@21:06,OFF@21:06,ON@08:02,OFF@17:32,ON@18:34,OFF@18:35,ON@08:20,OFF@17:44,ON@08:03,OFF@15:23,ON@15:26,OFF@15:26,ON@17:43,OFF@21:33,ON@21:35,OFF@21:59,ON@22:21,OFF@22:25,ON@22:25,OFF@22:26,ON@22:39,OFF@22:40,ON@22:40,OFF@22:40,OFF@22:45,OFF@00:16,ON@08:25,OFF@10:07,ON@10:19,OFF@17:31,ON@07:50,OFF@08:20]
+Jun 02 11:20:06 lisa lmha3-start[3127804]: 2026-06-02T09:20:06.823897Z TRACE server: Scheduler action for Hagenholz 83: Nothing
+Jun 02 11:20:10 lisa lmha3-start[3127804]: 2026-06-02T09:20:10.482827Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:20:20 lisa lmha3-start[3127804]: 2026-06-02T09:20:20.483220Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:20:30 lisa lmha3-start[3127804]: 2026-06-02T09:20:30.483428Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:20:40 lisa lmha3-start[3127804]: 2026-06-02T09:20:40.483697Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:20:50 lisa lmha3-start[3127804]: 2026-06-02T09:20:50.483902Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:21:00 lisa lmha3-start[3127804]: 2026-06-02T09:21:00.484326Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:21:10 lisa lmha3-start[3127804]: 2026-06-02T09:21:10.484518Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:21:20 lisa lmha3-start[3127804]: 2026-06-02T09:21:20.484670Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:21:30 lisa lmha3-start[3127804]: 2026-06-02T09:21:30.484936Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:21:40 lisa lmha3-start[3127804]: 2026-06-02T09:21:40.485303Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
+Jun 02 11:21:50 lisa lmha3-start[3127804]: 2026-06-02T09:21:50.485300Z TRACE server: MQTT Incoming: lmha3/instances/lmha3-c5385f49 | Payload length: 60
