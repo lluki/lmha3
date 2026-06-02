@@ -150,32 +150,36 @@ impl Db {
     }
 
     pub fn list_houses(&mut self) -> Result<Vec<crate::House>, postgres::Error> {
-        let rows = self.client.query("SELECT id, name, ha_host, ha_token, created_at FROM houses ORDER BY name ASC", &[])?;
+        let rows = self.client.query("SELECT id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id, created_at FROM houses ORDER BY name ASC", &[])?;
         Ok(rows.into_iter().map(|row| crate::House {
             id: row.get(0),
             name: row.get(1),
-            ha_host: row.get(2),
+            ha_url: row.get(2),
             ha_token: row.get(3),
-            created_at: row.get(4),
+            ha_pv_entity_id: row.get(4),
+            ha_consumption_entity_id: row.get(5),
+            created_at: row.get(6),
         }).collect())
     }
 
     pub fn get_house(&mut self, id: Uuid) -> Result<Option<crate::House>, postgres::Error> {
-        let row = self.client.query_opt("SELECT id, name, ha_host, ha_token, created_at FROM houses WHERE id = $1", &[&id])?;
+        let row = self.client.query_opt("SELECT id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id, created_at FROM houses WHERE id = $1", &[&id])?;
         Ok(row.map(|row| crate::House {
             id: row.get(0),
             name: row.get(1),
-            ha_host: row.get(2),
+            ha_url: row.get(2),
             ha_token: row.get(3),
-            created_at: row.get(4),
+            ha_pv_entity_id: row.get(4),
+            ha_consumption_entity_id: row.get(5),
+            created_at: row.get(6),
         }))
     }
 
-    pub fn create_house(&mut self, name: &str, ha_host: &str, ha_token: &str) -> Result<Uuid, postgres::Error> {
+    pub fn create_house(&mut self, name: &str, ha_url: &str, ha_token: &str, ha_pv_entity_id: &str, ha_consumption_entity_id: &str) -> Result<Uuid, postgres::Error> {
         let id = Uuid::new_v4();
         self.client.execute(
-            "INSERT INTO houses (id, name, ha_host, ha_token) VALUES ($1, $2, $3, $4)",
-            &[&id, &name, &ha_host, &ha_token],
+            "INSERT INTO houses (id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id) VALUES ($1, $2, $3, $4, $5, $6)",
+            &[&id, &name, &ha_url, &ha_token, &ha_pv_entity_id, &ha_consumption_entity_id],
         )?;
         Ok(id)
     }
@@ -436,10 +440,10 @@ impl Db {
         Ok(())
     }
 
-    pub fn update_house(&mut self, id: Uuid, name: &str, ha_host: &str, ha_token: &str) -> Result<(), postgres::Error> {
+    pub fn update_house(&mut self, id: Uuid, name: &str, ha_url: &str, ha_token: &str, ha_pv_entity_id: &str, ha_consumption_entity_id: &str) -> Result<(), postgres::Error> {
         self.client.execute(
-            "UPDATE houses SET name = $1, ha_host = $2, ha_token = $3 WHERE id = $4",
-            &[&name, &ha_host, &ha_token, &id],
+            "UPDATE houses SET name = $1, ha_url = $2, ha_token = $3, ha_pv_entity_id = $4, ha_consumption_entity_id = $5 WHERE id = $6",
+            &[&name, &ha_url, &ha_token, &ha_pv_entity_id, &ha_consumption_entity_id, &id],
         )?;
         Ok(())
     }

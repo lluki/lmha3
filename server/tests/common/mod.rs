@@ -24,23 +24,26 @@ impl TestHarness {
         client.execute(&format!("CREATE DATABASE {}", db_name), &[]).unwrap();
 
         // 2. Run migrations
-        let migrations = [
-            include_str!("../../../migrations/001_initial_schema.sql"),
-            include_str!("../../../migrations/002_add_sessions.sql"),
-            include_str!("../../../migrations/003_add_device_heartbeat.sql"),
-            include_str!("../../../migrations/004_add_device_consumption.sql"),
-            include_str!("../../../migrations/005_add_expected_load.sql"),
-            include_str!("../../../migrations/006_add_device_management.sql"),
-            include_str!("../../../migrations/007_boiler_advanced_config.sql"),
-            include_str!("../../../migrations/008_multi_house_support.sql"),
-            include_str!("../../../migrations/009_add_is_admin.sql"),
-            include_str!("../../../migrations/010_add_device_sync_fields.sql"),
-        ];
-        
         let db_url = format!("host=/var/run/postgresql dbname={} user=lukas", db_name);
         let mut db_client = Client::connect(&db_url, NoTls).unwrap();
-        for migration in migrations {
-            db_client.batch_execute(migration).unwrap();
+
+        let mut migration_files = Vec::new();
+        let migrations_path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../migrations");
+        if let Ok(entries) = std::fs::read_dir(&migrations_path) {
+            for entry in entries.flatten() {
+                let path = entry.path();
+                if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("sql") {
+                    migration_files.push(path);
+                }
+            }
+        } else {
+            panic!("Could not read migrations directory: {:?}", migrations_path);
+        }
+        migration_files.sort();
+
+        for path in migration_files {
+            let content = std::fs::read_to_string(&path).unwrap();
+            db_client.batch_execute(&content).unwrap();
         }
 
         let config = Config {
@@ -49,10 +52,6 @@ impl TestHarness {
             mqtt_port: 1884,
             mqtt_user: Some("admin".to_string()),
             mqtt_password: Some("freebird".to_string()),
-            ha_url: "http://localhost:8123".to_string(),
-            ha_token: "test_token".to_string(),
-            ha_pv_entity_id: Some("sensor.pv".to_string()),
-            ha_consumption_entity_id: Some("sensor.consumption".to_string()),
             instance_id: format!("test-{}", Uuid::new_v4().simple()),
             instance_priority: 10,
         };
@@ -77,9 +76,9 @@ impl TestHarness {
             cmd.arg("--no-scheduler");
         }
         cmd.env("DATABASE_URL", &config.database_url)
-           .env("HA_TOKEN", &config.ha_token)
            .env("MQTT_USER", config.mqtt_user.as_ref().unwrap())
-           .env("MQTT_PASSWORD", config.mqtt_password.as_ref().unwrap());
+           .env("MQTT_PASSWORD", config.mqtt_password.as_ref().unwrap())
+           .env("LMHA3_MIGRATIONS_DIR", migrations_path);
 
         let api_child = cmd.spawn().expect("Failed to start Server");
 

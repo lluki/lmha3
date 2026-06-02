@@ -1,9 +1,4 @@
-# Spec: House Management
-
-## Overview
-Management of multiple physical properties (Houses) and their associated credentials and configurations.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: House Entity Management
 The system SHALL support the management of multiple houses (physical properties). Each house record MUST include a unique name, the Home Assistant host address, a long-lived access token, and the HA entity IDs for PV production and house consumption. The administration of these entities SHALL follow the summary-detail interaction pattern.

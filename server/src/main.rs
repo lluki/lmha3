@@ -113,31 +113,34 @@ fn main() {
         .init();
 
     let args = Args::parse();
-    if std::env::var("HA_TOKEN").is_err() {
-        if let Ok(token) = std::fs::read_to_string("secrets/ha-token.md") {
-            std::env::set_var("HA_TOKEN", token.trim());
-        }
-    }
     let config = Config::from_env();
     let db = Db::connect(&config).expect("Failed to connect to database");
     
     // Auto-run migrations
     info!("Running database migrations...");
     let mut client = postgres::Client::connect(&config.database_url, postgres::NoTls).expect("Failed to connect for migrations");
-    let migrations = [
-        include_str!("../../migrations/001_initial_schema.sql"),
-        include_str!("../../migrations/002_add_sessions.sql"),
-        include_str!("../../migrations/003_add_device_heartbeat.sql"),
-        include_str!("../../migrations/004_add_device_consumption.sql"),
-        include_str!("../../migrations/005_add_expected_load.sql"),
-        include_str!("../../migrations/006_add_device_management.sql"),
-        include_str!("../../migrations/007_boiler_advanced_config.sql"),
-        include_str!("../../migrations/008_multi_house_support.sql"),
-        include_str!("../../migrations/009_add_is_admin.sql"),
-        include_str!("../../migrations/010_add_device_sync_fields.sql"),
-    ];
-    for migration in migrations {
-        client.batch_execute(migration).ok(); // Batch execute will ignore errors if columns already exist
+    
+    let migrations_dir = std::env::var("LMHA3_MIGRATIONS_DIR").unwrap_or_else(|_| "migrations".to_string());
+    let mut migration_files = Vec::new();
+    if let Ok(entries) = std::fs::read_dir(&migrations_dir) {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("sql") {
+                migration_files.push(path);
+            }
+        }
+    } else {
+        error!("Could not read migrations directory: {}", migrations_dir);
+    }
+    migration_files.sort();
+
+    for path in migration_files {
+        info!("Applying migration: {:?}", path);
+        if let Ok(content) = std::fs::read_to_string(&path) {
+            if let Err(e) = client.batch_execute(&content) {
+                error!("Failed to apply migration {:?}: {}", path, e);
+            }
+        }
     }
 
     // Initial state alignment: set desired_state = current_state for all devices
@@ -244,12 +247,14 @@ fn main() {
                     }
                     let data = rouille::post_input!(request, {
                         name: String,
-                        ha_host: String,
+                        ha_url: String,
                         ha_token: String,
+                        ha_pv_entity_id: String,
+                        ha_consumption_entity_id: String,
                     }).expect("Invalid house creation form");
 
                     let mut db = state.db.lock().unwrap();
-                    match db.create_house(&data.name, &data.ha_host, &data.ha_token) {
+                    match db.create_house(&data.name, &data.ha_url, &data.ha_token, &data.ha_pv_entity_id, &data.ha_consumption_entity_id) {
                         Ok(id) => Response::json(&json!({"status": "ok", "id": id})),
                         Err(e) => {
                             error!("DB Error creating house: {}", e);
@@ -356,13 +361,9 @@ fn main() {
                     };
 
                     for house in &houses {
-                        let ha_url = if house.ha_host.starts_with("http") {
-                            house.ha_host.clone()
-                        } else {
-                            format!("http://{}:8123", house.ha_host)
-                        };
-                        let pv_id = state.config.ha_pv_entity_id.clone().unwrap_or_default();
-                        match lmha_core::ha::fetch_ha_state(&ha_url, &house.ha_token, &pv_id) {
+                        let ha_url = &house.ha_url;
+                        let pv_id = &house.ha_pv_entity_id;
+                        match lmha_core::ha::fetch_ha_state(ha_url, &house.ha_token, pv_id) {
                             Ok(_) => pv_results.push(json!({"house": house.name, "status": "ok"})),
                             Err(e) => pv_results.push(json!({"house": house.name, "status": "error", "message": e})),
                         }
@@ -614,12 +615,14 @@ fn main() {
                     }
                     let data = rouille::post_input!(request, {
                         name: String,
-                        ha_host: String,
+                        ha_url: String,
                         ha_token: String,
+                        ha_pv_entity_id: String,
+                        ha_consumption_entity_id: String,
                     }).expect("Invalid house update form");
 
                     let mut db = state.db.lock().unwrap();
-                    match db.update_house(id, &data.name, &data.ha_host, &data.ha_token) {
+                    match db.update_house(id, &data.name, &data.ha_url, &data.ha_token, &data.ha_pv_entity_id, &data.ha_consumption_entity_id) {
                         Ok(_) => Response::json(&json!({"status": "ok"})),
                         Err(e) => {
                             error!("DB Error updating house: {}", e);
@@ -952,38 +955,32 @@ fn run_scheduler_loop(state: Arc<AppState>) {
             trace!("Processing House: {}", house.name);
             
             if !state.no_home_assistant {
-                let ha_url = if house.ha_host.starts_with("http") {
-                    house.ha_host.clone()
-                } else {
-                    format!("http://{}:8123", house.ha_host)
-                };
+                let ha_url = &house.ha_url;
+                let pv_id = &house.ha_pv_entity_id;
+                let cons_id = &house.ha_consumption_entity_id;
 
-                let config = &state.config;
-                if let Some(pv_id) = &config.ha_pv_entity_id {
-                    match lmha_core::ha::fetch_ha_state(&ha_url, &house.ha_token, pv_id) {
-                        Ok(val) => {
-                            let mut db = state.db.lock().unwrap();
-                            if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::PvProduction, None, val, None, house.id) {
-                                error!("DB Error saving PV telemetry for {}: {}", house.name, e);
-                            } else {
-                                tracing::debug!("Saved PV telemetry for {}: {}", house.name, val);
-                            }
+                match lmha_core::ha::fetch_ha_state(ha_url, &house.ha_token, pv_id) {
+                    Ok(val) => {
+                        let mut db = state.db.lock().unwrap();
+                        if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::PvProduction, None, val, None, house.id) {
+                            error!("DB Error saving PV telemetry for {}: {}", house.name, e);
+                        } else {
+                            tracing::debug!("Saved PV telemetry for {}: {}", house.name, val);
                         }
-                        Err(e) => error!("HA Error polling PV for {} ({}): {}", house.name, pv_id, e),
                     }
+                    Err(e) => error!("HA Error polling PV for {} ({}): {}", house.name, pv_id, e),
                 }
-                if let Some(cons_id) = &config.ha_consumption_entity_id {
-                    match lmha_core::ha::fetch_ha_state(&ha_url, &house.ha_token, cons_id) {
-                        Ok(val) => {
-                            let mut db = state.db.lock().unwrap();
-                            if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::HouseConsumption, None, val, None, house.id) {
-                                error!("DB Error saving consumption telemetry for {}: {}", house.name, e);
-                            } else {
-                                tracing::debug!("Saved Consumption telemetry for {}: {}", house.name, val);
-                            }
+
+                match lmha_core::ha::fetch_ha_state(ha_url, &house.ha_token, cons_id) {
+                    Ok(val) => {
+                        let mut db = state.db.lock().unwrap();
+                        if let Err(e) = db.insert_telemetry(lmha_core::TelemetrySource::HouseConsumption, None, val, None, house.id) {
+                            error!("DB Error saving consumption telemetry for {}: {}", house.name, e);
+                        } else {
+                            tracing::debug!("Saved Consumption telemetry for {}: {}", house.name, val);
                         }
-                        Err(e) => error!("HA Error polling Consumption for {} ({}): {}", house.name, cons_id, e),
                     }
+                    Err(e) => error!("HA Error polling Consumption for {} ({}): {}", house.name, cons_id, e),
                 }
             }
             

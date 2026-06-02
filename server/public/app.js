@@ -851,8 +851,12 @@ window.renderCreateHouseForm = () => {
     const content = `
         <form id="modal-create-house-form">
             <label>House Name <input name="name" required autocomplete="off" /></label>
-            <label>HA Host <input name="ha_host" placeholder="192.168.1.100" required /></label>
+            <label>HA URL <input name="ha_url" placeholder="http://192.168.1.100:8123" required /></label>
             <label>HA Token <input name="ha_token" required autocomplete="off" /></label>
+            <div class="grid">
+                <label>PV Entity ID <input name="ha_pv_entity_id" value="sensor.panel_production_power" required /></label>
+                <label>Consumption Entity ID <input name="ha_consumption_entity_id" value="sensor.house_load_power" required /></label>
+            </div>
             <button type="submit">Create House</button>
         </form>
     `;
@@ -977,7 +981,7 @@ function renderHouseCard(h) {
                 <span class="secondary" style="font-size: 0.8rem;">House</span>
             </header>
             <div class="card-body">
-                <div>Host: ${h.ha_host}</div>
+                <div>URL: ${h.ha_url}</div>
             </div>
             <div class="card-footer">
                 Click for details
@@ -998,8 +1002,12 @@ async function renderHouseDetails(id, isEdit = false) {
             content = `
                 <form id="edit-house-form">
                     <label>House Name <input name="name" value="${h.name}" required /></label>
-                    <label>HA Host <input name="ha_host" value="${h.ha_host}" required /></label>
+                    <label>HA URL <input name="ha_url" value="${h.ha_url}" required /></label>
                     <label>HA Token <input name="ha_token" value="${h.ha_token}" required /></label>
+                    <div class="grid">
+                        <label>PV Entity ID <input name="ha_pv_entity_id" value="${h.ha_pv_entity_id}" required /></label>
+                        <label>Consumption Entity ID <input name="ha_consumption_entity_id" value="${h.ha_consumption_entity_id}" required /></label>
+                    </div>
                     <div class="grid">
                         <button type="submit">Save Changes</button>
                         <button type="button" class="secondary" onclick="renderHouseDetails('${h.id}', false)">Cancel</button>
@@ -1009,8 +1017,10 @@ async function renderHouseDetails(id, isEdit = false) {
         } else {
             content = `
                 <div class="detail-row"><span class="detail-label">Name</span><span>${h.name}</span></div>
-                <div class="detail-row"><span class="detail-label">HA Host</span><span>${h.ha_host}</span></div>
+                <div class="detail-row"><span class="detail-label">HA URL</span><span>${h.ha_url}</span></div>
                 <div class="detail-row"><span class="detail-label">HA Token</span><span>••••••••</span></div>
+                <div class="detail-row"><span class="detail-label">PV Entity</span><span>${h.ha_pv_entity_id}</span></div>
+                <div class="detail-row"><span class="detail-label">Consumption Entity</span><span>${h.ha_consumption_entity_id}</span></div>
                 <div class="grid" style="margin-top: 2rem;">
                     <button onclick="renderHouseDetails('${h.id}', true)">Edit</button>
                     <button class="secondary" onclick="deleteHouse('${h.id}')">Delete</button>
@@ -1024,7 +1034,7 @@ async function renderHouseDetails(id, isEdit = false) {
             document.getElementById('edit-house-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target);
-                await updateHouse(h.id, formData.get('name'), formData.get('ha_host'), formData.get('ha_token'));
+                await updateHouse(h.id, formData.get('name'), formData.get('ha_url'), formData.get('ha_token'), formData.get('ha_pv_entity_id'), formData.get('ha_consumption_entity_id'));
                 closeModal();
                 renderAdmin();
             });
@@ -1205,9 +1215,9 @@ window.updateDeviceConfigOverview = async (id) => {
     } catch (e) { alert('Error: ' + e); }
 };
 
-window.updateHouse = async (id, name, ha_host, ha_token) => {
+window.updateHouse = async (id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id) => {
     try {
-        const params = new URLSearchParams({ name, ha_host, ha_token });
+        const params = new URLSearchParams({ name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id });
         const resp = await fetch(`/api/houses/${id}`, {
             method: 'PATCH',
             body: params

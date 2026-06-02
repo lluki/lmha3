@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage {
   pname = "lmha3";
-  version = "0.0.19";
+  version = "0.0.20";
 
   src = ./.;
 
@@ -16,8 +16,10 @@ rustPlatform.buildRustPackage {
   postInstall = ''
     mkdir -p $out/share/lmha3
     cp -r server/public $out/share/lmha3/public
+    cp -r migrations $out/share/lmha3/migrations
     wrapProgram $out/bin/server \
-      --set-default LMHA3_PUBLIC_DIR "$out/share/lmha3/public"
+      --set-default LMHA3_PUBLIC_DIR "$out/share/lmha3/public" \
+      --set-default LMHA3_MIGRATIONS_DIR "$out/share/lmha3/migrations"
   '';
 
   doCheck = false;

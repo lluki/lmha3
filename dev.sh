@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
-DB_NAME="lmha3"
-export DATABASE_URL="host=/var/run/postgresql dbname=$DB_NAME user=$(whoami)"
-export HA_TOKEN=${HA_TOKEN:-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkNDg3MjUzYmQ0MDg0ODU2OTY2YTU1ODA3NjhlMTFiMCIsImlhdCI6MTc3OTYyMTQ5MywiZXhwIjoyMDk0OTgxNDkzfQ.W0-9noqqRGQwILHmtmcVv9_8Ql83fF_7QZQrOrheGvY"}
-export MQTT_USER=${MQTT_USER:-"admin"}
-export MQTT_PASSWORD=${MQTT_PASSWORD:-"freebird"}
-export LMHA_SCHEDULER_DEBUG=1
+# Load .env if it exists
+if [ -f .env ]; then
+    echo "Loading .env file..."
+    export $(grep -v '^#' .env | xargs)
+fi
+
+# Ensure mandatory vars are set or have safe local defaults
+DB_NAME=${DB_NAME:-"lmha3"}
+export DATABASE_URL=${DATABASE_URL:-"host=/var/run/postgresql dbname=$DB_NAME user=$(whoami)"}
+export LMHA_SCHEDULER_DEBUG=${LMHA_SCHEDULER_DEBUG:-1}
 
 # 1. Ensure DB exists
 if ! psql -lqt | cut -d \| -f 1 | grep -qw "$DB_NAME"; then

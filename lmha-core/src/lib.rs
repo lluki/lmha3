@@ -18,8 +18,10 @@ use argon2::{
 pub struct House {
     pub id: Uuid,
     pub name: String,
-    pub ha_host: String,
+    pub ha_url: String,
     pub ha_token: String,
+    pub ha_pv_entity_id: String,
+    pub ha_consumption_entity_id: String,
     pub created_at: DateTime<Utc>,
 }
 

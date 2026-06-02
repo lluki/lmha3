@@ -49,28 +49,6 @@ in {
       };
     };
 
-    homeAssistant = {
-      url = mkOption {
-        type = types.str;
-        default = "http://192.168.178.31:8123";
-        description = "Home Assistant API URL.";
-      };
-      tokenFile = mkOption {
-        type = types.path;
-        description = "Path to a file containing the Home Assistant Long-Lived Access Token.";
-      };
-      pvEntityId = mkOption {
-        type = types.nullOr types.str;
-        default = "sensor.panel_production_power";
-        description = "HA Entity ID for PV production.";
-      };
-      consumptionEntityId = mkOption {
-        type = types.nullOr types.str;
-        default = "sensor.house_load_power";
-        description = "HA Entity ID for house consumption.";
-      };
-    };
-
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
       default = {};
@@ -95,19 +73,11 @@ in {
         DATABASE_URL = cfg.databaseUrl;
         MQTT_HOST = cfg.mqtt.host;
         MQTT_PORT = toString cfg.mqtt.port;
-        HA_URL = cfg.homeAssistant.url;
       } // optionalAttrs (cfg.mqtt.user != null) {
         MQTT_USER = cfg.mqtt.user;
-      } // optionalAttrs (cfg.homeAssistant.pvEntityId != null) {
-        HA_PV_ENTITY_ID = cfg.homeAssistant.pvEntityId;
-      } // optionalAttrs (cfg.homeAssistant.consumptionEntityId != null) {
-        HA_CONSUMPTION_ENTITY_ID = cfg.homeAssistant.consumptionEntityId;
       } // cfg.extraEnvironment;
 
       script = ''
-        ${optionalString (cfg.homeAssistant.tokenFile != null) ''
-          export HA_TOKEN=$(cat ${cfg.homeAssistant.tokenFile})
-        ''}
         ${optionalString (cfg.mqtt.passwordFile != null) ''
           export MQTT_PASSWORD=$(cat ${cfg.mqtt.passwordFile})
         ''}
