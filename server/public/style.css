@@ -1,0 +1,216 @@
+.hidden {
+    display: none !important;
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#user-info span {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.tab-link.active {
+    background-color: var(--pico-secondary-focus);
+    border-radius: var(--pico-border-radius);
+    padding: 5px 15px !important;
+    font-weight: bold;
+    color: var(--pico-contrast) !important;
+}
+
+/* Specific overrides for Pico */
+header {
+    border-bottom: 1px solid var(--pico-muted-border-color);
+    margin-bottom: 2rem;
+}
+
+#main-nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Mobile Table responsiveness */
+@media (max-width: 768px) {
+    nav {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        height: auto !important;
+        min-height: min-content;
+    }
+
+    nav ul {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+    }
+
+    nav ul li {
+        width: 100%;
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    #main-nav a {
+        display: block !important;
+        padding: 20px 10px !important;
+        line-height: 1.5;
+        height: 60px !important; /* Fixed height for links */
+        width: 100%;
+        border-bottom: 1px solid var(--pico-muted-border-color);
+        box-sizing: border-box;
+    }
+
+    #user-info {
+        margin-top: 10px !important;
+        border-top: 2px solid var(--pico-muted-border-color);
+        padding-top: 10px !important;
+    }
+
+    #user-info li {
+        display: flex !important;
+        align-items: center;
+        min-height: 50px;
+    }
+
+    #main-nav a.active {
+        background-color: transparent;
+        position: relative;
+        padding-left: 20px !important;
+    }
+
+    #main-nav a.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 20%;
+        height: 60%;
+        width: 4px;
+        background-color: var(--pico-primary);
+        border-radius: 0 4px 4px 0;
+    }
+
+    table {
+        border: 0;
+    }
+    table thead {
+        display: none;
+    }
+    table tr {
+        border-bottom: 3px solid var(--pico-muted-border-color);
+        display: block;
+        margin-bottom: .625em;
+    }
+    table td {
+        border-bottom: 1px solid var(--pico-muted-border-color);
+        display: block;
+        text-align: right;
+    }
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+    }
+    table td:last-child {
+        border-bottom: 0;
+    }
+}
+
+/* Admin Refactor Styles */
+.admin-section {
+    margin-bottom: 3rem;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.summary-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 0 !important;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--pico-card-box-shadow);
+}
+
+.summary-card header {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-card .card-body {
+    font-size: 0.9rem;
+}
+
+.summary-card .card-footer {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+#floating-create-btn {
+    display: none; /* Controlled by JS */
+}
+
+#admin-modal article {
+    max-width: 600px;
+}
+
+#modal-content {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: var(--pico-secondary);
+}
+
+.syncing-indicator {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+#passive-banner article {
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border-radius: var(--pico-border-radius);
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

@@ -1,0 +1,27 @@
+# Tasks: 009-Device Management UI
+
+- [x] 1. Database Schema Update
+    - [x] 1.1 Create migration to add `expected_load`, `scheduling_type`, and `scheduling_until` to `devices`.
+- [x] 2. Core Logic (lmha-core)
+    - [x] 2.1 Define `SchedulingType` enum.
+    - [x] 2.2 Update `Device` struct to include new fields.
+    - [x] 2.3 Update DB methods to fetch and update these fields.
+- [x] 3. Scheduler Updates (server)
+    - [x] 3.1 Refactor scheduling loop to handle `None`, `ForceOn`, `ForceOff`.
+    - [x] 3.2 Implement auto-transition from `Force-*` to `Boiler`.
+    - [x] 3.3 Add logging for state transitions.
+- [x] 4. API Implementation (server)
+    - [x] 4.1 Implement `GET /api/devices`.
+    - [x] 4.2 Implement `PATCH /api/devices/{id}`.
+- [x] 5. Frontend Implementation
+    - [x] 5.1 Create Device Management section in `index.html`.
+    - [x] 5.2 Implement conditional visibility for `scheduling_until` in `app.js`.
+    - [x] 5.3 Implement API calls for viewing and updating devices.
+- [x] 6. Verification
+    - [x] 6.1 Update existing test cases to include:
+        - [x] A device with `FORCE_ON` (verify it is switched ON regardless of production).
+        - [x] A device with `FORCE_OFF` (verify it is switched OFF regardless of production).
+        - [x] A device with `NONE` (verify it retains its previous state).
+        - [x] Existing `BOILER` logic still works (tests pass).
+    - [x] 6.2 Verify manual force states override production logic in a running environment.
+    - [x] 6.3 Verify auto-revert to `BOILER` after timestamp expires.

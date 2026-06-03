@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMHA - Load Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="container">
+        <nav>
+            <ul>
+                <li><strong>LMHA Hagenholz</strong></li>
+            </ul>
+            <ul id="main-nav" class="hidden">
+                <li><a href="#" class="tab-link active" data-tab="overview">Overview</a></li>
+                <li><a href="#" class="tab-link" data-tab="history">History</a></li>
+                <li><a href="#" class="tab-link" id="admin-tab" data-tab="admin">Admin</a></li>
+                <li><a href="#" class="tab-link" data-tab="logs">Logs</a></li>
+            </ul>
+            <ul id="user-info">
+                <!-- User info & Logout will be injected here -->
+            </ul>
+        </nav>
+    </header>
+    <div id="passive-banner" class="container" style="display: none;">
+        <article style="background: var(--pico-del-color); color: white; margin-bottom: 1rem; padding: 0.5rem 1rem;">
+            <strong>⚠️ PASSIVE MODE ACTIVE:</strong> A higher priority instance (PROD) is running. This instance will NOT send any MQTT commands.
+        </article>
+    </div>
+    <main class="container" id="app">
+        <div id="loading" aria-busy="true">Loading...</div>
+    </main>
+    
+    <button id="floating-create-btn" class="secondary" title="Create New..." style="display: none; position: fixed; bottom: 2rem; right: 2rem; width: 4rem; height: 4rem; border-radius: 50%; font-size: 2rem; padding: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; align-items: center; justify-content: center;">+</button>
+
+    <dialog id="admin-modal">
+        <article>
+            <header>
+                <button aria-label="Close" rel="prev" onclick="closeModal()"></button>
+                <h3 id="modal-title">Modal Title</h3>
+            </header>
+            <div id="modal-content">
+                <!-- Content will be injected here -->
+            </div>
+            <footer>
+                <button class="secondary" onclick="closeModal()">Close</button>
+            </footer>
+        </article>
+    </dialog>
+
+    <footer class="container">
+        <hr>
+        <small>Version: <span id="app-version">...</span></small>
+    </footer>
+    <script src="/app.js?v=5"></script>
+</body>
+</html>
