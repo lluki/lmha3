@@ -1,1 +1,1 @@
-ALTER TABLE devices ADD COLUMN last_heartbeat TIMESTAMPTZ;
+ALTER TABLE devices ADD COLUMN IF NOT EXISTS last_heartbeat TIMESTAMPTZ;
