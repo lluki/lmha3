@@ -728,14 +728,14 @@ async function renderDeviceDetails(id, isEdit = false) {
                             </select>
                         </label>
                     </div>
-                    <div id="modal-boiler-config" style="${schType === 'BOILER' ? '' : 'display:none'}">
+                    <div id="modal-boiler-config">
                         <label>Runtime (Minutes) <input type="number" name="device_runtime" min="0" value="${d.device_runtime}" /></label>
                     </div>
                     <div id="modal-until-container" style="${(schType === 'FORCE_ON' || schType === 'FORCE_OFF') ? '' : 'display:none'}">
                         <label>Until <input type="datetime-local" name="scheduling_until" value="${until}" /></label>
                     </div>
                     <div class="grid" style="margin-top: 2rem;">
-                        <button type="submit">Save All</button>
+                        <button type="submit">Save</button>
                         <button type="button" class="secondary" onclick="renderDeviceDetails('${d.id}', false)">Cancel</button>
                     </div>
                 </form>
@@ -765,10 +765,9 @@ async function renderDeviceDetails(id, isEdit = false) {
                 <div class="detail-row"><span class="detail-label">Owner</span><span>${tenantName}</span></div>
                 <div class="detail-row"><span class="detail-label">Load</span><span>${d.expected_load} W</span></div>
                 <div class="detail-row"><span class="detail-label">Scheduling Mode</span><span>${schType}</span></div>
-                ${until ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${new Date(until).toLocaleString('de-CH')}</span></div>` : ''}
-                ${schType === 'BOILER' ? `
-                    <div class="detail-row"><span class="detail-label">Daily Runtime</span><span>${d.device_runtime} mins</span></div>
-                ` : ''}
+                <div class="detail-row"><span class="detail-label">Last Heartbeat</span><span>${lastFeedback}</span></div>
+                ${(until && (schType === 'FORCE_ON' || schType === 'FORCE_OFF')) ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${new Date(until).toLocaleString('de-CH')}</span></div>` : ''}
+                <div class="detail-row"><span class="detail-label">Daily Runtime</span><span>${d.device_runtime} mins</span></div>
                 <div class="grid" style="margin-top: 2rem;">
                     <button onclick="renderDeviceDetails('${d.id}', true)">Edit Config</button>
                     <button class="secondary" onclick="deleteDevice('${d.id}')">Delete Device</button>
@@ -939,23 +938,17 @@ window.renderCreateDeviceForm = async () => {
 
 window.handleSchedulingChangeInModal = (type) => {
     const untilContainer = document.getElementById('modal-until-container');
-    const boilerConfig = document.getElementById('modal-boiler-config');
     
     if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
         untilContainer.style.display = 'block';
-        boilerConfig.style.display = 'none';
         const input = untilContainer.querySelector('input');
         if (!input.value) {
             const inOneHour = new Date(Date.now() + 3600000);
             const offset = inOneHour.getTimezoneOffset() * 60000;
             input.value = new Date(inOneHour.getTime() - offset).toISOString().slice(0, 16);
         }
-    } else if (type === 'BOILER') {
-        untilContainer.style.display = 'none';
-        boilerConfig.style.display = 'block';
     } else {
         untilContainer.style.display = 'none';
-        boilerConfig.style.display = 'none';
     }
 };
 
