@@ -19,20 +19,46 @@ impl TestHarness {
     pub fn new(port: u16, no_scheduler: bool) -> Self {
         let db_name = format!("test_db_{}", Uuid::new_v4().simple());
         
-        // 1. Create temporary DB
-        let mut client = Client::connect("host=/var/run/postgresql dbname=postgres user=user", NoTls).unwrap();
+        let base_db_url = std::env::var("LMHA_DATABASE_URL").unwrap_or_else(|_| "host=/var/run/postgresql dbname=postgres user=user".to_string());
+        
+        // 1. Create temporary DB using base URL but connecting to 'postgres' first to create the new one
+        let mut base_params = base_db_url.split_whitespace().collect::<Vec<_>>();
+        let mut create_params = Vec::new();
+        for param in base_params {
+            if param.starts_with("dbname=") {
+                create_params.push("dbname=postgres");
+            } else {
+                create_params.push(param);
+            }
+        }
+        let create_url = create_params.join(" ");
+
+        let mut client = Client::connect(&create_url, NoTls).unwrap();
         client.execute(&format!("CREATE DATABASE {}", db_name), &[]).unwrap();
 
-        // 2. Run migrations
-        let db_url = format!("host=/var/run/postgresql dbname={} user=user", db_name);
+        // 2. Run migrations using the new DB name
+        let mut test_params = Vec::new();
+        for param in create_params {
+            if param.starts_with("dbname=") {
+                test_params.push(format!("dbname={}", db_name));
+            } else {
+                test_params.push(param.to_string());
+            }
+        }
+        let db_url = test_params.join(" ");
         let migrations_path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../migrations");
         
+        let mqtt_host = std::env::var("LMHA_MQTT_HOST").unwrap_or_else(|_| "localhost".to_string());
+        let mqtt_port = std::env::var("LMHA_MQTT_PORT").unwrap_or_else(|_| "1883".to_string()).parse().unwrap_or(1883);
+        let mqtt_user = std::env::var("LMHA_MQTT_USER").ok();
+        let mqtt_password = std::env::var("LMHA_MQTT_PASSWORD").ok();
+
         let config = Config {
             database_url: db_url.clone(),
-            mqtt_host: "localhost".to_string(),
-            mqtt_port: 1883,
-            mqtt_user: Some("admin".to_string()),
-            mqtt_password: Some("test_password".to_string()),
+            mqtt_host,
+            mqtt_port,
+            mqtt_user,
+            mqtt_password,
             instance_id: format!("test-{}", Uuid::new_v4().simple()),
             instance_priority: 10,
         };
@@ -92,8 +118,17 @@ impl TestHarness {
         let hashed = hash_password(password).unwrap();
         let id = Uuid::new_v4();
         let is_admin = username == "admin";
-        client.execute("INSERT INTO tenants (id, username, password_hash, house_id, is_admin) VALUES ($1, $2, $3, $4, $5)", &[&id, &username, &hashed, &house_id, &is_admin]).unwrap();
-        id
+        
+        // Use ON CONFLICT to handle cases where the admin user might already exist due to seeding
+        let row = client.query_opt(
+            "INSERT INTO tenants (id, username, password_hash, house_id, is_admin) 
+             VALUES ($1, $2, $3, $4, $5) 
+             ON CONFLICT (username) DO UPDATE SET password_hash = EXCLUDED.password_hash, is_admin = EXCLUDED.is_admin
+             RETURNING id", 
+            &[&id, &username, &hashed, &house_id, &is_admin]
+        ).unwrap();
+        
+        row.map(|r| r.get(0)).unwrap_or(id)
     }
 
     #[allow(dead_code)]
@@ -109,7 +144,19 @@ impl TestHarness {
 impl Drop for TestHarness {
     fn drop(&mut self) {
         let _ = self.api_child.kill();
-        let mut client = Client::connect("host=/var/run/postgresql dbname=postgres user=user", NoTls).unwrap();
+        let base_db_url = std::env::var("LMHA_DATABASE_URL").unwrap_or_else(|_| "host=/var/run/postgresql dbname=postgres user=user".to_string());
+        let mut base_params = base_db_url.split_whitespace().collect::<Vec<_>>();
+        let mut create_params = Vec::new();
+        for param in base_params {
+            if param.starts_with("dbname=") {
+                create_params.push("dbname=postgres");
+            } else {
+                create_params.push(param);
+            }
+        }
+        let create_url = create_params.join(" ");
+
+        let mut client = Client::connect(&create_url, NoTls).unwrap();
         client.execute(&format!("DROP DATABASE IF EXISTS {}", self.db_name), &[]).ok();
     }
 }

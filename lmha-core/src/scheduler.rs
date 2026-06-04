@@ -21,8 +21,7 @@ pub struct DeviceContext {
     pub is_enabled: bool,
     pub expected_load: i32,
     pub scheduling_type: SchedulingType,
-    pub full_charge_n_day: i32,
-    pub min_daily_charge: i32,
+    pub device_runtime: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, Copy)]
@@ -42,7 +41,6 @@ pub struct SchedulerInput<R: Rng> {
     pub rng: R,
 }
 
-const FULL_CHARGE_DURATION_MINS: i64 = 240; // 4 hours
 const CHARGE_WINDOW_START_HOUR: u32 = 1; // 1am
 const DAY_START_HOUR: u32 = 5; // 5am
 
@@ -94,6 +92,50 @@ fn calculate_runtime_mins(history: &[StateEvent], start: DateTime<Utc>, end: Dat
     total_mins
 }
 
+#[derive(Debug)]
+struct DailyRunInfo {
+    has_started: bool,
+    is_currently_running: bool,
+    current_run_duration_mins: i64,
+    total_runtime_today_mins: i64,
+}
+
+fn get_daily_run_info(history: &[StateEvent], start_of_day: DateTime<Utc>, now: DateTime<Utc>) -> DailyRunInfo {
+    let mut sorted_history = history.to_vec();
+    sorted_history.sort_by_key(|e| e.timestamp);
+    
+    // Filter history to only include events from this day
+    let today_history: Vec<_> = sorted_history.into_iter()
+        .filter(|e| e.timestamp >= start_of_day && e.timestamp <= now)
+        .collect();
+
+    let has_started = today_history.iter().any(|e| e.state == DeviceState::On);
+    
+    let last_event = today_history.last();
+    let is_currently_running = last_event.map(|e| e.state == DeviceState::On).unwrap_or(false);
+    
+    let current_run_duration_mins = if is_currently_running {
+        let last_on_start = today_history.iter()
+            .rev()
+            .take_while(|e| e.state == DeviceState::On)
+            .last()
+            .map(|e| e.timestamp)
+            .unwrap_or(now); // Should not happen if is_currently_running is true
+        (now - last_on_start).num_minutes()
+    } else {
+        0
+    };
+
+    let total_runtime_today_mins = calculate_runtime_mins(&today_history, start_of_day, now);
+
+    DailyRunInfo {
+        has_started,
+        is_currently_running,
+        current_run_duration_mins,
+        total_runtime_today_mins,
+    }
+}
+
 pub fn decide_action<R: Rng>(input: SchedulerInput<R>) -> SchedulerAction {
     // 1. Check for Forced state expirations
     for device in &input.devices {
@@ -128,125 +170,74 @@ pub fn decide_action<R: Rng>(input: SchedulerInput<R>) -> SchedulerAction {
         }
     }
 
-    // 3. Mandatory Charge Logic
+    // 3. New Simple Boiler Logic
     let start_of_day = get_start_of_day(input.now);
     use chrono::Timelike;
-    let is_mandatory_window = input.now.hour() >= CHARGE_WINDOW_START_HOUR && input.now.hour() < DAY_START_HOUR;
+    let is_catchup_window = input.now.hour() >= CHARGE_WINDOW_START_HOUR && input.now.hour() < DAY_START_HOUR;
 
-    if is_mandatory_window {
-        for device in &input.devices {
-            if !device.is_enabled || device.scheduling_type != SchedulingType::Boiler {
-                continue;
-            }
+    let mut eligible_for_pv = Vec::new();
 
-            let history = input.history.get(&device.id).map(|v| v.as_slice()).unwrap_or(&[]);
-            let today_runtime = calculate_runtime_mins(history, start_of_day, input.now);
-            
-            // Daily minimum check
-            if today_runtime < device.min_daily_charge as i64 {
-                if device.current_state != DeviceState::On {
-                    return SchedulerAction::SwitchOn(device.id);
-                }
-                continue; // Stay on
-            }
-
-            // Full charge check
-            let mut days_since_full_charge = 0;
-            for i in 0..device.full_charge_n_day {
-                let s = start_of_day - chrono::Duration::days(i as i64);
-                let e = s + chrono::Duration::days(1);
-                if calculate_runtime_mins(history, s, e) >= FULL_CHARGE_DURATION_MINS {
-                    break;
-                }
-                days_since_full_charge += 1;
-            }
-
-            if days_since_full_charge >= device.full_charge_n_day {
-                // We are on the deadline day (or past it), and today hasn't had a full charge yet.
-                // If it's the mandatory window (1am-5am), force it ON.
-                if today_runtime < FULL_CHARGE_DURATION_MINS {
-                    if device.current_state != DeviceState::On {
-                        return SchedulerAction::SwitchOn(device.id);
-                    }
-                }
-            }
-        }
-    }
-
-    // 4. Boiler Logic (Runtime-aware)
-    let mut devices_with_runtime = Vec::new();
     for device in &input.devices {
         if !device.is_enabled || device.scheduling_type != SchedulingType::Boiler {
             continue;
         }
 
-        let can_change = match device.last_state_change {
-            Some(last_change) => {
-                input.now.signed_duration_since(last_change).num_seconds() >= input.debounce_duration_secs
-            },
-            None => true,
-        };
+        let history = input.history.get(&device.id).map(|v| v.as_slice()).unwrap_or(&[]);
+        let run_info = get_daily_run_info(history, start_of_day, input.now);
 
-        if !can_change {
+        // a. If currently running, check if it should stay on
+        if run_info.is_currently_running {
+            if run_info.current_run_duration_mins < device.device_runtime as i64 {
+                // Keep it on until it reaches runtime
+                if device.current_state != DeviceState::On {
+                    return SchedulerAction::SwitchOn(device.id);
+                }
+                continue; // Stay on
+            } else {
+                // Runtime reached, turn it off (unless it's catchup window and others are running? No, each device is independent)
+                if device.current_state != DeviceState::Off {
+                    return SchedulerAction::SwitchOff(device.id);
+                }
+                continue;
+            }
+        }
+
+        // b. If already ran today, leave it off
+        if run_info.has_started {
+            if device.current_state != DeviceState::Off {
+                return SchedulerAction::SwitchOff(device.id);
+            }
             continue;
         }
 
-        let history = input.history.get(&device.id).map(|v| v.as_slice()).unwrap_or(&[]);
-        
-        // Find how long it has been in current state
-        let mut sorted_history = history.to_vec();
-        sorted_history.sort_by_key(|e| e.timestamp);
-        let last_event = sorted_history.last();
-        
-        let duration_in_current_state = match last_event {
-            Some(e) => (input.now - e.timestamp).num_seconds(),
-            None => 999999, // Long time
-        };
-
-        devices_with_runtime.push((device, duration_in_current_state));
-    }
-
-    let mut eligible_to_on = Vec::new();
-    let mut eligible_to_off = Vec::new();
-
-    let house_consumption_excl_devices: i32 = input.house_consumption - input.devices.iter()
-        .filter(|d| d.current_state == DeviceState::On)
-        .map(|d| d.expected_load)
-        .sum::<i32>();
-
-    for (device, duration) in devices_with_runtime {
-        let on_threshold = (0.7 * device.expected_load as f64) as i32;
-        // Improved deactivation logic: stay on if PV covers at least 30% of device load
-        let off_threshold = (0.3 * device.expected_load as f64) as i32;
-        
-        let net_balance = input.pv_production - input.house_consumption;
-
-        if device.current_state == DeviceState::Off {
-            if net_balance > on_threshold {
-                eligible_to_on.push((device.id, duration));
+        // c. Catch-up window check
+        if is_catchup_window {
+            // Force on for its full runtime
+            if device.current_state != DeviceState::On {
+                return SchedulerAction::SwitchOn(device.id);
             }
-        } else if device.current_state == DeviceState::On {
-            // Logic: we want to turn off if PV supply of this device goes below 30%
-            // Or more simply: PV_Production < (House_Consumption_Excl_Device + 0.3 * Device_Load)
-            if input.pv_production < (house_consumption_excl_devices + off_threshold) {
-                eligible_to_off.push((device.id, duration));
+            continue;
+        }
+
+        // d. PV Activation check (only if between 5am and 1am)
+        let is_pv_window = input.now.hour() >= DAY_START_HOUR || input.now.hour() < CHARGE_WINDOW_START_HOUR;
+        if is_pv_window {
+            let net_balance = input.pv_production - input.house_consumption;
+            let on_threshold = (0.7 * device.expected_load as f64) as i32;
+            
+            if net_balance > on_threshold {
+                eligible_for_pv.push(device.id);
             }
         }
     }
 
-    // Sort by duration for fair scheduling
-    // Turn off the one that has been running the longest
-    eligible_to_off.sort_by_key(|&(_, duration)| std::cmp::Reverse(duration));
-    if let Some(&(id, _)) = eligible_to_off.first() {
-        return SchedulerAction::SwitchOff(id);
+    // e. Randomly select ONE device for PV activation
+    if !eligible_for_pv.is_empty() {
+        let mut rng = input.rng;
+        let idx = rng.gen_range(0..eligible_for_pv.len());
+        return SchedulerAction::SwitchOn(eligible_for_pv[idx]);
     }
 
-    // Turn on the one that has been idle the longest
-    eligible_to_on.sort_by_key(|&(_, duration)| std::cmp::Reverse(duration));
-    if let Some(&(id, _)) = eligible_to_on.first() {
-        return SchedulerAction::SwitchOn(id);
-    }
-    
     SchedulerAction::Nothing
 }
 
@@ -259,187 +250,179 @@ mod tests {
     use std::collections::HashMap;
 
     #[test]
-    fn test_hysteresis_logic() {
-        let now = Utc::now();
-        let device_id = Uuid::new_v4();
+    fn test_pv_activation_and_lock_on() {
         let rng = StdRng::seed_from_u64(42);
+        let device_id = Uuid::new_v4();
+        let base_time = Utc::now().with_hour(10).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
         
         let mut history = HashMap::new();
         history.insert(device_id, Vec::new());
 
+        let devices = vec![DeviceContext {
+            id: device_id,
+            current_state: DeviceState::Off,
+            last_state_change: None,
+            is_enabled: true,
+            expected_load: 5000,
+            scheduling_type: SchedulingType::Boiler,
+            device_runtime: 180, // 3h
+        }];
+
+        // 1. PV Surplus > 70% -> SwitchOn
         let input_on = SchedulerInput {
             pv_production: 5000,
             house_consumption: 1000,
-            devices: vec![DeviceContext {
-                id: device_id,
-                current_state: DeviceState::Off,
-                last_state_change: Some(now - Duration::minutes(10)),
-                is_enabled: true,
-                expected_load: 5000,
-                scheduling_type: SchedulingType::Boiler,
-                full_charge_n_day: 1,
-                min_daily_charge: 0,
-            }],
+            devices: devices.clone(),
             history: history.clone(),
-            now,
-            debounce_duration_secs: 300,
+            now: base_time,
+            debounce_duration_secs: 0,
             rng: rng.clone(),
         };
         assert_eq!(decide_action(input_on), SchedulerAction::SwitchOn(device_id));
 
+        // 2. Device is ON, but only for 10 mins. PV drops -> Should stay ON
+        let mut history_on = history.clone();
+        history_on.get_mut(&device_id).unwrap().push(StateEvent { timestamp: base_time, state: DeviceState::On });
+        
+        let mut devices_on = devices.clone();
+        devices_on[0].current_state = DeviceState::On;
+
+        let input_stay_on = SchedulerInput {
+            pv_production: 0,
+            house_consumption: 1000,
+            devices: devices_on.clone(),
+            history: history_on.clone(),
+            now: base_time + Duration::minutes(10),
+            debounce_duration_secs: 0,
+            rng: rng.clone(),
+        };
+        assert_eq!(decide_action(input_stay_on), SchedulerAction::Nothing);
+
+        // 3. Device is ON for 181 mins -> Should SwitchOff
         let input_off = SchedulerInput {
-            pv_production: 1000,
-            house_consumption: 1000 + 5000, // House + Device
-            devices: vec![DeviceContext {
-                id: device_id,
-                current_state: DeviceState::On,
-                last_state_change: Some(now - Duration::minutes(10)),
-                is_enabled: true,
-                expected_load: 5000,
-                scheduling_type: SchedulingType::Boiler,
-                full_charge_n_day: 1,
-                min_daily_charge: 0,
-            }],
-            history: history.clone(),
-            now,
-            debounce_duration_secs: 300,
+            pv_production: 0,
+            house_consumption: 1000,
+            devices: devices_on.clone(),
+            history: history_on.clone(),
+            now: base_time + Duration::minutes(181),
+            debounce_duration_secs: 0,
             rng: rng.clone(),
         };
         assert_eq!(decide_action(input_off), SchedulerAction::SwitchOff(device_id));
     }
 
     #[test]
-    fn test_smart_boiler_scheduler_3_day_scenario() {
+    fn test_catchup_window() {
+        let rng = StdRng::seed_from_u64(42);
+        let device_id = Uuid::new_v4();
+        // 1:00 AM
+        let base_time = Utc::now().with_hour(1).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
+        
+        let mut history = HashMap::new();
+        history.insert(device_id, Vec::new());
+
+        let devices = vec![DeviceContext {
+            id: device_id,
+            current_state: DeviceState::Off,
+            last_state_change: None,
+            is_enabled: true,
+            expected_load: 5000,
+            scheduling_type: SchedulingType::Boiler,
+            device_runtime: 180,
+        }];
+
+        // No PV, but in catchup window -> SwitchOn
+        let input = SchedulerInput {
+            pv_production: 0,
+            house_consumption: 1000,
+            devices: devices.clone(),
+            history: history.clone(),
+            now: base_time,
+            debounce_duration_secs: 0,
+            rng: rng.clone(),
+        };
+        assert_eq!(decide_action(input), SchedulerAction::SwitchOn(device_id));
+    }
+
+    #[test]
+    fn test_random_selection() {
         let d1 = Uuid::new_v4();
         let d2 = Uuid::new_v4();
-        let rng = StdRng::seed_from_u64(42);
+        let base_time = Utc::now().with_hour(10).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
         
-        let mut devices = vec![
+        let mut history = HashMap::new();
+        history.insert(d1, Vec::new());
+        history.insert(d2, Vec::new());
+
+        let devices = vec![
             DeviceContext {
                 id: d1,
                 current_state: DeviceState::Off,
                 last_state_change: None,
                 is_enabled: true,
-                expected_load: 4000,
+                expected_load: 1000,
                 scheduling_type: SchedulingType::Boiler,
-                full_charge_n_day: 1,
-                min_daily_charge: 60,
+                device_runtime: 60,
             },
             DeviceContext {
                 id: d2,
                 current_state: DeviceState::Off,
                 last_state_change: None,
                 is_enabled: true,
-                expected_load: 4000,
+                expected_load: 1000,
                 scheduling_type: SchedulingType::Boiler,
-                full_charge_n_day: 3,
-                min_daily_charge: 0,
+                device_runtime: 60,
             }
         ];
 
-        let mut history: HashMap<Uuid, Vec<StateEvent>> = HashMap::new();
-        history.insert(d1, Vec::new());
-        history.insert(d2, Vec::new());
-
-        let base_time = Utc::now().with_hour(5).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
-        let mut current_now = base_time;
-
-        // Day 1: Solar production. 
-        // 12:00 PM: 5kW Solar. Only enough for ONE 4kW device.
-        current_now = base_time + Duration::hours(7); // 12:00 PM
+        // Plenty of PV for both, but we pick one at random (based on RNG seed)
         let input = SchedulerInput {
-            pv_production: 5000,
-            house_consumption: 500,
+            pv_production: 10000,
+            house_consumption: 0,
             devices: devices.clone(),
             history: history.clone(),
-            now: current_now,
+            now: base_time,
             debounce_duration_secs: 0,
-            rng: rng.clone(),
+            rng: StdRng::seed_from_u64(123),
         };
+        
         let action = decide_action(input);
-        // It should pick ONE device. 
         match action {
-            SchedulerAction::SwitchOn(id) => {
-                let d = devices.iter_mut().find(|d| d.id == id).unwrap();
-                d.current_state = DeviceState::On;
-                history.get_mut(&id).unwrap().push(StateEvent { timestamp: current_now, state: DeviceState::On });
-            }
+            SchedulerAction::SwitchOn(id) => assert!(id == d1 || id == d2),
             _ => panic!("Expected SwitchOn"),
         }
+    }
 
-        // Let it run for 10 mins, then 10kW Solar (plenty for both)
-        current_now = current_now + Duration::minutes(10);
-        let input2 = SchedulerInput {
-            pv_production: 10000,
-            house_consumption: 4500, // 0.5 + 4.0 (one device on)
-            devices: devices.clone(),
-            history: history.clone(),
-            now: current_now,
-            debounce_duration_secs: 0,
-            rng: rng.clone(),
-        };
-        let action2 = decide_action(input2);
-        // Now the OTHER device should turn on.
-        match action2 {
-            SchedulerAction::SwitchOn(id) => {
-                let other_id = if devices[0].current_state == DeviceState::On { d2 } else { d1 };
-                assert_eq!(id, other_id, "The idle device should turn on");
-                let d = devices.iter_mut().find(|d| d.id == id).unwrap();
-                d.current_state = DeviceState::On;
-                history.get_mut(&id).unwrap().push(StateEvent { timestamp: current_now, state: DeviceState::On });
-            }
-            _ => panic!("Expected second device to SwitchOn"),
-        }
-
-        // Day 2: 1:00 AM (Mandatory Window). D1 needs full charge (4h).
-        current_now = base_time + Duration::hours(20); // 1:00 AM Day 2
-        let input_mandatory = SchedulerInput {
-            pv_production: 0,
-            house_consumption: 500,
-            devices: devices.clone(),
-            history: history.clone(),
-            now: current_now,
-            debounce_duration_secs: 0,
-            rng: rng.clone(),
-        };
-        let action_mandatory = decide_action(input_mandatory);
-        match action_mandatory {
-            SchedulerAction::SwitchOn(id) => assert_eq!(id, d1, "D1 should be forced ON for mandatory charge"),
-            _ => {
-                // If already ON or Nothing (if logic thinks it's already done), we need to check
-                let d1_ctx = devices.iter().find(|d| d.id == d1).unwrap();
-                assert!(d1_ctx.current_state == DeviceState::On || action_mandatory != SchedulerAction::Nothing, "D1 should be ON or switching ON in mandatory window");
-            }
-        }
-
-        // Test Fair Selection (Longest Idle)
-        current_now = base_time + Duration::hours(31); // 12:00 PM Day 2
-        devices[0].current_state = DeviceState::On;
-        devices[1].current_state = DeviceState::Off;
-        history.get_mut(&d1).unwrap().push(StateEvent { timestamp: base_time + Duration::hours(20), state: DeviceState::On });
+    #[test]
+    fn test_overrides_precedence() {
+        let rng = StdRng::seed_from_u64(42);
+        let device_id = Uuid::new_v4();
+        let base_time = Utc::now().with_hour(10).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
+        let until = base_time + Duration::hours(1);
         
-        let input_fair = SchedulerInput {
-            pv_production: 10000,
-            house_consumption: 500 + 4000, // House + D1
+        let mut history = HashMap::new();
+        history.insert(device_id, Vec::new());
+
+        let devices = vec![DeviceContext {
+            id: device_id,
+            current_state: DeviceState::On,
+            last_state_change: None,
+            is_enabled: true,
+            expected_load: 5000,
+            scheduling_type: SchedulingType::ForceOff { until },
+            device_runtime: 180,
+        }];
+
+        // Even with huge PV, ForceOff should result in SwitchOff
+        let input = SchedulerInput {
+            pv_production: 20000,
+            house_consumption: 0,
             devices: devices.clone(),
             history: history.clone(),
-            now: current_now,
+            now: base_time,
             debounce_duration_secs: 0,
             rng: rng.clone(),
         };
-        assert_eq!(decide_action(input_fair), SchedulerAction::SwitchOn(d2), "D2 (idle longest) should turn on");
-
-        // Test Grid-Assisted Retention (30% rule)
-        current_now = current_now + Duration::minutes(10);
-        let input_retention = SchedulerInput {
-            pv_production: 2000,
-            house_consumption: 4500, // House (0.5) + Device (4.0)
-            devices: devices.clone(),
-            history: history.clone(),
-            now: current_now,
-            debounce_duration_secs: 300,
-            rng: rng.clone(),
-        };
-        assert_eq!(decide_action(input_retention), SchedulerAction::Nothing, "D1 should STAY ON due to 30% rule");
+        assert_eq!(decide_action(input), SchedulerAction::SwitchOff(device_id));
     }
 }

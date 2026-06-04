@@ -736,8 +736,7 @@ fn main() {
                             tenant_id: Option<Uuid>,
                             expected_load: Option<i32>,
                             scheduling_type: Option<lmha_core::SchedulingType>,
-                            full_charge_n_day: Option<i32>,
-                            min_daily_charge: Option<i32>,
+                            device_runtime: Option<i32>,
                         }
 
                         let patch: DevicePatch = match rouille::input::json_input(request) {
@@ -750,19 +749,17 @@ fn main() {
                             let mqtt_topic = patch.mqtt_topic.unwrap_or(d.mqtt_topic);
                             let tenant_id = patch.tenant_id.unwrap_or(d.tenant_id);
                             let load = patch.expected_load.unwrap_or(d.expected_load);
-                            let full_charge = patch.full_charge_n_day.unwrap_or(d.full_charge_n_day);
-                            let min_charge = patch.min_daily_charge.unwrap_or(d.min_daily_charge);
+                            let runtime = patch.device_runtime.unwrap_or(d.device_runtime);
 
-                            if let Err(e) = db.update_device_config_admin(id, &name, &mqtt_topic, tenant_id, load, full_charge, min_charge) {
+                            if let Err(e) = db.update_device_config_admin(id, &name, &mqtt_topic, tenant_id, load, runtime) {
                                 error!("DB Error updating admin config: {}", e);
                                 return Response::text("DB Error").with_status_code(500);
                             }
-                        } else if patch.expected_load.is_some() || patch.full_charge_n_day.is_some() || patch.min_daily_charge.is_some() {
+                        } else if patch.expected_load.is_some() || patch.device_runtime.is_some() {
                             let load = patch.expected_load.unwrap_or(d.expected_load);
-                            let full_charge = patch.full_charge_n_day.unwrap_or(d.full_charge_n_day);
-                            let min_charge = patch.min_daily_charge.unwrap_or(d.min_daily_charge);
+                            let runtime = patch.device_runtime.unwrap_or(d.device_runtime);
                             
-                            if let Err(e) = db.update_device_config(id, load, full_charge, min_charge) {
+                            if let Err(e) = db.update_device_config(id, load, runtime) {
                                 error!("DB Error updating config: {}", e);
                                 return Response::text("DB Error").with_status_code(500);
                             }
@@ -1006,8 +1003,7 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                             is_enabled: d.is_enabled,
                             expected_load: d.expected_load,
                             scheduling_type: d.scheduling_type.clone(),
-                            full_charge_n_day: d.full_charge_n_day,
-                            min_daily_charge: d.min_daily_charge,
+                            device_runtime: d.device_runtime,
                         }
                     }).collect(),
                     history,

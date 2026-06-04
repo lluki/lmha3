@@ -161,9 +161,9 @@ impl Db {
 
     pub fn list_devices(&mut self, house_id: Option<Uuid>) -> Result<Vec<Device>, postgres::Error> {
             let (query, params): (&str, &[&(dyn postgres::types::ToSql + Sync)]) = if let Some(hid) = &house_id {
-                ("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, desired_state::TEXT, last_request_time, last_feedback_time, scheduling_type, scheduling_until, full_charge_n_day, min_daily_charge, house_id FROM devices WHERE house_id = $1", &[hid])
+                ("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, desired_state::TEXT, last_request_time, last_feedback_time, scheduling_type, scheduling_until, device_runtime, house_id FROM devices WHERE house_id = $1", &[hid])
             } else {
-                ("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, desired_state::TEXT, last_request_time, last_feedback_time, scheduling_type, scheduling_until, full_charge_n_day, min_daily_charge, house_id FROM devices", &[])
+                ("SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, desired_state::TEXT, last_request_time, last_feedback_time, scheduling_type, scheduling_until, device_runtime, house_id FROM devices", &[])
             };
 
             let rows = self.client.query(query, params)?;
@@ -197,9 +197,8 @@ impl Db {
                 last_request_time: row.get(8),
                 last_feedback_time: row.get(9),
                 scheduling_type,
-                full_charge_n_day: row.get(12),
-                min_daily_charge: row.get(13),
-                house_id: row.get(14),
+                device_runtime: row.get(12),
+                house_id: row.get(13),
             }
         }).collect())
     }
@@ -294,7 +293,7 @@ impl Db {
 
     pub fn get_out_of_sync_devices(&mut self) -> Result<Vec<Device>, postgres::Error> {
         let rows = self.client.query(
-            "SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, desired_state::TEXT, last_request_time, last_feedback_time, scheduling_type, scheduling_until, full_charge_n_day, min_daily_charge, house_id 
+            "SELECT id, tenant_id, mqtt_topic, name, is_enabled, expected_load, current_state::TEXT, desired_state::TEXT, last_request_time, last_feedback_time, scheduling_type, scheduling_until, device_runtime, house_id 
              FROM devices 
              WHERE desired_state != current_state AND is_enabled = TRUE",
             &[],
@@ -331,9 +330,8 @@ impl Db {
                 last_request_time: row.get(8),
                 last_feedback_time: row.get(9),
                 scheduling_type,
-                full_charge_n_day: row.get(12),
-                min_daily_charge: row.get(13),
-                house_id: row.get(14),
+                device_runtime: row.get(12),
+                house_id: row.get(13),
             }
         }).collect())
     }
@@ -365,10 +363,10 @@ impl Db {
         Ok(())
     }
 
-    pub fn update_device_config(&mut self, id: Uuid, expected_load: i32, full_charge_n_day: i32, min_daily_charge: i32) -> Result<(), postgres::Error> {
+    pub fn update_device_config(&mut self, id: Uuid, expected_load: i32, device_runtime: i32) -> Result<(), postgres::Error> {
         self.client.execute(
-            "UPDATE devices SET expected_load = $1, full_charge_n_day = $2, min_daily_charge = $3 WHERE id = $4",
-            &[&expected_load, &full_charge_n_day, &min_daily_charge, &id],
+            "UPDATE devices SET expected_load = $1, device_runtime = $2 WHERE id = $3",
+            &[&expected_load, &device_runtime, &id],
         )?;
         Ok(())
     }
@@ -525,10 +523,10 @@ impl Db {
         Ok(())
     }
 
-    pub fn update_device_config_admin(&mut self, id: Uuid, name: &str, mqtt_topic: &str, tenant_id: Uuid, expected_load: i32, full_charge: i32, min_charge: i32) -> Result<(), postgres::Error> {
+    pub fn update_device_config_admin(&mut self, id: Uuid, name: &str, mqtt_topic: &str, tenant_id: Uuid, expected_load: i32, device_runtime: i32) -> Result<(), postgres::Error> {
         self.client.execute(
-            "UPDATE devices SET name = $1, mqtt_topic = $2, tenant_id = $3, expected_load = $4, full_charge_n_day = $5, min_daily_charge = $6 WHERE id = $7",
-            &[&name, &mqtt_topic, &tenant_id, &expected_load, &full_charge, &min_charge, &id],
+            "UPDATE devices SET name = $1, mqtt_topic = $2, tenant_id = $3, expected_load = $4, device_runtime = $5 WHERE id = $6",
+            &[&name, &mqtt_topic, &tenant_id, &expected_load, &device_runtime, &id],
         )?;
         Ok(())
     }

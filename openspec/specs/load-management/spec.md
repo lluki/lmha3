@@ -2,7 +2,6 @@
 
 ## Overview
 The logic for matching load consumption with solar production and handling manual tenant overrides.
-
 ## Requirements
 1. **Decision Engine (Background Thread):**
    - Runs in a dedicated background thread within the server process.
@@ -57,6 +56,21 @@ The logic for matching load consumption with solar production and handling manua
    - **Scenario: View daily runtime**
      - **WHEN** a user views the device overview at 10:00 AM
      - **THEN** the system shows the total ON time accumulated since 5:00 AM that day
+
+### Requirement: Fixed Daily Runtime Algorithm
+The system SHALL ensure each device in `BOILER` mode runs for a configurable `device_runtime` (default 3 hours) exactly once during each 24-hour cycle (5:00 AM to 5:00 AM).
+
+#### Scenario: PV-based activation
+- **WHEN** it is between 5:00 AM and 1:00 AM, and PV surplus (PV Production - House Consumption) > 70% of a device's expected load, AND the device has not yet run during the current cycle
+- **THEN** the system SHALL select one such device at random and turn it ON
+
+#### Scenario: Guaranteed duration
+- **WHEN** a device has been activated via the PV-based activation or catch-up window
+- **THEN** the system SHALL keep it ON for the full `device_runtime` regardless of subsequent PV production changes
+
+#### Scenario: Catch-up window
+- **WHEN** it is 1:00 AM and a device has not yet run during the current cycle
+- **THEN** the system SHALL turn the device ON for its full `device_runtime`
 
 ## Home Assistant details
 

@@ -94,8 +94,7 @@ pub struct Device {
     pub desired_state: DeviceState,
     pub last_request_time: Option<DateTime<Utc>>,
     pub last_feedback_time: Option<DateTime<Utc>>,
-    pub full_charge_n_day: i32,
-    pub min_daily_charge: i32,
+    pub device_runtime: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

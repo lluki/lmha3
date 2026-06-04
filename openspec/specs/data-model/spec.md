@@ -55,9 +55,7 @@ Historical data for system and devices.
 - **House (1) -> Device (N)**: A house contains multiple devices.
 - **Tenant (1) -> Device (N)**: A tenant can own multiple devices.
 - **Device (1) -> Telemetry (N)**: Historical state changes.
-
 ## Requirements
-
 ### Requirement: Multi-House Schema Mapping
 The data model SHALL support a hierarchical relationship where Houses contain both Tenants and Devices. Each House MUST store its own integration credentials and configuration for external services (Home Assistant).
 
@@ -67,13 +65,12 @@ The data model SHALL support a hierarchical relationship where Houses contain bo
 - **AND** the `houses` table contains `ha_url`, `ha_token`, `ha_pv_entity_id`, and `ha_consumption_entity_id` columns
 
 ### Requirement: Advanced Boiler Configuration
-The system SHALL support advanced configuration for devices in Boiler mode:
-- **full_charge_n_day**: Number of days (1-8) within which a "full charge" (4h contiguous or aggregate) must occur.
-- **min_daily_charge**: Minimum number of minutes/hours the device must run every day (5am to 5am window).
+The system SHALL support configuration for devices in Boiler mode:
+- **device_runtime**: The total duration (in minutes) the device must run every day (5 AM to 5 AM window). Default is 180 minutes (3 hours).
 
-#### Scenario: Admin configures boiler
-- **WHEN** an admin sets `full_charge_n_day` to 3 for a device
-- **THEN** the system persists this value and uses it to calculate mandatory charge deadlines
+#### Scenario: Admin configures boiler runtime
+- **WHEN** an admin sets `device_runtime` to 120 for a device
+- **THEN** the system persists this value and uses it to calculate scheduling and catch-up windows
 - **AND** the configuration is scoped to the device within its respective house
 
 #### Scenario: User modifies own device
@@ -91,3 +88,4 @@ The `devices` table SHALL be extended to support robust state synchronization an
 #### Scenario: Schema supports sync tracking
 - **WHEN** the `devices` table is inspected
 - **THEN** it MUST contain `desired_state`, `last_request_time`, and `last_feedback_time` columns.
+

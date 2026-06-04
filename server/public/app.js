@@ -362,11 +362,8 @@ async function renderOverview() {
                             <input type="number" value="${d.expected_load}" id="ov-load-${d.id}" style="margin-bottom:0.4rem; font-size: 0.8rem; padding: 2px 8px;">
                         </label>
                         <div id="ov-boiler-config-${d.id}" style="${schType === 'BOILER' ? '' : 'display:none'}">
-                            <label style="font-size: 0.7rem; margin-bottom: 0.2rem;">Charge (Days)
-                                <input type="number" min="1" max="8" value="${d.full_charge_n_day}" id="ov-full-${d.id}" style="margin-bottom:0.4rem; font-size: 0.8rem; padding: 2px 8px;">
-                            </label>
-                            <label style="font-size: 0.7rem; margin-bottom: 0.2rem;">Min (Mins)
-                                <input type="number" min="0" value="${d.min_daily_charge}" id="ov-min-${d.id}" style="margin-bottom:0; font-size: 0.8rem; padding: 2px 8px;">
+                            <label style="font-size: 0.7rem; margin-bottom: 0.2rem;">Runtime (Mins)
+                                <input type="number" min="0" value="${d.device_runtime}" id="ov-runtime-${d.id}" style="margin-bottom:0; font-size: 0.8rem; padding: 2px 8px;">
                             </label>
                         </div>
                     </td>
@@ -738,10 +735,7 @@ async function renderDeviceDetails(id, isEdit = false) {
                         </label>
                     </div>
                     <div id="modal-boiler-config" style="${schType === 'BOILER' ? '' : 'display:none'}">
-                        <div class="grid">
-                            <label>Charge (Days) <input type="number" name="full_charge_n_day" min="1" max="8" value="${d.full_charge_n_day}" /></label>
-                            <label>Min (Mins) <input type="number" name="min_daily_charge" min="0" value="${d.min_daily_charge}" /></label>
-                        </div>
+                        <label>Runtime (Minutes) <input type="number" name="device_runtime" min="0" value="${d.device_runtime}" /></label>
                     </div>
                     <div id="modal-until-container" style="${(schType === 'FORCE_ON' || schType === 'FORCE_OFF') ? '' : 'display:none'}">
                         <label>Until <input type="datetime-local" name="scheduling_until" value="${until}" /></label>
@@ -779,8 +773,7 @@ async function renderDeviceDetails(id, isEdit = false) {
                 <div class="detail-row"><span class="detail-label">Scheduling Mode</span><span>${schType}</span></div>
                 ${until ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${new Date(until).toLocaleString()}</span></div>` : ''}
                 ${schType === 'BOILER' ? `
-                    <div class="detail-row"><span class="detail-label">Charge Interval</span><span>${d.full_charge_n_day} days</span></div>
-                    <div class="detail-row"><span class="detail-label">Daily Min</span><span>${d.min_daily_charge} mins</span></div>
+                    <div class="detail-row"><span class="detail-label">Daily Runtime</span><span>${d.device_runtime} mins</span></div>
                 ` : ''}
                 <div class="grid" style="margin-top: 2rem;">
                     <button onclick="renderDeviceDetails('${d.id}', true)">Edit Config</button>
@@ -803,8 +796,7 @@ async function renderDeviceDetails(id, isEdit = false) {
                     mqtt_topic: formData.get('mqtt_topic'),
                     tenant_id: formData.get('tenant_id'),
                     expected_load: parseInt(formData.get('expected_load')),
-                    full_charge_n_day: parseInt(formData.get('full_charge_n_day') || 0),
-                    min_daily_charge: parseInt(formData.get('min_daily_charge') || 0),
+                    device_runtime: parseInt(formData.get('device_runtime') || 0),
                     scheduling_type: {}
                 };
 
@@ -1194,8 +1186,7 @@ window.updateDeviceConfigOverview = async (id) => {
         
         const body = {
             expected_load: parseInt(document.getElementById(`ov-load-${id}`).value),
-            full_charge_n_day: parseInt(document.getElementById(`ov-full-${id}`)?.value || 0),
-            min_daily_charge: parseInt(document.getElementById(`ov-min-${id}`)?.value || 0),
+            device_runtime: parseInt(document.getElementById(`ov-runtime-${id}`)?.value || 0),
             scheduling_type: {}
         };
 
