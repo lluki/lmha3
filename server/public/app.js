@@ -239,7 +239,7 @@ async function renderOverview() {
             </div>
             <article>
                 <header style="display: flex; justify-content: space-between; align-items: center;">
-                    <strong>${currentUser.is_admin ? 'All Devices' : 'Your Devices'}</strong>
+                    <strong>${currentUser.is_admin ? 'All Devices' : 'My Devices'}</strong>
                 </header>
                 <div id="overview-content" aria-busy="true">Loading...</div>
             </article>
@@ -283,115 +283,51 @@ async function renderOverview() {
             return;
         }
 
-        let html = '<table><thead><tr><th>Name</th>';
-        if (currentUser.is_admin) html += '<th>Owner</th>';
-        html += '<th>Mode</th><th>Status</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
+        let html = '<div class="grid">';
 
         for (const d of userDevices) {
-            // Offline and Syncing detection
+            // Offline detection (5 minutes threshold)
             const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).getTime() : 0;
-            const lastRequest = d.last_request_time ? new Date(d.last_request_time).getTime() : 0;
-            const isOffline = (lastRequest > lastFeedback) && (lastRequest > lastFeedback + 20000);
-            const isSyncing = d.desired_state !== d.current_state;
-
-            let lastSeen = d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString() : 'Never';
-            let statusText = `<code>${d.current_state}</code>`;
-            if (isSyncing) statusText += ` <small class="syncing-indicator" style="display: block; font-size: 0.65rem; color: var(--pico-ins-color);">Syncing...</small>`;
-            if (isOffline) statusText += ` <span class="offline-badge" style="background: var(--pico-del-color); color: white; padding: 1px 4px; border-radius: 3px; font-size: 0.6rem; font-weight: bold; margin-left: 4px; vertical-align: middle;">OFFLINE</span>`;
+            const isHealthy = (Date.now() - lastFeedback) < (5 * 60 * 1000);
+            const healthStatus = isHealthy ? "Yes" : `No, ${d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString('de-CH') : 'Never'}`;
             
-            let modeText = '';
-
+            // Mode detection
             const schObj = d.scheduling_type;
             const schType = (schObj && typeof schObj === 'object' ? schObj.type : schObj) || 'UNKNOWN';
-            const untilTime = (schObj && schObj.until) ? new Date(schObj.until).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
-            
-            let until = '';
-            if (schObj && schObj.until) {
-                const date = new Date(schObj.until);
-                const offset = date.getTimezoneOffset() * 60000;
-                until = new Date(date.getTime() - offset).toISOString().slice(0, 16);
+            let modeText = "Normal";
+            let isVacationActive = false;
+            if (schType === 'FORCE_OFF' && schObj.until) {
+                const returnDate = new Date(new Date(schObj.until).getTime() + 24*60*60*1000);
+                modeText = `Vacation mode until ${returnDate.toLocaleDateString('de-CH')}`;
+                isVacationActive = true;
             }
 
-            if (schType === 'BOILER') {
-                const hours = Math.floor(d.runtime_24h / 60);
-                const mins = d.runtime_24h % 60;
-                statusText += `<br><small class="secondary">24h Runtime: ${hours}h ${mins}m</small>`;
-            } else if (d.current_state === 'ON') {
-                const lastOn = history.find(t => t.device_id === d.id && t.source === 'DEVICE_STATE' && t.value === 1.0);
-                if (lastOn) {
-                    const diff = Date.now() - new Date(lastOn.timestamp).getTime();
-                    const mins = Math.floor(diff / 60000);
-                    if (mins < 60) {
-                        statusText += ` <small>(on ${mins}m)</small>`;
-                    } else {
-                        statusText += ` <small>(since ${new Date(lastOn.timestamp).toLocaleTimeString()})</small>`;
-                    }
-                }
-            } else if (d.current_state === 'OFF') {
-                const lastOffIndex = history.findIndex(t => t.device_id === d.id && t.source === 'DEVICE_STATE' && t.value === 0.0);
-                if (lastOffIndex !== -1) {
-                    const lastOff = history[lastOffIndex];
-                    const lastOn = history.slice(lastOffIndex + 1).find(t => t.device_id === d.id && t.source === 'DEVICE_STATE' && t.value === 1.0);
-                    
-                    if (lastOn) {
-                        const start = new Date(lastOn.timestamp);
-                        const end = new Date(lastOff.timestamp);
-                        const diffMs = end - start;
-                        const hours = Math.floor(diffMs / 3600000);
-                        const mins = Math.floor((diffMs % 3600000) / 60000);
-                        const durationStr = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
-                        
-                        const timeOpts = { hour: '2-digit', minute: '2-digit' };
-                        statusText += `<br><small class="secondary" style="font-size: 0.75rem; white-space: nowrap;">Last: ${start.toLocaleTimeString([], timeOpts)} - ${end.toLocaleTimeString([], timeOpts)} (${durationStr})</small>`;
-                    }
-                }
-            }
+            // Runtime
+            const hours = Math.floor(d.runtime_24h / 60);
+            const mins = d.runtime_24h % 60;
+            const runtimeText = `${hours}h ${mins}m`;
 
             html += `
-                <tr>
-                    <td data-label="Name">${d.name}</td>`;
-            
-            if (currentUser.is_admin) {
-                const ownerName = tenantMap[d.tenant_id] || 'Unknown';
-                html += `<td data-label="Owner">${ownerName}</td>`;
-            }
-
-            html += `
-                    <td data-label="Config">
-                        <label style="font-size: 0.7rem; margin-bottom: 0.2rem;">Load (W)
-                            <input type="number" value="${d.expected_load}" id="ov-load-${d.id}" style="margin-bottom:0.4rem; font-size: 0.8rem; padding: 2px 8px;">
-                        </label>
-                        <div id="ov-boiler-config-${d.id}" style="${schType === 'BOILER' ? '' : 'display:none'}">
-                            <label style="font-size: 0.7rem; margin-bottom: 0.2rem;">Runtime (Mins)
-                                <input type="number" min="0" value="${d.device_runtime}" id="ov-runtime-${d.id}" style="margin-bottom:0; font-size: 0.8rem; padding: 2px 8px;">
-                            </label>
-                        </div>
-                    </td>
-                    <td data-label="Scheduling">
-                        <label style="font-size: 0.7rem; margin-bottom: 0.2rem;">Mode
-                            <select id="ov-sch-${d.id}" onchange="handleSchedulingChangeOverview('${d.id}', this.value)" style="margin-bottom:0.4rem; font-size: 0.8rem; padding: 2px 8px; height: auto;">
-                                <option value="BOILER" ${schType === 'BOILER' ? 'selected' : ''}>Boiler</option>
-                                <option value="NONE" ${schType === 'NONE' ? 'selected' : ''}>Manual</option>
-                                <option value="FORCE_ON" ${schType === 'FORCE_ON' ? 'selected' : ''}>Force ON</option>
-                                <option value="FORCE_OFF" ${schType === 'FORCE_OFF' ? 'selected' : ''}>Force OFF</option>
-                            </select>
-                        </label>
-                        <div id="ov-until-container-${d.id}" style="${(schType === 'FORCE_ON' || schType === 'FORCE_OFF') ? '' : 'display:none'}">
-                            <label style="font-size: 0.7rem; margin-bottom: 0.2rem;">Until
-                                <input type="datetime-local" value="${until}" id="ov-until-${d.id}" style="margin-bottom:0; font-size: 0.8rem; padding: 2px 8px;">
-                            </label>
-                        </div>
-                    </td>
-                    <td data-label="Status">${statusText}</td>
-                    <td data-label="Last Seen">${lastSeen}</td>
-                    <td data-label="Action">
-                        <button class="outline" style="margin-bottom:0.5rem; padding: 2px 8px; width: 100%; font-size: 0.8rem;" onclick="toggleDevice('${d.id}')">Toggle</button>
-                        <button class="outline contrast" style="margin:0; padding: 2px 8px; width: 100%; font-size: 0.8rem;" onclick="updateDeviceConfigOverview('${d.id}')">Save</button>
-                    </td>
-                </tr>
+                <article>
+                    <header>
+                        <strong>${d.name}</strong>
+                        ${currentUser.is_admin ? `<br><small class="secondary" style="font-size: 0.7rem;">Owner: ${tenantMap[d.tenant_id] || 'Unknown'}</small>` : ''}
+                    </header>
+                    <div style="font-size: 0.9rem;">
+                        <p style="margin-bottom: 0.5rem;"><strong>Healthy:</strong> ${healthStatus}</p>
+                        <p style="margin-bottom: 0.5rem;"><strong>Status:</strong> ${d.current_state}</p>
+                        <p style="margin-bottom: 0.5rem;"><strong>Today's Runtime:</strong> ${runtimeText}</p>
+                        <p style="margin-bottom: 1rem;"><strong>Mode:</strong> ${modeText}</p>
+                    </div>
+                    <footer>
+                        <button class="primary" style="width: 100%; padding: 0.8rem;" onclick="openVacationModal('${d.id}', ${isVacationActive})">
+                            ${isVacationActive ? 'Modify Vacation Absence' : 'Set Vacation Absence'}
+                        </button>
+                    </footer>
+                </article>
             `;
         }
-        html += '</tbody></table>';
+        html += '</div>';
         content.innerHTML = html;
     } catch (e) {
         const content = document.getElementById('overview-content');
@@ -401,6 +337,64 @@ async function renderOverview() {
         }
     }
 }
+
+const vacationModal = document.getElementById('vacation-modal');
+const cancelVacationBtn = document.getElementById('cancel-vacation-btn');
+
+window.openVacationModal = (deviceId, isVacationActive) => {
+    document.getElementById('vacation-device-id').value = deviceId;
+    document.getElementById('vacation-return-date').value = new Date().toISOString().split('T')[0];
+    cancelVacationBtn.style.display = isVacationActive ? 'block' : 'none';
+    vacationModal.showModal();
+};
+
+window.closeVacationModal = () => {
+    vacationModal.close();
+};
+
+window.cancelVacation = async () => {
+    const id = document.getElementById('vacation-device-id').value;
+    if (!confirm('Are you sure you want to cancel the vacation absence and return to Normal mode?')) return;
+
+    try {
+        const resp = await fetch(`/api/devices/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ scheduling_type: { type: 'BOILER' } })
+        });
+        
+        if (resp.ok) {
+            closeVacationModal();
+            renderOverview();
+        } else {
+            alert('Failed to cancel vacation: ' + await resp.text());
+        }
+    } catch (e) {
+        alert('Error cancelling vacation: ' + e);
+    }
+};
+
+window.saveVacation = async () => {
+    const id = document.getElementById('vacation-device-id').value;
+    const returnDate = document.getElementById('vacation-return-date').value;
+    
+    try {
+        const resp = await fetch(`/api/devices/${id}/vacation`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ return_date: returnDate })
+        });
+        
+        if (resp.ok) {
+            closeVacationModal();
+            renderOverview();
+        } else {
+            alert('Failed to set vacation: ' + await resp.text());
+        }
+    } catch (e) {
+        alert('Error setting vacation: ' + e);
+    }
+};
 
 function renderHistory() {
     app.innerHTML = `
@@ -478,7 +472,7 @@ async function fetchAndRenderHistory(includeAll) {
             
             html += `
                 <tr>
-                    <td>${new Date(t.timestamp).toLocaleTimeString()} <small class="secondary">${new Date(t.timestamp).toLocaleDateString()}</small></td>
+                    <td>${new Date(t.timestamp).toLocaleTimeString('de-CH')} <small class="secondary">${new Date(t.timestamp).toLocaleDateString('de-CH')}</small></td>
                     <td>${sourceName}</td>
                     <td>${eventType}</td>
                     <td>${valText}</td>
@@ -553,7 +547,7 @@ async function fetchAndRenderLogs(elementId, levelFilter = 'ALL') {
             
             html += `
                 <div style="margin-bottom: 4px; color: ${color};">
-                    [${new Date(log.timestamp).toLocaleTimeString()}] <strong>${log.level}</strong> [${log.target}] ${log.message}
+                    [${new Date(log.timestamp).toLocaleTimeString('de-CH')}] <strong>${log.level}</strong> [${log.target}] ${log.message}
                 </div>
             `;
         });
@@ -747,8 +741,8 @@ async function renderDeviceDetails(id, isEdit = false) {
                 </form>
             `;
         } else {
-            const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString() : 'Never';
-            const lastRequest = d.last_request_time ? new Date(d.last_request_time).toLocaleString() : 'Never';
+            const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString('de-CH') : 'Never';
+            const lastRequest = d.last_request_time ? new Date(d.last_request_time).toLocaleString('de-CH') : 'Never';
             const isSyncing = d.desired_state !== d.current_state;
 
             content = `
@@ -771,7 +765,7 @@ async function renderDeviceDetails(id, isEdit = false) {
                 <div class="detail-row"><span class="detail-label">Owner</span><span>${tenantName}</span></div>
                 <div class="detail-row"><span class="detail-label">Load</span><span>${d.expected_load} W</span></div>
                 <div class="detail-row"><span class="detail-label">Scheduling Mode</span><span>${schType}</span></div>
-                ${until ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${new Date(until).toLocaleString()}</span></div>` : ''}
+                ${until ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${new Date(until).toLocaleString('de-CH')}</span></div>` : ''}
                 ${schType === 'BOILER' ? `
                     <div class="detail-row"><span class="detail-label">Daily Runtime</span><span>${d.device_runtime} mins</span></div>
                 ` : ''}

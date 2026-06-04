@@ -11,6 +11,7 @@ use rumqttc::{Client, MqttOptions, QoS, Event, Packet, LastWill};
 use serde::{Serialize};
 use serde_json::json;
 use std::collections::{VecDeque, HashMap};
+use chrono::{Local, TimeZone};
 use tracing::{info, error, trace, debug};
 use tracing_subscriber::{fmt, prelude::*, Layer};
 
@@ -855,6 +856,64 @@ fn main() {
                         let _ = client.publish(format!("{}/rpc", device.mqtt_topic), QoS::AtMostOnce, false, poll_payload);
 
                         Response::json(&json!({"status": "ok"}))
+                    } else {
+                        Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (POST) (/api/devices/{id: Uuid}/vacation) => {
+                if let Some(user) = get_user(request, &state) {
+                    #[derive(serde::Deserialize)]
+                    struct VacationRequest {
+                        return_date: String, // YYYY-MM-DD
+                    }
+
+                    let data: VacationRequest = match rouille::input::json_input(request) {
+                        Ok(p) => p,
+                        Err(_) => return Response::text("Invalid JSON").with_status_code(400),
+                    };
+
+                    let return_date = match chrono::NaiveDate::parse_from_str(&data.return_date, "%Y-%m-%d") {
+                        Ok(d) => d,
+                        Err(_) => return Response::text("Invalid date format").with_status_code(400),
+                    };
+
+                    // Calculation: 5:00 AM of the day before the chosen return date
+                    let prep_day = return_date - chrono::Duration::days(1);
+                    let local_until = Local.from_local_datetime(&prep_day.and_hms_opt(5, 0, 0).unwrap()).single()
+                        .expect("Ambiguous or invalid local time");
+                    let until = local_until.with_timezone(&chrono::Utc);
+
+                    let mut db = state.db.lock().unwrap();
+                    let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
+                    if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
+                        let new_scheduling = lmha_core::SchedulingType::ForceOff { until };
+                        
+                        if let Err(e) = db.update_device_scheduling(id, new_scheduling) {
+                            error!("DB Error updating scheduling: {}", e);
+                            return Response::text("DB Error").with_status_code(500);
+                        }
+
+                        // Also set desired state to OFF immediately
+                        if let Err(e) = db.update_device_desired_state(id, DeviceState::Off) {
+                            error!("DB Error updating desired state: {}", e);
+                        }
+
+                        // Send immediate OFF command
+                        let payload = json!({
+                            "id": 1,
+                            "src": format!("{}/rpc-response", device.mqtt_topic),
+                            "method": "Switch.Set",
+                            "params": {"id": 0, "on": false}
+                        });
+                        let topic = format!("{}/rpc", device.mqtt_topic);
+                        let client = state.mqtt_client.lock().unwrap();
+                        let _ = client.publish(topic, QoS::AtMostOnce, false, payload.to_string());
+
+                        Response::json(&json!({"status": "ok", "scheduling_until": until}))
                     } else {
                         Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
                     }

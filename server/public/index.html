@@ -50,6 +50,26 @@
         </article>
     </dialog>
 
+    <dialog id="vacation-modal">
+        <article>
+            <header>
+                <button aria-label="Close" rel="prev" onclick="closeVacationModal()"></button>
+                <h3>Set Vacation Absence</h3>
+            </header>
+            <form id="vacation-form">
+                <label for="vacation-return-date">Vacation until (Return Day)</label>
+                <input type="date" id="vacation-return-date" name="return_date" required>
+                <p><small>Note: The boiler will start 24h before, such that on the chosen day, the water will already be warm.</small></p>
+                <input type="hidden" id="vacation-device-id">
+            </form>
+            <footer>
+                <button id="cancel-vacation-btn" class="outline contrast" style="display: none; margin-right: auto;" onclick="cancelVacation()">Cancel Vacation</button>
+                <button class="secondary" onclick="closeVacationModal()">Close</button>
+                <button onclick="saveVacation()">Save</button>
+            </footer>
+        </article>
+    </dialog>
+
     <footer class="container">
         <hr>
         <small>Version: <span id="app-version">...</span></small>
