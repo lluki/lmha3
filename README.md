@@ -100,6 +100,100 @@ in
 }
 ```
 
+### Optional: Grafana Visualization
+
+To enable Grafana dashboards for telemetry visualization, add the following to your configuration. This will automatically provision a PostgreSQL data source and use the helper views created by the migrations.
+
+```nix
+  services.grafana = {
+    enable = true;
+    settings.server = {
+      domain = "your-domain.com";
+      root_url = "https://your-domain.com/grafana/";
+      serve_from_sub_path = true;
+    };
+    provision = {
+      enable = true;
+      datasources.settings.datasources = [
+        {
+          name = "PostgreSQL";
+          type = "postgres";
+          url = "/run/postgresql"; 
+          database = "lmha3";
+          user = "lmha3"; 
+          jsonData = {
+            database = "lmha3";
+            postgresVersion = 1500; # Adjust to your PostgreSQL version
+            sslmode = "disable";
+          };
+        }
+      ];
+    };
+  };
+
+  # Optional: Proxy /grafana via Nginx
+  services.nginx.virtualHosts."your-domain.com".locations."/grafana" = {
+    proxyPass = "http://127.0.0.1:3000";
+    proxyWebsockets = true;
+  };
+```
+
+**Database Note:** Since Grafana runs as the `grafana` user, you must ensure it can connect to the `lmha3` database. If using Unix socket connection as shown above, you may need to adjust your PostgreSQL authentication settings to allow the `grafana` user to log in as `lmha3`. An easy (but less secure) way is to use `trust` for local connections:
+
+```nix
+  services.postgresql.authentication = lib.mkForce ''
+    local   all             all                                     trust
+    host    all             all             127.0.0.1/32            trust
+    host    all             all             ::1/128                 trust
+  '';
+```
+
+### Optional: Single Sign-On (SSO) for Grafana
+
+If you want users logged into `lmha3` to be automatically logged into Grafana, you can use the **Auth Proxy** feature. `lmha3` provides a verification endpoint at `/api/auth/verify` for this purpose.
+
+1.  **Update Grafana Settings:**
+    Enable the auth proxy in your `services.grafana.settings`:
+    ```nix
+    services.grafana.settings."auth.proxy" = {
+      enabled = true;
+      header_name = "X-WEBAUTH-USER";
+      header_property = "username";
+      auto_sign_up = true;
+      # Role mapping
+      enable_login_token = true;
+      header_role_name = "X-WEBAUTH-ROLE";
+      role_attribute_path = "Viewer"; # Default if no header
+    };
+    ```
+
+2.  **Update Nginx Configuration:**
+    Configure Nginx to verify the session with `lmha3` and pass both user and role headers:
+    ```nix
+    services.nginx.virtualHosts."your-domain.com" = {
+      locations."/grafana" = {
+        proxyPass = "http://127.0.0.1:3000";
+        proxyWebsockets = true;
+        extraConfig = ''
+          auth_request /api/auth/verify;
+          auth_request_set $user $upstream_http_x_auth_user;
+          auth_request_set $role $upstream_http_x_auth_role;
+          proxy_set_header X-WEBAUTH-USER $user;
+          proxy_set_header X-WEBAUTH-ROLE $role;
+        '';
+      };
+      # Ensure the verify endpoint is accessible for internal auth requests
+      locations."/api/auth/verify" = {
+        proxyPass = "http://127.0.0.1:8765"; # Port of lmha3
+        extraConfig = ''
+          proxy_pass_request_body off;
+          proxy_set_header Content-Length "";
+          proxy_set_header X-Original-URI $request_uri;
+        '';
+      };
+    };
+    ```
+
 ## Development
 
 `nix develop` followed by `cargo test` or `cargo build` or ``cargo run -p server`

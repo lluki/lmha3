@@ -931,6 +931,17 @@ fn main() {
                     .with_additional_header("Set-Cookie", "session_id=; HttpOnly; Path=/; Max-Age=0")
             },
 
+            (GET) (/api/auth/verify) => {
+                if let Some(user) = get_user(request, &state) {
+                    let role = if user.is_admin { "Admin" } else { "Viewer" };
+                    Response::text("OK")
+                        .with_additional_header("X-Auth-User", user.username)
+                        .with_additional_header("X-Auth-Role", role)
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
             (POST) (/api/me/password) => {
                 if let Some(user) = get_user(request, &state) {
                     let data = rouille::post_input!(request, {
