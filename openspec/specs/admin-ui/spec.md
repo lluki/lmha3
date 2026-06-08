@@ -4,7 +4,7 @@
 Administrative interface for managing system entities (Houses, Tenants, and Devices).
 ## Requirements
 ### Requirement: Structured Admin Entity Management
-The admin interface SHALL organize Houses, Tenants, and Devices into distinct sections using a summary-detail interaction pattern to minimize clutter and accidental edits.
+The admin interface SHALL organize Houses, Tenants, and Devices into distinct sections using a summary-detail interaction pattern to minimize clutter and accidental edits. For devices, the detail view SHALL include a tabbed interface to separate configuration from extended features like script management.
 
 #### Scenario: Admin views summary list
 - **WHEN** the administrator navigates to the Admin panel
@@ -13,6 +13,12 @@ The admin interface SHALL organize Houses, Tenants, and Devices into distinct se
 #### Scenario: Admin views entity details
 - **WHEN** the administrator clicks on a summary card
 - **THEN** a detail view (modal or slide-over) opens showing all configuration fields for that entity in a read-only state
+
+#### Scenario: Admin views device details with scripts
+- **WHEN** the administrator clicks on a device summary card
+- **THEN** a detail view opens with multiple tabs
+- **AND** a "Scripts" tab is visible for Shelly Gen2+ devices
+- **AND** clicking the "Scripts" tab displays a list of installed scripts with their status (running/stopped) and controls to toggle them
 
 ### Requirement: Admin Entity Edit Mode
 The admin detail view SHALL provide an explicit "Edit" mode to allow modifications to entity configurations.
@@ -69,4 +75,11 @@ The Admin UI SHALL provide a prominent link or navigation item to access the Gra
 - **WHEN** an administrator is on the Admin UI dashboard
 - **THEN** they see a link to "Analytics" or "Grafana"
 - **AND** clicking it takes them to `https://your-domain.com/grafana`
+
+### Requirement: Admin Device Panel Control Integration
+The Admin UI SHALL integrate device control actions (like manual toggling) into the device management views to allow administrators to interact with hardware directly from the management interface.
+
+#### Scenario: Toggle button visibility in modal
+- **WHEN** an administrator views the device detail modal in read-only mode
+- **THEN** a "Toggle" button SHALL be visible alongside the "Edit" and "Delete" actions
 

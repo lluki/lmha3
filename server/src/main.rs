@@ -3,6 +3,8 @@ use lmha_core::db::Db;
 use lmha_core::{verify_password, Session, DeviceState};
 use rouille::{Request, Response, router};
 use std::sync::{Arc, Mutex};
+use std::sync::mpsc::SyncSender;
+use std::sync::atomic::{AtomicU32, Ordering};
 use std::thread;
 use std::time::Duration;
 use uuid::Uuid;
@@ -98,6 +100,8 @@ struct AppState {
     log_buffer: Arc<Mutex<LogBuffer>>,
     is_passive: Mutex<bool>,
     other_instances: Mutex<HashMap<String, u32>>,
+    rpc_registry: Mutex<HashMap<u32, SyncSender<serde_json::Value>>>,
+    rpc_id_counter: AtomicU32,
 }
 
 fn main() {
@@ -147,6 +151,8 @@ fn main() {
         log_buffer,
         is_passive: Mutex::new(false),
         other_instances: Mutex::new(HashMap::new()),
+        rpc_registry: Mutex::new(HashMap::new()),
+        rpc_id_counter: AtomicU32::new(1),
     });
 
     if !state.no_scheduler {
@@ -966,6 +972,176 @@ fn main() {
                 }
             },
 
+            (GET) (/api/admin/devices/{id: Uuid}/scripts) => {
+                if let Some(user) = get_user(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
+                    if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
+                        drop(db);
+                        match send_rpc_sync(&state, &device.mqtt_topic, "Script.List", None) {
+                            Ok(val) => {
+                                if let Some(err) = val.get("error") {
+                                    let msg = err.get("message").and_then(|m| m.as_str()).unwrap_or("Unknown RPC error");
+                                    error!("Shelly RPC Error (List): {}", msg);
+                                    Response::text(msg).with_status_code(500)
+                                } else {
+                                    Response::json(&val)
+                                }
+                            },
+                            Err(e) => Response::text(e).with_status_code(500),
+                        }
+                    } else {
+                        Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (POST) (/api/admin/devices/{id: Uuid}/scripts/{script_id: u32}/start) => {
+                if let Some(user) = get_user(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
+                    if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
+                        drop(db);
+                        match send_rpc_sync(&state, &device.mqtt_topic, "Script.Start", Some(json!({"id": script_id}))) {
+                            Ok(val) => {
+                                if let Some(err) = val.get("error") {
+                                    let msg = err.get("message").and_then(|m| m.as_str()).unwrap_or("Unknown RPC error");
+                                    error!("Shelly RPC Error (Start): {}", msg);
+                                    Response::text(msg).with_status_code(500)
+                                } else {
+                                    Response::json(&val)
+                                }
+                            },
+                            Err(e) => Response::text(e).with_status_code(500),
+                        }
+                    } else {
+                        Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (POST) (/api/admin/devices/{id: Uuid}/scripts/{script_id: u32}/stop) => {
+                if let Some(user) = get_user(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
+                    if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
+                        drop(db);
+                        match send_rpc_sync(&state, &device.mqtt_topic, "Script.Stop", Some(json!({"id": script_id}))) {
+                            Ok(val) => {
+                                if let Some(err) = val.get("error") {
+                                    let msg = err.get("message").and_then(|m| m.as_str()).unwrap_or("Unknown RPC error");
+                                    error!("Shelly RPC Error (Stop): {}", msg);
+                                    Response::text(msg).with_status_code(500)
+                                } else {
+                                    Response::json(&val)
+                                }
+                            },
+                            Err(e) => Response::text(e).with_status_code(500),
+                        }
+                    } else {
+                        Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (GET) (/api/admin/devices/{id: Uuid}/scripts/{script_id: u32}/code) => {
+                if let Some(user) = get_user(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
+                    if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
+                        drop(db);
+                        match send_rpc_sync(&state, &device.mqtt_topic, "Script.GetCode", Some(json!({"id": script_id}))) {
+                            Ok(val) => {
+                                if let Some(err) = val.get("error") {
+                                    let msg = err.get("message").and_then(|m| m.as_str()).unwrap_or("Unknown RPC error");
+                                    error!("Shelly RPC Error (GetCode): {}", msg);
+                                    Response::text(msg).with_status_code(500)
+                                } else {
+                                    Response::json(&val)
+                                }
+                            },
+                            Err(e) => Response::text(e).with_status_code(500),
+                        }
+                    } else {
+                        Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
+            (PUT) (/api/admin/devices/{id: Uuid}/scripts/{script_id: u32}/code) => {
+                if let Some(user) = get_user(request, &state) {
+                    let mut db = state.db.lock().unwrap();
+                    let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
+                    if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
+                        drop(db);
+                        let mut body = request.data().ok_or("Missing body").unwrap();
+                        let mut code = String::new();
+                        use std::io::Read;
+                        if let Err(e) = body.read_to_string(&mut code) {
+                            error!("Failed to read script code from request body: {:?}", e);
+                            return Response::text(format!("Failed to read request body: {}", e)).with_status_code(400);
+                        }
+                        
+                        debug!("Updating script {} on {} ({} bytes)", script_id, device.name, code.len());
+
+                        // 1. Check if running and STOP if necessary
+                        let mut was_running = false;
+                        if let Ok(list_val) = send_rpc_sync(&state, &device.mqtt_topic, "Script.List", None) {
+                            if let Some(scripts) = list_val.get("result").and_then(|r| r.get("scripts")).and_then(|s| s.as_array()) {
+                                if let Some(script) = scripts.iter().find(|s| s.get("id").and_then(|v| v.as_u64()) == Some(script_id as u64)) {
+                                    was_running = script.get("running").and_then(|v| v.as_bool()).unwrap_or(false);
+                                }
+                            }
+                        }
+
+                        if was_running {
+                            debug!("Script {} is running. Stopping before update...", script_id);
+                            let _ = send_rpc_sync(&state, &device.mqtt_topic, "Script.Stop", Some(json!({"id": script_id})));
+                            // Small delay to ensure Shelly has stopped the script state
+                            thread::sleep(Duration::from_millis(200));
+                        }
+
+                        // 2. Perform the update
+                        let result = match send_rpc_sync(&state, &device.mqtt_topic, "Script.PutCode", Some(json!({"id": script_id, "code": code}))) {
+                            Ok(val) => {
+                                if let Some(err) = val.get("error") {
+                                    let msg = err.get("message").and_then(|m| m.as_str()).unwrap_or("Unknown RPC error");
+                                    error!("Shelly RPC Error (PutCode): {}", msg);
+                                    Response::text(msg).with_status_code(500)
+                                } else {
+                                    info!("Successfully updated script {} on {}", script_id, device.name);
+                                    Response::json(&val)
+                                }
+                            },
+                            Err(e) => {
+                                error!("Failed to send RPC PutCode: {}", e);
+                                Response::text(e).with_status_code(500)
+                            },
+                        };
+
+                        // 3. RESTART if it was running
+                        if was_running && result.status_code == 200 {
+                            debug!("Restarting script {} after successful update...", script_id);
+                            let _ = send_rpc_sync(&state, &device.mqtt_topic, "Script.Start", Some(json!({"id": script_id})));
+                        }
+
+                        result
+                    } else {
+                        Response::json(&json!({"error": "Forbidden"})).with_status_code(403)
+                    }
+                } else {
+                    Response::text("Unauthorized").with_status_code(401)
+                }
+            },
+
             _ => Response::empty_404()
         )
     });
@@ -992,6 +1168,42 @@ fn get_user(request: &Request, state: &AppState) -> Option<lmha_core::UserInfo> 
     let session_id = get_session_id(request)?;
     let mut db = state.db.lock().unwrap();
     db.get_user_info(session_id)
+}
+
+fn send_rpc_sync(state: &AppState, mqtt_topic: &str, method: &str, params: Option<serde_json::Value>) -> Result<serde_json::Value, String> {
+    let id = state.rpc_id_counter.fetch_add(1, Ordering::SeqCst);
+    let (tx, rx) = std::sync::mpsc::sync_channel(1);
+    
+    {
+        let mut registry = state.rpc_registry.lock().unwrap();
+        registry.insert(id, tx);
+    }
+
+    let payload = json!({
+        "id": id,
+        "src": format!("{}/rpc-response", mqtt_topic),
+        "method": method,
+        "params": params.unwrap_or(json!({}))
+    }).to_string();
+
+    let topic = format!("{}/rpc", mqtt_topic);
+    {
+        let client = state.mqtt_client.lock().unwrap();
+        if let Err(e) = client.publish(topic, QoS::AtMostOnce, false, payload) {
+            let mut registry = state.rpc_registry.lock().unwrap();
+            registry.remove(&id);
+            return Err(format!("MQTT publish error: {}", e));
+        }
+    }
+
+    match rx.recv_timeout(Duration::from_secs(5)) {
+        Ok(val) => Ok(val),
+        Err(_) => {
+            let mut registry = state.rpc_registry.lock().unwrap();
+            registry.remove(&id);
+            Err("RPC timeout".to_string())
+        }
+    }
 }
 
 fn run_scheduler_loop(state: Arc<AppState>) {
@@ -1316,8 +1528,22 @@ fn run_main_loop(state: Arc<AppState>) {
 
                     if topic.ends_with("/online") || topic.contains("/status/") || topic.contains("/rpc-response") {
                         if topic.contains("/rpc-response") {
-                            info!("MQTT Heartbeat (RPC Response) for {}: {}", base_topic, topic);
+                            trace!("MQTT Heartbeat (RPC Response) for {}: {}", base_topic, topic);
                         }
+
+                        // Dispatch RPC responses to the registry
+                        if topic.ends_with("/rpc-response/rpc") {
+                            if let Ok(val) = serde_json::from_slice::<serde_json::Value>(&publish.payload) {
+                                if let Some(id) = val.get("id").and_then(|v| v.as_u64()) {
+                                    let mut registry = state.rpc_registry.lock().unwrap();
+                                    if let Some(sender) = registry.remove(&(id as u32)) {
+                                        trace!("MQTT: Dispatching RPC response for ID {}", id);
+                                        let _ = sender.send(val);
+                                    }
+                                }
+                            }
+                        }
+
                         let mut db = state.db.lock().unwrap();
                         let _ = db.update_device_feedback(base_topic);
 
