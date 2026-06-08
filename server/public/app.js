@@ -11,6 +11,8 @@ let currentUser = null;
 let activeTab = 'overview';
 let healthcheckLoading = false;
 let healthcheckResults = null;
+let currentDeviceId = null;
+let currentDeviceTab = 'settings';
 
 async function runHealthcheck() {
     healthcheckLoading = true;
@@ -667,10 +669,15 @@ function renderDeviceCard(d, tenantName) {
         <article class="summary-card" onclick="openDeviceDetails('${d.id}')">
             <header>
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
-                    <strong>${d.name}</strong>
-                    ${isOffline ? '<span style="background: var(--pico-del-color); color: white; padding: 1px 4px; border-radius: 3px; font-size: 0.6rem; font-weight: bold;">OFFLINE</span>' : ''}
+                    <div>
+                        <strong>${d.name}</strong><br>
+                        <span class="secondary" style="font-size: 0.8rem;">${schType} ${isSyncing ? '<small style="color: var(--pico-ins-color)">(Syncing...)</small>' : ''}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <button class="outline" style="padding: 2px 8px; font-size: 0.7rem; margin: 0; white-space: nowrap;" onclick="event.stopPropagation(); window.toggleDevice('${d.id}', 'admin')">Toggle</button>
+                        ${isOffline ? '<span style="background: var(--pico-del-color); color: white; padding: 1px 4px; border-radius: 3px; font-size: 0.6rem; font-weight: bold;">OFFLINE</span>' : ''}
+                    </div>
                 </div>
-                <span class="secondary" style="font-size: 0.8rem;">${schType} ${isSyncing ? '<small style="color: var(--pico-ins-color)">(Syncing...)</small>' : ''}</span>
             </header>
             <div class="card-body">
                 <div>Owner: ${tenantName}</div>
@@ -683,7 +690,7 @@ function renderDeviceCard(d, tenantName) {
     `;
 }
 
-async function renderDeviceDetails(id, isEdit = false) {
+async function renderDeviceDetails(id, isEdit = false, tab = 'settings') {
     try {
         const [tenantsResp, devicesResp] = await Promise.all([
             fetch('/api/tenants'),
@@ -693,6 +700,9 @@ async function renderDeviceDetails(id, isEdit = false) {
         const devices = await devicesResp.json();
         const d = devices.find(x => x.id === id);
         if (!d) return;
+
+        currentDeviceId = id;
+        currentDeviceTab = tab;
 
         const tenantName = tenants.find(t => t.id === d.tenant_id)?.username || 'Unknown';
         const schObj = d.scheduling_type;
@@ -705,79 +715,100 @@ async function renderDeviceDetails(id, isEdit = false) {
             until = new Date(date.getTime() - offset).toISOString().slice(0, 16);
         }
 
-        let content = '';
-        if (isEdit) {
-            const tOpts = tenants.map(t => `<option value="${t.id}" ${t.id === d.tenant_id ? 'selected' : ''}>${t.username}</option>`).join('');
-            content = `
-                <form id="edit-device-form">
-                    <div class="grid">
-                        <label>Name <input name="name" value="${d.name}" required /></label>
-                        <label>MQTT Topic <input name="mqtt_topic" value="${d.mqtt_topic}" required /></label>
-                    </div>
-                    <label>Owner (Tenant)
-                        <select name="tenant_id" required>${tOpts}</select>
-                    </label>
-                    <div class="grid">
-                        <label>Load (W) <input type="number" name="expected_load" value="${d.expected_load}" required /></label>
-                        <label>Mode
-                            <select name="scheduling_type" id="edit-d-sch" onchange="handleSchedulingChangeInModal(this.value)">
-                                <option value="BOILER" ${schType === 'BOILER' ? 'selected' : ''}>Boiler</option>
-                                <option value="NONE" ${schType === 'NONE' ? 'selected' : ''}>Manual</option>
-                                <option value="FORCE_ON" ${schType === 'FORCE_ON' ? 'selected' : ''}>Force ON</option>
-                                <option value="FORCE_OFF" ${schType === 'FORCE_OFF' ? 'selected' : ''}>Force OFF</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div id="modal-boiler-config">
-                        <label>Runtime (Minutes) <input type="number" name="device_runtime" min="0" value="${d.device_runtime}" /></label>
-                    </div>
-                    <div id="modal-until-container" style="${(schType === 'FORCE_ON' || schType === 'FORCE_OFF') ? '' : 'display:none'}">
-                        <label>Until <input type="datetime-local" name="scheduling_until" value="${until}" /></label>
-                    </div>
-                    <div class="grid" style="margin-top: 2rem;">
-                        <button type="submit">Save</button>
-                        <button type="button" class="secondary" onclick="renderDeviceDetails('${d.id}', false)">Cancel</button>
-                    </div>
-                </form>
-            `;
-        } else {
-            const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString('de-CH') : 'Never';
-            const lastRequest = d.last_request_time ? new Date(d.last_request_time).toLocaleString('de-CH') : 'Never';
-            const isSyncing = d.desired_state !== d.current_state;
+        let header = `
+            <nav>
+                <ul style="margin-bottom: 1.5rem;">
+                    <li><button class="${tab === 'settings' ? '' : 'outline'} secondary" style="margin: 0;" onclick="openDeviceDetails('${id}', 'settings')">Settings</button></li>
+                    <li><button class="${tab === 'scripts' ? '' : 'outline'} secondary" style="margin: 0;" onclick="openDeviceDetails('${id}', 'scripts')">Scripts</button></li>
+                </ul>
+            </nav>
+            <div id="device-tab-content">
+        `;
 
-            content = `
-                <div class="detail-row">
-                    <span class="detail-label">Observed State</span>
-                    <span style="text-align: right;">
-                        <code>${d.current_state}</code><br>
-                        <small class="secondary">Last Feedback: ${lastFeedback}</small>
-                    </span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Requested State</span>
-                    <span style="text-align: right;">
-                        <code>${d.desired_state}</code> ${isSyncing ? '<small style="color: var(--pico-ins-color); font-weight: bold;">(PENDING)</small>' : ''}<br>
-                        <small class="secondary">Last Request: ${lastRequest}</small>
-                    </span>
-                </div>
-                <hr>
-                <div class="detail-row"><span class="detail-label">MQTT Topic</span><span>${d.mqtt_topic}</span></div>
-                <div class="detail-row"><span class="detail-label">Owner</span><span>${tenantName}</span></div>
-                <div class="detail-row"><span class="detail-label">Load</span><span>${d.expected_load} W</span></div>
-                <div class="detail-row"><span class="detail-label">Scheduling Mode</span><span>${schType}</span></div>
-                <div class="detail-row"><span class="detail-label">Last Heartbeat</span><span>${lastFeedback}</span></div>
-                ${(until && (schType === 'FORCE_ON' || schType === 'FORCE_OFF')) ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${new Date(until).toLocaleString('de-CH')}</span></div>` : ''}
-                <div class="detail-row"><span class="detail-label">Daily Runtime</span><span>${d.device_runtime} mins</span></div>
-                <div class="grid" style="margin-top: 2rem;">
-                    <button onclick="renderDeviceDetails('${d.id}', true)">Edit Config</button>
-                    <button class="secondary" onclick="deleteDevice('${d.id}')">Delete Device</button>
-                </div>
-            `;
+        let footer = `</div>`;
+        let content = '';
+
+        if (tab === 'settings') {
+            if (isEdit) {
+                const tOpts = tenants.map(t => `<option value="${t.id}" ${t.id === d.tenant_id ? 'selected' : ''}>${t.username}</option>`).join('');
+                content = `
+                    <form id="edit-device-form">
+                        <div class="grid">
+                            <label>Name <input name="name" value="${d.name}" required /></label>
+                            <label>MQTT Topic <input name="mqtt_topic" value="${d.mqtt_topic}" required /></label>
+                        </div>
+                        <label>Owner (Tenant)
+                            <select name="tenant_id" required>${tOpts}</select>
+                        </label>
+                        <div class="grid">
+                            <label>Load (W) <input type="number" name="expected_load" value="${d.expected_load}" required /></label>
+                            <label>Mode
+                                <select name="scheduling_type" id="edit-d-sch" onchange="handleSchedulingChangeInModal(this.value)">
+                                    <option value="BOILER" ${schType === 'BOILER' ? 'selected' : ''}>Boiler</option>
+                                    <option value="NONE" ${schType === 'NONE' ? 'selected' : ''}>Manual</option>
+                                    <option value="FORCE_ON" ${schType === 'FORCE_ON' ? 'selected' : ''}>Force ON</option>
+                                    <option value="FORCE_OFF" ${schType === 'FORCE_OFF' ? 'selected' : ''}>Force OFF</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div id="modal-boiler-config">
+                            <label>Runtime (Minutes) <input type="number" name="device_runtime" min="0" value="${d.device_runtime}" /></label>
+                        </div>
+                        <div id="modal-until-container" style="${(schType === 'FORCE_ON' || schType === 'FORCE_OFF') ? '' : 'display:none'}">
+                            <label>Until <input type="datetime-local" name="scheduling_until" value="${until}" /></label>
+                        </div>
+                        <div class="grid" style="margin-top: 2rem;">
+                            <button type="submit">Save</button>
+                            <button type="button" class="secondary" onclick="renderDeviceDetails('${d.id}', false, 'settings')">Cancel</button>
+                        </div>
+                    </form>
+                `;
+            } else {
+                const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString('de-CH') : 'Never';
+                const lastRequest = d.last_request_time ? new Date(d.last_request_time).toLocaleString('de-CH') : 'Never';
+                const isSyncing = d.desired_state !== d.current_state;
+
+                content = `
+                    <div class="detail-row">
+                        <span class="detail-label">Observed State</span>
+                        <span style="text-align: right;">
+                            <code>${d.current_state}</code><br>
+                            <small class="secondary">Last Feedback: ${lastFeedback}</small>
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Requested State</span>
+                        <span style="text-align: right;">
+                            <code>${d.desired_state}</code> ${isSyncing ? '<small style="color: var(--pico-ins-color); font-weight: bold;">(PENDING)</small>' : ''}<br>
+                            <small class="secondary">Last Request: ${lastRequest}</small>
+                        </span>
+                    </div>
+                    <hr>
+                    <div class="detail-row"><span class="detail-label">MQTT Topic</span><span>${d.mqtt_topic}</span></div>
+                    <div class="detail-row"><span class="detail-label">Owner</span><span>${tenantName}</span></div>
+                    <div class="detail-row"><span class="detail-label">Load</span><span>${d.expected_load} W</span></div>
+                    <div class="detail-row"><span class="detail-label">Scheduling Mode</span><span>${schType}</span></div>
+                    <div class="detail-row"><span class="detail-label">Last Heartbeat</span><span>${lastFeedback}</span></div>
+                    ${(until && (schType === 'FORCE_ON' || schType === 'FORCE_OFF')) ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${new Date(until).toLocaleString('de-CH')}</span></div>` : ''}
+                    <div class="detail-row"><span class="detail-label">Daily Runtime</span><span>${d.device_runtime} mins</span></div>
+                    <div class="grid" style="margin-top: 2rem;">
+                        <button onclick="window.toggleDevice('${d.id}', 'admin')">Toggle Device</button>
+                        <button class="outline" onclick="renderDeviceDetails('${d.id}', true, 'settings')">Edit Config</button>
+                        <button class="secondary outline" onclick="deleteDevice('${d.id}')">Delete Device</button>
+                    </div>
+                `;
+            }
+        } else if (tab === 'scripts') {
+            content = `<p aria-busy="true">Loading scripts...</p>`;
         }
 
-        showModal(`Device: ${d.name}`, content);
+        showModal(`Device: ${d.name}`, header + content + footer);
 
-        if (isEdit) {
+        if (tab === 'scripts') {
+            renderDeviceScriptsTab(d);
+        }
+
+        if (isEdit && tab === 'settings') {
             document.getElementById('edit-device-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target);
@@ -819,7 +850,125 @@ async function renderDeviceDetails(id, isEdit = false) {
     }
 }
 
-window.openDeviceDetails = (id) => renderDeviceDetails(id, false);
+async function renderDeviceScriptsTab(device) {
+    const content = document.getElementById('device-tab-content');
+    if (!content) return;
+    
+    try {
+        const resp = await fetch(`/api/admin/devices/${device.id}/scripts`);
+        if (!resp.ok) throw new Error(await resp.text());
+        const data = await resp.json();
+        const scripts = data.result?.scripts || [];
+        
+        if (scripts.length === 0) {
+            content.innerHTML = '<p>No scripts found on this device.</p>';
+            return;
+        }
+
+        let html = '<table><thead><tr><th>Name</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+        scripts.forEach(s => {
+            html += `
+                <tr>
+                    <td>${s.name}</td>
+                    <td>${s.running ? '<mark style="background: var(--pico-ins-color); color: white; padding: 2px 6px; border-radius: 4px;">Running</mark>' : 'Stopped'}</td>
+                    <td style="display: flex; gap: 0.5rem;">
+                        ${s.running ? 
+                            `<button class="outline contrast" style="padding: 2px 8px; font-size: 0.8rem; margin: 0;" onclick="handleScriptAction('${device.id}', ${s.id}, 'stop')">Stop</button>` : 
+                            `<button class="outline" style="padding: 2px 8px; font-size: 0.8rem; margin: 0;" onclick="handleScriptAction('${device.id}', ${s.id}, 'start')">Start</button>`
+                        }
+                        <button class="outline secondary" style="padding: 2px 8px; font-size: 0.8rem; margin: 0;" onclick="renderScriptEditor('${device.id}', ${s.id}, '${s.name}')">Edit</button>
+                    </td>
+                </tr>
+            `;
+        });
+        html += '</tbody></table>';
+        content.innerHTML = html;
+    } catch (e) {
+        content.innerHTML = `<p style="color: red;">Error: ${e.message}</p>`;
+    }
+}
+
+async function renderScriptEditor(deviceId, scriptId, scriptName) {
+    const content = document.getElementById('device-tab-content');
+    if (!content) return;
+
+    content.innerHTML = `<p aria-busy="true">Fetching script code...</p>`;
+
+    try {
+        const resp = await fetch(`/api/admin/devices/${deviceId}/scripts/${scriptId}/code`);
+        if (!resp.ok) throw new Error(await resp.text());
+        const data = await resp.json();
+        console.log('Script.GetCode response:', data);
+        
+        // According to logs, Shelly returns code in 'result.data'
+        const code = (data.result?.data ?? data.result?.code ?? data.code) || '';
+
+        content.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h5 style="margin: 0;">Editing: ${scriptName}</h5>
+                <button class="outline secondary" style="padding: 2px 8px; font-size: 0.8rem; margin: 0;" onclick="openDeviceDetails('${deviceId}', 'scripts')">Back to List</button>
+            </div>
+            <textarea id="script-code-editor" style="font-family: monospace; height: 400px; margin-bottom: 1rem;"></textarea>
+            <div style="display: flex; gap: 1rem;">
+                <button id="save-script-btn" onclick="saveScriptCode('${deviceId}', ${scriptId})">Save Changes</button>
+            </div>
+        `;
+
+        // Set value via property to avoid HTML escaping issues in innerHTML
+        document.getElementById('script-code-editor').value = code;
+    } catch (e) {
+        console.error('Error fetching script code:', e);
+        content.innerHTML = `<p style="color: red;">Error fetching code: ${e.message}</p>
+        <button class="outline secondary" onclick="openDeviceDetails('${deviceId}', 'scripts')">Back</button>`;
+    }
+}
+
+window.saveScriptCode = async (deviceId, scriptId) => {
+    const btn = document.getElementById('save-script-btn');
+    const code = document.getElementById('script-code-editor').value;
+    
+    btn.setAttribute('aria-busy', 'true');
+    btn.disabled = true;
+
+    try {
+        const resp = await fetch(`/api/admin/devices/${deviceId}/scripts/${scriptId}/code`, {
+            method: 'PUT',
+            body: code
+        });
+        
+        if (resp.ok) {
+            alert('Script saved successfully!');
+            openDeviceDetails(deviceId, 'scripts');
+        } else {
+            alert('Save failed: ' + await resp.text());
+        }
+    } catch (e) {
+        alert('Error: ' + e);
+    } finally {
+        btn.removeAttribute('aria-busy');
+        btn.disabled = false;
+    }
+};
+
+window.renderScriptEditor = renderScriptEditor;
+
+window.handleScriptAction = async (deviceId, scriptId, action) => {
+    try {
+        const resp = await fetch(`/api/admin/devices/${deviceId}/scripts/${scriptId}/${action}`, { method: 'POST' });
+        if (resp.ok) {
+            const devicesResp = await fetch('/api/devices');
+            const devices = await devicesResp.json();
+            const d = devices.find(x => x.id === deviceId);
+            renderDeviceScriptsTab(d);
+        } else {
+            alert('Action failed: ' + await resp.text());
+        }
+    } catch (e) {
+        alert('Error: ' + e);
+    }
+};
+
+window.openDeviceDetails = (id, tab = 'settings') => renderDeviceDetails(id, false, tab);
 
 window.openCreationDialog = () => {
     const content = `
@@ -1143,55 +1292,6 @@ async function renderAdmin() {
         app.innerHTML += `<p style="color: red;">${e.message}</p>`;
     }
 }
-
-window.handleSchedulingChangeOverview = async (id, type) => {
-    const untilContainer = document.getElementById(`ov-until-container-${id}`);
-    const boilerConfig = document.getElementById(`ov-boiler-config-${id}`);
-    
-    if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
-        untilContainer.style.display = 'block';
-        boilerConfig.style.display = 'none';
-        const input = untilContainer.querySelector('input');
-        if (!input.value) {
-            const inOneHour = new Date(Date.now() + 3600000);
-            const offset = inOneHour.getTimezoneOffset() * 60000;
-            input.value = new Date(inOneHour.getTime() - offset).toISOString().slice(0, 16);
-        }
-    } else if (type === 'BOILER') {
-        untilContainer.style.display = 'none';
-        boilerConfig.style.display = 'block';
-    } else {
-        untilContainer.style.display = 'none';
-        boilerConfig.style.display = 'none';
-    }
-};
-
-window.updateDeviceConfigOverview = async (id) => {
-    try {
-        const type = document.getElementById(`ov-sch-${id}`).value;
-        const until = document.getElementById(`ov-until-${id}`).value;
-        
-        const body = {
-            expected_load: parseInt(document.getElementById(`ov-load-${id}`).value),
-            device_runtime: parseInt(document.getElementById(`ov-runtime-${id}`)?.value || 0),
-            scheduling_type: {}
-        };
-
-        if (type === 'FORCE_ON' || type === 'FORCE_OFF') {
-            body.scheduling_type = { type: type, until: new Date(until).toISOString() };
-        } else {
-            body.scheduling_type = { type: type };
-        }
-
-        const resp = await fetch(`/api/devices/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-        if (resp.ok) renderOverview();
-        else alert('Update failed: ' + await resp.text());
-    } catch (e) { alert('Error: ' + e); }
-};
 
 window.updateHouse = async (id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id) => {
     try {

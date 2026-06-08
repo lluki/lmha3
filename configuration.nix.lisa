@@ -1,0 +1,802 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+# If yt-dlp fails, run nix-channel --update to bumpt the nixpkgs unstable version
+
+{ config, lib, ... }:
+
+let 
+ nixpkgs = <nixos>;
+ # builtins.fetchTarball {
+ #    url = https://github.com/lluki/nixpkgs/archive/50f316a5839917fecf287fb042d4437f5c107997.tar.gz;
+ # };
+ pkgs = import "${nixpkgs}" {
+   inherit (config.nixpkgs) config;
+ };
+ pkgs-unstable = import <nixpkgs-unstable> {
+   inherit (config.nixpkgs) config;
+ };
+
+ initnas = pkgs.callPackage ./initnas/initnas.nix { };
+ www-root = pkgs.callPackage ./www-root/default.nix { };
+ photoPrismStoragePath = "/mnt/shares-prio/photoprism";
+ htpasswdFile = pkgs.callPackage ./secrets/htpasswd.nix {};
+ photo-organize = pkgs.callPackage ./photo-organize/default.nix {};
+ ha-backup = pkgs.callPackage ./ha-backup/default.nix {};
+
+ lmha3-src = builtins.fetchGit {
+  url = "https://github.com/lluki/lmha3.git";
+  ref = "refs/tags/v0.0.23";
+ };
+ # Unstable carries a fresher yt-dlp; stable often breaks when YouTube changes APIs.
+ ytAutoDlp2Web = pkgs.callPackage ./yt-auto-dlp2/default.nix {
+   python3 = pkgs-unstable.python3;
+ };
+
+ mosquitto-solar-users = [ "admin" ] ++ (builtins.concatMap (h: map (w: "h${toString h}whg${toString w}") (lib.range 1 6)) [ 81 83 ]);
+
+ mosquitto-solar-passwd = pkgs.runCommand "mosquitto-solar-passwd" {
+    nativeBuildInputs = [ pkgs.mosquitto ];
+  } ''
+    touch $out
+    ${lib.concatMapStringsSep "\n" (user: 
+      "mosquitto_passwd -b $out ${user} freebird"
+    ) mosquitto-solar-users}
+  '';
+
+ mosquitto-solar-acl = pkgs.writeText "mosquitto-solar.acl" ''
+    ${lib.concatMapStringsSep "\n" (user: "user ${user}\ntopic readwrite #") mosquitto-solar-users}
+  '';
+
+ mosquitto-solar-conf = pkgs.writeText "mosquitto-solar.conf" ''
+    listener 1884 0.0.0.0
+    password_file ${mosquitto-solar-passwd}
+    acl_file ${mosquitto-solar-acl}
+    allow_anonymous false
+  '';
+in {
+  imports = [
+    (import "${lmha3-src}/nix/module.nix")
+  ];
+
+  # Set your time zone.
+  time.timeZone = "Europe/Zurich";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  # Configure keymap in X11
+  services.xserver = {
+    xkb.layout = "us";
+    xkb.variant = "";
+  };
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.lukas = {
+    isNormalUser = true;
+    description = "lukas";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [];
+  };
+
+  users.users.mail = {
+    isNormalUser = true;
+    description = "mail";
+    extraGroups = [ "networkmanager" "wheel" "mail"];
+    packages = with pkgs; [];
+  };
+
+  users.users.nasuser = {
+    isNormalUser = true;
+    uid = 5000;
+    description = "nas stuff";
+    extraGroups = [ "nasuser" "systemd-journal" ];
+    packages = with pkgs; [];
+  };
+
+  users.groups.mail = {};
+  users.groups.nasuser = {
+      gid = 5000;
+  };
+
+  security.sudo.extraRules = [
+    {
+      users = [ "nasuser" ];
+      commands = [
+        {
+          command = "${pkgs.systemd}/bin/systemctl reboot";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+    {
+      users = [ "lukas" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Enable flakes (required for Home Manager flake-based config)
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+   neovim 
+   git
+   git-crypt
+   wget
+   rsync
+   htop
+   # rsync.override { src = fetchurl { url = "https://download.samba.org/pub/rsync/src/rsync-3.0.9.tar.gz"; hash = "sha-c5nppnCMMtZ4pypjIZ6W8jvgviM25Q/RNISY0HBB35A="; } ; }
+
+   # Some mail stuff, could be mo
+   notmuch
+   notmuch-bower
+   w3m
+   tmux
+   unzip
+   unrar
+   atool
+   pkgs-unstable.cursor-cli
+   polkit
+  ];
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+  # sab_cfg = pkgs.writeText "sabnzbd.ini" ''
+  # [main]
+  # test = blu
+  # '';
+
+  services.openssh = {
+        enable = true;
+        settings.Macs = [
+                "hmac-sha2-512-etm@openssh.com"
+                "hmac-sha2-256-etm@openssh.com"
+                "umac-128-etm@openssh.com"
+                "hmac-sha2-512" # Add this for legacy clients
+                ];
+        extraConfig = ''
+         HostKeyAlgorithms +ssh-rsa
+        '';
+        #  KexAlgorithms +diffie-hellman-group1-sha1
+        #  hmac-sha1,hmac-sha1-96,hmac-sha2-256,hmac-sha2-512,hmac-md5,hmac-md5-96,umac-64@openssh.com,umac-128@openssh.com,hmac-sha1-etm@openssh.com,hmac-sha1-96-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-md5-etm@openssh.com,hmac-md5-96-etm@openssh.com,umac-64-etm@openssh.com,umac-128-etm@openssh.com
+  };
+  services.transmission = {
+        enable = true;
+        package = pkgs.transmission_4;
+        settings.rpc-authentication-required = false;
+        settings.rpc-enabled = true;
+        settings.rpc-bind-address = "0.0.0.0";
+        settings.rpc-whitelist-enabled = false;
+        settings.rpc-host-whitelist-enabled = false;
+        settings.download-dir = "/mnt/shares-temp/inbox";
+        settings.incomplete-dir = "/mnt/shares-temp/incomplete";
+        settings.credentialsFile = ./transmission-creds.json;
+  };
+  # Add extra download dir
+  systemd.services.transmission.serviceConfig.BindPaths = [ "/mnt/shares-temp/inbox-software" ]; 
+
+  # Run FlexGet for RSS->Transmission
+  services.flexget = {
+        enable = true;
+        user = "nasuser";
+        homeDir = "/var/flexget";
+        config = builtins.readFile ./flexget/config.yml;
+  };
+
+  # Sabnzbd with default config
+  services.sabnzbd = {
+        enable = true;
+        configFile = (import ./sabnzbd-config.nix) pkgs "/var/sab/";
+  };
+  
+  systemd.services.sabnzbd.serviceConfig.ExecStart = 
+        let cfg = config.services.sabnzbd; in
+                lib.mkForce
+                ''${lib.getBin pkgs.bash}/bin/bash -c "cp ${cfg.configFile} /var/sab/sab.ini ; chmod +w /var/sab/sab.ini ; ${lib.getBin cfg.package}/bin/sabnzbd -d -f /var/sab/sab.ini"'';
+
+  services.minidlna = {
+        enable = true;
+        settings.inotify = "yes";
+        settings.media_dir = [
+                "/mnt/shares-temp/hoerspiele"
+                "/mnt/shares-temp/movies"
+                "/mnt/shares-temp/music"
+                "/mnt/shares-temp/podcasts"
+                "/mnt/shares-temp/tv"
+                "/mnt/shares-temp/inbox"
+                ];
+
+  };
+
+  services.syncthing = {
+        enable = true;
+        user = "nasuser";
+        overrideDevices = true;
+        overrideFolders = true;
+        guiAddress = "0.0.0.0:8384";
+        settings = {
+                devices = {
+                        "pixel7" = { id = "XS6V3SL-TC7YAXZ-JAJ2L2R-7OUQEZB-B5BP4FZ-EEOADBX-TFW5LLC-6JPGLAP"; };
+                };
+                folders = {
+                        "PhotosPixel7Incoming" = {
+                                path = "/mnt/shares-prio/photos/Pixel7-Incoming";
+                                devices = ["pixel7"];
+                        };
+                };
+                gui.theme = "black";
+                gui.insecureSkipHostcheck = "true";
+                gui.insecureAdminAccess = "true";
+        };
+
+  };
+
+  systemd.services.getmail = {
+    enable = true;
+    path = [ pkgs.getmail6 pkgs.notmuch];
+    after = [ "network.target" ];
+    serviceConfig = {
+      # ExecStart = "${lib.getBin pkgs.bash}/bin/bash -c ${pkgs.getmail6}/bin/getmail -r ${pkgs.writeText "getmailrc" (import ./getmail-rc.nix)} -g /mnt/shares-prio/mail/ && ${pkgs.notmuch}/bin/notmuch new";
+      ExecStart = ''${lib.getBin pkgs.bash}/bin/bash -c "${pkgs.getmail6}/bin/getmail -r ${pkgs.writeText "getmailrc" (import ./getmail-rc.nix)} -g /mnt/shares-prio/mail/ && ${pkgs.notmuch}/bin/notmuch new"'';
+      User = "mail";
+      Group = "mail";
+    };
+  };
+  systemd.timers.getmail = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      Unit = "getmail.service";
+    };
+  };
+
+  systemd.services.photo-organize = {
+    enable = true;
+    after = [ "network.target" ];
+    serviceConfig = {
+      ExecStart = "${photo-organize}/bin/photo-organize";
+      User = "nasuser";
+      Group = "nasuser";
+    };
+  };
+  systemd.timers.photo-organize = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      Unit = "photo-organize.service";
+    };
+  };
+
+  systemd.services.initnas = {
+    enable = true;
+    after = [ "network.target" "mnt-shares\\x2dprio.mount" "mnt-shares\\x2dtemp.mount" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+        ExecStart = "${lib.getBin initnas}/bin/initnas";
+    };
+  };
+
+  # yt-auto-dlp2: Flask UI at /ytdlp (single gunicorn worker — in-memory download supervisor)
+  systemd.services.ytdlp-web = {
+    enable = true;
+    description = "yt-auto-dlp2 web UI (RSS + yt-dlp)";
+    after = [ "network.target" "initnas.service" ];
+    wantedBy = [ "multi-user.target" ];
+    environment = {
+      YT_OUTPUT_DIR = "/nas/inbox/YT";
+      # Netscape cookies.txt (see yt-dlp FAQ / --cookies-from-browser … --cookies …)
+      YTDLP_COOKIES_FILE = "${toString ./yt-auto-dlp2/secrets/youtube_cookies.txt}";
+    };
+    serviceConfig = {
+      ExecStart = "${lib.getBin ytAutoDlp2Web}/bin/ytdlp-web";
+      User = "nasuser";
+      Group = "nasuser";
+      Restart = "on-failure";
+    };
+  };
+
+  services.phpfpm.pools.phpapp = {
+    user = "nasuser";
+    settings = {
+      "listen.owner" = config.services.nginx.user;
+      "pm" = "dynamic";
+      "pm.max_children" = 32;
+      "pm.max_requests" = 500;
+      "pm.start_servers" = 2;
+      "pm.min_spare_servers" = 2;
+      "pm.max_spare_servers" = 5;
+      "php_admin_value[error_log]" = "stderr";
+      "php_admin_flag[log_errors]" = true;
+      "catch_workers_output" = true;
+    };
+    phpEnv."PATH" = lib.makeBinPath [ pkgs.php pkgs.systemd pkgs.coreutils pkgs.sudo ];
+  };
+
+  services.nginx = {
+        enable = true;
+        recommendedProxySettings = true;
+        recommendedTlsSettings = true; # 
+        # hash for UnisexMailbox
+        appendHttpConfig = ''
+          auth_basic "Restricted";
+          auth_basic_user_file ${htpasswdFile};
+        '';
+        virtualHosts = { 
+           "ha.lluki.me" = {
+             # addSSL = true;
+             forceSSL = true;
+             enableACME = true;
+             locations." / " = {
+               proxyPass = "http://127.0.0.1:8123"; 
+               proxyWebsockets = true;
+                # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+               extraConfig = ''
+                proxy_set_header Host $host;
+                proxy_redirect http:// https://;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
+                '';
+             };
+           };
+           # Catch all
+           "lisa.lluki.me" = {
+             # addSSL = true;
+             default = true;
+             forceSSL = true;
+             enableACME = true;
+             root = www-root;
+             locations."/php" = {
+               root = www-root;
+               extraConfig = ''
+                  fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                  fastcgi_pass unix:${config.services.phpfpm.pools.phpapp.socket};
+                  include ${pkgs.nginx}/conf/fastcgi.conf;
+               '';
+             };
+             locations."/nas" = {
+               extraConfig = "rewrite ^/nas/(.*)$ /$1 break;";
+               root = "/nas";
+             };
+             locations."/sabnzbd" = {
+               # root = "/var/www"; # SABnzbd
+               proxyPass = "http://127.0.0.1:8080/sabnzbd"; 
+               proxyWebsockets = true;
+             };
+
+             locations."/photoprism" = {
+               # root = "/var/www"; # SABnzbd
+               proxyPass = "http://127.0.0.1:2342/photoprism"; 
+               proxyWebsockets = true;
+             };
+             locations."/journal/" = {
+               proxyPass = "http://127.0.0.1:19531/"; 
+             };
+             #locations."/cock" = {
+             #  proxyPass = "http://127.0.0.1:9090/cock"; 
+             #  # proxyWebsockets = true;
+             #  extraConfig = ''
+             #   # Required for web sockets to function
+             #   proxy_http_version 1.1;
+             #   proxy_buffering off;
+             #   proxy_set_header Upgrade $http_upgrade;
+             #   proxy_set_header Connection "upgrade";
+
+             #   # Pass ETag header from Cockpit to clients.
+             #   # See: https://github.com/cockpit-project/cockpit/issues/5239
+             #   gzip off;
+             #  '';
+             #};
+
+             locations."/transmission/web" = {
+               proxyPass = "http://127.0.0.1:9091/transmission/web"; 
+               proxyWebsockets = true;
+             };
+             locations."/transmission/rpc" = {
+               proxyPass = "http://127.0.0.1:9091/transmission/rpc"; 
+               proxyWebsockets = true;
+             };
+             locations."/syncthing/" = {
+               proxyPass = "http://localhost:8384/"; 
+        #       extraConfig = ''
+        #        proxy_set_header        Host $host;
+        #       proxy_set_header        X-Real-IP $remote_addr;
+        #       proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        #       proxy_set_header        X-Forwarded-Proto $scheme;
+        #       proxy_read_timeout      600s;
+        #       proxy_send_timeout      600s;
+        #       '';
+             };
+             locations."/ytdlp" = {
+               proxyPass = "http://127.0.0.1:8756";
+               proxyWebsockets = true;
+               extraConfig = ''
+                 proxy_read_timeout 600s;
+                 proxy_connect_timeout 75s;
+               '';
+             };
+           };
+           "solar.lluki.me" = {
+             forceSSL = true;
+             enableACME = true;
+             extraConfig = ''
+               auth_basic off;
+             '';
+             locations."/" = {
+               proxyPass = "http://127.0.0.1:8765";
+               proxyWebsockets = true;
+             };
+             locations."/grafana" = {
+               proxyPass = "http://127.0.0.1:3000";
+               proxyWebsockets = true;
+               extraConfig = ''
+                 auth_request /api/auth/verify;
+                 auth_request_set $user $upstream_http_x_auth_user;
+                 auth_request_set $role $upstream_http_x_auth_role;
+                 proxy_set_header X-WEBAUTH-USER $user;
+                 proxy_set_header X-WEBAUTH-ROLE $role;
+               '';
+             };
+             locations."/api/auth/verify" = {
+               proxyPass = "http://127.0.0.1:8765";
+               extraConfig = ''
+                 proxy_pass_request_body off;
+                 proxy_set_header Content-Length "";
+                 proxy_set_header X-Original-URI $request_uri;
+               '';
+             };
+           };
+        };
+  };
+  security.acme = {
+        acceptTerms = true;
+        defaults.email = "lukas.humbel@gmail.com";
+  };
+
+  services.photoprism = {
+         enable = true;
+         originalsPath = "/mnt/shares-prio/photos/";
+         storagePath = photoPrismStoragePath;
+         port = 2342;
+         passwordFile = "/var/secrets/photoprism-password";
+         #settings.PHOTOPRISM_SITE_URL = "http://localhost:2280/photoprism";
+         settings.PHOTOPRISM_SITE_URL = "/photoprism";
+         settings.PHOTOPRISM_DISABLE_TENSORFLOW = "true";
+         settings.PHOTOPRISM_AUTH_MODE = "public";
+  };
+  systemd.services.photoprism.serviceConfig.WorkingDirectory = lib.mkForce photoPrismStoragePath;
+  systemd.services.photoprism-index = {
+    enable = true;
+    after = [ "network.target" ];
+    script = ''${photoPrismStoragePath}/photoprism-manage index'';
+  };
+  systemd.timers.photoprism-index = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      Unit = "photoprism-index.service";
+    };
+  };
+
+
+ # NFS sucks security wise, export R/O for now
+ services.nfs = {
+        server = {
+        enable = true;
+        exports = ''
+          /nas 192.168.178.84(rw,async,no_subtree_check,crossmnt) 192.168.178.21(rw,async,no_subtree_check,crossmnt) 192.168.178.0/24(ro,async,no_subtree_check,crossmnt)
+        '';
+      };
+ };
+
+ # user: nasuser
+ # password (set with some smb tool): UncoatedGraffiti3Wannabe
+ services.samba = {
+    enable = true;
+    settings = { 
+        global = {
+          workgroup = "WORKGROUP";
+          "server string" = "lisa";
+          "netbios name" = "lisa";
+          security = "user";
+          "hosts allow" = "192.168.178. 127.0.0.1 localhost";
+          # login to guest if login fails
+          "map to guest" = "Bad User";
+          # fix error with no printers
+          "load printers" = "no";
+          "printcap name" = "/dev/null";
+          printing = "bsd";
+        };
+        Photos = {
+          path = "/mnt/shares-prio/photos";
+          public = false;
+          writable = true;
+        };
+        Public = {
+          path = "/mnt/shares-temp/public";
+          public = true;
+          writable = true;
+        };
+        Documents = {
+          path = "/mnt/shares-prio/documents";
+          public = false;
+          writable = true;
+        };
+        Hoerspiele = {
+          path = "/mnt/shares-temp/hoerspiele";
+          public = false;
+          writable = true;
+        };
+        Tv = {
+          path = "/mnt/shares-temp/tv";
+          public = false;
+          writable = true;
+        };
+        Music = {
+          path = "/mnt/shares-temp/music";
+          public = false;
+          writable = true;
+        };
+        Podcasts = {
+          path = "/mnt/shares-temp/podcasts";
+          public = false;
+          writable = true;
+        };
+        Movies = {
+          path = "/mnt/shares-temp/movies";
+          public = false;
+          writable = true;
+        };
+        Inbox = {
+          path = "/mnt/shares-temp/inbox";
+          public = true;
+          writable = true;
+        };
+    };
+    # extraConfig = ''
+    #   workgroup = WORKGROUP
+    #   server string = lisa
+    #   netbios name = lisa
+    #   security = user
+    #   hosts allow = 192.168.178. 127.0.0.1 localhost
+    #   # login to guest if login fails
+    #   map to guest = Bad User
+    #   # fix error with no printers
+    #   load printers = no
+    #   printcap name = /dev/null
+    #   printing = bsd
+    # '';
+  };
+
+  services.samba-wsdd = {
+        enable = true;
+  };
+
+  #services.restic.enable = true;
+  services.restic.backups = {
+        hetzbackup = {
+            extraOptions = [
+              "sftp.command='ssh u430346@u430346.your-storagebox.de -p23 -i /var/secrets/storage-box-key -s sftp'"
+            ];
+            passwordFile = "/var/secrets/restic-password";
+            paths = [
+              "/mnt/shares-prio/documents"
+              "/mnt/shares-prio/mail"
+              "/mnt/shares-prio/photos"
+            ];
+            repository = "sftp:u430346@u430346.your-storagebox.de:shares-prio";
+            timerConfig = {
+               OnCalendar = "00:45";
+               RandomizedDelaySec = "2h";
+            };
+        };
+  };
+
+  services.journald.gateway.enable = true;
+
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        address = "0.0.0.0";
+        port = 1883;
+        users.mqttuser = {
+          acl = ["readwrite #"];
+          password = "kumarescapes";
+        };
+      }
+    ];
+  };
+
+  systemd.services.mosquitto-solar = {
+    description = "Mosquitto MQTT Broker (Solar)";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.mosquitto}/bin/mosquitto -c ${mosquitto-solar-conf}";
+      User = "mosquitto";
+      Group = "mosquitto";
+      StateDirectory = "mosquitto-solar";
+      Restart = "always";
+    };
+  };
+
+  #services.cockpit.enable = true;
+  #services.cockpit.settings = {
+  #    WebService = {
+  #      AllowUnencrypted = true;
+  #      #Origins = "https://lisa.lluki.me https://192.168.178.191 http://192.168.178.191";
+  #      ProtocolHeader = "X-Forwarded-Proto";
+  #      UrlRoot = "/cock/";
+  #    };
+  #  };
+
+  services.ddclient = {
+        enable = true;
+        protocol = "cloudflare";
+        zone = "lluki.me";
+        username = "token";
+        passwordFile = "/var/secrets/cloudflare-api-token";
+        domains = ["lisa.lluki.me" "ha.lluki.me" "solar.lluki.me"];
+        # use = "web,web=ipify-ipv4";
+        usev4 = "webv4,webv4=ipify-ipv4";
+        usev6 = "webv6,webv6=ipify-ipv6";
+  };
+  systemd.services.ddclient.after = ["nss-user-lookup.target"];
+
+
+
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ 80 22 443 8080 ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  networking.firewall.enable = false;
+  boot.kernel.sysctl."net.ipv6.conf.all.use_tempaddr" = lib.mkForce 0;
+  boot.kernel.sysctl."net.ipv6.conf.default.use_tempaddr" = lib.mkForce 0;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "24.05"; # Did you read the comment?
+
+  fileSystems."/mnt/shares-temp" = {
+     device = "/dev/disk/by-label/shares-temp";
+     fsType = "ext4";
+  };
+
+  fileSystems."/mnt/shares-prio" = {
+     device = "/dev/disk/by-label/shares-prio";
+     fsType = "ext4";
+  };
+
+  ### We run home-assistant in a docker image. nix native is too complicated
+  virtualisation.oci-containers = {
+    backend = "podman";
+    containers.homeassistant = {
+      volumes = [ "home-assistant:/config" ];
+      environment.TZ = "Europe/Berlin";
+      # image = "ghcr.io/home-assistant/home-assistant:2025.4"; # Warning: if the tag does not change, the image will not be updated
+      image = "ghcr.io/home-assistant/home-assistant:2025.11.1"; # Warning: if the tag does not change, the image will not be updated
+      extraOptions = [ 
+        "--network=host" 
+        "--device=/dev/ttyUSB0:/dev/ttyUSB0"  # TODO add some udev rules
+      ];
+    };
+  };
+
+  # PostgreSQL for lmha3
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "lmha3" ];
+    ensureUsers = [
+      {
+        name = "lmha3";
+        ensureDBOwnership = true;
+      }
+    ];
+    authentication = lib.mkForce ''
+      # TYPE  DATABASE        USER            ADDRESS                 METHOD
+      local   all             all                                     trust
+      host    all             all             127.0.0.1/32            trust
+      host    all             all             ::1/128                 trust
+    '';
+  };
+
+  services.lmha3 = {
+    enable = true;
+    port = 8765;
+    databaseUrl = "postgres:///lmha3?host=/run/postgresql&user=lmha3";
+    mqtt = {
+      host = "127.0.0.1";
+      port = 1884;
+      user = "admin";
+      passwordFile = pkgs.writeText "mqtt-password" "freebird";
+    };
+  };
+
+  services.grafana = {
+    enable = true;
+    settings = {
+      server = {
+        http_addr = "127.0.0.1";
+        http_port = 3000;
+        domain = "solar.lluki.me";
+        root_url = "https://solar.lluki.me/grafana/";
+        serve_from_sub_path = true;
+      };
+      security = {
+        admin_user = "admin";
+        admin_password = "freebird";
+      };
+      "auth.proxy" = {
+        enabled = true;
+        header_name = "X-WEBAUTH-USER";
+        header_property = "username";
+        auto_sign_up = true;
+        enable_login_token = true;
+        header_role_name = "X-WEBAUTH-ROLE";
+      };
+      # Reverted internal DB to default SQLite to avoid migration errors in lmha3 DB
+    };
+    provision = {
+      enable = true;
+      datasources.settings.datasources = [
+        {
+          name = "PostgreSQL";
+          type = "postgres";
+          url = ""; # Unix socket host is in jsonData
+          database = "lmha3";
+          user = "lmha3"; 
+          jsonData = {
+            host = "/run/postgresql";
+            database = "lmha3"; # explicitly tell frontend UI
+            postgresVersion = 1500;
+            sslmode = "disable";
+          };
+        }
+      ];
+    };
+  };
+
+  systemd.services.ha-backup = {
+    enable = true;
+    after = [ "network.target" ];
+    serviceConfig = {
+      ExecStart = "${ha-backup}";
+      User = "root";
+      Group = "root";
+    };
+  };
+  systemd.timers.ha-backup = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      Unit = "ha-backup.service";
+    };
+  };
+}
