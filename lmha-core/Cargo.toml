@@ -1,6 +1,6 @@
 [package]
 name = "lmha-core"
-version = "0.0.24"
+version = "0.0.25"
 edition = "2021"
 
 [dependencies]
@@ -9,7 +9,7 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 rumqttc = "0.24"
 uuid = { version = "1.0", features = ["v4", "serde"] }
-chrono = { version = "0.4", features = ["serde"] }
+chrono = { version = "0.4", features = ["serde", "clock"] }
 dotenvy = "0.15"
 argon2 = "0.5"
 password-hash = { version = "0.5", features = ["rand_core"] }

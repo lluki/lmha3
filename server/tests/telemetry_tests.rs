@@ -15,7 +15,9 @@ fn test_history_recording() {
     let _device_id = harness.create_device(tenant_id, "History Device", &device_topic);
 
     let mut mqtt_options = MqttOptions::new("shelly-mock-history", &harness.config.mqtt_host, harness.config.mqtt_port);
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     
     let (client, mut connection) = Client::new(mqtt_options, 10);
     thread::spawn(move || {

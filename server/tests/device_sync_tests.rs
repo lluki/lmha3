@@ -16,7 +16,9 @@ fn test_event_driven_sync() {
     // 1. Setup separate MQTT client to simulate the Shelly device
     let mut mqtt_options = MqttOptions::new("shelly-mock-sync", &harness.config.mqtt_host, harness.config.mqtt_port);
     mqtt_options.set_keep_alive(Duration::from_secs(5));
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     
     let (client, mut connection) = Client::new(mqtt_options, 10);
     client.subscribe(format!("{}/rpc", device_topic), QoS::AtMostOnce).unwrap();
@@ -92,7 +94,9 @@ fn test_feedback_timestamp_updates() {
 
     // 1. Mock a heartbeat
     let mut mqtt_options = MqttOptions::new("shelly-mock-feedback", &harness.config.mqtt_host, harness.config.mqtt_port);
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     let (client, mut connection) = Client::new(mqtt_options, 10);
     thread::spawn(move || { for _ in connection.iter() {} });
 
@@ -131,7 +135,9 @@ fn test_instance_conflict_passive_mode() {
     
     // 1. Setup separate MQTT client to simulate a HIGH PRIORITY instance
     let mut mqtt_options = MqttOptions::new("prod-instance-mock", &harness.config.mqtt_host, harness.config.mqtt_port);
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     let (client, mut connection) = Client::new(mqtt_options, 10);
     thread::spawn(move || { for _ in connection.iter() {} });
 
@@ -141,7 +147,8 @@ fn test_instance_conflict_passive_mode() {
         "status": "online",
         "timestamp": chrono::Utc::now()
     }).to_string();
-    client.publish("lmha3/instances/prod-mock-1", QoS::AtMostOnce, true, payload).unwrap();
+    let instance_topic = format!("{}prod-mock-1", harness.config.instance_topic_prefix);
+    client.publish(&instance_topic, QoS::AtMostOnce, true, payload).unwrap();
 
     // 3. Verify server enters passive mode
     let agent = ureq::AgentBuilder::new().redirects(0).build();
@@ -163,7 +170,7 @@ fn test_instance_conflict_passive_mode() {
     assert!(is_passive, "Server did not enter passive mode after high priority heartbeat");
 
     // 4. Clear high priority heartbeat and verify server resumes control mode
-    client.publish("lmha3/instances/prod-mock-1", QoS::AtMostOnce, true, "").unwrap(); // Clear retained
+    client.publish(&instance_topic, QoS::AtMostOnce, true, "").unwrap(); // Clear retained
 
     let mut resumed = false;
     for _ in 0..20 {
@@ -198,7 +205,9 @@ fn test_rpc_response_updates_feedback_timestamp() {
 
     // 2. Mock a response from the device on the standard response topic
     let mut mqtt_options = MqttOptions::new("shelly-mock-rpc", &harness.config.mqtt_host, harness.config.mqtt_port);
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     let (client, mut connection) = Client::new(mqtt_options, 10);
     thread::spawn(move || { for _ in connection.iter() {} });
 
@@ -244,7 +253,9 @@ fn test_lwt_sets_unknown_and_online_triggers_poll() {
 
     // 1. Setup mock device
     let mut mqtt_options = MqttOptions::new("shelly-mock-lwt", &harness.config.mqtt_host, harness.config.mqtt_port);
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     let (client, mut connection) = Client::new(mqtt_options, 10);
     client.subscribe(format!("{}/rpc", device_topic), QoS::AtMostOnce).unwrap();
 

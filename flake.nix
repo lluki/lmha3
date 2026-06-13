@@ -22,6 +22,7 @@
             postgresql
             pkg-config
             openssl
+            mosquitto
             gemini-cli
             openspec.packages.${system}.default
           ];

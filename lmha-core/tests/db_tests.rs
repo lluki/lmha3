@@ -11,7 +11,7 @@ mod db_tests {
         let db_name = format!("test_db_{}", Uuid::new_v4().simple());
         let base_db_url = std::env::var("LMHA_DATABASE_URL").unwrap_or_else(|_| "host=/var/run/postgresql dbname=postgres user=user".to_string());
         
-        let mut base_params = base_db_url.split_whitespace().collect::<Vec<_>>();
+        let base_params = base_db_url.split_whitespace().collect::<Vec<_>>();
         let mut create_params = Vec::new();
         for param in base_params {
             if param.starts_with("dbname=") {
@@ -43,6 +43,7 @@ mod db_tests {
             mqtt_password: None,
             instance_id: "test".to_string(),
             instance_priority: 10,
+            instance_topic_prefix: "test/".to_string(),
         }).unwrap();
 
         db.run_migrations("../migrations").unwrap();

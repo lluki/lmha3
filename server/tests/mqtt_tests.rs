@@ -17,7 +17,9 @@ fn test_status_update_on_and_off() {
     // 1. Setup separate MQTT client to simulate the Shelly device
     let mut mqtt_options = MqttOptions::new("shelly-mock", &harness.config.mqtt_host, harness.config.mqtt_port);
     mqtt_options.set_keep_alive(Duration::from_secs(5));
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     
     let (client, mut connection) = Client::new(mqtt_options, 10);
     thread::spawn(move || {

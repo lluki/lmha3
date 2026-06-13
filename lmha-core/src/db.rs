@@ -204,7 +204,7 @@ impl Db {
     }
 
     pub fn list_houses(&mut self) -> Result<Vec<crate::House>, postgres::Error> {
-        let rows = self.client.query("SELECT id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id, created_at FROM houses ORDER BY name ASC", &[])?;
+        let rows = self.client.query("SELECT id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id, created_at, day_deadline FROM houses ORDER BY name ASC", &[])?;
         Ok(rows.into_iter().map(|row| crate::House {
             id: row.get(0),
             name: row.get(1),
@@ -213,11 +213,12 @@ impl Db {
             ha_pv_entity_id: row.get(4),
             ha_consumption_entity_id: row.get(5),
             created_at: row.get(6),
+            day_deadline: row.get(7),
         }).collect())
     }
 
     pub fn get_house(&mut self, id: Uuid) -> Result<Option<crate::House>, postgres::Error> {
-        let row = self.client.query_opt("SELECT id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id, created_at FROM houses WHERE id = $1", &[&id])?;
+        let row = self.client.query_opt("SELECT id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id, created_at, day_deadline FROM houses WHERE id = $1", &[&id])?;
         Ok(row.map(|row| crate::House {
             id: row.get(0),
             name: row.get(1),
@@ -226,6 +227,7 @@ impl Db {
             ha_pv_entity_id: row.get(4),
             ha_consumption_entity_id: row.get(5),
             created_at: row.get(6),
+            day_deadline: row.get(7),
         }))
     }
 
@@ -441,13 +443,25 @@ impl Db {
         }).collect())
     }
 
-    pub fn calc_boiler_runtime_24h(&mut self, device_id: Uuid) -> Result<i32, postgres::Error> {
+    pub fn calc_boiler_runtime_24h(&mut self, device_id: Uuid, day_deadline: chrono::NaiveTime) -> Result<i32, postgres::Error> {
         use chrono::Timelike;
         let now = Utc::now();
-        let mut start_of_day = now.with_hour(5).and_then(|t| t.with_minute(0)).and_then(|t| t.with_second(0)).unwrap();
-        if now.hour() < 5 {
-            start_of_day -= Duration::days(1);
+        // We need to calculate start of day in local time then convert to UTC
+        // But here we are in Db which doesn't know about Local...
+        // Actually, we can use the logic from scheduler.rs if we move it to a helper.
+        // For now, let's just do a simple version or wait until we have the helper.
+        
+        // Let's use the local time on the server for now as discussed in design.md
+        let now_local = now.with_timezone(&chrono::Local);
+        let mut start_of_day_local = now_local.with_hour(day_deadline.hour()).unwrap()
+            .with_minute(day_deadline.minute()).unwrap()
+            .with_second(0).unwrap()
+            .with_nanosecond(0).unwrap();
+        
+        if now_local.time() < day_deadline {
+            start_of_day_local -= Duration::days(1);
         }
+        let start_of_day = start_of_day_local.with_timezone(&Utc);
 
         let history = self.get_device_history(device_id, start_of_day)?;
         let mut total_minutes = 0;
@@ -493,10 +507,10 @@ impl Db {
         Ok(())
     }
 
-    pub fn update_house(&mut self, id: Uuid, name: &str, ha_url: &str, ha_token: &str, ha_pv_entity_id: &str, ha_consumption_entity_id: &str) -> Result<(), postgres::Error> {
+    pub fn update_house(&mut self, id: Uuid, name: &str, ha_url: &str, ha_token: &str, ha_pv_entity_id: &str, ha_consumption_entity_id: &str, day_deadline: chrono::NaiveTime) -> Result<(), postgres::Error> {
         self.client.execute(
-            "UPDATE houses SET name = $1, ha_url = $2, ha_token = $3, ha_pv_entity_id = $4, ha_consumption_entity_id = $5 WHERE id = $6",
-            &[&name, &ha_url, &ha_token, &ha_pv_entity_id, &ha_consumption_entity_id, &id],
+            "UPDATE houses SET name = $1, ha_url = $2, ha_token = $3, ha_pv_entity_id = $4, ha_consumption_entity_id = $5, day_deadline = $6 WHERE id = $7",
+            &[&name, &ha_url, &ha_token, &ha_pv_entity_id, &ha_consumption_entity_id, &day_deadline, &id],
         )?;
         Ok(())
     }

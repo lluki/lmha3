@@ -42,7 +42,7 @@ fn test_healthcheck_simulation() {
             mqttoptions.set_credentials(u, p);
         }
 
-        let (mut client, mut connection) = Client::new(mqttoptions, 10);
+        let (client, mut connection) = Client::new(mqttoptions, 10);
         client.subscribe(format!("{}/rpc", good_topic), QoS::AtMostOnce).unwrap();
 
         for notification in connection.iter() {

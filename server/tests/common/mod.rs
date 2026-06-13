@@ -1,5 +1,8 @@
 use lmha_core::config::Config;
 use lmha_core::hash_password;
+use std::io::Write;
+use std::net::TcpListener;
+use std::path::PathBuf;
 use std::process::{Child, Command};
 use std::thread;
 use std::time::Duration;
@@ -11,6 +14,8 @@ use postgres::{Client, NoTls};
 pub struct TestHarness {
     pub db_name: String,
     pub api_child: Child,
+    pub mosquitto_child: Child,
+    pub mosquitto_config_path: PathBuf,
     pub config: Config,
     pub port: u16,
 }
@@ -22,7 +27,7 @@ impl TestHarness {
         let base_db_url = std::env::var("LMHA_DATABASE_URL").unwrap_or_else(|_| "host=/var/run/postgresql dbname=postgres user=user".to_string());
         
         // 1. Create temporary DB using base URL but connecting to 'postgres' first to create the new one
-        let mut base_params = base_db_url.split_whitespace().collect::<Vec<_>>();
+        let base_params = base_db_url.split_whitespace().collect::<Vec<_>>();
         let mut create_params = Vec::new();
         for param in base_params {
             if param.starts_with("dbname=") {
@@ -48,19 +53,31 @@ impl TestHarness {
         let db_url = test_params.join(" ");
         let migrations_path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../migrations");
         
-        let mqtt_host = std::env::var("LMHA_MQTT_HOST").unwrap_or_else(|_| "localhost".to_string());
-        let mqtt_port = std::env::var("LMHA_MQTT_PORT").unwrap_or_else(|_| "1883".to_string()).parse().unwrap_or(1883);
-        let mqtt_user = std::env::var("LMHA_MQTT_USER").ok();
-        let mqtt_password = std::env::var("LMHA_MQTT_PASSWORD").ok();
+        // Start Local Mosquitto
+        let mqtt_port = TcpListener::bind("127.0.0.1:0").unwrap().local_addr().unwrap().port();
+        let mosquitto_config_path = std::env::temp_dir().join(format!("mosquitto_{}.conf", Uuid::new_v4().simple()));
+        let mut config_file = std::fs::File::create(&mosquitto_config_path).unwrap();
+        writeln!(config_file, "listener {}", mqtt_port).unwrap();
+        writeln!(config_file, "allow_anonymous true").unwrap();
+        
+        let mosquitto_child = Command::new("mosquitto")
+            .arg("-c")
+            .arg(&mosquitto_config_path)
+            .spawn()
+            .expect("Failed to start mosquitto");
+        
+        // Wait for mosquitto to start
+        thread::sleep(Duration::from_millis(500));
 
         let config = Config {
             database_url: db_url.clone(),
-            mqtt_host,
+            mqtt_host: "127.0.0.1".to_string(),
             mqtt_port,
-            mqtt_user,
-            mqtt_password,
+            mqtt_user: None,
+            mqtt_password: None,
             instance_id: format!("test-{}", Uuid::new_v4().simple()),
             instance_priority: 10,
+            instance_topic_prefix: format!("tests/{}/instances/", Uuid::new_v4().simple()),
         };
 
         let mut db = lmha_core::db::Db::connect(&config).unwrap();
@@ -86,9 +103,18 @@ impl TestHarness {
             cmd.arg("--no-scheduler");
         }
         cmd.env("LMHA_DATABASE_URL", &config.database_url)
-           .env("LMHA_MQTT_USER", config.mqtt_user.as_ref().unwrap())
-           .env("LMHA_MQTT_PASSWORD", config.mqtt_password.as_ref().unwrap())
-           .env("LMHA_MIGRATIONS_DIR", migrations_path);
+           .env("LMHA_MIGRATIONS_DIR", migrations_path)
+           .env("LMHA_INSTANCE_TOPIC_PREFIX", &config.instance_topic_prefix)
+           .env("LMHA_MQTT_HOST", &config.mqtt_host)
+           .env("LMHA_MQTT_PORT", config.mqtt_port.to_string());
+        
+        if let Some(user) = &config.mqtt_user {
+            cmd.env("LMHA_MQTT_USER", user);
+        }
+        if let Some(pass) = &config.mqtt_password {
+            cmd.env("LMHA_MQTT_PASSWORD", pass);
+        }
+
         let api_child = cmd.spawn().expect("Failed to start Server");
 
         // 4. Wait for server to be ready
@@ -108,7 +134,7 @@ impl TestHarness {
         // Give the server a moment to connect to MQTT and subscribe
         thread::sleep(Duration::from_secs(1));
 
-        Self { db_name, api_child, config, port }
+        Self { db_name, api_child, mosquitto_child, mosquitto_config_path, config, port }
     }
 
     pub fn create_user(&self, username: &str, password: &str) -> Uuid {
@@ -144,8 +170,11 @@ impl TestHarness {
 impl Drop for TestHarness {
     fn drop(&mut self) {
         let _ = self.api_child.kill();
+        let _ = self.mosquitto_child.kill();
+        let _ = std::fs::remove_file(&self.mosquitto_config_path);
+
         let base_db_url = std::env::var("LMHA_DATABASE_URL").unwrap_or_else(|_| "host=/var/run/postgresql dbname=postgres user=user".to_string());
-        let mut base_params = base_db_url.split_whitespace().collect::<Vec<_>>();
+        let base_params = base_db_url.split_whitespace().collect::<Vec<_>>();
         let mut create_params = Vec::new();
         for param in base_params {
             if param.starts_with("dbname=") {
