@@ -11,6 +11,7 @@ pub struct Config {
     pub mqtt_password: Option<String>,
     pub instance_id: String,
     pub instance_priority: u32,
+    pub instance_topic_prefix: String,
 }
 
 impl Config {
@@ -24,6 +25,8 @@ impl Config {
             .unwrap_or_else(|_| "10".to_string())
             .parse()
             .unwrap_or(10);
+        let instance_topic_prefix = env::var("LMHA_INSTANCE_TOPIC_PREFIX")
+            .unwrap_or_else(|_| "lmha3/instances/".to_string());
 
         Self {
             database_url: env::var("LMHA_DATABASE_URL").expect("LMHA_DATABASE_URL must be set"),
@@ -36,6 +39,7 @@ impl Config {
             mqtt_password: env::var("LMHA_MQTT_PASSWORD").ok(),
             instance_id,
             instance_priority,
+            instance_topic_prefix,
         }
     }
 }

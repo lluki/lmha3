@@ -7,6 +7,19 @@ const modalTitle = document.getElementById('modal-title');
 const modalContent = document.getElementById('modal-content');
 const createBtn = document.getElementById('floating-create-btn');
 
+const formatTime = (ts) => {
+    if (!ts) return 'Never';
+    return new Date(ts).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+};
+
+const formatDateTime = (ts) => {
+    if (!ts) return 'Never';
+    return new Date(ts).toLocaleString(undefined, { 
+        year: 'numeric', month: '2-digit', day: '2-digit', 
+        hour: '2-digit', minute: '2-digit' 
+    });
+};
+
 let currentUser = null;
 let activeTab = 'overview';
 let healthcheckLoading = false;
@@ -275,6 +288,9 @@ async function renderOverview() {
         const tenantMap = {};
         tenants.forEach(t => tenantMap[t.id] = t.username);
 
+        const houseMap = {};
+        houses.forEach(h => houseMap[h.id] = h);
+
         const userDevices = currentUser.is_admin ? devices : devices.filter(d => d.tenant_id === currentUser.tenant_id);
         const content = document.getElementById('overview-content');
         if (!content) return;
@@ -288,10 +304,11 @@ async function renderOverview() {
         let html = '<div class="grid">';
 
         for (const d of userDevices) {
+            const house = houseMap[d.house_id];
             // Offline detection (5 minutes threshold)
             const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).getTime() : 0;
             const isHealthy = (Date.now() - lastFeedback) < (5 * 60 * 1000);
-            const healthStatus = isHealthy ? "Yes" : `No, ${d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString('de-CH') : 'Never'}`;
+            const healthStatus = isHealthy ? "Yes" : `No, ${formatDateTime(d.last_feedback_time)}`;
             
             // Mode detection
             const schObj = d.scheduling_type;
@@ -322,7 +339,7 @@ async function renderOverview() {
                         <p style="margin-bottom: 1rem;"><strong>Mode:</strong> ${modeText}</p>
                     </div>
                     <footer>
-                        <button class="primary" style="width: 100%; padding: 0.8rem;" onclick="openVacationModal('${d.id}', ${isVacationActive})">
+                        <button class="primary" style="width: 100%; padding: 0.8rem;" onclick="openVacationModal('${d.id}', ${isVacationActive}, '${house ? house.day_deadline : ''}')">
                             ${isVacationActive ? 'Modify Vacation Absence' : 'Set Vacation Absence'}
                         </button>
                     </footer>
@@ -343,10 +360,15 @@ async function renderOverview() {
 const vacationModal = document.getElementById('vacation-modal');
 const cancelVacationBtn = document.getElementById('cancel-vacation-btn');
 
-window.openVacationModal = (deviceId, isVacationActive) => {
+window.openVacationModal = (deviceId, isVacationActive, deadline) => {
     document.getElementById('vacation-device-id').value = deviceId;
     document.getElementById('vacation-return-date').value = new Date().toISOString().split('T')[0];
     cancelVacationBtn.style.display = isVacationActive ? 'block' : 'none';
+    
+    if (deadline) {
+        document.getElementById('vacation-deadline-note').textContent = `The boiler will resume heating after ${deadline.slice(0, 5)} on the day prior to your return.`;
+    }
+
     vacationModal.showModal();
 };
 
@@ -474,7 +496,7 @@ async function fetchAndRenderHistory(includeAll) {
             
             html += `
                 <tr>
-                    <td>${new Date(t.timestamp).toLocaleTimeString('de-CH')} <small class="secondary">${new Date(t.timestamp).toLocaleDateString('de-CH')}</small></td>
+                    <td>${formatDateTime(t.timestamp)}</td>
                     <td>${sourceName}</td>
                     <td>${eventType}</td>
                     <td>${valText}</td>
@@ -549,7 +571,7 @@ async function fetchAndRenderLogs(elementId, levelFilter = 'ALL') {
             
             html += `
                 <div style="margin-bottom: 4px; color: ${color};">
-                    [${new Date(log.timestamp).toLocaleTimeString('de-CH')}] <strong>${log.level}</strong> [${log.target}] ${log.message}
+                    [${formatTime(log.timestamp)}] <strong>${log.level}</strong> [${log.target}] ${log.message}
                 </div>
             `;
         });
@@ -764,8 +786,8 @@ async function renderDeviceDetails(id, isEdit = false, tab = 'settings') {
                     </form>
                 `;
             } else {
-                const lastFeedback = d.last_feedback_time ? new Date(d.last_feedback_time).toLocaleString('de-CH') : 'Never';
-                const lastRequest = d.last_request_time ? new Date(d.last_request_time).toLocaleString('de-CH') : 'Never';
+                const lastFeedback = formatDateTime(d.last_feedback_time);
+                const lastRequest = formatDateTime(d.last_request_time);
                 const isSyncing = d.desired_state !== d.current_state;
 
                 content = `
@@ -789,7 +811,7 @@ async function renderDeviceDetails(id, isEdit = false, tab = 'settings') {
                     <div class="detail-row"><span class="detail-label">Load</span><span>${d.expected_load} W</span></div>
                     <div class="detail-row"><span class="detail-label">Scheduling Mode</span><span>${schType}</span></div>
                     <div class="detail-row"><span class="detail-label">Last Heartbeat</span><span>${lastFeedback}</span></div>
-                    ${(until && (schType === 'FORCE_ON' || schType === 'FORCE_OFF')) ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${new Date(until).toLocaleString('de-CH')}</span></div>` : ''}
+                    ${(until && (schType === 'FORCE_ON' || schType === 'FORCE_OFF')) ? `<div class="detail-row"><span class="detail-label">Mode Until</span><span>${formatDateTime(schObj.until)}</span></div>` : ''}
                     <div class="detail-row"><span class="detail-label">Daily Runtime</span><span>${d.device_runtime} mins</span></div>
                     <div class="grid" style="margin-top: 2rem;">
                         <button onclick="window.toggleDevice('${d.id}', 'admin')">Toggle Device</button>
@@ -991,6 +1013,7 @@ window.renderCreateHouseForm = () => {
                 <label>PV Entity ID <input name="ha_pv_entity_id" value="sensor.panel_production_power" required /></label>
                 <label>Consumption Entity ID <input name="ha_consumption_entity_id" value="sensor.house_load_power" required /></label>
             </div>
+            <label>Day Deadline (HH:MM) <input name="day_deadline" value="05:00" type="time" required /></label>
             <button type="submit">Create House</button>
         </form>
     `;
@@ -1136,6 +1159,7 @@ async function renderHouseDetails(id, isEdit = false) {
                         <label>PV Entity ID <input name="ha_pv_entity_id" value="${h.ha_pv_entity_id}" required /></label>
                         <label>Consumption Entity ID <input name="ha_consumption_entity_id" value="${h.ha_consumption_entity_id}" required /></label>
                     </div>
+                    <label>Day Deadline (HH:MM) <input name="day_deadline" value="${h.day_deadline.slice(0, 5)}" type="time" required /></label>
                     <div class="grid">
                         <button type="submit">Save Changes</button>
                         <button type="button" class="secondary" onclick="renderHouseDetails('${h.id}', false)">Cancel</button>
@@ -1149,6 +1173,7 @@ async function renderHouseDetails(id, isEdit = false) {
                 <div class="detail-row"><span class="detail-label">HA Token</span><span>••••••••</span></div>
                 <div class="detail-row"><span class="detail-label">PV Entity</span><span>${h.ha_pv_entity_id}</span></div>
                 <div class="detail-row"><span class="detail-label">Consumption Entity</span><span>${h.ha_consumption_entity_id}</span></div>
+                <div class="detail-row"><span class="detail-label">Day Deadline</span><span>${h.day_deadline.slice(0, 5)}</span></div>
                 <div class="grid" style="margin-top: 2rem;">
                     <button onclick="renderHouseDetails('${h.id}', true)">Edit</button>
                     <button class="secondary" onclick="deleteHouse('${h.id}')">Delete</button>
@@ -1162,7 +1187,7 @@ async function renderHouseDetails(id, isEdit = false) {
             document.getElementById('edit-house-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target);
-                await updateHouse(h.id, formData.get('name'), formData.get('ha_url'), formData.get('ha_token'), formData.get('ha_pv_entity_id'), formData.get('ha_consumption_entity_id'));
+                await updateHouse(h.id, formData.get('name'), formData.get('ha_url'), formData.get('ha_token'), formData.get('ha_pv_entity_id'), formData.get('ha_consumption_entity_id'), formData.get('day_deadline'));
                 closeModal();
                 renderAdmin();
             });
@@ -1293,9 +1318,9 @@ async function renderAdmin() {
     }
 }
 
-window.updateHouse = async (id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id) => {
+window.updateHouse = async (id, name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id, day_deadline) => {
     try {
-        const params = new URLSearchParams({ name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id });
+        const params = new URLSearchParams({ name, ha_url, ha_token, ha_pv_entity_id, ha_consumption_entity_id, day_deadline });
         const resp = await fetch(`/api/houses/${id}`, {
             method: 'PATCH',
             body: params

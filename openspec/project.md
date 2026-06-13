@@ -28,8 +28,9 @@ A load management solution for the Hagenholz neighborhood. It synchronizes physi
 2. **Unified Process:** The application runs as a single binary. The load management scheduler runs in a dedicated background thread.
 3. **Control Mode:** Supports a `--no-scheduler` flag for API-only operation (useful for testing/maintenance).
 4. **Hardware Safety:** Implement safeguards for physical switches (e.g., debounce toggles, minimum state duration).
-4. **Data Integrity:** Telemetry (PV/Consumption) must be persisted to PostgreSQL for auditing and UI charts.
-5. **No SSL in-app:** The application assumes it runs behind a proxy that manages the external network layer.
+5. **Time Handling:** All internal representations, database storage, and API data exchange MUST use UTC (ISO8601 with 'Z' suffix). The Web UI SHALL handle localization by translating UTC timestamps to the user's browser-configured local timezone for display.
+6. **Data Integrity:** Telemetry (PV/Consumption) must be persisted to PostgreSQL for auditing and UI charts.
+7. **No SSL in-app:** The application assumes it runs behind a proxy that manages the external network layer.
 
 ## Technical Specs
 - **MQTT Port:** 1883

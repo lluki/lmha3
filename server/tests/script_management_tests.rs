@@ -17,7 +17,9 @@ fn test_list_scripts_rpc_bridge() {
     // 1. Setup separate MQTT client to simulate the Shelly device
     let mut mqtt_options = MqttOptions::new("shelly-mock-rpc", &harness.config.mqtt_host, harness.config.mqtt_port);
     mqtt_options.set_keep_alive(Duration::from_secs(5));
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     
     let (client, mut connection) = Client::new(mqtt_options, 10);
     client.subscribe(format!("{}/rpc", device_topic), QoS::AtLeastOnce).unwrap();
@@ -73,7 +75,9 @@ fn test_script_start_stop_rpc_bridge() {
 
     let mut mqtt_options = MqttOptions::new("shelly-mock-rpc-alice", &harness.config.mqtt_host, harness.config.mqtt_port);
     mqtt_options.set_keep_alive(Duration::from_secs(5));
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     
     let (client, mut connection) = Client::new(mqtt_options, 10);
     client.subscribe(format!("{}/rpc", device_topic), QoS::AtLeastOnce).unwrap();
@@ -207,7 +211,9 @@ fn test_get_put_script_code() {
 
     let mut mqtt_options = MqttOptions::new("shelly-mock-editor", &harness.config.mqtt_host, harness.config.mqtt_port);
     mqtt_options.set_keep_alive(Duration::from_secs(5));
-    mqtt_options.set_credentials(harness.config.mqtt_user.as_ref().unwrap(), harness.config.mqtt_password.as_ref().unwrap());
+    if let (Some(u), Some(p)) = (harness.config.mqtt_user.as_ref(), harness.config.mqtt_password.as_ref()) {
+        mqtt_options.set_credentials(u, p);
+    }
     
     let (client, mut connection) = Client::new(mqtt_options, 10);
     client.subscribe(format!("{}/rpc", device_topic), QoS::AtLeastOnce).unwrap();

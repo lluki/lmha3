@@ -9,11 +9,11 @@ use std::thread;
 use std::time::Duration;
 use uuid::Uuid;
 use clap::Parser;
-use rumqttc::{Client, MqttOptions, QoS, Event, Packet, LastWill};
+use rumqttc::{Client, MqttOptions, QoS, Event, Packet, LastWill, ClientError};
 use serde::{Serialize};
 use serde_json::json;
 use std::collections::{VecDeque, HashMap};
-use chrono::{Local, TimeZone};
+use chrono::{Local, TimeZone, Timelike};
 use tracing::{info, error, trace, debug};
 use tracing_subscriber::{fmt, prelude::*, Layer};
 
@@ -248,11 +248,19 @@ fn main() {
                         ha_token: String,
                         ha_pv_entity_id: String,
                         ha_consumption_entity_id: String,
+                        day_deadline: Option<String>,
                     }).expect("Invalid house creation form");
+
+                    let deadline = data.day_deadline.and_then(|s| chrono::NaiveTime::parse_from_str(&s, "%H:%M").ok())
+                        .unwrap_or_else(|| chrono::NaiveTime::from_hms_opt(5, 0, 0).unwrap());
 
                     let mut db = state.db.lock().unwrap();
                     match db.create_house(&data.name, &data.ha_url, &data.ha_token, &data.ha_pv_entity_id, &data.ha_consumption_entity_id) {
-                        Ok(id) => Response::json(&json!({"status": "ok", "id": id})),
+                        Ok(id) => {
+                            // Update deadline if provided (create_house doesn't take it yet, but we can update it)
+                            let _ = db.update_house(id, &data.name, &data.ha_url, &data.ha_token, &data.ha_pv_entity_id, &data.ha_consumption_entity_id, deadline);
+                            Response::json(&json!({"status": "ok", "id": id}))
+                        },
                         Err(e) => {
                             error!("DB Error creating house: {}", e);
                             Response::text("DB Error").with_status_code(500)
@@ -376,7 +384,7 @@ fn main() {
 
                     // 2. MQTT Check
                     let mqtt_client = state.mqtt_client.lock().unwrap();
-                    let mqtt_status = match mqtt_client.publish("lmha3/healthcheck/ping", QoS::AtMostOnce, false, "ping") {
+                    let mqtt_status = match publish_mqtt(&mqtt_client,"lmha3/healthcheck/ping", QoS::AtMostOnce, false, "ping") {
                         Ok(_) => "ok",
                         Err(_) => "error",
                     };
@@ -399,7 +407,7 @@ fn main() {
                             "src": format!("{}/rpc-response", d.mqtt_topic),
                             "method": "Shelly.GetStatus"
                         }).to_string();
-                        let _ = mqtt_client.publish(topic, QoS::AtMostOnce, false, payload);
+                        let _ = publish_mqtt(&mqtt_client,topic, QoS::AtMostOnce, false, payload);
                     }
                     
                     // Drop the lock before sleeping
@@ -551,12 +559,15 @@ fn main() {
             (GET) (/api/devices) => {
                 if let Some(user) = get_user(request, &state) {
                     let mut db = state.db.lock().unwrap();
+                    let house = db.get_house(user.house_id).ok().flatten();
+                    let deadline = house.map(|h| h.day_deadline).unwrap_or_else(|| chrono::NaiveTime::from_hms_opt(5, 0, 0).unwrap());
+
                     match db.list_devices(Some(user.house_id)) {
                         Ok(devices) => {
                             let mut results = Vec::new();
                             for d in devices {
                                 let runtime = if d.scheduling_type == lmha_core::SchedulingType::Boiler {
-                                    db.calc_boiler_runtime_24h(d.id).unwrap_or(0)
+                                    db.calc_boiler_runtime_24h(d.id, deadline).unwrap_or(0)
                                 } else {
                                     0
                                 };
@@ -616,10 +627,14 @@ fn main() {
                         ha_token: String,
                         ha_pv_entity_id: String,
                         ha_consumption_entity_id: String,
+                        day_deadline: String,
                     }).expect("Invalid house update form");
 
+                    let deadline = chrono::NaiveTime::parse_from_str(&data.day_deadline, "%H:%M")
+                        .unwrap_or_else(|_| chrono::NaiveTime::from_hms_opt(5, 0, 0).unwrap());
+
                     let mut db = state.db.lock().unwrap();
-                    match db.update_house(id, &data.name, &data.ha_url, &data.ha_token, &data.ha_pv_entity_id, &data.ha_consumption_entity_id) {
+                    match db.update_house(id, &data.name, &data.ha_url, &data.ha_token, &data.ha_pv_entity_id, &data.ha_consumption_entity_id, deadline) {
                         Ok(_) => Response::json(&json!({"status": "ok"})),
                         Err(e) => {
                             error!("DB Error updating house: {}", e);
@@ -853,13 +868,13 @@ fn main() {
                         let payload_str = payload.to_string();
                         info!("API: Publishing toggle to topic '{}' | Payload: {}", topic, payload_str);
                         let client = state.mqtt_client.lock().unwrap();
-                        let _ = client.publish(topic, QoS::AtMostOnce, false, payload_str);
+                        let _ = publish_mqtt(&client,topic, QoS::AtMostOnce, false, payload_str);
 
                         // Follow-up status poll
                         let poll_payload = json!({
                             "id": 103, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Shelly.GetStatus"
                         }).to_string();
-                        let _ = client.publish(format!("{}/rpc", device.mqtt_topic), QoS::AtMostOnce, false, poll_payload);
+                        let _ = publish_mqtt(&client,format!("{}/rpc", device.mqtt_topic), QoS::AtMostOnce, false, poll_payload);
 
                         Response::json(&json!({"status": "ok"}))
                     } else {
@@ -887,13 +902,16 @@ fn main() {
                         Err(_) => return Response::text("Invalid date format").with_status_code(400),
                     };
 
-                    // Calculation: 5:00 AM of the day before the chosen return date
+                    // Calculation: House Deadline of the day before the chosen return date
+                    let mut db = state.db.lock().unwrap();
+                    let house = db.get_house(user.house_id).ok().flatten();
+                    let deadline = house.map(|h| h.day_deadline).unwrap_or_else(|| chrono::NaiveTime::from_hms_opt(5, 0, 0).unwrap());
+
                     let prep_day = return_date - chrono::Duration::days(1);
-                    let local_until = Local.from_local_datetime(&prep_day.and_hms_opt(5, 0, 0).unwrap()).single()
+                    let local_until = Local.from_local_datetime(&prep_day.and_hms_opt(deadline.hour(), deadline.minute(), 0).unwrap()).single()
                         .expect("Ambiguous or invalid local time");
                     let until = local_until.with_timezone(&chrono::Utc);
 
-                    let mut db = state.db.lock().unwrap();
                     let devices = db.list_devices(Some(user.house_id)).unwrap_or_default();
                     if let Some(device) = devices.into_iter().find(|d| d.id == id && (user.is_admin || d.tenant_id == user.tenant_id)) {
                         let new_scheduling = lmha_core::SchedulingType::ForceOff { until };
@@ -917,7 +935,7 @@ fn main() {
                         });
                         let topic = format!("{}/rpc", device.mqtt_topic);
                         let client = state.mqtt_client.lock().unwrap();
-                        let _ = client.publish(topic, QoS::AtMostOnce, false, payload.to_string());
+                        let _ = publish_mqtt(&client,topic, QoS::AtMostOnce, false, payload.to_string());
 
                         Response::json(&json!({"status": "ok", "scheduling_until": until}))
                     } else {
@@ -1152,6 +1170,23 @@ fn dummy_client() -> Client {
     c
 }
 
+fn publish_mqtt<S, V>(client: &Client, topic: S, qos: QoS, retain: bool, payload: V) -> Result<(), ClientError> 
+where 
+    S: Into<String>, 
+    V: Into<Vec<u8>> 
+{
+    let topic = topic.into();
+    let payload = payload.into();
+    let payload_str = String::from_utf8_lossy(&payload);
+    let log_payload = if payload_str.len() > 1500 {
+        "payload too long".to_string()
+    } else {
+        payload_str.to_string()
+    };
+    trace!("MQTT Outgoing: {} | Payload: {}", topic, log_payload);
+    client.publish(topic, qos, retain, payload)
+}
+
 fn get_session_id(request: &Request) -> Option<Uuid> {
     rouille::input::cookies(request)
         .find(|&(ref k, _)| *k == "session_id")
@@ -1189,7 +1224,7 @@ fn send_rpc_sync(state: &AppState, mqtt_topic: &str, method: &str, params: Optio
     let topic = format!("{}/rpc", mqtt_topic);
     {
         let client = state.mqtt_client.lock().unwrap();
-        if let Err(e) = client.publish(topic, QoS::AtMostOnce, false, payload) {
+        if let Err(e) = publish_mqtt(&client,topic, QoS::AtMostOnce, false, payload) {
             let mut registry = state.rpc_registry.lock().unwrap();
             registry.remove(&id);
             return Err(format!("MQTT publish error: {}", e));
@@ -1290,6 +1325,7 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                     }).collect(),
                     history,
                     now,
+                    day_deadline: house.day_deadline,
                     debounce_duration_secs: debounce,
                     rng: rand::thread_rng(),
                 };
@@ -1339,13 +1375,13 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                             let payload = json!({
                                 "id": 1, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Switch.Set", "params": {"id": 0, "on": true}
                             }).to_string();
-                            let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
+                            let _ = publish_mqtt(&mqtt_client,format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
 
                             // Follow-up status poll
                             let poll_payload = json!({
                                 "id": 101, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Shelly.GetStatus"
                             }).to_string();
-                            let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, poll_payload);
+                            let _ = publish_mqtt(&mqtt_client,format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, poll_payload);
                         }
                     }
                     lmha_core::scheduler::SchedulerAction::SwitchOff(id) => {
@@ -1361,13 +1397,13 @@ fn run_scheduler_loop(state: Arc<AppState>) {
                             let payload = json!({
                                 "id": 1, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Switch.Set", "params": {"id": 0, "on": false}
                             }).to_string();
-                            let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
+                            let _ = publish_mqtt(&mqtt_client,format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, payload);
 
                             // Follow-up status poll
                             let poll_payload = json!({
                                 "id": 102, "src": format!("{}/rpc-response", device.mqtt_topic), "method": "Shelly.GetStatus"
                             }).to_string();
-                            let _ = mqtt_client.publish(format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, poll_payload);
+                            let _ = publish_mqtt(&mqtt_client,format!("{}/rpc", device.mqtt_topic), rumqttc::QoS::AtMostOnce, false, poll_payload);
                         }
                     }
                     lmha_core::scheduler::SchedulerAction::UpdateScheduling(id, new_type) => {
@@ -1397,7 +1433,8 @@ fn run_instance_heartbeat_loop(state: Arc<AppState>) {
                 "timestamp": chrono::Utc::now()
             }).to_string();
             // Use retain=true to reduce chatter (instances only need to publish once, but we refresh every 5 min)
-            let _ = client.publish(format!("lmha3/instances/{}", state.config.instance_id), QoS::AtMostOnce, true, payload);
+            let topic = format!("{}{}", state.config.instance_topic_prefix, state.config.instance_id);
+            let _ = publish_mqtt(&client, topic, QoS::AtMostOnce, true, payload);
         }
 
         // We no longer check timeout here because we use LWT and explicit state tracking in the MQTT handler.
@@ -1432,7 +1469,7 @@ fn run_health_check_loop(state: Arc<AppState>) {
                     "method": "Shelly.GetStatus"
                 }).to_string();
                 let client = state.mqtt_client.lock().unwrap();
-                let _ = client.publish(topic, QoS::AtMostOnce, false, payload);
+                let _ = publish_mqtt(&client,topic, QoS::AtMostOnce, false, payload);
             }
         }
     }
@@ -1448,7 +1485,7 @@ fn run_main_loop(state: Arc<AppState>) {
         }
 
         // Set Last Will for instance heartbeat
-        let lwt_topic = format!("lmha3/instances/{}", state.config.instance_id);
+        let lwt_topic = format!("{}{}", state.config.instance_topic_prefix, state.config.instance_id);
         let lwt_payload = json!({
             "priority": 0,
             "status": "offline",
@@ -1462,23 +1499,33 @@ fn run_main_loop(state: Arc<AppState>) {
             *shared_client = client.clone();
         }
 
-        let subs = ["+/online", "+/status/#", "+/events/rpc", "shellies/#", "+/rpc-response/#", "lmha3/instances/+"];
+        let instance_sub = format!("{}+", state.config.instance_topic_prefix);
+        let subs = ["+/online", "+/status/#", "+/events/rpc", "shellies/#", "+/rpc-response/#"];
         for sub in subs {
             info!("MQTT: Subscribing to {}", sub);
             let _ = client.subscribe(sub, QoS::AtMostOnce);
         }
+        info!("MQTT: Subscribing to {}", instance_sub);
+        let _ = client.subscribe(instance_sub, QoS::AtMostOnce);
 
         for notification in connection.iter() {
             match notification {
                 Ok(Event::Incoming(Packet::Publish(publish))) => {
                     let topic = publish.topic.clone();
                     let payload_str = String::from_utf8_lossy(&publish.payload);
-                    trace!("MQTT Incoming: {} | Payload length: {}", topic, publish.payload.len());
+                    let log_payload = if payload_str.len() > 1500 {
+                        "payload too long".to_string()
+                    } else {
+                        payload_str.to_string()
+                    };
+                    trace!("MQTT Incoming: {} | Payload: {}", topic, log_payload);
 
                     let parts: Vec<&str> = topic.split('/').collect();
                     
-                    if topic.starts_with("lmha3/instances/") {
-                        if let Some(other_id) = parts.get(2) {
+                    if topic.starts_with(&state.config.instance_topic_prefix) {
+                        let prefix_parts: Vec<&str> = state.config.instance_topic_prefix.split('/').filter(|s| !s.is_empty()).collect();
+                        let id_idx = prefix_parts.len();
+                        if let Some(other_id) = parts.get(id_idx) {
                             let other_id = other_id.to_string();
                             if other_id != state.config.instance_id {
                                 if publish.payload.is_empty() {
@@ -1560,7 +1607,7 @@ fn run_main_loop(state: Arc<AppState>) {
                                     "method": "Shelly.GetStatus"
                                 }).to_string();
                                 let client = state.mqtt_client.lock().unwrap();
-                                let _ = client.publish(format!("{}/rpc", base_topic), QoS::AtMostOnce, false, poll_payload);
+                                let _ = publish_mqtt(&client,format!("{}/rpc", base_topic), QoS::AtMostOnce, false, poll_payload);
                             }
                         }
 
@@ -1577,7 +1624,7 @@ fn run_main_loop(state: Arc<AppState>) {
                                             "params": {"id": 0, "on": d.desired_state == DeviceState::On}
                                         }).to_string();
                                         let client = state.mqtt_client.lock().unwrap();
-                                        let _ = client.publish(format!("{}/rpc", d.mqtt_topic), QoS::AtMostOnce, false, payload);
+                                        let _ = publish_mqtt(&client,format!("{}/rpc", d.mqtt_topic), QoS::AtMostOnce, false, payload);
                                         
                                         // Follow-up status poll to ensure local state is updated even if NotifyStatus is lost
                                         let poll_payload = json!({
@@ -1585,7 +1632,7 @@ fn run_main_loop(state: Arc<AppState>) {
                                             "src": format!("{}/rpc-response", d.mqtt_topic),
                                             "method": "Shelly.GetStatus"
                                         }).to_string();
-                                        let _ = client.publish(format!("{}/rpc", d.mqtt_topic), QoS::AtMostOnce, false, poll_payload);
+                                        let _ = publish_mqtt(&client,format!("{}/rpc", d.mqtt_topic), QoS::AtMostOnce, false, poll_payload);
 
                                         let _ = db.update_device_request_time(d.id);
                                     }

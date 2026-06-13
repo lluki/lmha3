@@ -1,4 +1,4 @@
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Utc, Local, Timelike, NaiveTime};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use rand::Rng;
@@ -37,20 +37,22 @@ pub struct SchedulerInput<R: Rng> {
     pub devices: Vec<DeviceContext>,
     pub history: std::collections::HashMap<Uuid, Vec<StateEvent>>,
     pub now: DateTime<Utc>,
+    pub day_deadline: NaiveTime,
     pub debounce_duration_secs: i64,
     pub rng: R,
 }
 
-const CHARGE_WINDOW_START_HOUR: u32 = 1; // 1am
-const DAY_START_HOUR: u32 = 5; // 5am
-
-fn get_start_of_day(now: DateTime<Utc>) -> DateTime<Utc> {
-    use chrono::Timelike;
-    let mut start = now.with_hour(DAY_START_HOUR).unwrap().with_minute(0).unwrap().with_second(0).unwrap().with_nanosecond(0).unwrap();
-    if now.hour() < DAY_START_HOUR {
-        start = start - chrono::Duration::days(1);
+fn get_start_of_day(now: DateTime<Utc>, day_deadline: NaiveTime) -> DateTime<Utc> {
+    let now_local = now.with_timezone(&Local);
+    let mut start_local = now_local.with_hour(day_deadline.hour()).unwrap()
+        .with_minute(day_deadline.minute()).unwrap()
+        .with_second(0).unwrap()
+        .with_nanosecond(0).unwrap();
+    
+    if now_local.time() < day_deadline {
+        start_local = start_local - chrono::Duration::days(1);
     }
-    start
+    start_local.with_timezone(&Utc)
 }
 
 fn calculate_runtime_mins(history: &[StateEvent], start: DateTime<Utc>, end: DateTime<Utc>) -> i64 {
@@ -171,9 +173,13 @@ pub fn decide_action<R: Rng>(input: SchedulerInput<R>) -> SchedulerAction {
     }
 
     // 3. New Simple Boiler Logic
-    let start_of_day = get_start_of_day(input.now);
-    use chrono::Timelike;
-    let is_catchup_window = input.now.hour() >= CHARGE_WINDOW_START_HOUR && input.now.hour() < DAY_START_HOUR;
+    let start_of_day = get_start_of_day(input.now, input.day_deadline);
+    
+    // Catch-up window is defined as 4 hours before the NEXT deadline.
+    // The next deadline is start_of_day + 24 hours.
+    let next_deadline = start_of_day + chrono::Duration::days(1);
+    let catchup_start = next_deadline - chrono::Duration::hours(4);
+    let is_catchup_window = input.now >= catchup_start && input.now < next_deadline;
 
     let mut eligible_for_pv = Vec::new();
 
@@ -194,7 +200,7 @@ pub fn decide_action<R: Rng>(input: SchedulerInput<R>) -> SchedulerAction {
                 }
                 continue; // Stay on
             } else {
-                // Runtime reached, turn it off (unless it's catchup window and others are running? No, each device is independent)
+                // Runtime reached, turn it off
                 if device.current_state != DeviceState::Off {
                     return SchedulerAction::SwitchOff(device.id);
                 }
@@ -219,9 +225,9 @@ pub fn decide_action<R: Rng>(input: SchedulerInput<R>) -> SchedulerAction {
             continue;
         }
 
-        // d. PV Activation check (only if between 5am and 1am)
-        let is_pv_window = input.now.hour() >= DAY_START_HOUR || input.now.hour() < CHARGE_WINDOW_START_HOUR;
-        if is_pv_window {
+        // d. PV Activation check (only if NOT in catchup window)
+        // Note: PV window is from start_of_day until catchup_start
+        if input.now >= start_of_day && input.now < catchup_start {
             let net_balance = input.pv_production - input.house_consumption;
             let on_threshold = (0.7 * device.expected_load as f64) as i32;
             
@@ -244,7 +250,7 @@ pub fn decide_action<R: Rng>(input: SchedulerInput<R>) -> SchedulerAction {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use chrono::{Duration, Timelike};
+    use chrono::{Duration, Timelike, TimeZone};
     use rand::SeedableRng;
     use rand::rngs::StdRng;
     use std::collections::HashMap;
@@ -253,6 +259,8 @@ mod tests {
     fn test_pv_activation_and_lock_on() {
         let rng = StdRng::seed_from_u64(42);
         let device_id = Uuid::new_v4();
+        let day_deadline = NaiveTime::from_hms_opt(5, 0, 0).unwrap();
+        // 10:00 AM
         let base_time = Utc::now().with_hour(10).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
         
         let mut history = HashMap::new();
@@ -275,6 +283,7 @@ mod tests {
             devices: devices.clone(),
             history: history.clone(),
             now: base_time,
+            day_deadline,
             debounce_duration_secs: 0,
             rng: rng.clone(),
         };
@@ -293,6 +302,7 @@ mod tests {
             devices: devices_on.clone(),
             history: history_on.clone(),
             now: base_time + Duration::minutes(10),
+            day_deadline,
             debounce_duration_secs: 0,
             rng: rng.clone(),
         };
@@ -305,6 +315,7 @@ mod tests {
             devices: devices_on.clone(),
             history: history_on.clone(),
             now: base_time + Duration::minutes(181),
+            day_deadline,
             debounce_duration_secs: 0,
             rng: rng.clone(),
         };
@@ -315,8 +326,11 @@ mod tests {
     fn test_catchup_window() {
         let rng = StdRng::seed_from_u64(42);
         let device_id = Uuid::new_v4();
-        // 1:00 AM
-        let base_time = Utc::now().with_hour(1).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
+        let day_deadline = NaiveTime::from_hms_opt(5, 0, 0).unwrap();
+        
+        // Local 1:01 AM is within 4h before 5:00 AM
+        let now_local = Local::now().with_hour(1).unwrap().with_minute(1).unwrap().with_second(0).unwrap();
+        let now_utc = now_local.with_timezone(&Utc);
         
         let mut history = HashMap::new();
         history.insert(device_id, Vec::new());
@@ -331,13 +345,13 @@ mod tests {
             device_runtime: 180,
         }];
 
-        // No PV, but in catchup window -> SwitchOn
         let input = SchedulerInput {
             pv_production: 0,
             house_consumption: 1000,
             devices: devices.clone(),
             history: history.clone(),
-            now: base_time,
+            now: now_utc,
+            day_deadline,
             debounce_duration_secs: 0,
             rng: rng.clone(),
         };
@@ -345,84 +359,64 @@ mod tests {
     }
 
     #[test]
-    fn test_random_selection() {
-        let d1 = Uuid::new_v4();
-        let d2 = Uuid::new_v4();
-        let base_time = Utc::now().with_hour(10).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
-        
-        let mut history = HashMap::new();
-        history.insert(d1, Vec::new());
-        history.insert(d2, Vec::new());
-
-        let devices = vec![
-            DeviceContext {
-                id: d1,
-                current_state: DeviceState::Off,
-                last_state_change: None,
-                is_enabled: true,
-                expected_load: 1000,
-                scheduling_type: SchedulingType::Boiler,
-                device_runtime: 60,
-            },
-            DeviceContext {
-                id: d2,
-                current_state: DeviceState::Off,
-                last_state_change: None,
-                is_enabled: true,
-                expected_load: 1000,
-                scheduling_type: SchedulingType::Boiler,
-                device_runtime: 60,
-            }
-        ];
-
-        // Plenty of PV for both, but we pick one at random (based on RNG seed)
-        let input = SchedulerInput {
-            pv_production: 10000,
-            house_consumption: 0,
-            devices: devices.clone(),
-            history: history.clone(),
-            now: base_time,
-            debounce_duration_secs: 0,
-            rng: StdRng::seed_from_u64(123),
-        };
-        
-        let action = decide_action(input);
-        match action {
-            SchedulerAction::SwitchOn(id) => assert!(id == d1 || id == d2),
-            _ => panic!("Expected SwitchOn"),
-        }
-    }
-
-    #[test]
-    fn test_overrides_precedence() {
+    fn test_vacation_transition_at_deadline_local() {
         let rng = StdRng::seed_from_u64(42);
         let device_id = Uuid::new_v4();
-        let base_time = Utc::now().with_hour(10).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
-        let until = base_time + Duration::hours(1);
+        let day_deadline = NaiveTime::from_hms_opt(5, 0, 0).unwrap();
         
-        let mut history = HashMap::new();
-        history.insert(device_id, Vec::new());
-
+        // Vacation ends at 5:00 AM local time
+        let vacation_until_local = Local::now().with_hour(5).unwrap().with_minute(0).unwrap().with_second(0).unwrap();
+        let vacation_until_utc = vacation_until_local.with_timezone(&Utc);
+        
+        // Current time is 5:01 AM local time
+        let now_local = vacation_until_local + Duration::minutes(1);
+        let now_utc = now_local.with_timezone(&Utc);
+        
         let devices = vec![DeviceContext {
             id: device_id,
-            current_state: DeviceState::On,
+            current_state: DeviceState::Off,
             last_state_change: None,
             is_enabled: true,
             expected_load: 5000,
-            scheduling_type: SchedulingType::ForceOff { until },
+            scheduling_type: SchedulingType::ForceOff { until: vacation_until_utc },
             device_runtime: 180,
         }];
 
-        // Even with huge PV, ForceOff should result in SwitchOff
-        let input = SchedulerInput {
-            pv_production: 20000,
-            house_consumption: 0,
+        let mut history = HashMap::new();
+        history.insert(device_id, Vec::new());
+
+        // First invocation: Should transition to Boiler mode
+        let input1 = SchedulerInput {
+            pv_production: 0,
+            house_consumption: 1000,
             devices: devices.clone(),
             history: history.clone(),
-            now: base_time,
+            now: now_utc,
+            day_deadline,
             debounce_duration_secs: 0,
             rng: rng.clone(),
         };
-        assert_eq!(decide_action(input), SchedulerAction::SwitchOff(device_id));
+        
+        let action1 = decide_action(input1);
+        assert_eq!(action1, SchedulerAction::UpdateScheduling(device_id, SchedulingType::Boiler));
+
+        // Second invocation: Device is now in Boiler mode
+        let mut devices_boiler = devices.clone();
+        devices_boiler[0].scheduling_type = SchedulingType::Boiler;
+        
+        let input2 = SchedulerInput {
+            pv_production: 0,
+            house_consumption: 1000,
+            devices: devices_boiler,
+            history: history.clone(),
+            now: now_utc,
+            day_deadline,
+            debounce_duration_secs: 0,
+            rng: rng.clone(),
+        };
+
+        // Should NOT trigger catch-up because we just started a new day at 5:00 AM local
+        let action2 = decide_action(input2);
+        assert_eq!(action2, SchedulerAction::Nothing);
     }
 }

@@ -5,7 +5,7 @@ pub mod scheduler;
 
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Utc, NaiveTime};
 use argon2::{
     password_hash::{
         rand_core::OsRng,
@@ -22,6 +22,7 @@ pub struct House {
     pub ha_token: String,
     pub ha_pv_entity_id: String,
     pub ha_consumption_entity_id: String,
+    pub day_deadline: NaiveTime,
     pub created_at: DateTime<Utc>,
 }
 
@@ -131,4 +132,24 @@ pub struct UserInfo {
     pub house_id: Uuid,
     pub username: String,
     pub is_admin: bool,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use chrono::TimeZone;
+
+    #[test]
+    fn test_telemetry_serialization() {
+        let ts = Utc.with_ymd_and_hms(2026, 6, 13, 3, 7, 59).unwrap();
+        let t = Telemetry {
+            timestamp: ts,
+            source: TelemetrySource::PvProduction,
+            device_id: None,
+            value: 1234,
+            metadata: None,
+        };
+        let json = serde_json::to_string(&t).unwrap();
+        assert!(json.contains("2026-06-13T03:07:59Z"), "Timestamp should contain 'Z' suffix, got: {}", json);
+    }
 }
