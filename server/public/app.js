@@ -234,24 +234,9 @@ document.querySelectorAll('.tab-link').forEach(link => {
 });
 
 async function renderOverview() {
-    if (!document.getElementById('stats-container')) {
+    if (!document.getElementById('overview-stats-wrapper')) {
         app.innerHTML = `
-            <div id="stats-container" class="grid" style="margin-bottom: 2rem;">
-                <article style="padding: 1rem; margin-bottom: 0;">
-                    <header style="padding: 0.5rem 1rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
-                        <small>Panel Production</small>
-                        <small id="pv-time" class="secondary" style="font-size: 0.7rem;"></small>
-                    </header>
-                    <h3 id="pv-value" style="margin: 0; color: var(--pico-primary);">-- kW</h3>
-                </article>
-                <article style="padding: 1rem; margin-bottom: 0;">
-                    <header style="padding: 0.5rem 1rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
-                        <small>Household Consumption</small>
-                        <small id="cons-time" class="secondary" style="font-size: 0.7rem;"></small>
-                    </header>
-                    <h3 id="consumption-value" style="margin: 0; color: var(--pico-del-color);">-- kW</h3>
-                </article>
-            </div>
+            <div id="overview-stats-wrapper" style="margin-bottom: 2rem;"></div>
             <article>
                 <header style="display: flex; justify-content: space-between; align-items: center;">
                     <strong>${currentUser.is_admin ? 'All Devices' : 'My Devices'}</strong>
@@ -280,9 +265,64 @@ async function renderOverview() {
         const tenants = currentUser.is_admin ? await responses[4].json() : [];
 
         // Update Stats
-        if (metrics) {
-            document.getElementById('pv-value').textContent = `${(metrics.pv / 1000).toFixed(1)} kW`;
-            document.getElementById('consumption-value').textContent = `${(metrics.consumption / 1000).toFixed(1)} kW`;
+        const wrapper = document.getElementById('overview-stats-wrapper');
+        if (wrapper) {
+            if (!currentUser.is_admin) {
+                const m = (metrics && metrics.length > 0) ? metrics[0] : { pv: 0, consumption: 0 };
+                wrapper.innerHTML = `
+                    <div class="grid">
+                        <article style="padding: 1rem; margin-bottom: 0;">
+                            <header style="padding: 0.5rem 1rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                                <small>Panel Production</small>
+                            </header>
+                            <h3 id="pv-value" style="margin: 0; color: var(--pico-primary);">${(m.pv / 1000).toFixed(1)} kW</h3>
+                        </article>
+                        <article style="padding: 1rem; margin-bottom: 0;">
+                            <header style="padding: 0.5rem 1rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                                <small>Household Consumption</small>
+                            </header>
+                            <h3 id="consumption-value" style="margin: 0; color: var(--pico-del-color);">${(m.consumption / 1000).toFixed(1)} kW</h3>
+                        </article>
+                    </div>
+                `;
+            } else {
+                houses.sort((a, b) => a.name.localeCompare(b.name));
+                const metricsMap = {};
+                if (Array.isArray(metrics)) {
+                    metrics.forEach(m => {
+                        metricsMap[m.house_id] = m;
+                    });
+                }
+
+                let html = '';
+                for (const house of houses) {
+                    const houseMetrics = metricsMap[house.id];
+                    const pv = houseMetrics ? houseMetrics.pv : 0;
+                    const consumption = houseMetrics ? houseMetrics.consumption : 0;
+                    html += `
+                        <article style="margin-bottom: 1.5rem; padding: 1.5rem;">
+                            <header style="padding: 0 0 1rem 0; margin-bottom: 1rem; border-bottom: 1px solid var(--pico-card-border-color); display: flex; justify-content: space-between; align-items: center;">
+                                <h4 style="margin: 0;">${house.name}</h4>
+                            </header>
+                            <div class="grid">
+                                <article style="padding: 1rem; margin-bottom: 0;">
+                                    <header style="padding: 0.5rem 1rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                                        <small>Panel Production</small>
+                                    </header>
+                                    <h3 style="margin: 0; color: var(--pico-primary);">${(pv / 1000).toFixed(1)} kW</h3>
+                                </article>
+                                <article style="padding: 1rem; margin-bottom: 0;">
+                                    <header style="padding: 0.5rem 1rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                                        <small>Household Consumption</small>
+                                    </header>
+                                    <h3 style="margin: 0; color: var(--pico-del-color);">${(consumption / 1000).toFixed(1)} kW</h3>
+                                </article>
+                            </div>
+                        </article>
+                    `;
+                }
+                wrapper.innerHTML = html;
+            }
         }
 
         const tenantMap = {};

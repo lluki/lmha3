@@ -544,11 +544,39 @@ fn main() {
             (GET) (/api/metrics) => {
                 if let Some(user) = get_user(request, &state) {
                     let mut db = state.db.lock().unwrap();
-                    match db.get_latest_metrics(user.house_id) {
-                        Ok((pv, cons)) => Response::json(&json!({ "pv": pv, "consumption": cons })),
-                        Err(e) => {
-                            error!("DB Error fetching metrics: {}", e);
-                            Response::text("DB Error").with_status_code(500)
+                    if user.is_admin {
+                        match db.list_houses() {
+                            Ok(houses) => {
+                                let mut results = Vec::new();
+                                for house in houses {
+                                    if let Ok((pv, cons)) = db.get_latest_metrics(house.id) {
+                                        results.push(json!({
+                                            "house_id": house.id,
+                                            "pv": pv,
+                                            "consumption": cons
+                                        }));
+                                    }
+                                }
+                                Response::json(&results)
+                            },
+                            Err(e) => {
+                                error!("DB Error listing houses: {}", e);
+                                Response::text("DB Error").with_status_code(500)
+                            }
+                        }
+                    } else {
+                        match db.get_latest_metrics(user.house_id) {
+                            Ok((pv, cons)) => {
+                                Response::json(&vec![json!({
+                                    "house_id": user.house_id,
+                                    "pv": pv,
+                                    "consumption": cons
+                                })])
+                            },
+                            Err(e) => {
+                                error!("DB Error fetching metrics: {}", e);
+                                Response::text("DB Error").with_status_code(500)
+                            }
                         }
                     }
                 } else {
