@@ -594,11 +594,7 @@ fn main() {
                         Ok(devices) => {
                             let mut results = Vec::new();
                             for d in devices {
-                                let runtime = if d.scheduling_type == lmha_core::SchedulingType::Boiler {
-                                    db.calc_boiler_runtime_24h(d.id, deadline).unwrap_or(0)
-                                } else {
-                                    0
-                                };
+                                let runtime = db.calc_boiler_runtime_24h(d.id, deadline).unwrap_or(0);
                                 let mut d_json = serde_json::to_value(&d).unwrap();
                                 d_json.as_object_mut().unwrap().insert("runtime_24h".to_string(), json!(runtime));
                                 results.push(d_json);
