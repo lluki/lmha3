@@ -253,7 +253,7 @@
           }
         }
       ],
-      "title": "H83",
+      "title": "H81",
       "type": "timeseries"
     },
     {
@@ -401,7 +401,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \"timestamp\", pv_production - house_consumption as delta FROM view_telemetry_house_metrics",
+          "rawSql": "SELECT \"timestamp\", pv_production - house_consumption as delta FROM view_telemetry_house_metrics WHERE house_name = 'Hagenholz 81';",
           "refId": "A",
           "sql": {
             "columns": [
@@ -437,7 +437,7 @@
           "format": "table",
           "hide": false,
           "rawQuery": true,
-          "rawSql": "  SELECT\n     timestamp AS \"time\",\n     device_name AS \"Device State\",\n     state_numeric\n  FROM view_telemetry_device_states\n  WHERE $__timeFilter(timestamp)\n  ORDER BY 1;\n",
+          "rawSql": "  SELECT\n     timestamp AS \"time\",\n     device_name AS \"Device State\",\n     state_numeric\n  FROM view_telemetry_device_states\n  WHERE $__timeFilter(timestamp)  AND house_name = 'Hagenholz 81'\n  ORDER BY 1;\n",
           "refId": "dev",
           "sql": {
             "columns": [
@@ -458,7 +458,7 @@
           }
         }
       ],
-      "title": "H83 - Surplus",
+      "title": "H81 - Surplus",
       "type": "timeseries"
     }
   ],
